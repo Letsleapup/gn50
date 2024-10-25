@@ -6,6 +6,7 @@ npm install<br>
 npm install -D tailwindcss postcss autoprefixer<br>
 npx tailwindcss init -p<br>
 npm install axios @types/react @types/react-dom @types/react-router-dom eslint prettier eslint-config-prettier eslint-plugin-react-hooks @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-react<br>
+npm install swiper @types/swiper<br>
 <br>
 axios: HTTP 클라이언트<br>
 @types/react, @types/react-dom, @types/react-router-dom: React 관련 타입 정의<br>
