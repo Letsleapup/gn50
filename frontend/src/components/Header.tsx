@@ -72,7 +72,7 @@ const Header: React.FC = () => {
         {/* 로고 섹션 */}
         <div className="flex items-center">
           <img
-            src="/letsleapup-logo(dall-e).PNG"
+            src="/gn50/letsleapup-logo(dall-e).PNG"
             alt="LetsLeapUp 로고"
             className="w-24 h-auto object-contain rounded-2xl cursor-pointer"
             onClick={() => navigate("/")}

@@ -6,9 +6,9 @@ import {
   CompositionEvent,
   FunctionComponent,
 } from "react";
-import { getByteLength } from "../../utils/getByteLength"; 
+import { getByteLength } from "../../util/getByteLength"; 
 import "./AutoResizingTextArea.css";
-import { filterTextByKorean } from "../../utils/filterText";
+import { filterTextByKorean } from "../../util/filterText";
 
 const MAX_BYTE_LENGTH = 200;
 
