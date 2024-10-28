@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  build: {
+    cssCodeSplit: true,
+  },
   plugins: [react()],
   resolve: {
     alias: {
@@ -18,7 +21,17 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["swiper"],
+    include: [
+      "swiper",
+      "swiper/css",
+      "swiper/css/navigation",
+      "swiper/css/autoplay",
+    ],
+  },
+  css: {
+    modules: {
+      localsConvention: "camelCase",
+    },
   },
   base: "/gn50/",
 });

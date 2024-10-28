@@ -8,9 +8,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
+import "swiper/swiper-bundle.css";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
