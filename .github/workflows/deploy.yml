@@ -20,26 +20,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          # 캐시 설정은 제거
 
-      - name: Verify package-lock.json
+      - name: Clean install
+        working-directory: frontend
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Files in current directory:"
-          ls -la
-          echo "Files in frontend directory:"
-          ls -la frontend/
-
-      - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
+          npm cache clean --force
+          rm -rf node_modules package-lock.json
+          npm install --no-optional
 
       - name: Build project
-        run: |
-          cd frontend
-          npm run build
+        working-directory: frontend
+        run: npm run build
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v2
