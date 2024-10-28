@@ -1,7 +1,8 @@
 import { FunctionComponent, ReactNode } from "react";
 import "./Modal.css";
 
-interface ModalProps {
+//TODO: ModalProps -> Props
+interface Props {
   isOpen: boolean;
   btnName: string;
   onClose: () => void;
@@ -9,7 +10,7 @@ interface ModalProps {
   children?: ReactNode;
 }
 
-export const Modal: FunctionComponent<ModalProps> = ({
+export const Modal: FunctionComponent<Props> = ({
   isOpen,
   onClose,
   btnName,
