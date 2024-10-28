@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
-
 on:
   push:
-    branches: [main] # main 브랜치에 push할 때 실행
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,25 +13,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
+          # 캐시 설정은 제거
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Verify package-lock.json
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files in current directory:"
+          ls -la
+          echo "Files in frontend directory:"
+          ls -la frontend/
 
-      - name: Build
-        run: npm run build
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
 
-      - name: Upload artifact
+      - name: Build project
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist
+          path: frontend/dist
 
   deploy:
     environment:
