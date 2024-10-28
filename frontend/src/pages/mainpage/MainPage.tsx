@@ -1,35 +1,39 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/autoplay";
+
+const COPIED_NUM = 2;
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
+  const slideRef = useRef<HTMLDivElement>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   // 배너 데이터
   const bannerSlides = [
     {
       id: 1,
-      image: "picsumimage1.jpg",
+      image: "/picsumimage1.jpg",
       alt: "강남구 이미지 1",
     },
     {
       id: 2,
-      image: "picsumimage2.jpg",
+      image: "/picsumimage2.jpg",
       alt: "강남구 이미지 2",
     },
     {
       id: 3,
-      image: "picsumimage3.jpg",
+      image: "/picsumimage3.jpg",
       alt: "강남구 이미지 3",
     },
   ];
@@ -73,16 +77,21 @@ const MainPage: React.FC = () => {
         {/* 배너 섹션 -롤링 스와이프 */}
         <div className="w-full h-[400px] relative">
           <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[Navigation, Autoplay]}
             spaceBetween={0}
             slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
             }}
-            loop={false}
+            autoplay={{
+              delay: 0, // 페이지에 머무는 시간
+              disableOnInteraction: false, // 직접 넘겨도 자동재생 유지
+              pauseOnMouseEnter: true, // 마우스오버 일시정지
+            }}
+            loop={true}
+            loopAdditionalSlides={1}
+            speed={3500} // 넘어가는 속도
             className="w-full h-full"
           >
             {bannerSlides.map((slide) => (
@@ -96,6 +105,9 @@ const MainPage: React.FC = () => {
                 </div>
               </SwiperSlide>
             ))}
+            {/* 네비게이션 버튼 */}
+            <div className="swiper-button-prev !text-white after:!text-2xl"></div>
+            <div className="swiper-button-next !text-white after:!text-2xl"></div>
           </Swiper>
         </div>
 
@@ -115,11 +127,11 @@ const MainPage: React.FC = () => {
         </div>
 
         {/* 갤러리 섹션 */}
-        <div className="bg-yellow-50">
+        <div className="bg-yellow-50 p-4">
           {gallerySections.map((section) => (
             <div key={section.id} className="space-y-4">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">{section.title}</h2>
+                <h2 className="text-xl font-bold p-4">{section.title}</h2>
                 <button
                   onClick={() => {
                     console.log(`Navigating to ${section.path}`);
