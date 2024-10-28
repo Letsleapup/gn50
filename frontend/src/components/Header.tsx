@@ -1,30 +1,48 @@
 import { Menu, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 타입 정의
 interface NavItem {
   id: number;
-  label: string;
+  label: React.ReactNode;
   onClick: () => void;
 }
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   // 네비게이션 아이템 정의
   const navItems: NavItem[] = [
     {
       id: 1,
-      label: "상상더하기",
-      onClick: () => console.log("상상더하기 클릭됨"),
+      label: (
+        <>
+          나만의 걷고 싶은 강남 <br />
+          이미지 상상더하기 체험
+        </>
+      ),
+      onClick: () => navigate("/select/walking"),
     },
     {
       id: 2,
-      label: "웹툰 체험",
-      onClick: () => console.log("웹툰체험 클릭됨"),
+      label: (
+        <>
+          강남의 과거 현재 미래 <br />
+          웹툰 생성 체험
+        </>
+      ),
+      onClick: () => navigate("/select/webtoon"),
     },
     {
       id: 3,
-      label: "다른 사람들",
-      onClick: () => console.log("공유보드 클릭됨"),
+      label: (
+        <>
+          다른 사람들의
+          <br />
+          이미지/웹툰 확인
+        </>
+      ),
+      onClick: () => navigate("/shared/walking"),
     },
   ];
 
@@ -36,15 +54,28 @@ const Header: React.FC = () => {
     console.log("Toggle menu clicked"); // 토글 동작 로깅
   };
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="w-full px-4 py-2 bg-white shadow-sm relative">
+    <header className="w-full px-4 py-2 bg-white shadow-sm relative z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* 로고 섹션 */}
         <div className="flex items-center">
           <img
-            src="letsleapup-logo(dall-e).PNG"
+            src="/letsleapup-logo(dall-e).PNG"
             alt="LetsLeapUp 로고"
-            className="w-24 h-auto object-contain"
+            className="w-24 h-auto object-contain rounded-2xl cursor-pointer"
+            onClick={() => navigate("/")}
           />
         </div>
 
@@ -54,7 +85,7 @@ const Header: React.FC = () => {
             <button
               key={item.id}
               onClick={item.onClick}
-              className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+              className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors text-center leading-tight"
               type="button"
             >
               {item.label}
@@ -79,8 +110,14 @@ const Header: React.FC = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden">
-          <div className="flex flex-col p-4 space-y-2">
+        <div
+          className={`
+          fixed inset-0 top-[150px] bg-white md:hidden
+          transition-transform duration-300 ease-in-out
+          ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
+        `}
+        >
+          <div className="flex flex-col p-4 space-y-4">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -88,7 +125,7 @@ const Header: React.FC = () => {
                   item.onClick();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-left px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
+                className="w-full text-4xl px-4 py-2 rounded-md hover:bg-gray-100 transition-colors text-center leading-relaxed"
                 type="button"
               >
                 {item.label}

@@ -127,11 +127,11 @@ const MainPage: React.FC = () => {
         </div>
 
         {/* 갤러리 섹션 */}
-        <div className="bg-yellow-50">
+        <div className="bg-yellow-50 p-4">
           {gallerySections.map((section) => (
             <div key={section.id} className="space-y-4">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">{section.title}</h2>
+                <h2 className="text-xl font-bold p-4">{section.title}</h2>
                 <button
                   onClick={() => {
                     console.log(`Navigating to ${section.path}`);
