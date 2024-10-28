@@ -1,39 +1,33 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { ChevronRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-
-const COPIED_NUM = 2;
+import "swiper/swiper-bundle.css";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const slideRef = useRef<HTMLDivElement>(null);
-  const [slideIndex, setSlideIndex] = useState(0);
 
   // 배너 데이터
   const bannerSlides = [
     {
       id: 1,
-      image: "/picsumimage1.jpg",
+      image: "/gn50/picsumimage1.jpg",
       alt: "강남구 이미지 1",
     },
     {
       id: 2,
-      image: "/picsumimage2.jpg",
+      image: "/gn50/picsumimage2.jpg",
       alt: "강남구 이미지 2",
     },
     {
       id: 3,
-      image: "/picsumimage3.jpg",
+      image: "/gn50/picsumimage3.jpg",
       alt: "강남구 이미지 3",
     },
   ];
