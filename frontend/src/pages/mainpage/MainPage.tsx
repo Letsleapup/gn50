@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { ChevronRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
@@ -12,12 +12,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-const COPIED_NUM = 2;
-
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const slideRef = useRef<HTMLDivElement>(null);
-  const [slideIndex, setSlideIndex] = useState(0);
 
   // 배너 데이터
   const bannerSlides = [
