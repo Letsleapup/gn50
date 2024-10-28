@@ -16,19 +16,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: List files # 디버깅을 위한 파일 목록 출력
+        run: |
+          pwd
+          ls -la
+          ls -la frontend/
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
-          cache-dependency-path: "frontend/package-lock.json"
 
       - name: Install Dependencies
         working-directory: frontend
-        run: npm ci
+        run: |
+          npm install
+          ls -la  # package-lock.json 생성 확인
 
       - name: Build
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm run build
 
       - name: Upload artifact
