@@ -17,17 +17,17 @@ const MainPage: React.FC = () => {
   const bannerSlides = [
     {
       id: 1,
-      image: "/picsumimage1.jpg",
+      image: "/gn50/picsumimage1.jpg",
       alt: "강남구 이미지 1",
     },
     {
       id: 2,
-      image: "/picsumimage2.jpg",
+      image: "/gn50/picsumimage2.jpg",
       alt: "강남구 이미지 2",
     },
     {
       id: 3,
-      image: "/picsumimage3.jpg",
+      image: "/gn50/picsumimage3.jpg",
       alt: "강남구 이미지 3",
     },
   ];

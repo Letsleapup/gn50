@@ -21,12 +21,8 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: [
-      "swiper",
-      "swiper/css",
-      "swiper/css/navigation",
-      "swiper/css/autoplay",
-    ],
+    include: ["swiper/react"],
+    exclude: ["swiper/css", "swiper/css/navigation", "swiper/css/autoplay"],
   },
   css: {
     modules: {
