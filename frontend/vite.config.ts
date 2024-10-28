@@ -6,6 +6,7 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   plugins: [react()],
+  base: "/gn50/",
   resolve: {
     alias: {
       "@": "/src",
@@ -29,5 +30,4 @@ export default defineConfig({
       localsConvention: "camelCase",
     },
   },
-  base: "/gn50/",
 });
