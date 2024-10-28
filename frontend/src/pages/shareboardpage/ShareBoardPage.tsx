@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-
-// 공유 콘텐츠 타입 정의
-type SharedContent = {
-  id: number;
-  title: string;
-  imgUrl: string;
-  type: "walking" | "webtoon";
-  createdAt: string;
-};
+import { sharedContents } from "../../data/dummydata";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -39,39 +31,9 @@ const ShareBoardPage: React.FC = () => {
     },
   ];
 
-  // 더미 데이터
-  const [contents] = useState<SharedContent[]>([
-    {
-      id: 1,
-      title: "도산공원",
-      imgUrl: "https://picsum.photos/200",
-      type: "walking",
-      createdAt: "2024-03-15",
-    },
-    {
-      id: 2,
-      title: "한티근린공원",
-      imgUrl: "https://picsum.photos/200",
-      type: "walking",
-      createdAt: "2024-03-14",
-    },
-    {
-      id: 3,
-      title: "미래의 강남",
-      imgUrl: "https://picsum.photos/200",
-      type: "webtoon",
-      createdAt: "2024-03-13",
-    },
-    {
-      id: 4,
-      title: "과거의 강남",
-      imgUrl: "https://picsum.photos/200",
-      type: "webtoon",
-      createdAt: "2024-03-12",
-    },
-  ]);
-
-  const filteredContents = contents.filter((content) => content.type === type);
+  const filteredContents = sharedContents.filter(
+    (content) => content.type === type
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
