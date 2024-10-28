@@ -1,0 +1,60 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* 배경 어두운 효과 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  z-index: 1000;
+}
+
+.btn-layout {
+  display: flex;
+  justify-content: space-between; /* 버튼 간격 조정 */
+  margin-top: 20px; /* 버튼과 내용 간격 */
+}
+
+.close-button,
+.navigate-button {
+  width: 48%;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.close-button {
+  background-color: #f5f5f5;
+}
+
+.navigate-button {
+  background-color: #add8e6; /* '이미지 만들기' 버튼의 파란색 */
+  color: #000;
+  border: none;
+}
+
+.navigate-button:hover {
+  background-color: #87ceeb; /* 호버 시 더 짙은 파란색 */
+}
+
+img {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%; /* 이미지를 부모 요소에 맞춤 */
+  height: auto; /* 비율 유지 */
+}

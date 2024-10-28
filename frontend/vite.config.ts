@@ -20,4 +20,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ["swiper"],
   },
+  base: "/gn50/",
 });
