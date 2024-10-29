@@ -27,10 +27,12 @@ const ChatbotPage: React.FC = () => {
       imgUrl: searchParams.get("imgUrl") || "",
       description: searchParams.get("description") || "",
     });
+  }, [searchParams]);
 
+  useEffect(() => {
     console.log("Chat type:", type);
     console.log("Chat params:", chatParams);
-  }, [searchParams]);
+  },[type, chatParams])
 
   const handleTextChange = (text: string) => {
     setInputText(text);

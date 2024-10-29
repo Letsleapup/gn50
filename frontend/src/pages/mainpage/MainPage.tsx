@@ -129,7 +129,6 @@ const MainPage: React.FC = () => {
             const sectionContents = sharedContents
               .filter((content) => content.type === section.type)
               .slice(0, 4);
-
             return (
               <div key={section.id} className="space-y-4 mb-8">
                 <div className="flex justify-between items-center">
@@ -140,7 +139,7 @@ const MainPage: React.FC = () => {
                       navigate(section.path);
                     }}
                     className="flex items-center space-x-1 text-gray-600 hover:text-gray-900
-                         transition-colors"
+                        transition-colors"
                   >
                     <span>더보기</span>
                     <ChevronRight />
