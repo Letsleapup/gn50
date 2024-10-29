@@ -5,6 +5,7 @@ import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
 import MainPage from "./pages/mainpage/MainPage";
 import SelectPage from "./pages/selectpage/SelectPage";
 import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
+import DetailContent from "./components/detailcontent/DetailContent";
 
 const App: React.FC = () => {
   console.log("App is rendering");
@@ -17,6 +18,10 @@ const App: React.FC = () => {
           <Route path="chatbot/:type" element={<ChatbotPage />} />
           <Route path="select/:type" element={<SelectPage />} />
           <Route path="shared/:type" element={<ShareBoardPage />} />
+          <Route
+            path="/shared/:type/:contentId"
+            element={<DetailContent source="shareboard" />}
+          />
         </Routes>
       </div>
     </Router>
