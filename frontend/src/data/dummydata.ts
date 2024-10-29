@@ -100,3 +100,7 @@ export const starterMessage = [
   "분석한 내용을 기반으로 이미지를 만들고 있어요",
   "보여드리기전에 고칠 부분이 있나 분석중이에요",
 ];
+
+
+export const BannerUrl = "/gn50/main_first_banner.jpg"
+export const RobotUrl = "/gn50/ai_robot.png"

@@ -1,0 +1,27 @@
+/* 초기 상태: 작은 원형으로 시작 */
+.clip-circle-initial {
+  clip-path: circle(0% at 50% 150%);
+}
+
+/* 확장된 상태: 전체를 포함하는 큰 원형 */
+.clip-circle-expanded {
+  clip-path: circle(150% at 50% 110%);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(-10px); /* 위로 이동 */
+  }
+  100% {
+    transform: translateY(10px); /* 다시 원래 위치 */
+  }
+}
+
+/* Tailwind 커스텀 애니메이션 클래스 */
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+

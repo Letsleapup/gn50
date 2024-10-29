@@ -5,11 +5,12 @@ import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { SharedContent, sharedContents } from "../../data/dummydata";
+import { BannerUrl, RobotUrl, SharedContent, sharedContents } from "../../data/dummydata";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
+import Banner from "../../components/Banner/Banner";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ const MainPage: React.FC = () => {
       <Header />
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
+        <Banner bannerUrl={BannerUrl} robotUrl={RobotUrl}/>
         <div className="w-full h-[400px] relative">
           <Swiper
             modules={[Navigation, Autoplay]}
