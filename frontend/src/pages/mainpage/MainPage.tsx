@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { sharedContents } from "../../data/dummydata";
+import { SharedContent, sharedContents } from "../../data/dummydata";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
@@ -66,6 +66,10 @@ const MainPage: React.FC = () => {
       type: "webtoon",
     },
   ];
+
+  const handleContentClick = (content: SharedContent) => {
+    navigate(`/shared/${content.type}/${content.id}`);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -151,7 +155,8 @@ const MainPage: React.FC = () => {
                   {sectionContents.map((content) => (
                     <div
                       key={content.id}
-                      className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
+                      onClick={() => handleContentClick(content)}
+                      className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer"
                     >
                       <div className="aspect-video">
                         <img

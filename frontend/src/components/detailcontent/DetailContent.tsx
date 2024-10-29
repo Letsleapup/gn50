@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { SharedContent, sharedContents } from "../../data/dummydata";
 import { useNavigate, useParams } from "react-router-dom";
+import Footer from "../Footer";
+import Header from "../Header";
 
 interface DetailContentProps {
   content?: SharedContent;
@@ -12,8 +14,10 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
   const [content, setContent] = useState<SharedContent | null>(null);
 
   useEffect(() => {
+    console.log("DetailContent params:", { type, contentId }); // URL 파라미터 로깅
     // contentId로 해당 컨텐츠 찾기
     const foundContent = sharedContents.find((c) => c.id === Number(contentId));
+    console.log("Found content:", foundContent);
     setContent(foundContent || null);
   }, [contentId]);
 
@@ -21,8 +25,7 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
     if (source === "chatbot") {
       navigate("/chatbot");
     } else {
-      const targetType = content?.type || type || "walking";
-      navigate(`/shared/${targetType}`);
+      navigate(`/shared/${type}`);
     }
   };
 
@@ -40,10 +43,21 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
     return "";
   };
 
-  if (!content) return <div>Loading...</div>;
+  if (!content) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          Loading...
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 container mx-auto px-4 py-8">
+      <Header />
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold mb-4">{getTitle()}</h1>
         <img
@@ -68,6 +82,7 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
           목록으로 이동하기
         </button>
       </div>
+      <Footer />
     </div>
   );
 };
