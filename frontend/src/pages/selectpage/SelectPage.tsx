@@ -24,9 +24,9 @@ const SelectPage: React.FC = () => {
     setIsOpen(false);
   };
 
-  const onNavigate = (url:string) => {
-    navigate(url)
-  }
+  const onNavigate = (url: string) => {
+    navigate(url);
+  };
 
   console.log("현재 선택된 타입:", type); // 디버깅용 로그
 
@@ -39,7 +39,8 @@ const SelectPage: React.FC = () => {
         imgUrl: "/gn50/picsumimage1.jpg",
         style: "",
         backdrop: "",
-        description: "도산 안창호 기념비와 조경이 잘 된 산책로를 가진 역사적 공원",
+        description:
+          "도산 안창호 기념비와 조경이 잘 된 산책로를 가진 역사적 공원",
       },
       {
         id: "2",
@@ -47,20 +48,18 @@ const SelectPage: React.FC = () => {
         imgUrl: "/gn50/picsumimage2.jpg",
         style: "",
         backdrop: "",
-        description:
-          "한티역 인근 작은 녹지 공간으로 산책에 적합",
+        description: "한티역 인근 작은 녹지 공간으로 산책에 적합",
       },
       {
         id: "3",
-        title: "구룡산 자연휴양림",
+        title: "율현공원",
         imgUrl: "/gn50/picsumimage3.jpg",
         style: "",
         backdrop: "",
-        description:
-          "한티역 인근 작은 녹지 공간으로 산책에 적합",
+        description: "율현동 인근의 녹지 공간으로 산책로와 휴식 공간 제공",
       },
       {
-        id: "3",
+        id: "4",
         title: "구룡산 자연휴양림",
         imgUrl: "/gn50/picsumimage3.jpg",
         style: "",
@@ -110,16 +109,16 @@ const SelectPage: React.FC = () => {
       {/* 메인 컨텐츠 */}
       <main className="flex-1 container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-8">
-          {type === "walking" ? "걷기 좋은 강남 만들기" : "웹툰 생성 체험"}
+          {type === "walking" ? "걷기 좋은 강남 만들기" : "그리고 싶은 웹툰 배경을 고르세요"}
         </h1>
 
         {/* 선택 옵션 그리드 */}
         <div
-          className={`grid gap-y-6 ${
+          className={`grid gap-y-6 justify-center ${
             type === "walking"
-              ? "grid-cols-1 sm:grid-cols-2 gap-x-4"
-              : "grid-cols-1"
-          } justify-center`}
+              ? "grid-cols-2 sm:grid-cols-4 gap-x-4" // walking일 때 2칸 또는 4칸
+              : "grid-cols-1 gap-x-0" // 아닐 때 1칸
+          }`}
         >
           {currentOptions.map((option) => (
             <div key={option.id} className="flex justify-center">
@@ -129,15 +128,15 @@ const SelectPage: React.FC = () => {
                   setSelectedOption(option);
                 }}
                 className={`${
-                  type === "walking" ? "sm:w-[70%] w-full" : "w-full"
-                } h-[300px] bg-yellow-50 p-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105`}
+                  type === "walking" ? "sm:w-[95%] w-full aspect-w-5 aspect-h-6" : "sm:h-[300px] w-full h-[150px] "
+                } bg-white p-0 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 overflow:hidden`}
               >
                 <img
                   src={option.imgUrl}
                   alt={option.id}
-                  className="rounded-lg overflow-hidden w-full h-full object-cover"
+                  className="rounded-lg overflow-hidden w-full h-[70%] object-cover"
                 />
-                <h2 className="text-xl font-semibold mt-2 text-center">
+                <h2 className="text-lg font-semibold mt-0 truncate text-center">
                   {option.title} {option.backdrop}
                 </h2>
               </button>
@@ -148,16 +147,14 @@ const SelectPage: React.FC = () => {
             <Modal
               isOpen={isOpen}
               onClose={onClose}
-              btnName={
-                type === "walking" ? "이미지 만들기" : "웹툰 그리기"
-              }
+              btnName={type === "walking" ? "이미지 만들기" : "웹툰 그리기"}
               onClick={() =>
                 onNavigate(
                   `/chatbot/${type}?title=${selectedOption.title}&imgUrl=${selectedOption.imgUrl}&description=${selectedOption.description}`
                 )
               }
             >
-              <h1>{selectedOption.title}</h1>
+              <h1 className="mt-2">{selectedOption.title}</h1>
               <img src={selectedOption.imgUrl} alt={selectedOption.title} />
               <p>{selectedOption.description}</p>
             </Modal>
