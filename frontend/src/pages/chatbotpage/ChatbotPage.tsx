@@ -2,36 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-
-interface ChatParams {
-  title: string;
-  imgUrl: string;
-  description: string;
-}
+import { useNavigate, useParams } from "react-router-dom";
 
 const ChatbotPage: React.FC = () => {
   const { type } = useParams<{ type: string }>();
-  const [searchParams] = useSearchParams();
-  const [chatParams, setChatParams] = useState<ChatParams>();
   const [inputText, setInputText] = useState<string>("");
   const [messages, setMessages] = useState<
     Array<{ role: string; type: string; content: string }>
   >([]);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  // 메시지 영역 ref 추가
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // 현재 질문 단계를 추적하는 상태 추가
   const [questionStep, setQuestionStep] = useState(0);
-
-  // URL 파라미터 가져오기
-  useEffect(() => {
-    setChatParams({
-      title: searchParams.get("title") || "",
-      imgUrl: searchParams.get("imgUrl") || "",
-      description: searchParams.get("description") || "",
-    });
-  }, [searchParams]);
 
   // 웹툰 관련 질문 리스트
   const webtoonQuestions = [
@@ -43,10 +28,11 @@ const ChatbotPage: React.FC = () => {
 
   // 걷기 관련 질문 리스트
   const walkingQuestions = [
-    "어떤 목적으로 그 곳을 방문하고 싶으신가요?",
-    "선호하는 시간대가 있으신가요?",
-    "동행하실 분이 있으신가요?",
-    "특별히 들러보고 싶은 장소가 있나요?",
+    "어떤 계절에 걷고 싶으신가요?",
+    "걸을 때의 날씨는 어떤가요?",
+    "누구와 함께 걷고 싶으세요?",
+    "걸을 때의 기분을 알려주세요",
+    "다른 알아야 할 점이 있나요?",
   ];
 
   // 웰컴 메세지
@@ -97,15 +83,12 @@ const ChatbotPage: React.FC = () => {
           setQuestionStep((prev) => prev + 1);
         } else if (questionStep === questions.length - 1) {
           // 마지막 질문후
-          setIsLoading(true);
           navigate("/loading");
         }
       }, 500); // 사용자 메시지 표시 후 잠시 딜레이를 주고 다음 질문 표시
       setInputText(""); // 입력 초기화
     }
   };
-  // 메시지 영역 ref 추가
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
