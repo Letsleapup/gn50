@@ -67,7 +67,7 @@ const Header: React.FC = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="w-full px-4 py-2 bg-white shadow-sm relative z-50">
+    <header className="w-full py-2 bg-white shadow-sm relative z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* 로고 섹션 */}
         <div className="flex items-center">
@@ -110,13 +110,18 @@ const Header: React.FC = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div
-          className={`
-          fixed inset-0 top-[150px] bg-white md:hidden
-          transition-transform duration-300 ease-in-out
-          ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
-        `}
-        >
+        <div className="fixed inset-0 top-0 bg-white md:hidden z-50">
+          {/* 모바일 메뉴 헤더 */}
+          <div className="p-4 flex justify-end ">
+            <button
+              type="button"
+              onClick={toggleMenu}
+              className="p-2 rounded-md hover:bg-gray-100"
+              aria-label="메뉴 닫기"
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </div>
           <div className="flex flex-col p-4 space-y-4">
             {navItems.map((item) => (
               <button

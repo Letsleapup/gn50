@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { SharedContent } from "../../data/dummydata";
+import { SharedContent } from "../../@types/domain";
 import "./WebtoonGallery.css";
 
 interface WebtoonGalleryProps {
@@ -75,7 +75,6 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({
           ))}
         </div>
         <div className="background-text" aria-hidden="true">
-          GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON
           GANGNAM WEBTOON
         </div>
       </div>

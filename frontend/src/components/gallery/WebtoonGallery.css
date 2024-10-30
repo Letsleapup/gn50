@@ -93,3 +93,9 @@
     transform: translate(-100%, -50%);
   }
 }
+
+.background-text::before .background-text::after {
+  content: "GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON ";
+  display: inline-block;
+  animation: infiniteText 1000s linear infinite;
+}
