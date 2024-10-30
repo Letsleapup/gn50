@@ -10,7 +10,6 @@ import "./MainPage.css";
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import Banner from "../../components/Banner/Banner";
-import { GalleryWalking } from "../../components/gallery_will_delete/galleryWalking";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -58,7 +57,7 @@ const MainPage: React.FC = () => {
       <Header />
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
-        <GalleryWalking robotUrl={RobotUrl}/>
+        <Banner bannerUrl={BannerUrl} robotUrl={RobotUrl}/>
         {/* 버튼 섹션 */}
         <div className="flex h-[200px] gap-1">
           {actionButtons.map((button) => (
