@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { SharedContent, sharedContents } from "../../data/dummydata";
+import { sharedContents } from "../../data/dummydata";
+import { SharedContent } from "../../@types/domain";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();

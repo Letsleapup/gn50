@@ -3,36 +3,17 @@ import { ChevronRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import { BannerUrl, RobotUrl, SharedContent, sharedContents } from "../../data/dummydata";
+import { BannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
+import { SharedContent } from "../../@types/domain";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import Banner from "../../components/Banner/Banner";
+import { GalleryWalking } from "../../components/gallery_will_delete/galleryWalking";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-
-  // 배너 데이터
-  const bannerSlides = [
-    {
-      id: 1,
-      image: "/gn50/picsumimage1.jpg",
-      alt: "강남구 이미지 1",
-    },
-    {
-      id: 2,
-      image: "/gn50/picsumimage2.jpg",
-      alt: "강남구 이미지 2",
-    },
-    {
-      id: 3,
-      image: "/gn50/picsumimage3.jpg",
-      alt: "강남구 이미지 3",
-    },
-  ];
 
   // 버튼 섹션 데이터
   const actionButtons = [
@@ -77,43 +58,7 @@ const MainPage: React.FC = () => {
       <Header />
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
-        <Banner bannerUrl={BannerUrl} robotUrl={RobotUrl}/>
-        <div className="w-full h-[400px] relative">
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation={{
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            }}
-            autoplay={{
-              delay: 0, // 페이지에 머무는 시간
-              disableOnInteraction: false, // 직접 넘겨도 자동재생 유지
-              pauseOnMouseEnter: true, // 마우스오버 일시정지
-            }}
-            loop={true}
-            loopAdditionalSlides={1}
-            speed={3500} // 넘어가는 속도
-            className="w-full h-full"
-          >
-            {bannerSlides.map((slide) => (
-              <SwiperSlide key={slide.id}>
-                <div className="relative w-full h-full ">
-                  <img
-                    src={slide.image}
-                    alt={slide.alt}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-            {/* 네비게이션 버튼 */}
-            <div className="swiper-button-prev !text-white after:!text-2xl"></div>
-            <div className="swiper-button-next !text-white after:!text-2xl"></div>
-          </Swiper>
-        </div>
-
+        <GalleryWalking robotUrl={RobotUrl}/>
         {/* 버튼 섹션 */}
         <div className="flex h-[200px] gap-1">
           {actionButtons.map((button) => (
@@ -128,6 +73,8 @@ const MainPage: React.FC = () => {
             </button>
           ))}
         </div>
+
+        {/* gallery section */}
 
         {/* 갤러리 섹션 */}
         <div className="bg-yellow-50 p-4">

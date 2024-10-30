@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { SharedContent, sharedContents } from "../../data/dummydata";
+import { sharedContents } from "../../data/dummydata";
+import { SharedContent } from "../../@types/domain";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
