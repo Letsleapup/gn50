@@ -1,0 +1,95 @@
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  padding: 1rem 0;
+  height: 300px;
+}
+
+.slide-track {
+  display: flex;
+  gap: 4rem;
+  animation: slide 30s linear infinite;
+  width: fit-content;
+  position: relative;
+  z-index: 2;
+}
+
+.slide-item {
+  flex-shrink: 0;
+  width: 12rem;
+  position: relative;
+  z-index: 1;
+}
+
+.content-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.content-card:hover {
+  transform: scale(1.05);
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.333%));
+  }
+}
+
+/* 호버 시 애니메이션 일시 정지 */
+.slide-track:hover {
+  animation-play-state: paused;
+}
+
+/* 부드러운 스크롤을 위한 가상 요소 */
+.slider-container::before,
+.slider-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.slider-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.slider-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.background-text {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 200px;
+  font-weight: 900;
+  color: rgba(226, 223, 223, 0.336); /* 투명도로 연한 효과 */
+  z-index: 0;
+  animation: rollRight 200s linear infinite;
+  pointer-events: none;
+  letter-spacing: 8px; /* 글자 간격 추가 */
+}
+
+@keyframes rollRight {
+  0% {
+    transform: translate(50%, -50%);
+  }
+  100% {
+    transform: translate(-100%, -50%);
+  }
+}
