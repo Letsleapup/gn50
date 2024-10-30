@@ -44,7 +44,7 @@ const Banner: FunctionComponent<Props> = ({ bannerUrl, robotUrl }) => {
           </p>
         </div>
       )}
-      <div className="absolute w-[28.2rem]  top-[38%] flex items-center justify-center z-10">
+      <div className="absolute w-[22%] top-[41%] flex items-center justify-center z-10">
         <img
           src={robotUrl}
           alt="Cute AI Robot"
