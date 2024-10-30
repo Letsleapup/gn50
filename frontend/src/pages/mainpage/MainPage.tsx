@@ -1,10 +1,8 @@
 import React from "react";
-import { ChevronRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { BannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
-import { SharedContent } from "../../@types/domain";
 import Banner from "../../components/Banner/Banner";
 import WebtoonGallery from "../../components/gallery/WebtoonGallery";
 import "./MainPage.css";
@@ -32,14 +30,15 @@ const MainPage: React.FC = () => {
     },
   ];
 
-  const handleContentClick = (content: SharedContent) => {
-    navigate(`/shared/${content.type}/${content.id}`);
-  };
+  // const handleContentClick = (content: SharedContent) => {
+  //   navigate(`/shared/${content.type}/${content.id}`);
+  // };
 
   // walking 컨텐츠 필터링
-  const walkingContents = sharedContents
-    .filter((content) => content.type === "walking")
-    .slice(0, 3);
+  //TODO: 해당 데이터를 받아서 보일 수 있게 gallery 꾸미기
+  // const walkingContents = sharedContents
+  //   .filter((content) => content.type === "walking")
+  //   .slice(0, 3);
 
   // webtoon 컨텐츠 필터링
   const webtoonContents = sharedContents
@@ -68,47 +67,10 @@ const MainPage: React.FC = () => {
         </div>
 
         {/* 갤러리 섹션 */}
-        <WalkingGallery robotUrl={RobotUrl}/>
+
         <div className="bg-yellow-50">
           {/* Walking 갤러리 */}
-          <div className="space-y-4 mb-8">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold p-4">걷고 싶은 강남</h2>
-              <button
-                onClick={() => {
-                  navigate("/shared/walking");
-                }}
-                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <span>더보기</span>
-                <ChevronRight />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {walkingContents.map((content) => (
-                <div
-                  key={content.id}
-                  onClick={() => handleContentClick(content)}
-                  className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer"
-                >
-                  <div className="aspect-video">
-                    <img
-                      src={content.imgUrl}
-                      alt={content.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-2">
-                    <h3 className="text-sm font-medium truncate">
-                      {content.title}
-                    </h3>
-                    <p className="text-xs text-gray-500">{content.createdAt}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <WalkingGallery robotUrl={RobotUrl} />
 
           {/* Webtoon 갤러리 */}
           <WebtoonGallery

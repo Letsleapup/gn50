@@ -67,20 +67,20 @@ const Header: React.FC = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="w-full py-2 bg-white shadow-sm relative z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+    <header className="fixed top-[2.5rem] w-full bg-transparent relative z-50">
+      <div className="max-w-1920 mx-auto flex justify-between items-center">
         {/* 로고 섹션 */}
-        <div className="flex items-center">
+        <div className="absolute left-[1.75rem] sm:left-8 flex items-center space-x-4">
           <img
-            src="/gn50/letsleapup-logo(dall-e).PNG"
-            alt="LetsLeapUp 로고"
-            className="w-24 h-auto object-contain rounded-2xl cursor-pointer"
+            src="/gn50/asset/logo.svg"
+            alt="강남구 CI*슬로건"
+            className="h-10 sm:h-12 "
             onClick={() => navigate("/")}
           />
         </div>
 
         {/* 네비게이션 메뉴 */}
-        <nav className="hidden md:flex gap-4">
+        <nav className="hidden bg-gray-200 rounded-full px-4 sm:px-6 py-2 sm:py-3">
           {navItems.map((item) => (
             <button
               key={item.id}

@@ -3,10 +3,10 @@ import "./Banner.css";
 
 interface Props {
   bannerUrl: string;
-  robotUrl: string
+  robotUrl: string;
 }
 
-const Banner: FunctionComponent<Props> = ({bannerUrl, robotUrl}) => {
+const Banner: FunctionComponent<Props> = ({ bannerUrl, robotUrl }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isShown, setIsShown] = useState(false);
 
@@ -14,7 +14,7 @@ const Banner: FunctionComponent<Props> = ({bannerUrl, robotUrl}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFullscreen(true);
-    }, 100); 
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -24,19 +24,35 @@ const Banner: FunctionComponent<Props> = ({bannerUrl, robotUrl}) => {
       setIsShown(true);
     }, 1000);
     return () => clearTimeout(robotTimer);
-  },[]);
+  }, []);
 
   return (
     <div className="relative w-full h-[100%] overflow-hidden bg-gray-100 flex items-center justify-center">
-      <div className="absolute w-[30%] flex items-center justify-center z-10">
+      {isShown && (
+        <div className="absolute z-10 top-[13.25rem] text-center text-white">
+          <p className="text-[72px] font-bold leading-[96px] text-center tracking-tight">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
+              50주년
+            </span>
+            을 맞이한
+          </p>
+          <p className="text-[72px] font-bold leading-[96px] text-center tracking-tight">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
+              강남
+            </span>
+            을 직접 체험해 보세요
+          </p>
+        </div>
+      )}
+      <div className="absolute w-[28.2rem]  top-[38%] flex items-center justify-center z-10">
         <img
           src={robotUrl}
           alt="Cute AI Robot"
-          className={`animate-float transition-opacity duration-2000 ease-in-out ${isShown ? "opacity-100" : "opacity-0"}`}
+          className={`animate-float transition-opacity duration-2000 ease-in-out ${isShown ? "opacity-100" : "opacity-0"} z-0`}
         />
       </div>
       <img
-        src={bannerUrl} 
+        src={bannerUrl}
         alt="배너 이미지"
         className={`transition-all duration-3500 ease-in-out rounded-lg
           ${isFullscreen ? "clip-circle-expanded" : "clip-circle-initial"}`}
