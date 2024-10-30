@@ -46,7 +46,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 7,
     title: "현재의 강남",
-    imgUrl: "./picsumimage1.jpg",
+    imgUrl: "./webtoonimg3.png",
     type: "webtoon",
     createdAt: "2024-03-09",
   },
@@ -60,7 +60,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 9,
     title: "현재의 강남",
-    imgUrl: "./picsumimage2.jpg",
+    imgUrl: "./webtoonimg2.png",
     type: "webtoon",
     createdAt: "2024-03-07",
   },
@@ -74,14 +74,14 @@ export const sharedContents: SharedContent[] = [
   {
     id: 11,
     title: "미래의 강남",
-    imgUrl: "./picsumimage3.jpg",
+    imgUrl: "./webtoonimg1.png",
     type: "webtoon",
     createdAt: "2024-03-05",
   },
   {
     id: 12,
     title: "과거의 강남",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "./webtoonimg4.png",
     type: "webtoon",
     createdAt: "2024-03-04",
   },

@@ -1,13 +1,27 @@
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Swiper 기본 버튼 숨기기 */
+.swiper-button-prev,
+.swiper-button-next {
+  display: none !important;
+}
+
 .slider-container {
+  margin-top: 106px;
   overflow: hidden;
   position: relative;
   padding: 1rem 0;
-  height: 300px;
+  height: 750px;
 }
 
 .slide-track {
   display: flex;
-  gap: 4rem;
   animation: slide 30s linear infinite;
   width: fit-content;
   position: relative;
@@ -16,14 +30,14 @@
 
 .slide-item {
   flex-shrink: 0;
-  width: 12rem;
+  width: 408px;
+  height: 408px;
   position: relative;
   z-index: 1;
 }
 
 .content-card {
-  background-color: white;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   cursor: pointer;
@@ -32,6 +46,27 @@
 
 .content-card:hover {
   transform: scale(1.05);
+}
+
+.webtoon-swiper {
+  margin-top: 106px;
+  overflow: visible;
+  height: 100%;
+  z-index: 2;
+}
+.swiper-wrapper {
+  display: flex;
+  gap: 36px;
+  transition-timing-function: linear !important;
+}
+
+/* Swiper 기본 스타일 재정의 */
+.swiper-container {
+  overflow: visible !important;
+}
+
+.swiper-slide {
+  width: auto !important;
 }
 
 @keyframes slide {
@@ -70,32 +105,47 @@
   background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
 }
 
-.background-text {
+/* infinite text */
+.infinite-text-container {
   position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  white-space: nowrap;
-  font-size: 200px;
-  font-weight: 900;
-  color: rgba(226, 223, 223, 0.336); /* 투명도로 연한 효과 */
+  bottom: 0%;
+  width: 100%;
+  overflow: hidden;
   z-index: 0;
-  animation: rollRight 200s linear infinite;
-  pointer-events: none;
-  letter-spacing: 8px; /* 글자 간격 추가 */
 }
 
-@keyframes rollRight {
+.infinite-text {
+  display: flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: 0.3s;
+  font-size: 180px;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: Paperlogy 9;
+  opacity: 0.12;
+}
+
+.infinite-text-wrap {
+  animation-play-state: paused;
+  animation: textLoop 300s linear infinite;
+  padding-right: 2vw;
+  pointer-events: none;
+}
+
+@keyframes textLoop {
   0% {
-    transform: translate(50%, -50%);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate(-100%, -50%);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
-.background-text::before .background-text::after {
-  content: "GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON GANGNAM WEBTOON ";
-  display: inline-block;
-  animation: infiniteText 1000s linear infinite;
+.moreclickbtn {
+  background: transparent linear-gradient(90deg, #1b58fd 0%, #00baa8 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 28px;
+  opacity: 1;
 }

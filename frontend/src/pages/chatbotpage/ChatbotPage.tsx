@@ -90,13 +90,16 @@ const ChatbotPage: React.FC = () => {
     }
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("Messages updated:", messages);
-    scrollToBottom();
+    if (messages.length > 0) {
+      // 메시지 컨테이너의 스크롤을 bottom으로
+      const messageContainer = messageContainerRef.current;
+      if (messageContainer) {
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      }
+    }
   }, [messages]);
 
   return (
@@ -106,7 +109,10 @@ const ChatbotPage: React.FC = () => {
 
       {/* 메세지 영역 */}
       <div className="relative border flex-1">
-        <div className="h-full overflow-y-auto pb-20 p-4">
+        <div
+          className="h-full overflow-y-auto pb-20 p-4"
+          ref={messageContainerRef}
+        >
           {messages.map((message, index) => (
             <div
               key={index}
