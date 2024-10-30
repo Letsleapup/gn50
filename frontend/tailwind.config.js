@@ -11,6 +11,9 @@ module.exports = {
         '3000': '3000ms',
         '3500': '3500ms'
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
     },
   },
   plugins: [],

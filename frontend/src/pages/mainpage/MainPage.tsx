@@ -11,6 +11,7 @@ import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
+import { WalkingGallery } from "../../components/gallery/WalkingGallery";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const MainPage: React.FC = () => {
         </div>
 
         {/* 갤러리 섹션 */}
+        <WalkingGallery robotUrl={RobotUrl}/>
         <div className="bg-yellow-50">
           {/* Walking 갤러리 */}
           <div className="space-y-4 mb-8">

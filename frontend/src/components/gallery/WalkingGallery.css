@@ -1,0 +1,33 @@
+.shared-content1, .shared-content2, .shared-content3 {
+  width: 27%;
+}
+
+.shared-content1 {
+  top: 5%;
+  right: 10%
+}
+
+.shared-content2 {
+  top: 25%;
+  right: 50%;
+}
+
+.shared-content3 {
+  top: 50%;
+  right: 10%
+}
+
+@keyframes float-robot {
+  0% {
+    transform: translateX(-10%) rotate(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-105%) rotate(-30deg);
+    opacity: 1;
+  }
+}
+
+.robot {
+  animation: float-robot 1s ease-in-out forwards;
+}
