@@ -24,7 +24,7 @@ const Banner: FunctionComponent<Props> = ({bannerUrl, robotUrl}) => {
       setIsShown(true);
     }, 1000);
     return () => clearTimeout(robotTimer);
-  });
+  },[]);
 
   return (
     <div className="relative w-full h-[100%] overflow-hidden bg-gray-100 flex items-center justify-center">
