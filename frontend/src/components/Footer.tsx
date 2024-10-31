@@ -1,6 +1,6 @@
 const Footer: React.FC = () => {
   return (
-    <footer className="py-6 text-[#ffffff] w-full bg-black border-t">
+    <footer className="py-6 text-[#ffffff] w-full bg-black border-t border-[#323232]">
       <div className="container mx-auto px-4">
         <p className="font-bold text-[22px] leading-[30px] tracking-[-0.55px] opacity-100">
           (주) 렛츠립업

@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { SharedContent } from "../../@types/domain";
-import "./WebtoonGallery.css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper";
 import { Autoplay, Navigation } from "swiper/modules";
+import "./WebtoonGallery.css";
+import "swiper/swiper-bundle.css";
 
 interface WebtoonGalleryProps {
   title: string;
@@ -13,6 +15,11 @@ interface WebtoonGalleryProps {
 
 const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // Swiper 인스턴스를 저장할 state
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
 
   const handleContentClick = useCallback(
     (content: SharedContent) => {
@@ -27,10 +34,9 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   }, [navigate, path]);
 
   // 컨텐츠 세 번 반복
-  const tripleContents = [...contents, ...contents, ...contents];
+  const multipleContents = [...Array(10)].flatMap(() => contents);
 
   // 화면 크기 변경 감지
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,18 +57,32 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
     } else if (windowWidth <= 1024) {
       return { slidesPerView: 3.5, spaceBetween: 36 };
     }
-    return { slidesPerView: 4.5, spaceBetween: 36 };
+    return { slidesPerView: 4, spaceBetween: 36 };
   };
 
+  const handlePrevClick = useCallback(() => {
+    if (swiper) {
+      swiper.autoplay.stop(); // 자동 재생 일시 중지
+      swiper.slidePrev(500); // 500ms 동안 전환
+      swiper.autoplay.start(); // 자동 재생 재시작
+    }
+  }, [swiper]);
+
+  const handleNextClick = useCallback(() => {
+    if (swiper) {
+      swiper.autoplay.stop(); // 자동 재생 일시 중지
+      swiper.slideNext(500); // 500ms 동안 전환
+      swiper.autoplay.start(); // 자동 재생 재시작
+    }
+  }, [swiper]);
+
   return (
-    <div className="space-y-4 relative h-[69.75rem] overflow-hidden bg-black">
+    <div className="space-y-4 relative h-[69.75rem]  bg-black">
       {/* 헤더 섹션 */}
       <div className="flex flex-col items-center lg:flex-row lg:px-[22.5rem] px-4">
         <div className="text-[2rem] lg:text-[3.25rem] tracking-[-0.08125rem] font-bold text-white mt-[6rem] lg:mt-[10rem] ">
-          <>
-            강남의 과거·현재·미래를 <br />
-            그린 웹툰을 확인해보세요!
-          </>
+          강남의 과거·현재·미래를 <br />
+          그린 웹툰을 확인해보세요!
         </div>
 
         <div className="flex justify-center mt-[202px] ml-[363px]">
@@ -77,10 +97,18 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
             />
           </button>
           <div className="flex gap-2 ml-[30px]">
-            <button className="swiper-button-prev-custom p-2 border border-1-[#e4e4e4] w-[56px] rounded-full hover:bg-gray-700 opacity-40">
+            <button
+              className="swiper-button-prev-custom p-2 border border-1-[#e4e4e4] w-[56px] rounded-full hover:bg-gray-700 opacity-40"
+              ref={navigationPrevRef}
+              onClick={handlePrevClick}
+            >
               <img src="./asset/arrow_lg_sm.svg" className="w-5 h-5 mt-2" />
             </button>
-            <button className="swiper-button-next-custom p-2 border border-1-[#e4e4e4] w-[56px] rounded-full hover:bg-gray-700 opacity-40">
+            <button
+              className="swiper-button-next-custom p-2 border border-1-[#e4e4e4] w-[56px] rounded-full hover:bg-gray-700 opacity-40"
+              ref={navigationNextRef}
+              onClick={handleNextClick}
+            >
               <img src="./asset/arrow_rg_sm.svg" className="w-5 h-5 mt-2" />
             </button>
           </div>
@@ -93,24 +121,45 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
           {...getSwiperSettings()}
           modules={[Navigation, Autoplay]}
           spaceBetween={16}
-          slidesPerView="auto"
           loop={true}
-          loopAdditionalSlides={3}
-          allowTouchMove={true}
+          loopAdditionalSlides={15}
+          slidesPerView="auto"
+          allowTouchMove={false}
           navigation={{
-            nextEl: ".swiper-button-next-custom",
-            prevEl: ".swiper-button-prev-custom",
+            prevEl: navigationPrevRef.current,
+            nextEl: navigationNextRef.current,
           }}
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
+            stopOnLastSlide: false,
             reverseDirection: false,
           }}
           speed={15000}
           className="webtoon-swiper"
+          onSwiper={(swiper) => {
+            setSwiper(swiper);
+            // navigation 엘리먼트 업데이트
+            if (
+              swiper.params.navigation &&
+              typeof swiper.params.navigation !== "boolean"
+            ) {
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+            swiper.autoplay.start();
+          }}
+          onReachEnd={() => {
+            // 끝에 도달했을 때 처음으로 돌아가기
+            if (swiper) {
+              swiper.slideTo(0, 0);
+            }
+          }}
         >
-          {tripleContents.map((content, index) => (
+          {multipleContents.map((content, index) => (
             <SwiperSlide key={`${content.id}-${index}`}>
               <div
                 key={`${content.id}-${index}`}
@@ -118,13 +167,12 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
                 className="slide-item"
               >
                 <div className="content-card">
-                  <div className="aspect-video">
-                    <img
-                      src={content.imgUrl}
-                      alt={content.title}
-                      loading="lazy"
-                    />
-                  </div>
+                  <img
+                    src={content.imgUrl}
+                    alt={content.title}
+                    loading="lazy"
+                  />
+
                   <div className="p-2">
                     <h3 className="text-[24px] font-medium truncate text-white">
                       {content.title}
