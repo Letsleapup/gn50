@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SharedContent } from "../../@types/domain";
 import "./WebtoonGallery.css";
@@ -29,11 +29,36 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   // 컨텐츠 세 번 반복
   const tripleContents = [...contents, ...contents, ...contents];
 
+  // 화면 크기 변경 감지
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      console.log("Current window width:", window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 화면 크기에 따른 슬라이더 설정
+  const getSwiperSettings = () => {
+    if (windowWidth <= 430) {
+      return { slidesPerView: 1.5, spaceBetween: 16 };
+    } else if (windowWidth <= 768) {
+      return { slidesPerView: 2.5, spaceBetween: 24 };
+    } else if (windowWidth <= 1024) {
+      return { slidesPerView: 3.5, spaceBetween: 36 };
+    }
+    return { slidesPerView: 4.5, spaceBetween: 36 };
+  };
+
   return (
-    <div className="space-y-4 relative h-[1116px] overflow-hidden bg-black">
+    <div className="space-y-4 relative h-[69.75rem] overflow-hidden bg-black">
       {/* 헤더 섹션 */}
-      <div className="flex items-center">
-        <div className="text-[52px] font-bold p-4 text-white mt-[160px] ml-[360px]">
+      <div className="flex flex-col items-center lg:flex-row lg:px-[22.5rem] px-4">
+        <div className="text-[2rem] lg:text-[3.25rem] tracking-[-0.08125rem] font-bold text-white mt-[6rem] lg:mt-[10rem] ">
           <>
             강남의 과거·현재·미래를 <br />
             그린 웹툰을 확인해보세요!
@@ -65,6 +90,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
       {/* 슬라이드 컨테이너 */}
       <div className="slider-container">
         <Swiper
+          {...getSwiperSettings()}
           modules={[Navigation, Autoplay]}
           spaceBetween={16}
           slidesPerView="auto"
@@ -96,7 +122,6 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
                     <img
                       src={content.imgUrl}
                       alt={content.title}
-                      className="w-[408px] h-[408px] object-cover"
                       loading="lazy"
                     />
                   </div>

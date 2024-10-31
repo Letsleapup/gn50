@@ -1,8 +1,22 @@
+/* 테일윈드 설정 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 앱 루트 컨테이너 스타일 */
+#root {
+  max-width: 1920px;
+  margin: 0 auto;
+  /* padding: 2.5rem 3.75rem; */
+}
+
 :root {
+  /* Pretendard 폰트 시스템 설정 */
   font-family:
     "Pretendard Variable",
     Pretendard,
@@ -39,4 +53,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 48rem) {
+  #root {
+    padding: 1.5rem 1.5rem;
+  }
 }

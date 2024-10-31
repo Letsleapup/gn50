@@ -5,7 +5,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import "./App.css";
+import "./index.css";
 import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
 import MainPage from "./pages/mainpage/MainPage";
 import SelectPage from "./pages/selectpage/SelectPage";
@@ -26,6 +26,20 @@ function ScrollToTop() {
 
 const App: React.FC = () => {
   console.log("App is rendering");
+  useEffect(() => {
+    const logSize = () => {
+      console.log("Window width:", window.innerWidth);
+      console.log(
+        "Root font-size:",
+        getComputedStyle(document.documentElement).fontSize
+      );
+    };
+
+    window.addEventListener("resize", logSize);
+    logSize(); // 초기 로드 시 크기 확인
+
+    return () => window.removeEventListener("resize", logSize);
+  }, []);
 
   return (
     <Router basename="">

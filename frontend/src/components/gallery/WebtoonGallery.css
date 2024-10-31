@@ -13,11 +13,11 @@
 }
 
 .slider-container {
-  margin-top: 106px;
+  margin-top: 6.625rem;
   overflow: hidden;
   position: relative;
   padding: 1rem 0;
-  height: 750px;
+  height: 46.875rem;
 }
 
 .slide-track {
@@ -30,33 +30,48 @@
 
 .slide-item {
   flex-shrink: 0;
-  width: 408px;
-  height: 408px;
   position: relative;
   z-index: 1;
 }
 
 .content-card {
   border-radius: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
+.aspect-video {
+  border-radius: 2rem;
+}
+.content-card img {
+  border-radius: 2rem;
+  width: 25.5rem;
+  height: 25.5rem;
+  object-fit: cover;
+}
+@media (max-width: 64rem) {
+  /* 1024px */
+  .content-card img {
+    width: 20rem; /* 320px */
+    height: 20rem; /* 320px */
+  }
+}
+
 .content-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .webtoon-swiper {
-  margin-top: 106px;
+  margin-top: 6.625rem;
   overflow: visible;
   height: 100%;
   z-index: 2;
 }
 .swiper-wrapper {
   display: flex;
-  gap: 36px;
+  gap: 2.25rem;
   transition-timing-function: linear !important;
 }
 
@@ -120,7 +135,7 @@
   white-space: nowrap;
   overflow: hidden;
   transition: 0.3s;
-  font-size: 180px;
+  font-size: 11.25rem;
   font-weight: 800;
   color: #ffffff;
   font-family: Paperlogy 9;
@@ -146,6 +161,77 @@
 .moreclickbtn {
   background: transparent linear-gradient(90deg, #1b58fd 0%, #00baa8 100%) 0% 0%
     no-repeat padding-box;
-  border-radius: 28px;
+  border-radius: 1.75rem;
   opacity: 1;
+}
+
+/* 반응형 스타일 */
+/* 데스크톱 (1920px) */
+@media (max-width: 120rem) {
+  .slider-container {
+    height: 43.75rem; /* 700px */
+  }
+
+  .infinite-text {
+    font-size: 9rem; /* 144px */
+  }
+}
+
+/* 아이패드 Pro & Air (1024px) */
+@media (max-width: 64rem) {
+  .slider-container {
+    height: 37.5rem; /* 600px */
+    margin-top: 4rem;
+  }
+
+  .slide-item {
+    width: 20rem; /* 320px */
+    height: 20rem; /* 320px */
+  }
+
+  .infinite-text {
+    font-size: 7.5rem; /* 120px */
+  }
+
+  .swiper-wrapper {
+    gap: 1.5rem; /* 24px */
+  }
+}
+
+/* 아이패드 미니 & 작은 태블릿 (768px) */
+@media (max-width: 48rem) {
+  .slider-container {
+    height: 31.25rem; /* 500px */
+    margin-top: 3rem;
+  }
+
+  .slide-item {
+    width: 16rem; /* 256px */
+    height: 16rem; /* 256px */
+  }
+
+  .infinite-text {
+    font-size: 6rem; /* 96px */
+  }
+
+  .swiper-wrapper {
+    gap: 1rem; /* 16px */
+  }
+}
+
+/* 모바일 (430px) */
+@media (max-width: 26.875rem) {
+  .slider-container {
+    height: 25rem; /* 400px */
+    margin-top: 2rem;
+  }
+
+  .slide-item {
+    width: 12rem; /* 192px */
+    height: 12rem; /* 192px */
+  }
+
+  .infinite-text {
+    font-size: 4.5rem; /* 72px */
+  }
 }
