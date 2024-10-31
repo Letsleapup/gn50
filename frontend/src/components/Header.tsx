@@ -51,44 +51,50 @@ const Header: React.FC = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed top-[2.5rem] w-full bg-transparent relative z-50">
-      <div className="flex max-w-1920 mx-auto justify-between items-center">
+    <header className="fixed top-[3vh] w-full h-0 bg-transparent relative z-50">
+      <div className="relative flex max-w-1920 mx-auto justify-between items-center">
         {/* 로고 섹션 */}
-        <div className="w-[10%] mx-[1.75rem] sm:mx-8 flex justify-start items-center space-x-4">
+        <div className="top-0 left-0 mx-[3vw]">
           <img
             src="/gn50/asset/logo.svg"
             alt="강남구 CI*슬로건"
-            className="h-10 sm:h-12 "
+            className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%]"
             onClick={() => navigate("/")}
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="hidden md:flex bg-gray-200 rounded-full px-4 sm:px-6 py-2 sm:py-3">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={item.onClick}
-              className="font-semibold px-4 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
-              type="button"
-            >
-              {item.label}
-            </button>
+        <nav className="absolute top-[3%] left-[35%] w-[31%] flex justify-between opacity-75 hidden lg:flex bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3">
+          {navItems.map((item, index) => (
+            <>
+              <button
+                key={item.id}
+                onClick={item.onClick}
+                className="font-semibold px-4 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
+                type="button"
+              >
+                {item.label}
+              </button>
+              {index < navItems.length - 1 ? (
+                <div className="flex items-center">
+                  <div className="w-[5px] h-[5px] bg-[#c9c9c9] rounded-full mx-auto"></div>
+                </div>
+              ) : null}
+            </>
           ))}
         </nav>
-
         {/* 모바일 햄버거 메뉴 버튼 */}
         <button
-          type="button"
-          onClick={toggleMenu}
-          className="md:hidden p-2 rounded-md hover:bg-gray-100"
-          aria-label="메뉴 열기/닫기"
-        >
-          {isMobileMenuOpen ? (
-            <X className="w-8 h-8" />
-          ) : (
-            <Menu className="w-8 h-8" />
-          )}
-        </button>
+            type="button"
+            onClick={toggleMenu}
+            className="lg:hidden pt-1 text-white rounded-md hover:bg-gray-100 sm:w-8 absolute top-0 right-0 mx-[3vw]"
+            aria-label="메뉴 열기/닫기"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-8 h-8" />
+            ) : (
+              <Menu className="w-8 h-8" />
+            )}
+          </button>
       </div>
 
       {/* 모바일 메뉴 */}
