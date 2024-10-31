@@ -13,6 +13,7 @@ module.exports = {
       },
       aspectRatio: {
         '4/3': '4 / 3',
+        '1.2/1': '1.2 / 1'
       },
       maxWidth: {
         '1920': '1920px', // 사용자 정의 max-width 클래스 추가

@@ -54,7 +54,7 @@ const Header: React.FC = () => {
     <header className="fixed top-[3vh] w-full h-0 bg-transparent relative z-50">
       <div className="relative flex max-w-1920 mx-auto justify-between items-center">
         {/* 로고 섹션 */}
-        <div className="top-0 left-0 mx-[3vw]">
+        <div className="top-0 left-0 mx-[6vw]">
           <img
             src="/gn50/asset/logo.svg"
             alt="강남구 CI*슬로건"
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               <button
                 key={item.id}
                 onClick={item.onClick}
-                className="font-semibold px-4 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
+                className="font-bold px-10 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
                 type="button"
               >
                 {item.label}

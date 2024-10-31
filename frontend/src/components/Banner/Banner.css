@@ -1,3 +1,17 @@
+.banner-wrap {
+  width: 93.75%;
+  height: 100%;
+  margin: 0 auto 4.5% auto;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.banner-text {
+  top: 22%;
+  color: white;
+  z-index: 10;
+}
+
 /* 초기 상태: 작은 원형으로 시작 */
 .clip-circle-initial {
   clip-path: circle(0% at 50% 150%);

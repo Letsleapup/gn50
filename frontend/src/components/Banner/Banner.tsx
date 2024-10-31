@@ -27,16 +27,16 @@ const Banner: FunctionComponent<Props> = ({ bannerUrl, robotUrl }) => {
   }, []);
 
   return (
-    <div className="relative w-full h-[100%] overflow-hidden bg-gray-100 flex items-center justify-center">
+    <div className="banner-wrap relative flex items-center justify-center">
       {isShown && (
-        <div className="absolute z-10 top-[13.25rem] text-center text-white">
-          <p className="text-[72px] font-bold leading-[96px] text-center tracking-tight">
+        <div className="banner-text absolute text-center">
+          <p className="text-[16px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[72px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
               50주년
             </span>
             을 맞이한
           </p>
-          <p className="text-[72px] font-bold leading-[96px] text-center tracking-tight">
+          <p className="text-[16px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[72px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
               강남
             </span>
@@ -54,7 +54,7 @@ const Banner: FunctionComponent<Props> = ({ bannerUrl, robotUrl }) => {
       <img
         src={bannerUrl}
         alt="배너 이미지"
-        className={`transition-all duration-3500 ease-in-out rounded-lg
+        className={`transition-all duration-3500 ease-in-out rounded-lg mb-0
           ${isFullscreen ? "clip-circle-expanded" : "clip-circle-initial"}`}
       />
     </div>
