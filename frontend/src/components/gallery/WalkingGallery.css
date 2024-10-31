@@ -1,20 +1,21 @@
 .shared-content1, .shared-content2, .shared-content3 {
-  width: 27%;
+  width: 25.313%;
+  border-radius: 20%;
 }
 
 .shared-content1 {
-  top: 5%;
-  right: 10%
+  top: 10.67%;
+  right: 18.75%
 }
 
 .shared-content2 {
-  top: 25%;
+  top: 44.07%;
   right: 50%;
 }
 
 .shared-content3 {
-  top: 50%;
-  right: 10%
+  top: 53.53%;
+  right: 18.75%
 }
 
 @keyframes float-robot {
