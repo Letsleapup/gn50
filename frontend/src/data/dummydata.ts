@@ -97,3 +97,58 @@ export const starterMessage = [
 
 export const BannerUrl = "/gn50/asset/main_img01@2x.png";
 export const RobotUrl = "/gn50/asset/main_chat_img01@2x.png";
+
+// SelectPage Dummy
+export type SelectOption = {
+  id: string;
+  title: string;
+  imgUrl: string;
+  style?: string;
+  backdrop?: string;
+  description?: string;
+};
+
+export type SelectOptionsType = {
+  walking: SelectOption[];
+  webtoon: SelectOption[];
+};
+
+const generateWalkingOptions = (count: number): SelectOption[] => {
+  return Array.from({ length: count }, (_, index) => ({
+    id: `walking-${index + 1}`,
+    title: `공원 ${index + 1}`,
+    imgUrl: `https://picsum.photos/id/${100 + index}/500/100`,
+    style: "",
+    backdrop: "",
+    description: `강남구의 공원 ${index + 1}.`,
+  }));
+};
+export const selectOptions: SelectOptionsType = {
+  walking: generateWalkingOptions(30),
+  webtoon: [
+    {
+      id: "1",
+      title: "과거의 강남",
+      imgUrl: "https://picsum.photos/id/124/500/100",
+      style: "gray",
+      backdrop: "1960s~1995s",
+      description: "과거의 강남은 어떤 모습이었을까요?",
+    },
+    {
+      id: "2",
+      title: "현재의 강남",
+      imgUrl: "https://picsum.photos/id/125/500/100",
+      style: "modern",
+      backdrop: "1996s~2025s",
+      description: "현재의 강남은 어떤 모습이 매력적이나요?",
+    },
+    {
+      id: "3",
+      title: "미래의 강남",
+      imgUrl: "https://picsum.photos/id/126/500/100",
+      style: "colorfull, megacity, ",
+      backdrop: "2025s~2040s",
+      description: "미래의 강남은 어떤 모습으로 발전했을까요?",
+    },
+  ],
+};

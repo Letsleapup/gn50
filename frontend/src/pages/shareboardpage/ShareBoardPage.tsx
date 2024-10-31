@@ -42,7 +42,7 @@ const ShareBoardPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-1 container mx-auto px-4 py-8 pt-[10rem]">
         {/* 필터 섹션 */}
         <div className="flex h-[60px] gap-2 mb-6">
           {filterButtons.map((button) => (
