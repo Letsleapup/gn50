@@ -43,13 +43,13 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
         강남구에서 걷기좋은 거리
       </p>
       <img
-        src={"/gn50/public/half_circle.png"}
+        src={"./half_circle.png"}
         alt="half-circle"
         className="absolute top-[20%] left-[50%] -translate-x-1/2 transition-transform duration-500"
         style={{ transform: `rotate(${rotation - 200}deg)` }}
       />
       <img
-        src={"/gn50/public/half_circle.png"}
+        src={"./half_circle.png"}
         alt="half-circle"
         className="absolute top-[20%] right-[50%] -translate-x-1/2 transition-transform duration-500"
         style={{ transform: `rotate(${rotation - 90}deg)` }}
