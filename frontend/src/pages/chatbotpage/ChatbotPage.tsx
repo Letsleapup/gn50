@@ -103,54 +103,55 @@ const ChatbotPage: React.FC = () => {
   }, [messages]);
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col ">
       <Header />
-      <h1 className="text-2xl font-bold p-4">ChatbotPage</h1>
+      <h1 className="text-2xl font-bold p-4 pt-[10rem]">ChatbotPage</h1>
 
       {/* 메세지 영역 */}
       <div className="relative border flex-1">
-        <div
-          className="h-full overflow-y-auto pb-20 p-4"
-          ref={messageContainerRef}
-        >
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`mb-4 ${
-                message.role === "assistant"
-                  ? "flex justify-start"
-                  : "flex justify-end"
-              }`}
-            >
+        <div className="relative border flex-1 max-w-[1200px] h-[700px] w-full mx-auto">
+          <div
+            className="h-full overflow-y-auto pb-20 p-4"
+            ref={messageContainerRef}
+          >
+            {messages.map((message, index) => (
               <div
-                className={`inline-block max-w-[70%] p-3 rounded-lg ${
+                key={index}
+                className={`mb-4 ${
                   message.role === "assistant"
-                    ? "bg-gray-200"
-                    : "bg-blue-500 text-white"
+                    ? "flex justify-start"
+                    : "flex justify-end"
                 }`}
               >
-                {message.content}
+                <div
+                  className={`inline-block max-w-[70%] p-3 rounded-lg ${
+                    message.role === "assistant"
+                      ? "bg-gray-200"
+                      : "bg-blue-500 text-white"
+                  }`}
+                >
+                  {message.content}
+                </div>
               </div>
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
 
-        {/* 입력 영역 */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gray-200">
-          <div className="m-2">
-            <AutoResizingTextarea
-              backgroundColor="white"
-              color="black"
-              hasButton={true}
-              placeholder="답변을 입력하세요"
-              onChange={handleTextChange}
-              onSendData={handleSendMessage}
-            />
+          {/* 입력 영역 */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gray-200">
+            <div className="m-2">
+              <AutoResizingTextarea
+                backgroundColor="white"
+                color="black"
+                hasButton={true}
+                placeholder="답변을 입력하세요"
+                onChange={handleTextChange}
+                onSendData={handleSendMessage}
+              />
+            </div>
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );

@@ -77,26 +77,23 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   }, [swiper]);
 
   return (
-    <div className="space-y-4 relative h-[69.75rem]  bg-black">
+    <div className="webtoon-gallery-container">
       {/* 헤더 섹션 */}
-      <div className="flex flex-col items-center lg:flex-row lg:px-[22.5rem] px-4">
-        <div className="w-[32.3125rem] text-[2rem] lg:text-[3.25rem] tracking-[-0.08125rem] font-bold text-white mt-[6rem] lg:mt-[10rem] ">
+      <div className="gallery-header">
+        <div className="gallery-title">
           강남의 과거·현재·미래를 <br />
           그린 웹툰을 확인해보세요!
         </div>
 
-        <div className="flex justify-center mt-[12.625rem] ml-[22.6875rem]">
-          <button
-            onClick={handleMoreClick}
-            className="flex items-center justify-between p-7 text-white text-[1.125rem] w-[10.625rem] h-[3.5rem] hover:text-white transition-colors moreclickbtn"
-          >
+        <div className="controls-container">
+          <button onClick={handleMoreClick} className=" moreclickbtn">
             <span>더보기</span>
             <img
               src="./asset/arrow_rw_s.svg"
               className="w-4 h-4 flex justify-center items-center mt-2"
             />
           </button>
-          <div className="flex gap-2 ml-[1.875rem]">
+          <div className="navigation-buttons">
             <button
               className="swiper-button-prev-custom p-2 border border-1-[#e4e4e4] w-[3.5rem] rounded-full hover:bg-gray-700 opacity-40"
               ref={navigationPrevRef}

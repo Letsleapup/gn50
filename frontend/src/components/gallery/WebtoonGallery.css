@@ -1,3 +1,61 @@
+/* Gallery 메인 컨테이너 */
+.webtoon-gallery-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: black;
+  overflow: hidden;
+}
+
+/* Gallery 헤더 */
+.gallery-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+/* Gallery 타이틀 */
+.gallery-title {
+  width: min(32.3125rem, 90%);
+  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  font-weight: bold;
+  color: white;
+  margin-top: 6rem;
+  letter-spacing: -0.08125rem;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 1920px) {
+  .gallery-header {
+    flex-direction: row;
+    padding: 0 22.5rem;
+  }
+
+  .gallery-title {
+    text-align: left;
+    font-size: 3.25rem;
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-title {
+    width: 100%;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .gallery-title {
+    font-size: 1.5rem;
+  }
+
+  .gallery-header {
+    padding: 0 0.5rem;
+  }
+}
+
 .swiper-button-prev-custom,
 .swiper-button-next-custom {
   transition: all 0.3s ease;
@@ -12,6 +70,11 @@
   position: relative;
   padding: 1rem 0;
   height: 46.875rem;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  right: 50%;
 }
 
 .slide-track {
@@ -59,6 +122,24 @@
   overflow: visible;
   height: 100%;
   z-index: 2;
+  padding: 0 5rem;
+}
+@media (min-width: 120rem) {
+  .webtoon-swiper {
+    padding: 0 5rem;
+  }
+}
+
+@media (max-width: 64rem) {
+  .webtoon-swiper {
+    padding: 0 3rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .webtoon-swiper {
+    padding: 0 1rem;
+  }
 }
 .swiper-wrapper {
   display: flex;
@@ -106,6 +187,93 @@
 .slider-container::after {
   right: 0;
   background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
+}
+.moreclickbtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem;
+  width: 10.625rem;
+  height: 3.5rem;
+  background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
+  border-radius: 1.75rem;
+  opacity: 1;
+}
+
+.controls-container {
+  display: flex;
+  align-items: center;
+  margin-top: 12.625rem;
+  margin-left: 22.6875rem;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 1920px) {
+  .controls-container {
+    margin-left: 22.6875rem;
+    margin-top: 12.625rem;
+  }
+
+  .slider-container {
+    padding: 0 22.5rem; /* 좌우 여백 추가 */
+  }
+}
+@media (max-width: 64rem) {
+  /* 1024px */
+  .controls-container {
+    margin-left: 1rem;
+    margin-top: 6rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  /* 768px */
+  .controls-container {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 4rem;
+  }
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1.875rem;
+}
+
+@media (max-width: 48rem) {
+  /* 768px */
+  .navigation-buttons {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 26.875rem) {
+  /* 430px */
+  .moreclickbtn {
+    width: 8rem;
+    height: 3rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .moreclickbtn img {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .swiper-button-prev-custom,
+  .swiper-button-next-custom {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .swiper-button-prev-custom img,
+  .swiper-button-next-custom img {
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
 /* infinite text */
@@ -155,13 +323,6 @@
   100% {
     transform: translate3d(-100%, 0, 0);
   }
-}
-
-.moreclickbtn {
-  background: transparent linear-gradient(90deg, #1b58fd 0%, #00baa8 100%) 0% 0%
-    no-repeat padding-box;
-  border-radius: 1.75rem;
-  opacity: 1;
 }
 
 /* 반응형 스타일 */
