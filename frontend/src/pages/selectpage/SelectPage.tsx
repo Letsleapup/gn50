@@ -85,17 +85,17 @@ const SelectPage: React.FC = () => {
                   : "linear-gradient(104deg, #F79D00 0%, #FF5C00 100%)",
             }}
           >
-            <div className="container mx-auto relative h-full flex items-end ">
+            <div className="container mx-auto w-[62.5%] relative h-full flex items-end ">
               {/* 배너의 왼쪽 타이틀 */}
-              <div className="flex flex-col items-start gap-6 md:gap-8 z-10 max-w-[40%]">
-                <div className="flex flex-col items-start text-2xl md:text-[52px] font-bold text-white leading-[76px] track">
+              <div className="flex flex-col items-start gap-2 md:gap-4 z-10 max-w-[40%]">
+                <div className="flex flex-col items-start text-2xl md:text-[52px] font-bold text-white leading-[76px] tracking-[-1.3px]">
                   {currentBanner.title.split("\n").map((line, index) => (
                     <span key={index} className="whitespace-nowrap">
                       {line}
                     </span>
                   ))}
                 </div>
-                <p className="text-white text-lg md:text-xl mt-7 opacity-90 mb-[76px]">
+                <p className="text-white text-xl md:text-[24px] opacity-90 mb-[76px] leading-[48px] tracking-[-0.6px]">
                   {currentBanner.description}
                 </p>
               </div>
@@ -123,7 +123,7 @@ const SelectPage: React.FC = () => {
                   <img
                     src={currentBanner.imgUrl}
                     alt="banner"
-                    className="w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute -bottom-3 -right-[150px]"
+                    className="w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute -bottom-3 -right-[300px]"
                     onError={(e) => {
                       console.error(
                         "Image loading failed:",
@@ -138,7 +138,7 @@ const SelectPage: React.FC = () => {
           </div>
         </div>
       )}
-      <main className="flex-1 container mx-auto px-4 py-8 pt-[10rem]">
+      <main className="flex-1 container mx-auto w-[62.5%] pt-20">
         <div className="min-h-[900px]">
           <div className="space-y-6">
             <OptionCard
@@ -153,7 +153,7 @@ const SelectPage: React.FC = () => {
 
             {/* 페이지네이션 컨트롤 */}
             {totalPages > 1 && (
-              <div className="flex justify-center gap-2 mt-12">
+              <div className="flex justify-center gap-2 mt-12 pb-10">
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.max(prev - 1, 1))

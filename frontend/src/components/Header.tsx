@@ -65,36 +65,35 @@ const Header: React.FC = () => {
         {/* 네비게이션 메뉴 */}
         <nav className="absolute top-[3%] left-[35%] w-[31%] flex justify-between opacity-75 hidden lg:flex bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3">
           {navItems.map((item, index) => (
-            <>
+            <React.Fragment key={item.id}>
               <button
-                key={item.id}
                 onClick={item.onClick}
                 className="font-bold px-10 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
                 type="button"
               >
                 {item.label}
               </button>
-              {index < navItems.length - 1 ? (
+              {index < navItems.length - 1 && (
                 <div className="flex items-center">
                   <div className="w-[5px] h-[5px] bg-[#c9c9c9] rounded-full mx-auto"></div>
                 </div>
-              ) : null}
-            </>
+              )}
+            </React.Fragment>
           ))}
         </nav>
         {/* 모바일 햄버거 메뉴 버튼 */}
         <button
-            type="button"
-            onClick={toggleMenu}
-            className="lg:hidden pt-1 text-white rounded-md hover:bg-gray-100 sm:w-8 absolute top-0 right-0 mx-[3vw]"
-            aria-label="메뉴 열기/닫기"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-8 h-8" />
-            ) : (
-              <Menu className="w-8 h-8" />
-            )}
-          </button>
+          type="button"
+          onClick={toggleMenu}
+          className="lg:hidden pt-1 text-white rounded-md hover:bg-gray-100 sm:w-8 absolute top-0 right-0 mx-[3vw]"
+          aria-label="메뉴 열기/닫기"
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-8 h-8" />
+          ) : (
+            <Menu className="w-8 h-8" />
+          )}
+        </button>
       </div>
 
       {/* 모바일 메뉴 */}

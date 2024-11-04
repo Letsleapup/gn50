@@ -113,14 +113,47 @@ export type SelectOptionsType = {
   webtoon: SelectOption[];
 };
 
+const gangnamParks = [
+  "도산공원",
+  "양재 시민의 숲",
+  "대치유수지 생태공원",
+  "선릉과 정릉",
+  "양재천",
+  "한티근린공원",
+  "개포근린공원",
+  "청담공원",
+  "세곡동 문화공원",
+  "강남세곡체육공원",
+  "율현공원",
+  "대모산자연공원",
+  "세곡지구근린공원",
+  "수서중앙공원",
+  "양재천근린공원",
+  "삼성중앙공원",
+  "일원마을공원",
+  "일원배수지체육공원",
+  "일원에코공원",
+  "도곡근린공원",
+  "장군봉근린공원",
+  "탄천근린공원",
+  "학동공원",
+  "압구정배수지공원",
+  "삼성에코공원",
+  "역삼공원",
+  "봉은공원",
+  "구룡산 도시자연공원",
+  "가로수길",
+  "신사공원",
+];
+
 const generateWalkingOptions = (count: number): SelectOption[] => {
   return Array.from({ length: count }, (_, index) => ({
     id: `walking-${index + 1}`,
-    title: `공원 ${index + 1}`,
+    title: `${gangnamParks[index]}`,
     imgUrl: `https://picsum.photos/id/${20 + index}/500/100`,
     style: "",
     backdrop: "",
-    description: `강남구의 공원 ${index + 1}.`,
+    description: `강남구의 ${gangnamParks[index]}.`,
   }));
 };
 export const selectOptions: SelectOptionsType = {
@@ -129,7 +162,7 @@ export const selectOptions: SelectOptionsType = {
     {
       id: "1",
       title: "과거의 강남",
-      imgUrl: "https://picsum.photos/id/124/500/100",
+      imgUrl: "./1960sGN(from_gpt).webp",
       style: "gray",
       backdrop: "1960s~1995s",
       description: "과거의 강남은 어떤 모습이었을까요?",
@@ -137,7 +170,7 @@ export const selectOptions: SelectOptionsType = {
     {
       id: "2",
       title: "현재의 강남",
-      imgUrl: "https://picsum.photos/id/125/500/100",
+      imgUrl: "./2025sGN(from_gpt).webp",
       style: "modern",
       backdrop: "1996s~2025s",
       description: "현재의 강남은 어떤 모습이 매력적이나요?",
@@ -145,7 +178,7 @@ export const selectOptions: SelectOptionsType = {
     {
       id: "3",
       title: "미래의 강남",
-      imgUrl: "https://picsum.photos/id/126/500/100",
+      imgUrl: "./2040sGN(from_gpt).webp",
       style: "colorfull, megacity, ",
       backdrop: "2025s~2040s",
       description: "미래의 강남은 어떤 모습으로 발전했을까요?",
