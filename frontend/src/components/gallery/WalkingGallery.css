@@ -5,8 +5,30 @@
   margin: 0;
 }
 
+.navigation-buttons {
+  top: 32%;
+  left: 30%;
+  z-index:100;
+  margin: 0;
+}
+
 .shared-content1, .shared-content2, .shared-content3 {
   width: 25.313%;
+}
+
+.item-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8%;
+  overflow: hidden;
+}
+
+.item-title {
+  text-align: left;
+  padding: 4.9% 4.9% 4.9% 3%;
+  margin: 0 auto 0 0;
+  font-size: 150%;
+  font-weight: 600;
 }
 
 .item-img {
@@ -37,6 +59,26 @@
 .shared-content3 {
   top: 53.53%;
   right: 18.75%
+}
+
+.control-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.57%;
+  width:8.85%;
+  height:3.73%;
+  top:32.3%;
+  left:18.95%;
+}
+
+.control-arrow > img {
+  margin: 0;
+}
+
+
+.hover-cover {
+  border-radius: 8%;
 }
 
 .control-arrow {
