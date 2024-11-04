@@ -13,6 +13,7 @@ import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
 import DetailContent from "./components/detailcontent/DetailContent";
 import { Loading } from "./components/Loading/Loading";
 import { starterMessage } from "./data/dummydata";
+import ErrorPage from "./pages/errorpage/ErrorPage";
 
 function ScrollToTop() {
   const location = useLocation();
@@ -58,6 +59,7 @@ const App: React.FC = () => {
             path="/shared/:type/:contentId"
             element={<DetailContent source="shareboard" />}
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
     </Router>

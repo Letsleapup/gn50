@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const WalkingGallery: FunctionComponent<Props> = ({
-  content,
+  // content,
   robotUrl,
 }) => {
   const data = sharedContents; //dummydata -> 추후 props로 받을 content로 데이터 처리

@@ -26,7 +26,7 @@
 }
 
 /* 반응형 스타일 */
-@media (min-width: 1920px) {
+@media (min-width: 1890px) {
   .gallery-header {
     flex-direction: row;
     padding: 0 22.5rem;
@@ -244,7 +244,7 @@
 
 .swiper-button-prev-custom:hover,
 .swiper-button-next-custom:hover {
-  background-color: #374151;
+  background-color: #989da5;
 }
 
 /* Swiper 기본 화살표 아이콘 제거 */
@@ -260,6 +260,7 @@
   height: 1.25rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
+  background-color: #e4e4e4;
 }
 
 /* 비활성화 상태 스타일 */
