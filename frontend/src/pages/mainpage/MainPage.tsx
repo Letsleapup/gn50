@@ -84,7 +84,7 @@ const MainPage: React.FC = () => {
 
         {/* 갤러리 섹션 */}
 
-        <div className="bg-yellow-50">
+        <div>
           {/* Walking 갤러리 */}
           <WalkingGallery robotUrl={RobotUrl} />
 
