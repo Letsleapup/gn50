@@ -117,7 +117,7 @@ const generateWalkingOptions = (count: number): SelectOption[] => {
   return Array.from({ length: count }, (_, index) => ({
     id: `walking-${index + 1}`,
     title: `공원 ${index + 1}`,
-    imgUrl: `https://picsum.photos/id/${100 + index}/500/100`,
+    imgUrl: `https://picsum.photos/id/${20 + index}/500/100`,
     style: "",
     backdrop: "",
     description: `강남구의 공원 ${index + 1}.`,

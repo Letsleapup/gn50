@@ -21,6 +21,8 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
 
+  const multipleContents = [...contents, ...contents, ...contents];
+
   const handleContentClick = useCallback(
     (content: SharedContent) => {
       navigate(`/shared/${content.type}/${content.id}`);
@@ -32,9 +34,6 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
     console.log(`Navigating to ${path}`);
     navigate(path);
   }, [navigate, path]);
-
-  // 컨텐츠 세 번 반복
-  const multipleContents = [...Array(10)].flatMap(() => contents);
 
   // 화면 크기 변경 감지
 
@@ -51,13 +50,13 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   // 화면 크기에 따른 슬라이더 설정
   const getSwiperSettings = () => {
     if (windowWidth <= 430) {
-      return { slidesPerView: 1.5, spaceBetween: 16 };
+      return { slidesPerView: 1.5 };
     } else if (windowWidth <= 768) {
-      return { slidesPerView: 2.5, spaceBetween: 24 };
+      return { slidesPerView: 2.5 };
     } else if (windowWidth <= 1024) {
-      return { slidesPerView: 3.5, spaceBetween: 36 };
+      return { slidesPerView: 3.5 };
     }
-    return { slidesPerView: 4, spaceBetween: 36 };
+    return { slidesPerView: 4 };
   };
 
   const handlePrevClick = useCallback(() => {
@@ -119,9 +118,12 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
           modules={[Navigation, Autoplay]}
           spaceBetween={16}
           loop={true}
-          loopAdditionalSlides={15}
           slidesPerView="auto"
           allowTouchMove={false}
+          observer={true}
+          observeParents={true}
+          centeredSlides={false}
+          watchSlidesProgress={true}
           navigation={{
             prevEl: navigationPrevRef.current,
             nextEl: navigationNextRef.current,
@@ -137,7 +139,6 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
           className="webtoon-swiper"
           onSwiper={(swiper) => {
             setSwiper(swiper);
-            // navigation 엘리먼트 업데이트
             if (
               swiper.params.navigation &&
               typeof swiper.params.navigation !== "boolean"
@@ -149,10 +150,11 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
             }
             swiper.autoplay.start();
           }}
+          // 끝에 도달했을 때 처음으로 돌아가는 대신 계속 진행
           onReachEnd={() => {
-            // 끝에 도달했을 때 처음으로 돌아가기
             if (swiper) {
-              swiper.slideTo(0, 0);
+              swiper.autoplay.start();
+              swiper.slideTo(0, 0, false);
             }
           }}
         >
