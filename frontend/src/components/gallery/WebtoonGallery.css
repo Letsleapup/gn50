@@ -231,7 +231,7 @@
 /* Swiper 네비게이션 버튼 스타일 통합 */
 .swiper-button-prev-custom,
 .swiper-button-next-custom {
-  position: static !important;
+  position: relative !important;
   margin: 0 !important;
   width: 3.5rem !important;
   height: 3.5rem !important;
@@ -244,7 +244,7 @@
 
 .swiper-button-prev-custom:hover,
 .swiper-button-next-custom:hover {
-  background-color: #989da5;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Swiper 기본 화살표 아이콘 제거 */
@@ -260,7 +260,8 @@
   height: 1.25rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
-  background-color: #e4e4e4;
+  filter: brightness(0) invert(1) !important;
+  display: block !important;
 }
 
 /* 비활성화 상태 스타일 */
