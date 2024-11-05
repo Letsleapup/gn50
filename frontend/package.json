@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://letsleapup.github.io/gn50/",
+  "homepage": "https://gn50.aixstudio.kr/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

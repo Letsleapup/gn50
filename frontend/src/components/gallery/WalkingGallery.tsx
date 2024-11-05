@@ -66,7 +66,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({
         >
           <span className="text-white">더보기</span>
           <img
-            src="/gn50/asset/arrow_rb_sm.svg"
+            src="/asset/arrow_rb_sm.svg"
             alt="화살표"
             className={"w-[12.17%] filter invert"}
           />
@@ -79,7 +79,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({
             disabled={endIndex <= 3}
           >
             <img
-              src="./asset/arrow_lg_sm.svg"
+              src="/asset/arrow_lg_sm.svg"
               className="w-5 h-5"
               alt="Previous"
             />
@@ -89,24 +89,24 @@ export const WalkingGallery: FunctionComponent<Props> = ({
             onClick={() => handleData(3)}
             disabled={endIndex >= data.length}
           >
-            <img src="./asset/arrow_rg_sm.svg" className="w-5 h-5" alt="Next" />
+            <img src="/asset/arrow_rg_sm.svg" className="w-5 h-5" alt="Next" />
           </button>
         </div>
       </div>
 
       {/* 이미지 요소 */}
       <img
-        src="/gn50/asset/bg_img01.svg"
+        src="/asset/bg_img01.svg"
         alt="별1"
         className="absolute w-[5.5%] z-50 top-[4.4%] right-[4.4%]"
       />
       <img
-        src="/gn50/asset/bg_img02.svg"
+        src="/asset/bg_img02.svg"
         alt="별2"
         className="absolute w-[5.5%] z-50 bottom-[18.4%] left-[4.4%]"
       />
       <img
-        src="/gn50/asset/bg_line01.svg"
+        src="/asset/bg_line01.svg"
         alt="half-circle"
         className="absolute w-[12.7%] top-[13%] right-[-1%] z-50 transition-transform duration-500"
         // style={{
@@ -114,7 +114,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({
         // }}
       />
       <img
-        src="/gn50/asset/bg_line01-1.svg"
+        src="/asset/bg_line01-1.svg"
         alt="half-circle"
         className="absolute w-[12.7%] bottom-[-3.6%] left-[0%] z-50 transition-transform duration-500"
         // style={{
@@ -148,7 +148,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({
 
               {/* Hover 시에만 나타나는 아이콘 */}
               <img
-                src="/gn50/asset/arrow_rb_sm.svg"
+                src="/asset/arrow_rb_sm.svg"
                 alt="arrow-rb"
                 className="relative w-[11.5%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
               />

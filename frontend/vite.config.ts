@@ -6,7 +6,7 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   plugins: [react()],
-  base: "/gn50/",
+  base: "/",
   resolve: {
     alias: {
       "@": "/src",

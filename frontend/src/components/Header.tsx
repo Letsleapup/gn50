@@ -56,7 +56,7 @@ const Header: React.FC = () => {
         {/* 로고 섹션 */}
         <div className="top-0 left-0 mx-[6vw]">
           <img
-            src="/gn50/asset/logo.svg"
+            src="/asset/logo.svg"
             alt="강남구 CI*슬로건"
             className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%]"
             onClick={() => navigate("/")}

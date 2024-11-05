@@ -21,14 +21,14 @@ const MainPage: React.FC = () => {
       title: "나만의 걷고 싶은 강남이미지\n상상더하기 체험",
       path: "/select/walking",
       bgColor: "bg-[#2942C4] hover:bg-gray-400",
-      imgUrl: "./asset/main_btn_img01.svg",
+      imgUrl: "/asset/main_btn_img01.svg",
     },
     {
       id: 2,
       title: "강남의 과거·현재·미래\n웹툰 생성 체험",
       path: "/select/webtoon",
       bgColor: "bg-[#F79D00] hover:bg-gray-400",
-      imgUrl: "./asset/main_btn_img02.svg",
+      imgUrl: "/asset/main_btn_img02.svg",
     },
   ];
 
@@ -68,7 +68,7 @@ const MainPage: React.FC = () => {
                   ))}
                 </div>
                 <img
-                  src="./asset/arrow_up_r.svg"
+                  src="/asset/arrow_up_r.svg"
                   alt="arrow_up"
                   className="w-[2.25rem] h-[2.25rem]"
                 />
