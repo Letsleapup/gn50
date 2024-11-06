@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: 18
           cache: "npm"
+          cache-dependency-path: "./frontend/package-lock.json"
       # 프론트엔드 빌드
       - name: Install dependencies
         working-directory: frontend
