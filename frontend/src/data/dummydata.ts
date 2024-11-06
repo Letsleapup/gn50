@@ -1,9 +1,4 @@
-import {
-  SharedContent,
-  BannerContent,
-  BannerContentType,
-  BoardType,
-} from "../@types/domain";
+import { SharedContent, BannerContentType } from "../@types/domain";
 
 export const sharedContents: SharedContent[] = [
   {
