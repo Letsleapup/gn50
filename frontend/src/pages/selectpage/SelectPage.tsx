@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
-import {
-  SelectOption,
-  SelectOptionsType,
-  selectOptions,
-} from "../../data/dummydata";
+import { SelectOptionsType, selectOptions } from "../../data/dummydata";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { ChevronsDown } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
+import { Option } from "../../@types/domain";
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
-    null
-  );
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
 
   // 현재 타입에 해당하는 전체 옵션들
-  const allOptions: SelectOption[] =
-    type && selectOptions[type] ? selectOptions[type] : [];
+  const allOptions: Option[] = type
+    ? selectOptions[type].map((item) => ({
+        ...item,
+        viewCount: 0, // TODO: API에서 받아온 viewCount
+      }))
+    : [];
 
   // 스크롤 이벤트 핸들러
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -62,7 +61,7 @@ const SelectPage: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       {type && <PageBanner type={type} />}
       <main
-        className="flex-1 container mx-auto w-[62.5%] pt-20 overflow-y-auto"
+        className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20 overflow-y-auto"
         onScroll={handleScroll}
       >
         <div className="min-h-[900px]">
@@ -96,6 +95,7 @@ const SelectPage: React.FC = () => {
                 `/chatbot/${type}?title=${selectedOption.title}&imgUrl=${selectedOption.imgUrl}&description=${selectedOption.description}`
               )
             }
+            btnCancleName="닫기"
           >
             <h1 className="mt-2">{selectedOption.title}</h1>
             <img src={selectedOption.imgUrl} alt={selectedOption.title} />

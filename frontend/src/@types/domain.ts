@@ -35,3 +35,12 @@ export interface SelectOptionsType {
   walking: SelectOption[];
   webtoon: SelectOption[];
 }
+
+export interface Option {
+  id: string;
+  title: string;
+  imgUrl: string;
+  backdrop?: string;
+  description?: string;
+  viewCount: number;
+}

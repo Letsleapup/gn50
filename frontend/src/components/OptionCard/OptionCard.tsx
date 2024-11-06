@@ -1,21 +1,11 @@
 import React from "react";
+import { Eye } from "lucide-react";
+import { Option } from "../../@types/domain";
 
 interface OptionCardProps {
-  options: {
-    id: string;
-    title: string;
-    imgUrl: string;
-    backdrop?: string;
-    description?: string;
-  }[];
+  options: Option[];
   type: "walking" | "webtoon";
-  onSelect: (option: {
-    id: string;
-    title: string;
-    imgUrl: string;
-    backdrop?: string;
-    description?: string;
-  }) => void;
+  onSelect: (option: Option) => void;
 }
 
 // OptionCard는 이제 단순히 옵션을 표시하고 선택하는 역할만 담당
@@ -29,7 +19,9 @@ export const OptionCard: React.FC<OptionCardProps> = ({
   return (
     <div
       className={`grid  justify-center ${
-        type === "walking" ? "grid-cols-3 gap-x-6" : "grid-cols-1 gap-y-6"
+        type === "walking"
+          ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+          : "grid-cols-1 gap-y-6"
       }`}
     >
       {options.map((option) => {
@@ -42,7 +34,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
               }}
               className={`${
                 type === "walking"
-                  ? "w-full "
+                  ? "w-[384px]"
                   : "w-full sm:h-[300px] h-[600px] flex items-center"
               } bg-white p-0 rounded-lg transition-all duration-300 transform hover:scale-105 overflow-hidden`}
             >
@@ -58,10 +50,14 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       e.currentTarget.src = "/fallback-image.jpg";
                     }}
                   />
-                  <div className="px-2 pb-[32px]">
+                  <div className="px-2 pb-[32px] flex justify-between items-center">
                     <h2 className="text-[20px] leading-[76px] tracking-[-0.5px] font-semibold truncate text-start">
                       {option.title}
                     </h2>
+                    <span className="text-gray-500 text-sm flex items-center gap-1">
+                      <Eye className="w-4 h-4" />
+                      {option.viewCount}
+                    </span>
                   </div>
                 </>
               ) : (
