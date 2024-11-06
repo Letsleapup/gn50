@@ -1,49 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   HashRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 import "./index.css";
 import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
 import MainPage from "./pages/mainpage/MainPage";
 import SelectPage from "./pages/selectpage/SelectPage";
 import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
-import DetailContent from "./components/detailcontent/DetailContent"
+import DetailContent from "./components/Detailcontent/DetailContent"
 import { Loading } from "./components/Loading/Loading";
 import { starterMessage } from "./data/dummydata";
 import ErrorPage from "./pages/errorpage/ErrorPage";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-
-function ScrollToTop() {
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
-  return null;
-}
+import { ScrollToTop } from "./util/ScrollToTop";
 
 const App: React.FC = () => {
-  console.log("App is rendering");
-  useEffect(() => {
-    const logSize = () => {
-      console.log("Window width:", window.innerWidth);
-      console.log(
-        "Root font-size:",
-        getComputedStyle(document.documentElement).fontSize
-      );
-    };
-
-    window.addEventListener("resize", logSize);
-    logSize(); // 초기 로드 시 크기 확인
-
-    return () => window.removeEventListener("resize", logSize);
-  }, []);
-
   return (
     <Router basename="">
       <div className="App">

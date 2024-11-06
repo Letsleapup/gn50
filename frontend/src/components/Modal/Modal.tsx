@@ -5,6 +5,8 @@ import "./Modal.css";
 interface Props {
   isOpen: boolean;
   btnName: string;
+  btnImgUrl?:string;
+  btnCancleName: string;
   onClose: () => void;
   onClick?: () => void;
   children?: ReactNode;
@@ -14,6 +16,8 @@ export const Modal: FunctionComponent<Props> = ({
   isOpen,
   onClose,
   btnName,
+  btnImgUrl,
+  btnCancleName = '닫기',
   onClick,
   children,
 }) => {
@@ -25,10 +29,10 @@ export const Modal: FunctionComponent<Props> = ({
         {children} {/* 모달 안에 표시될 내용 */}
         <div className="btn-layout">
           <button className="close-button" onClick={onClose}>
-            닫기
+            {btnCancleName}
           </button>
           <button className="navigate-button" onClick={onClick}>
-            {btnName}
+            {btnName}{btnImgUrl && <img src={btnImgUrl} alt="btn_img"/>}
           </button>
         </div>
       </div>
