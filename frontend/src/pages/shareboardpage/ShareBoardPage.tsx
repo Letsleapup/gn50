@@ -14,8 +14,8 @@ const ShareBoardPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!type) {
-    }
+    // if (!type) {
+    // }
   }, [type]);
 
   console.log("현재 게시판 타입:", type); // 디버깅용

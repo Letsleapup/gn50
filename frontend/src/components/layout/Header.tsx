@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { json, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // 타입 정의
 interface NavItem {
@@ -13,10 +13,10 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItemId, setActiveNavItemId] = useState<number | null>(null);
-  const onClickNavigate = (url:string, id: number) => {
+  const onClickNavigate = (url: string, id: number) => {
     setActiveNavItemId(id);
-    navigate(url)
-  }
+    navigate(url);
+  };
   // 네비게이션 아이템 정의
   const navItems: NavItem[] = [
     {
@@ -37,7 +37,6 @@ const Header: React.FC = () => {
   ];
 
   // 모바일 메뉴 햄버거
-  
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
