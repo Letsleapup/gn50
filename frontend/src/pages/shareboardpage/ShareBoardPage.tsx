@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { sharedContents } from "../../data/dummydata";
 import { BoardType, SharedContent } from "../../@types/domain";
@@ -12,12 +11,6 @@ const ShareBoardPage: React.FC = () => {
   const handleContentClick = (content: SharedContent) => {
     navigate(`/shared/${content.type}/${content.id}`);
   };
-
-  useEffect(() => {
-    // if (!type) {
-    // }
-  }, [type]);
-
   console.log("현재 게시판 타입:", type); // 디버깅용
 
   // 필터 버튼 정의

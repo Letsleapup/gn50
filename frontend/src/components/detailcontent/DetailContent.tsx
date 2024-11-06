@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { sharedContents } from "../../data/dummydata";
 import { SharedContent } from "../../@types/domain";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../layout/Footer";
-import Header from "../layout/Header";
-
 interface DetailContentProps {
   content?: SharedContent;
   source?: "chatbot" | "shareboard"; //어디서 넘어왔는지에 따라
@@ -47,18 +44,15 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
   if (!content) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
         <div className="flex-1 flex items-center justify-center">
           Loading...
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="flex-1 container">
-      <Header />
       <div className="flex flex-col items-center py-10">
         <h1 className="text-3xl font-bold mb-4">{getTitle()}</h1>
         <img
@@ -83,7 +77,6 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
           목록으로 이동하기
         </button>
       </div>
-      <Footer />
     </div>
   );
 };
