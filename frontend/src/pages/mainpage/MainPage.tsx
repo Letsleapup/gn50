@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MainBannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
 import Banner from "../../components/MainBanner/MainBanner";
-import WebtoonGallery from "../../components/gallery/WebtoonGallery"
+import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
-import { WalkingGallery } from "../../components/gallery/WalkingGallery";
+import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -43,7 +43,6 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
         <Banner mainbannerUrl={MainBannerUrl} robotUrl={RobotUrl} />
@@ -94,7 +93,6 @@ const MainPage: React.FC = () => {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

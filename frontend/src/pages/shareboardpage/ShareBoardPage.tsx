@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import { sharedContents } from "../../data/dummydata";
 import { BoardType, SharedContent } from "../../@types/domain";
 import PageBanner from "../../components/PageBanner/PageBanner";

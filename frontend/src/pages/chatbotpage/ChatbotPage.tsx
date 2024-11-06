@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Footer from "../../components/layout/Footer";
-import Header from "../../components/layout/Header";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams } from "react-router-dom";
 
