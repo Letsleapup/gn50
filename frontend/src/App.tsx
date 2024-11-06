@@ -10,10 +10,12 @@ import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
 import MainPage from "./pages/mainpage/MainPage";
 import SelectPage from "./pages/selectpage/SelectPage";
 import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
-import DetailContent from "./components/Detailcontent/DetailContent";
+import DetailContent from "./components/detailcontent/DetailContent";
 import { Loading } from "./components/Loading/Loading";
 import { starterMessage } from "./data/dummydata";
 import ErrorPage from "./pages/errorpage/ErrorPage";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 
 function ScrollToTop() {
   const location = useLocation();
@@ -45,6 +47,7 @@ const App: React.FC = () => {
   return (
     <Router basename="">
       <div className="App">
+        <Header/>
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -61,6 +64,7 @@ const App: React.FC = () => {
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );

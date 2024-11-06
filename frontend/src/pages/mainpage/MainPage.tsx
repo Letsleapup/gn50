@@ -1,15 +1,13 @@
 import React from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { MainBannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
 import Banner from "../../components/MainBanner/MainBanner";
-import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
+import WebtoonGallery from "../../components/gallery/WebtoonGallery"
 import "./MainPage.css";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
-import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
+import { WalkingGallery } from "../../components/gallery/WalkingGallery";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();

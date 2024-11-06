@@ -62,7 +62,6 @@ const SelectPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       {type && <PageBanner type={type} />}
       <main
         className="flex-1 container mx-auto w-[62.5%] pt-20 overflow-y-auto"
@@ -106,7 +105,6 @@ const SelectPage: React.FC = () => {
           </Modal>
         )}
       </main>
-      <Footer />
     </div>
   );
 };

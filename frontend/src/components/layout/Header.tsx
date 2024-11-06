@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, Navigate, useNavigate } from "react-router-dom";
 
 // 타입 정의
 interface NavItem {
@@ -11,27 +11,33 @@ interface NavItem {
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeNavItemId, setActiveNavItemId] = useState<number | null>(null);
+  const onClickNavigate = (url:string, id: number) => {
+    setActiveNavItemId(id);
+    navigate(url)
+  }
   // 네비게이션 아이템 정의
   const navItems: NavItem[] = [
     {
       id: 1,
       label: <>상상더하기 체험</>,
-      onClick: () => navigate("/select/walking"),
+      onClick: () => onClickNavigate("/select/walking", 1),
     },
     {
       id: 2,
       label: <>웹툰 생성 체험</>,
-      onClick: () => navigate("/select/webtoon"),
+      onClick: () => onClickNavigate("/select/webtoon", 2),
     },
     {
       id: 3,
       label: <>갤러리</>,
-      onClick: () => navigate("/shared/walking"),
+      onClick: () => onClickNavigate("/shared/walking", 3),
     },
   ];
 
   // 모바일 메뉴 햄버거
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -68,7 +74,8 @@ const Header: React.FC = () => {
             <React.Fragment key={item.id}>
               <button
                 onClick={item.onClick}
-                className="font-bold px-10 py-2 rounded-md hover:bg-blue-600 transition-colors text-center leading-tight"
+                className={`font-bold px-10 py-2 rounded-md transition-colors text-center leading-tight 
+                  ${activeNavItemId === item.id ? "text-blue-500" : "hover:text-blue"}`}
                 type="button"
               >
                 {item.label}

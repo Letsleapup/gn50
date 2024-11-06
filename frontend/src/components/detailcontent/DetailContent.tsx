@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { sharedContents } from "../../data/dummydata";
 import { SharedContent } from "../../@types/domain";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../Footer";
-import Header from "../Header";
+import Footer from "../layout/Footer";
+import Header from "../layout/Header";
 
 interface DetailContentProps {
   content?: SharedContent;

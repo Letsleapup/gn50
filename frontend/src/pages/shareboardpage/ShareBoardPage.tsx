@@ -43,7 +43,6 @@ const ShareBoardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       {type && <PageBanner type={currentType} />}
       <main className="flex-1 container mx-auto px-4 py-8 ">
         {/* 필터 섹션 */}
@@ -96,7 +95,6 @@ const ShareBoardPage: React.FC = () => {
           ))}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

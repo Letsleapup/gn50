@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import Footer from "../../components/layout/Footer";
+import Header from "../../components/layout/Header";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -104,7 +104,6 @@ const ChatbotPage: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col ">
-      <Header />
       <h1 className="text-2xl font-bold p-4 pt-[10rem]">ChatbotPage</h1>
 
       {/* 메세지 영역 */}
@@ -152,7 +151,6 @@ const ChatbotPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
