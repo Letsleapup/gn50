@@ -49,7 +49,6 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {JSON.stringify(bannerUrl)}
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
         {bannerUrl &&<Banner mainbannerUrl={bannerUrl} robotUrl={RobotUrl} /> } 
