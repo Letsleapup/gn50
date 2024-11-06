@@ -1,4 +1,9 @@
-import { SharedContent } from "../@types/domain";
+import {
+  SharedContent,
+  BannerContent,
+  BannerContentType,
+  BoardType,
+} from "../@types/domain";
 
 export const sharedContents: SharedContent[] = [
   {
@@ -86,6 +91,28 @@ export const sharedContents: SharedContent[] = [
     createdAt: "2024-03-04",
   },
 ];
+
+// 배너 데이터
+export const bannerContent: BannerContentType = {
+  walking: {
+    title: "내가 걷고 싶은 강남의\n모습을 만들어 보세요!",
+    description: "걷고 싶은 강남구의 장소를 선택하세요.",
+    bgColor: "bg-[#2942C4]",
+    imgUrl: "./asset/main_btn_img01.svg",
+  },
+  webtoon: {
+    title: "강남의 과거·현재·미래를\n웹툰으로 그려 보세요!",
+    description: "그리고 싶은 웹툰의 배경을 선택하세요.",
+    bgColor: "bg-[#F79D00]",
+    imgUrl: "./asset/main_btn_img02.svg",
+  },
+  gallery: {
+    title: "다른 사람들이 만든\n작품을 구경해보세요!",
+    description: "AI 컨텐츠 공모전!",
+    bgColor: "bg-[#00BAA8]",
+    imgUrl: "",
+  },
+};
 
 //loading welcome_message
 export const starterMessage = [

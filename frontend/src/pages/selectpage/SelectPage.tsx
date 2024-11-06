@@ -10,6 +10,7 @@ import {
 } from "../../data/dummydata";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { ChevronsDown } from "lucide-react";
+import PageBanner from "../../components/PageBanner/PageBanner";
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,25 +20,6 @@ const SelectPage: React.FC = () => {
     null
   );
   const [visibleCount, setVisibleCount] = useState(9);
-
-  // 배너 데이터
-  const bannerContent = {
-    walking: {
-      title: "내가 걷고 싶은 강남의\n모습을 만들어 보세요!",
-      description: "걷고 싶은 강남구의 장소를 선택하세요.",
-      bgColor: "bg-[#2942C4]",
-      imgUrl: "./asset/main_btn_img01.svg",
-    },
-    webtoon: {
-      title: "강남의 과거·현재·미래를\n웹툰으로 그려 보세요!",
-      description: "그리고 싶은 웹툰의 배경을 선택하세요.",
-      bgColor: "bg-[#F79D00]",
-      imgUrl: "./asset/main_btn_img02.svg",
-    },
-  };
-
-  // 현재 타입의 배너 정보 가져오기
-  const currentBanner = type ? bannerContent[type] : null;
 
   // 현재 타입에 해당하는 전체 옵션들
   const allOptions: SelectOption[] =
@@ -81,72 +63,7 @@ const SelectPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
-      {/* Banner Section - 1920x500px */}
-      {currentBanner && (
-        <div className="w-full h-[500px] relative overflow-hidden">
-          <div
-            className={`w-full h-full ${currentBanner.bgColor} flex items-center rounded-b-[40px]`}
-            style={{
-              background:
-                type === "walking"
-                  ? "linear-gradient(104deg, #1B58FD 0%, #00BAA8 100%)"
-                  : "linear-gradient(104deg, #F79D00 0%, #FF5C00 100%)",
-            }}
-          >
-            <div className="container mx-auto w-[62.5%] relative h-full flex items-end ">
-              {/* 배너의 왼쪽 타이틀 */}
-              <div className="flex flex-col items-start gap-2 md:gap-4 z-10 max-w-[40%]">
-                <div className="flex flex-col items-start text-2xl md:text-[52px] font-bold text-white leading-[76px] tracking-[-1.3px]">
-                  {currentBanner.title.split("\n").map((line, index) => (
-                    <span key={index} className="whitespace-nowrap">
-                      {line}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-white text-xl md:text-[24px] opacity-90 mb-[76px] leading-[48px] tracking-[-0.6px]">
-                  {currentBanner.description}
-                </p>
-              </div>
-
-              {/* 배너의 중앙 오른쪽 이미지들 컨테이너*/}
-              <div className="absolute top-0 right-0 h-full w-[50%] flex items-end">
-                <div className="relative w-full h-full">
-                  {/* 로봇과 우주선 그룹 */}
-                  <div className="absolute -bottom-20 left-18">
-                    {/* 우주선 */}
-                    <img
-                      src="./screenshot_2024-11-01.png"
-                      className="w-[73.51px] h-auto hidden lg:block absolute"
-                      alt="우주선"
-                    />
-                    {/* 로봇 */}
-                    <img
-                      src="./screenshot2024-11-01.png"
-                      alt="Robot"
-                      className="w-[18rem] md:w-[20rem] h-auto hidden md:block"
-                    />
-                  </div>
-
-                  {/* 배경 건물 이미지 */}
-                  <img
-                    src={currentBanner.imgUrl}
-                    alt="banner"
-                    className="w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute -bottom-3 -right-[300px]"
-                    onError={(e) => {
-                      console.error(
-                        "Image loading failed:",
-                        currentBanner.imgUrl
-                      );
-                      e.currentTarget.src = "/fallback-image.jpg";
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {type && <PageBanner type={type} />}
       <main
         className="flex-1 container mx-auto w-[62.5%] pt-20 overflow-y-auto"
         onScroll={handleScroll}

@@ -3,12 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { sharedContents } from "../../data/dummydata";
-import { SharedContent } from "../../@types/domain";
+import { BoardType, SharedContent } from "../../@types/domain";
+import PageBanner from "../../components/PageBanner/PageBanner";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();
   // URL 파라미터로 게시판 타입 구분 (walking 또는 webtoon)
-  const { type } = useParams<{ type: string }>();
+  const { type } = useParams<{ type?: BoardType }>();
 
   const handleContentClick = (content: SharedContent) => {
     navigate(`/shared/${content.type}/${content.id}`);
@@ -35,6 +36,7 @@ const ShareBoardPage: React.FC = () => {
     },
   ];
 
+  const currentType = "gallery";
   const filteredContents = sharedContents.filter(
     (content) => content.type === type
   );
@@ -42,7 +44,8 @@ const ShareBoardPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8 pt-[10rem]">
+      {type && <PageBanner type={currentType} />}
+      <main className="flex-1 container mx-auto px-4 py-8 ">
         {/* 필터 섹션 */}
         <div className="flex h-[60px] gap-2 mb-6">
           {filterButtons.map((button) => (
