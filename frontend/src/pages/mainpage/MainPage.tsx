@@ -14,8 +14,8 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const [bannerUrl, setBannerUrl] = useState<string>()
   useEffect(() => {
-    const getBannerUrlApi = async () => await axios.get("http://mgn50.aixstudio.kr:8080/api/api_main_banner.php")
-    getBannerUrlApi().then(res =>  setBannerUrl(`http://mgn50.aixstudio.kr:8080/${res.data.banner1[0].url}`))
+    const getBannerUrlApi = async () => await axios.get("http://mgn50.aixstudio.kr/api/api_main_banner.php")
+    getBannerUrlApi().then(res =>  setBannerUrl(`http://mgn50.aixstudio.kr/${res.data.banner1[0].url}`))
   },[])
 
   // 버튼 섹션 데이터
