@@ -1,6 +1,5 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { MainBannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
+import { RobotUrl, sharedContents } from "../../data/dummydata";
 import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import "./MainPage.css";
@@ -8,9 +7,16 @@ import "./MainPage.css";
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
+  const [bannerUrl, setBannerUrl] = useState<string>()
+  useEffect(() => {
+    const getBannerUrlApi = async () => await axios.get("http://mgn50.aixstudio.kr:8080/api/api_main_banner.php")
+    getBannerUrlApi().then(res =>  setBannerUrl(`http://mgn50.aixstudio.kr:8080/${res.data.banner1[0].url}`))
+  },[])
 
   // 버튼 섹션 데이터
   const actionButtons = [
@@ -43,9 +49,10 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {JSON.stringify(bannerUrl)}
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
-        <Banner mainbannerUrl={MainBannerUrl} robotUrl={RobotUrl} />
+        {bannerUrl &&<Banner mainbannerUrl={bannerUrl} robotUrl={RobotUrl} /> } 
         {/* 버튼 섹션 */}
         <div className="flex h-[20rem] gap-[2.25rem] lg:mx-[3.75rem]">
           {actionButtons.map((button) => (

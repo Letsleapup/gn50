@@ -10,7 +10,7 @@ import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
 import MainPage from "./pages/mainpage/MainPage";
 import SelectPage from "./pages/selectpage/SelectPage";
 import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
-import DetailContent from "./components/Detailcontent/DetailContent";
+import DetailContent from "./components/detailcontent/DetailContent"
 import { Loading } from "./components/Loading/Loading";
 import { starterMessage } from "./data/dummydata";
 import ErrorPage from "./pages/errorpage/ErrorPage";
