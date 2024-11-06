@@ -9,16 +9,16 @@ import {
   selectOptions,
 } from "../../data/dummydata";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
-import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import { ChevronsDown } from "lucide-react";
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
+  const [visibleCount, setVisibleCount] = useState(9);
 
   // 배너 데이터
   const bannerContent = {
@@ -29,8 +29,8 @@ const SelectPage: React.FC = () => {
       imgUrl: "./asset/main_btn_img01.svg",
     },
     webtoon: {
-      title: "강남의 과거·현재·미래\n웹툰 생성 체험",
-      description: "웹툰 작가 체험하기!",
+      title: "강남의 과거·현재·미래를\n웹툰으로 그려 보세요!",
+      description: "그리고 싶은 웹툰의 배경을 선택하세요.",
       bgColor: "bg-[#F79D00]",
       imgUrl: "./asset/main_btn_img02.svg",
     },
@@ -38,27 +38,36 @@ const SelectPage: React.FC = () => {
 
   // 현재 타입의 배너 정보 가져오기
   const currentBanner = type ? bannerContent[type] : null;
-  const itemsPerPage = 9;
 
   // 현재 타입에 해당하는 전체 옵션들
   const allOptions: SelectOption[] =
     type && selectOptions[type] ? selectOptions[type] : [];
 
-  // 페이지네이션된 옵션들 계산
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentOptions = allOptions.slice(indexOfFirstItem, indexOfLastItem);
+  // 스크롤 이벤트 핸들러
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollHeight, scrollTop, clientHeight } = e.currentTarget;
 
-  // 전체 페이지 수 계산
-  const totalPages = Math.ceil(allOptions.length / itemsPerPage);
+    // 스크롤이 하단에 가까워지면 더 많은 옵션을 보여줌
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      setVisibleCount((prev) => Math.min(prev + 9, allOptions.length));
+    }
+  };
 
-  console.log("Current page:", currentPage); // 페이지 변경 추적
-  console.log("Current options:", currentOptions); // 현재 표시되는 옵션들 추적
-
+  // 스크롤 이벤트 핸들러를 window에 연결
   useEffect(() => {
-    // 타입이 변경될 때 페이지를 1로 리셋
-    setCurrentPage(1);
-  }, [type]);
+    const handleScroll = () => {
+      // 화면 맨 아래에서 100px 위치에 도달하면 추가 로드
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 100
+      ) {
+        setVisibleCount((prev) => Math.min(prev + 9, allOptions.length));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [allOptions.length]);
 
   const onClose = () => {
     setIsOpen(false);
@@ -138,63 +147,26 @@ const SelectPage: React.FC = () => {
           </div>
         </div>
       )}
-      <main className="flex-1 container mx-auto w-[62.5%] pt-20">
+      <main
+        className="flex-1 container mx-auto w-[62.5%] pt-20 overflow-y-auto"
+        onScroll={handleScroll}
+      >
         <div className="min-h-[900px]">
           <div className="space-y-6">
             <OptionCard
-              options={currentOptions}
+              options={allOptions.slice(0, visibleCount)}
               type={type as "walking" | "webtoon"}
               onSelect={(option) => {
-                console.log("Option selected in SelectPage:", option); // 선택 이벤트 추적
+                console.log("Option selected:", option);
                 setIsOpen(true);
                 setSelectedOption(option);
               }}
             />
 
-            {/* 페이지네이션 컨트롤 */}
-            {totalPages > 1 && (
-              <div className="flex justify-center gap-2 mt-12 pb-10">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                  className={`px-4 py-2 rounded-lg ${
-                    currentPage === 1
-                      ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-blue-500 hover:bg-blue-600 text-white"
-                  }`}
-                >
-                  <ChevronsLeft />
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={`w-10 h-10 rounded-lg ${
-                        currentPage === page
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-200 hover:bg-gray-300"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  )
-                )}
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                  className={`px-4 py-2 rounded-lg ${
-                    currentPage === totalPages
-                      ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-blue-500 hover:bg-blue-600 text-white"
-                  }`}
-                >
-                  <ChevronsRight />
-                </button>
+            {/* 더 많은 옵션이 있을 경우에만 화살표 표시 */}
+            {visibleCount < allOptions.length && (
+              <div className="flex justify-center py-4">
+                <ChevronsDown className="animate-bounce" />
               </div>
             )}
           </div>

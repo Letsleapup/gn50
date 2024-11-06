@@ -24,3 +24,11 @@ eslint-plugin-react-hooks: React Hooks 규칙<br>
 
 구글 open sans<br>
 <br>
+
+## 배포
+
+1. GitHub Actions에서 프로젝트를 빌드
+2. 빌드 결과물을 EC2로 전송
+3. PM2로 Node 서버 실행
+4. Apache로 정적 파일 서빙 및 Node 서버로 프록시
+5. 자동 배포 완료

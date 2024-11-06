@@ -95,7 +95,7 @@ export const starterMessage = [
   "보여드리기전에 고칠 부분이 있나 분석중이에요",
 ];
 
-export const BannerUrl = "/asset/main_img01@2x.png";
+export const MainBannerUrl = "/asset/main_img01@2x.png";
 export const RobotUrl = "/asset/main_chat_img01@2x.png";
 
 // SelectPage Dummy

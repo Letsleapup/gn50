@@ -57,9 +57,9 @@ const DetailContent: React.FC<DetailContentProps> = ({ source }) => {
   }
 
   return (
-    <div className="flex-1 container mx-auto px-4 py-8">
+    <div className="flex-1 container">
       <Header />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center py-10">
         <h1 className="text-3xl font-bold mb-4">{getTitle()}</h1>
         <img
           src={content.imgUrl}

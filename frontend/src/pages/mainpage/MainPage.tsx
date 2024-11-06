@@ -2,8 +2,8 @@ import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
-import { BannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
-import Banner from "../../components/Banner/Banner";
+import { MainBannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
+import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/gallery/WebtoonGallery";
 import "./MainPage.css";
 
@@ -48,7 +48,7 @@ const MainPage: React.FC = () => {
       <Header />
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
-        <Banner bannerUrl={BannerUrl} robotUrl={RobotUrl} />
+        <Banner mainbannerUrl={MainBannerUrl} robotUrl={RobotUrl} />
         {/* 버튼 섹션 */}
         <div className="flex h-[20rem] gap-[2.25rem] lg:mx-[3.75rem]">
           {actionButtons.map((button) => (
