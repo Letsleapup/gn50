@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { RobotUrl, sharedContents } from "../../data/dummydata";
+import { MainBannerUrl, RobotUrl, sharedContents } from "../../data/dummydata";
 import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import "./MainPage.css";
@@ -15,7 +15,9 @@ const MainPage: React.FC = () => {
   const [bannerUrl, setBannerUrl] = useState<string>()
   useEffect(() => {
     const getBannerUrlApi = async () => await axios.get("http://mgn50.aixstudio.kr/api/api_main_banner.php")
-    getBannerUrlApi().then(res =>  setBannerUrl(`http://mgn50.aixstudio.kr/${res.data.banner1[0].url}`))
+    getBannerUrlApi()
+    .then(res =>  setBannerUrl(`http://mgn50.aixstudio.kr/${res.data.banner1[0].url}`))
+    .catch(_rej => setBannerUrl(MainBannerUrl) )
   },[])
 
   // 버튼 섹션 데이터

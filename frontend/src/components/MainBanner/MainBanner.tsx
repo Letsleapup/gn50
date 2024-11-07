@@ -54,7 +54,7 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
       <img
         src={mainbannerUrl}
         alt="배너 이미지"
-        className={`transition-all duration-3500 ease-in-out rounded-lg mb-0
+        className={`transition-all duration-3500 ease-in-out rounded-lg mt-0 mb-0
           ${isFullscreen ? "clip-circle-expanded" : "clip-circle-initial"}`}
       />
     </div>
