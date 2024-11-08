@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SharedContent } from "../../@types/domain";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,6 +7,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "./WebtoonGallery.css";
 import "swiper/swiper-bundle.css";
 
+// 주석부분은 Swiper네비게이션 버튼에 대한 것입니다.
 interface WebtoonGalleryProps {
   title: string;
   path: string;
@@ -59,15 +60,15 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   // 화면 크기에 따른 슬라이더 설정
   const getSwiperSettings = () => {
     if (windowWidth <= 430) {
-      return { slidesPerView: 1.5 };
+      return { slidesPerView: 1.2, spaceBetween: 12 };
     } else if (windowWidth <= 768) {
-      return { slidesPerView: 2.5 };
+      return { slidesPerView: 2.2, spaceBetween: 14 };
     } else if (windowWidth <= 1024) {
-      return { slidesPerView: 3.5 };
+      return { slidesPerView: 3.2, spaceBetween: 16 };
     } else if (windowWidth >= 1920) {
-      return { slidesPerView: "auto" };
+      return { slidesPerView: "auto", spaceBetween: 20 };
     }
-    return { slidesPerView: 4 };
+    return { slidesPerView: 4, spaceBetween: 16 };
   };
 
   // const handlePrevClick = useCallback(() => {
@@ -160,19 +161,6 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
           // 저항 관련 설정
           resistance={true} // 처음과 마지막 슬라이드에서 저항 적용
           resistanceRatio={0.85} // 저항 비율
-          // 터치 이벤트 핸들링
-          onTouchStart={() => {
-            console.log("Touch started");
-            if (swiper) {
-              swiper.autoplay.stop(); // 터치 시작시 자동 재생 중지
-            }
-          }}
-          onTouchEnd={() => {
-            console.log("Touch ended");
-            if (swiper) {
-              swiper.autoplay.start(); // 터치 종료시 자동 재생 재개
-            }
-          }}
           observer={true} // DOM 변화 감지
           observeParents={true} // 부모 요소의 변화도 감지
           centeredSlides={false}
@@ -189,31 +177,58 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
             pauseOnMouseEnter: true,
             stopOnLastSlide: false,
             reverseDirection: false,
+            waitForTransition: true, //트랜지션이 끝날 때까지 대기
           }}
-          speed={15000}
+          speed={4000}
           className="webtoon-swiper"
+          onTouchStart={() => {
+            console.log("Touch started");
+            if (swiper) {
+              swiper.autoplay.stop();
+            }
+          }}
+          onTouchEnd={() => {
+            console.log("Touch ended");
+            setTimeout(() => {
+              if (swiper) {
+                swiper.autoplay.start();
+              }
+            }, 1000); // 1초 후에 다시 시작
+          }}
+          onTransitionEnd={() => {
+            console.log("Transition ended");
+            if (swiper) {
+              swiper.autoplay.start();
+            }
+          }}
           onSwiper={(swiperInstance) => {
             setSwiper(swiperInstance);
-            if (
-              // 네비게이션 초기화 및 업데이트
-              swiperInstance.params.navigation &&
-              typeof swiperInstance.params.navigation !== "boolean"
-            )
-              //  {
-              //   swiperInstance.params.navigation.prevEl =
-              //     navigationPrevRef.current;
-              //   swiperInstance.params.navigation.nextEl =
-              //     navigationNextRef.current;
-              //   swiperInstance.navigation.init();
-              //   swiperInstance.navigation.update();
-              // }
-              swiperInstance.autoplay.start();
+            //   if (
+            //     // 네비게이션 초기화 및 업데이트
+            //     swiperInstance.params.navigation &&
+            //     typeof swiperInstance.params.navigation !== "boolean"
+            //   )
+            //      {
+            //       swiperInstance.params.navigation.prevEl =
+            //         navigationPrevRef.current;
+            //       swiperInstance.params.navigation.nextEl =
+            //         navigationNextRef.current;
+            //       swiperInstance.navigation.init();
+            //       swiperInstance.navigation.update();
+            //     }
+            swiperInstance.autoplay.start();
           }}
           // 끝에 도달했을 때 처음으로 돌아가는 대신 계속 진행
           onReachEnd={() => {
             if (swiper) {
               swiper.autoplay.start();
               swiper.slideTo(0, 0, false);
+            }
+          }}
+          onLoopFix={() => {
+            console.log("Loop fixed");
+            if (swiper) {
+              swiper.autoplay.start();
             }
           }}
         >
