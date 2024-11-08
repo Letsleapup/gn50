@@ -47,7 +47,7 @@ const ChatbotPage: React.FC = () => {
     try {
       setIsLoading(true);
       console.log("Sending chat history...");
-
+      console.log(isFocused) //TODO: 삭제예정
       const historyData: ChatHistory = {
         type: type || "",
         selectedTitle: title || "",

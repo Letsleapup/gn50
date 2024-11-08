@@ -25,6 +25,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
     console.log(nextIndex, nextStartIndex)
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
+    console.log(rotation) //TODO: 삭제 예정
     
   };
 
