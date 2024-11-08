@@ -23,6 +23,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
     const nextIndex = endIndex + step;
     const nextStartIndex = Math.max(nextIndex - 3, 0);
     console.log(nextIndex, nextStartIndex)
+    console.log("test for code yaml")
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
     console.log(rotation) //TODO: 삭제 예정
