@@ -52,16 +52,21 @@ const SelectPage: React.FC = () => {
     setIsOpen(false);
   };
 
-  const onNavigate = (url: string) => {
-    console.log("Navigating to:", url); // 네비게이션 추적
-    navigate(url);
+  const onNavigate = (option: Option) => {
+    const params = new URLSearchParams({
+      title: option.title,
+      imgUrl: encodeURIComponent(option.imgUrl),
+      description: option.description || "",
+    });
+
+    navigate(`/chatbot/${type}?${params.toString()}`);
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       {type && <PageBanner type={type} />}
       <main
-        className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20 overflow-y-auto"
+        className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20"
         onScroll={handleScroll}
       >
         <div className="min-h-[900px]">
@@ -90,15 +95,15 @@ const SelectPage: React.FC = () => {
             isOpen={isOpen}
             onClose={onClose}
             btnName={type === "walking" ? "이미지 만들기" : "웹툰 그리기"}
-            onClick={() =>
-              onNavigate(
-                `/chatbot/${type}?title=${selectedOption.title}&imgUrl=${selectedOption.imgUrl}&description=${selectedOption.description}`
-              )
-            }
+            onClick={() => onNavigate(selectedOption)}
             btnCancleName="닫기"
           >
             <h1 className="mt-2">{selectedOption.title}</h1>
-            <img src={selectedOption.imgUrl} alt={selectedOption.title} />
+            <img
+              src={selectedOption.imgUrl}
+              alt={selectedOption.title}
+              className="h-[300px] rounded-xl object-cover"
+            />
             <p>{selectedOption.description}</p>
           </Modal>
         )}

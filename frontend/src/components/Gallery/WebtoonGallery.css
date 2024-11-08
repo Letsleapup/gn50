@@ -57,7 +57,7 @@
 }
 
 .slider-container {
-  margin-top: 6.625rem;
+  margin-top: 2rem;
   overflow: hidden;
   position: relative;
   height: 46.875rem;
@@ -228,58 +228,6 @@
   }
 }
 
-/* Swiper 네비게이션 버튼 스타일 통합 */
-.swiper-button-prev-custom,
-.swiper-button-next-custom {
-  position: relative !important;
-  margin: 0 !important;
-  width: 3.5rem !important;
-  height: 3.5rem !important;
-  background: transparent;
-  border: 1px solid #e4e4e4;
-  border-radius: 9999px;
-  transition: background-color 0.3s ease;
-  opacity: 0.4;
-}
-
-.swiper-button-prev-custom:hover,
-.swiper-button-next-custom:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Swiper 기본 화살표 아이콘 제거 */
-.swiper-button-prev-custom::after,
-.swiper-button-next-custom::after {
-  display: none !important;
-}
-
-/* 버튼 내부 이미지 스타일 */
-.swiper-button-prev-custom img,
-.swiper-button-next-custom img {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  filter: brightness(0) invert(1) !important;
-  display: block !important;
-}
-
-/* 비활성화 상태 스타일 */
-.swiper-button-disabled {
-  opacity: 0.35 !important;
-  cursor: not-allowed !important;
-  pointer-events: none;
-}
-
-/* 반응형 조정 */
-@media (max-width: 26.875rem) {
-  .swiper-button-prev-custom img,
-  .swiper-button-next-custom img {
-    width: 1rem;
-    height: 1rem;
-  }
-}
-
 /* Swiper 래퍼 transition 조정 */
 .swiper-wrapper {
   display: flex;
@@ -314,6 +262,7 @@
   height: 13.25rem;
   margin-left: -50vw;
   margin-right: -50vw;
+  /* margin-bottom: 50px; */
   left: 50%;
   right: 50%;
 }

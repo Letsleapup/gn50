@@ -168,6 +168,23 @@ const gangnamParks = [
   "신사공원",
 ];
 
+// 웹툰 관련 질문 리스트
+export const webtoonQuestions = [
+  "웹툰의 장르를 알려주세요(예: 일상, 액션, 로맨스 등)",
+  "웹툰의 주인공은 누구인가요?",
+  "주인공은 어떤 행동을 하고 있나요?",
+  "다른 알아야 할 점이 있나요?",
+];
+
+// 걷기 관련 질문 리스트
+export const walkingQuestions = [
+  "어떤 계절에 걷고 싶으신가요?",
+  "걸을 때의 날씨는 어떤가요?",
+  "누구와 함께 걷고 싶으세요?",
+  "걸을 때의 기분을 알려주세요",
+  "다른 알아야 할 점이 있나요?",
+];
+
 const generateWalkingOptions = (count: number): SelectOption[] => {
   return Array.from({ length: count }, (_, index) => ({
     id: `walking-${index + 1}`,

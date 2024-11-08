@@ -18,8 +18,8 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   // Swiper 인스턴스를 저장할 state
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
+  // const navigationPrevRef = useRef(null);
+  // const navigationNextRef = useRef(null);
 
   const multipleContents = [...contents, ...contents, ...contents];
 
@@ -70,33 +70,33 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
     return { slidesPerView: 4 };
   };
 
-  const handlePrevClick = useCallback(() => {
-    if (swiper) {
-      swiper.autoplay.stop(); // 자동 재생 중지
-      swiper.params.speed = 500; // 빠른 전환 속도
-      swiper.slidePrev();
+  // const handlePrevClick = useCallback(() => {
+  //   if (swiper) {
+  //     swiper.autoplay.stop(); // 자동 재생 중지
+  //     swiper.params.speed = 500; // 빠른 전환 속도
+  //     swiper.slidePrev();
 
-      // 전환 후 자동 재생 재개
-      setTimeout(() => {
-        swiper.params.speed = 15000; // 원래 속도로 복원
-        swiper.autoplay.start();
-      }, 500);
-    }
-  }, [swiper]);
+  //     // 전환 후 자동 재생 재개
+  //     setTimeout(() => {
+  //       swiper.params.speed = 15000; // 원래 속도로 복원
+  //       swiper.autoplay.start();
+  //     }, 500);
+  //   }
+  // }, [swiper]);
 
-  const handleNextClick = useCallback(() => {
-    if (swiper) {
-      swiper.autoplay.stop(); // 자동 재생 중지
-      swiper.params.speed = 500; // 빠른 전환 속도
-      swiper.slideNext();
+  // const handleNextClick = useCallback(() => {
+  //   if (swiper) {
+  //     swiper.autoplay.stop(); // 자동 재생 중지
+  //     swiper.params.speed = 500; // 빠른 전환 속도
+  //     swiper.slideNext();
 
-      // 전환 후 자동 재생 재개
-      setTimeout(() => {
-        swiper.params.speed = 15000; // 원래 속도로 복원
-        swiper.autoplay.start();
-      }, 500);
-    }
-  }, [swiper]);
+  //     // 전환 후 자동 재생 재개
+  //     setTimeout(() => {
+  //       swiper.params.speed = 15000; // 원래 속도로 복원
+  //       swiper.autoplay.start();
+  //     }, 500);
+  //   }
+  // }, [swiper]);
 
   return (
     <div className="webtoon-gallery-container">
@@ -115,7 +115,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
               className="w-4 h-4 flex justify-center items-center mt-2"
             />
           </button>
-          <div className="navigation-buttons">
+          {/* <div className="navigation-buttons">
             <button
               className="swiper-button-prev-custom"
               ref={navigationPrevRef}
@@ -138,7 +138,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
                 alt="Next"
               />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -177,11 +177,11 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
           observeParents={true} // 부모 요소의 변화도 감지
           centeredSlides={false}
           watchSlidesProgress={true}
-          navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
-            enabled: true, // navigation 활성화 명시적 설정
-          }}
+          // navigation={{
+          //   prevEl: navigationPrevRef.current,
+          //   nextEl: navigationNextRef.current,
+          //   enabled: true, // navigation 활성화 명시적 설정
+          // }}
           //자동 롤링 설정
           autoplay={{
             delay: 0,
@@ -198,15 +198,16 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
               // 네비게이션 초기화 및 업데이트
               swiperInstance.params.navigation &&
               typeof swiperInstance.params.navigation !== "boolean"
-            ) {
-              swiperInstance.params.navigation.prevEl =
-                navigationPrevRef.current;
-              swiperInstance.params.navigation.nextEl =
-                navigationNextRef.current;
-              swiperInstance.navigation.init();
-              swiperInstance.navigation.update();
-            }
-            swiperInstance.autoplay.start();
+            )
+              //  {
+              //   swiperInstance.params.navigation.prevEl =
+              //     navigationPrevRef.current;
+              //   swiperInstance.params.navigation.nextEl =
+              //     navigationNextRef.current;
+              //   swiperInstance.navigation.init();
+              //   swiperInstance.navigation.update();
+              // }
+              swiperInstance.autoplay.start();
           }}
           // 끝에 도달했을 때 처음으로 돌아가는 대신 계속 진행
           onReachEnd={() => {

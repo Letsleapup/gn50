@@ -1,5 +1,5 @@
 import React from "react";
-import { Eye } from "lucide-react";
+// import { Eye } from "lucide-react";
 import { Option } from "../../@types/domain";
 
 interface OptionCardProps {
@@ -55,8 +55,9 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       {option.title}
                     </h2>
                     <span className="text-gray-500 text-sm flex items-center gap-1">
-                      <Eye className="w-4 h-4" />
-                      {option.viewCount}
+                      {/* 조회수 viewCount는 추후 구현 예정 */}
+                      {/* <Eye className="w-4 h-4" /> */}
+                      {/* {option.viewCount} */}
                     </span>
                   </div>
                 </>

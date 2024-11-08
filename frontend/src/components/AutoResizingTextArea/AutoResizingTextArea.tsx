@@ -19,6 +19,8 @@ interface Props {
   onChange?: (text: string) => void;
   onSendData?: () => void;
   placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export const AutoResizingTextarea: FunctionComponent<Props> = ({
@@ -28,9 +30,12 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
   placeholder,
   onSendData,
   onChange,
+  onFocus,
+  onBlur,
 }) => {
   const [text, setText] = useState("");
   const [isComposing, setIsComposing] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // 텍스트가 변경될 때마다 높이 자동 조절
@@ -40,6 +45,18 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // 내용에 맞게 높이 조절
     }
   }, [text]);
+
+  // 포커스 핸들러
+  const handleFocus = () => {
+    setIsFocused(true);
+    onFocus?.(); // 부모에게 알림
+  };
+
+  // 블러 핸들러
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur?.(); // 부모에게 알림
+  };
 
   // onChange 핸들러 (바이트 수 제한)
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -75,6 +92,8 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
     onChange?.(""); //부모컴포넌트 상태에 텍스트 초기화
   };
 
+  const isButtonEnabled = text.trim().length > 0;
+
   // Enter 키 처리
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
@@ -90,7 +109,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
   return (
     <div className="input-container">
-      <div className="input-area">
+      <div className="input-area ">
         <textarea
           ref={textareaRef}
           className="input-field"
@@ -99,21 +118,28 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
           onKeyDown={handleKeyDown}
-          rows={1} // 초기 row는 1로 설정
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          rows={1} //초기 row는 1로 설정
           placeholder={placeholder ? placeholder : "답변을 입력해주세요."}
           style={{
             resize: "none",
             overflow: "hidden",
             backgroundColor: backgroundColor ? backgroundColor : "#fff",
-            color: color ? color : "#fff",
+            color: color ? color : "#000",
           }} // 크기 조절 제한 및 스크롤 제거
         />
-        <p className="byte-counter">
-          {byteLength}/{MAX_BYTE_LENGTH} bytes
-        </p>
       </div>
+      <p className="byte-counter">
+        {byteLength}/{MAX_BYTE_LENGTH}
+      </p>
+
       {hasButton && (
-        <button className="send-button" onClick={handleSend}>
+        <button
+          className={`send-button ${!isButtonEnabled ? "disabled " : ""}`}
+          onClick={handleSend}
+          disabled={!isButtonEnabled}
+        >
           ➤
         </button>
       )}
