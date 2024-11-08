@@ -57,7 +57,6 @@
 }
 
 .slider-container {
-  margin-top: 2rem;
   overflow: hidden;
   position: relative;
   height: 46.875rem;
@@ -124,7 +123,7 @@
 
 .swiper-slide {
   width: auto !important;
-  transition: all 0.5s linear;
+  transition: transform 0.3s ease;
 }
 
 @keyframes slide {
@@ -233,7 +232,7 @@
   display: flex;
   gap: 2.25rem;
   transition-timing-function: linear !important;
-  transition-duration: 15000ms !important;
+  transition-duration: 6000ms !important;
 }
 @media (max-width: 64rem) {
   .swiper-wrapper {
@@ -247,11 +246,6 @@
   }
 }
 
-.swiper-slide {
-  width: auto !important;
-  transition: transform 0.3s ease;
-}
-
 /* infinite text */
 .infinite-text-container {
   position: absolute;
@@ -262,7 +256,7 @@
   height: 13.25rem;
   margin-left: -50vw;
   margin-right: -50vw;
-  /* margin-bottom: 50px; */
+
   left: 50%;
   right: 50%;
 }
@@ -287,12 +281,12 @@
   font-family: "Paperlogy", sans-serif;
   opacity: 0.12;
   text-transform: uppercase;
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
 
 .infinite-text-wrap {
   animation-play-state: paused;
-  animation: textLoop 300s linear infinite;
+  animation: textLoop 200s linear infinite;
   padding-right: 2vw;
   pointer-events: none;
 }
