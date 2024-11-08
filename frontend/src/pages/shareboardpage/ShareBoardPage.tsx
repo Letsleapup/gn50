@@ -17,12 +17,12 @@ const ShareBoardPage: React.FC = () => {
   const filterButtons = [
     {
       id: "walking",
-      label: "걷고 싶은 강남",
+      label: "상상더하기 체험",
       path: "/shared/walking",
     },
     {
       id: "webtoon",
-      label: "웹툰 갤러리",
+      label: "웹툰 생성 체험",
       path: "/shared/webtoon",
     },
   ];

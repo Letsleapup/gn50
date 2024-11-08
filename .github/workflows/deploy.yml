@@ -62,12 +62,12 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           # 빌드 파일 전송
-          scp -o StrictHostKeyChecking=no -i private_key dist.tar.gz ${USER}@${HOST}:/home/${USER}/gn50
+          scp -o StrictHostKeyChecking=no -i private_key dist.tar.gz ${USER}@${HOST}:/home/${USER}
 
           # SSH 접속 및 배포 명령 실행
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} << 'EOF'
             # 프로젝트 디렉토리로 이동
-            cd /home/${USER}/gn50
+            cd /home/${USER}
 
             # 기존 빌드 백업
             if [ -d "dist" ]; then
@@ -77,14 +77,6 @@ jobs:
             # 새 빌드 파일 압축 해제
             mkdir -p dist
             tar -xzf dist.tar.gz -C dist
-
-            # PM2 프로세스 관리
-            if pm2 list | grep -q "gn50"; then
-              pm2 restart gn50
-            else
-              cd dist
-              pm2 start npm --name "gn50" -- run preview
-            fi
 
             # Apache 재시작
             sudo systemctl restart apache2

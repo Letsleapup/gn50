@@ -13,7 +13,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
   const bgColorGradient = {
     walking: "linear-gradient(104deg, #1B58FD 0%, #00BAA8 100%)",
     webtoon: "linear-gradient(104deg, #F79D00 0%, #FF5C00 100%)",
-    gallery: "linear-gradient(104deg, #BDBDBD 0%, #FAFAFA 100%)",
+    gallery: "linear-gradient(112deg, #00BAA8 0%, #CCFF88 100%)",
   };
 
   return (
@@ -42,22 +42,25 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
           {/* 배너의 중앙 오른쪽 이미지들 컨테이너*/}
           <div className="absolute top-0 right-0 h-full w-[50%] flex items-end">
             <div className="relative w-full h-full">
-              {/* 로봇과 우주선 그룹 */}
-              <div className="absolute -bottom-20 left-18">
-                {/* 우주선 */}
-                <img
-                  src="./screenshot_2024-11-01.png"
-                  className="w-[73.51px] h-auto hidden lg:block absolute"
-                  alt="우주선"
-                />
-                {/* 로봇 */}
-                <img
-                  src="./screenshot2024-11-01.png"
-                  alt="Robot"
-                  className="w-[18rem] md:w-[20rem] h-auto hidden md:block"
-                />
-              </div>
-              {/* 배경 건물 이미지 */}
+              {/* 가운데 이미지*/}
+              {currentBanner.robotUrl && (
+                <div className="absolute -bottom-20 left-18">
+                  {/* 로봇 */}
+                  <img
+                    src={currentBanner.robotUrl}
+                    alt="Robot"
+                    className="w-[18rem] md:w-[20rem] h-auto hidden md:block"
+                    onError={(e) => {
+                      console.error(
+                        "Robot image loading failed:",
+                        currentBanner.robotUrl
+                      );
+                      e.currentTarget.src = "/fallback-robot.jpg";
+                    }}
+                  />
+                </div>
+              )}
+              {/* 오른쪽 - 배경 건물 이미지 */}
               {currentBanner.imgUrl && (
                 <img
                   src={currentBanner.imgUrl}

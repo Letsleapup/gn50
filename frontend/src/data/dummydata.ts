@@ -93,19 +93,23 @@ export const bannerContent: BannerContentType = {
     title: "내가 걷고 싶은 강남의\n모습을 만들어 보세요!",
     description: "걷고 싶은 강남구의 장소를 선택하세요.",
     bgColor: "bg-[#2942C4]",
-    imgUrl: "./asset/main_btn_img01.svg",
+    robotUrl: "./asset/sub_chat1.png",
+    imgUrl: "./asset/sub_img1.svg",
   },
   webtoon: {
     title: "강남의 과거·현재·미래를\n웹툰으로 그려 보세요!",
     description: "그리고 싶은 웹툰의 배경을 선택하세요.",
     bgColor: "bg-[#F79D00]",
-    imgUrl: "./asset/main_btn_img02.svg",
+    robotUrl: "./asset/sub_chat2.png",
+    imgUrl: "/asset/sub_img2.svg",
   },
   gallery: {
-    title: "다른 사람들이 만든\n작품을 구경해보세요!",
-    description: "AI 컨텐츠 공모전!",
+    title:
+      "다른 사람들이 만든 걷고 싶은\n강남의 모습&웹툰을 확인할 수 있습니다.",
+    description: "",
     bgColor: "bg-[#00BAA8]",
-    imgUrl: "",
+    robotUrl: "",
+    imgUrl: "/asset/sub_img3.png",
   },
 };
 
@@ -117,8 +121,8 @@ export const starterMessage = [
   "보여드리기전에 고칠 부분이 있나 분석중이에요",
 ];
 
-export const MainBannerUrl = "/asset/main_img01@2x.png";
-export const RobotUrl = "/asset/main_chat_img01@2x.png";
+export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
+export const RobotUrl = "/asset/2x/main_chat_img01@2x.png";
 
 // SelectPage Dummy
 export type SelectOption = {

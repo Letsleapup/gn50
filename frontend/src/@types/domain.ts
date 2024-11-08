@@ -13,6 +13,7 @@ export interface BannerContent {
   title: string;
   description: string;
   bgColor: string;
+  robotUrl: string;
   imgUrl: string;
 }
 

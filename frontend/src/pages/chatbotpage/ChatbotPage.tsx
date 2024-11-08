@@ -17,8 +17,6 @@ const ChatbotPage: React.FC = () => {
     Array<{ role: string; type: string; content: string }>
   >([]);
   const navigate = useNavigate();
-  //eslint-disable-next-line
-  const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState<string[]>([]);
 
@@ -268,8 +266,6 @@ const ChatbotPage: React.FC = () => {
                     placeholder="답변을 입력하세요"
                     onChange={handleTextChange}
                     onSendData={handleSendMessage}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                   />
                 </div>
               </div>
