@@ -56,19 +56,19 @@ const Header: React.FC = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed top-[3vh] w-full h-0 bg-transparent z-50">
-      <div className="relative flex max-w-1920 mx-auto justify-between items-center">
+    <header className="fixed top-[3vh] max-w-1920 w-screen h-0 bg-transparent z-50">
+      <div className="relative flex justify-between items-center">
         {/* 로고 섹션 */}
-        <div className="top-0 left-0 mx-[6vw]">
+        <div className="mx-[6vw]">
           <img
             src="/asset/logo.svg"
             alt="강남구 CI*슬로건"
-            className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%]"
+            className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%] ml-0"
             onClick={() => navigate("/")}
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="absolute top-[3%] left-[35%] w-[31%] flex justify-between opacity-75 lg:flex bg-white rounded-full px-4 sm:px-6 py-2 sm:py-3">
+        <nav className="absolute top-[3%] left-[35%] w-[31%] flex justify-between opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
           {navItems.map((item, index) => (
             <React.Fragment key={item.id}>
               <button
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className="lg:hidden pt-1 text-white rounded-md hover:bg-gray-100 sm:w-8 absolute top-0 right-0 mx-[3vw]"
+          className="burger-btn block xl:hidden pt-1 text-white rounded-md hover:bg-gray-100"
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-0 bg-white md:hidden z-50">
+        <div className="fixed inset-0 top-0 bg-white xl:hidden z-50">
           {/* 모바일 메뉴 헤더 */}
           <div className="p-4 flex justify-end ">
             <button

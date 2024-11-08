@@ -1,100 +1,173 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState, useRef } from "react";
 import "./WalkingGallery.css";
 import { SharedContent } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
 import { sharedContents } from "../../data/dummydata";
 
 interface Props {
-  // TODO: api 완성 후, optionable 해제
   content?: SharedContent[];
   robotUrl: string;
 }
 
-export const WalkingGallery: FunctionComponent<Props> = ({
-  // content,
-  robotUrl,
-}) => {
-  const data = sharedContents; //dummydata -> 추후 props로 받을 content로 데이터 처리
+export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
+  const data = sharedContents;
   const [testData, setTestData] = useState(data.slice(0, 3));
-  // const [isShown, setIsShown] = useState(false);
   const [rotation, setRotation] = useState(0);
-  const [scroll, setScroll] = useState(0);
+  const [activeIndices, setActiveIndices] = useState<number[]>([]);
   const [endIndex, setEndIndex] = useState(3);
   const navigate = useNavigate();
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const robotRef = useRef<HTMLImageElement | null>(null);
 
   const handleData = (step: number) => {
-    const nextEndIndex = endIndex + step;
-    const nextStartIndex = Math.max(nextEndIndex - 3, 0);
-    setEndIndex(nextEndIndex);
-    setTestData(data.slice(nextStartIndex, nextEndIndex));
+    const nextIndex = endIndex + step;
+    const nextStartIndex = Math.max(nextIndex - 3, 0);
+    console.log(nextIndex, nextStartIndex)
+    setEndIndex(nextIndex);
+    setTestData(data.slice(nextStartIndex, nextIndex));
+    
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setScroll(scrollPosition);
-      if (scrollPosition >= 500 && scrollPosition <= 1000) {
-        setRotation((scrollPosition - 630) / 2); // 630에서 시작하는 각도 조정
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+
+      // Custom range adjustments based on specific screen sizes
+      let adjustedRotation;
+
+      if (viewportWidth === 1920 && viewportHeight === 1080) {
+        adjustedRotation = Math.min(360, Math.max(270, scrollPosition / 5));
+      } else if (viewportWidth === 768 && viewportHeight === 1024) {
+        adjustedRotation = Math.min(300, Math.max(-90, -(scrollPosition / 6)));
+      } else if (viewportWidth === 820 && viewportHeight === 1180) {
+        adjustedRotation = Math.min(
+          320,
+          Math.max(-90, -(scrollPosition / 6.5))
+        );
+      } else if (viewportWidth === 1024 && viewportHeight === 1366) {
+        adjustedRotation = Math.min(
+          340,
+          Math.max(-90, -(scrollPosition / 4.5))
+        );
+      } else if (viewportWidth === 375 && viewportHeight === 667) {
+        adjustedRotation = Math.min(280, Math.max(-90, -(scrollPosition / 8)));
+      } else {
+        adjustedRotation = Math.min(360, Math.max(-90, -(scrollPosition / 5)));
       }
+      setRotation(adjustedRotation);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === robotRef.current && entry.isIntersecting) {
+            setActiveIndices((prev) => [...prev, -1]);
+            setRotation(180);
+          } else {
+            const index = itemsRef.current.indexOf(
+              entry.target as HTMLDivElement
+            );
+            if (entry.isIntersecting && index !== -1) {
+              setTimeout(() => {
+                console.log(index)
+                setActiveIndices((prev) => [...prev, index]);
+              }, index * 200);
+            }
+          }
+        });
+      },
+      { threshold: 0.7 }
+    );
+
+    itemsRef.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+
+    if (robotRef.current) observer.observe(robotRef.current);
+
+    return () => {
+      setActiveIndices([]);
+      itemsRef.current.forEach((item) => {
+        if (item) observer.unobserve(item);
+      });
+      if (robotRef.current) observer.unobserve(robotRef.current);
+    };
   }, []);
 
   return (
     <div className="relative w-full aspect-[1.28/1] overflow-hidden flex items-center justify-center">
-      {/* 로봇 이미지 */}
+      {/* Robot Image */}
       <img
+        ref={robotRef}
         src={robotUrl}
         alt="Robot"
-        className={`${rotation * 5 > 800 ? "absolute top-[9.5%] right-[15%] w-[20%] robot" : "opacity-0"}`}
+        className={`absolute top-[0%] right-[15%] w-[20%] ${
+          activeIndices.includes(-1) ? "robot" : "opacity-0"
+        }`}
       />
 
-      {/* 텍스트 */}
-      <span className="absolute top-[14.67%] left-[18.75%] text-[325%] font-bold">
+      {/* Text */}
+      <span className="absolute top-[11.45%] left-[18.75%] font-bold leading-tight text-[2vw] xl:text-[52px] lg:text-[3vw] md:text-[2.5vw] sm:text-[2vw]">
         다른 사람들은 <br />
         걷고 싶은 강남을 <br />
         어떻게 만들었을까요?
       </span>
 
-      {/* 컨트롤 */}
-      <div>
-        <div
-          className="control-arrow absolute bg-gradient-to-br from-blue-500 to-green-400 rounded-full"
-          onClick={() => navigate("/shared/walking")}
-        >
-          <span className="text-white">더보기</span>
-          <img
-            src="/asset/arrow_rb_sm.svg"
-            alt="화살표"
-            className={"w-[12.17%] filter invert"}
-          />
-        </div>
-
-        <div className="absolute navigation-buttons flex space-x-4">
+      <div className="controls absolute top-[27.3%] left-[18.9%] mt-0">
+        <div className="flex space-x-4 md:space-x-6 lg:space-x-8">
+          {/* "더보기" Button */}
           <button
-            className={`swiper-button-prev-custom ${endIndex <= 3 ? "hidden" : ""}`}
-            onClick={() => handleData(-3)}
-            disabled={endIndex <= 3}
+            onClick={() => navigate("/shared/walking")}
+            className="moreclickbtn  border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
           >
+            <span className="text-sm md:text-base lg:text-lg">더보기</span>
             <img
-              src="/asset/arrow_lg_sm.svg"
-              className="w-5 h-5"
-              alt="Previous"
+              src="./asset/arrow_rw_s.svg"
+              className="w-5 h-5 ml-2"
+              alt="Arrow"
             />
           </button>
-          <button
-            className={`swiper-button-next-custom ${endIndex >= data.length ? "hidden" : ""}`}
-            onClick={() => handleData(3)}
-            disabled={endIndex >= data.length}
-          >
-            <img src="/asset/arrow_rg_sm.svg" className="w-5 h-5" alt="Next" />
-          </button>
+
+          {/* Navigation Buttons */}
+          <div className="navigation-buttons flex space-x-2">
+            {/* Previous Button */}
+            <button
+              className="swiper-button-prev-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100 hidden xl:block lg:block md:block sm:block"
+              onClick={() => handleData(-3)}
+            >
+              <img
+                src="./asset/arrow_lg_sm.svg"
+                className="w-5 h-5"
+                alt="Previous"
+              />
+            </button>
+
+            {/* Next Button */}
+            <button
+              className="swiper-button-next-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100 hidden xl:block lg:block md:block sm:block"
+              onClick={() => handleData(3)}
+            >
+              <img
+                src="./asset/arrow_rg_sm.svg"
+                className="w-5 h-5"
+                alt="Next"
+              />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* 이미지 요소 */}
+      {/* Image Elements */}
       <img
         src="/asset/bg_img01.svg"
         alt="별1"
@@ -108,9 +181,10 @@ export const WalkingGallery: FunctionComponent<Props> = ({
       <img
         src="/asset/bg_line01.svg"
         alt="half-circle"
-        className="absolute w-[12.7%] top-[13%] right-[-1%] z-50 transition-transform duration-500"
+        className="half-path absolute w-[12.7%] top-[13%] right-[-1%] z-50 transition-transform duration-500"
         // style={{
-        //   transform: `rotate(${rotation + 180}deg) translateX(${scroll / 100}px)`,
+        //   transform: `rotate(${rotation}deg)`,
+        //   transformOrigin: `top right`,
         // }}
       />
       <img
@@ -118,22 +192,29 @@ export const WalkingGallery: FunctionComponent<Props> = ({
         alt="half-circle"
         className="absolute w-[12.7%] bottom-[-3.6%] left-[0%] z-50 transition-transform duration-500"
         // style={{
-        //   transform: `rotate(${rotation - 100}deg) translateX(${scroll / 100}px)`,
+        //   transform: `rotate(${-rotation}deg)`,
+        //   transformOrigin: `top left`,
         // }}
       />
 
-      {/* 아이템 그리드 */}
-
-      <div className="flex space-x-8">
+      {/* Item Grid */}
+      <div className="flex space-x-6 lg:space-x-8 md:space-x-6 sm:space-x-4">
         {testData.map((item, index) => (
           <div
             key={item.id}
-            className={`aspect-[1/1] flex flex-col items-center ${
+            ref={(el) => (itemsRef.current[index] = el)}
+            className={`aspect-square flex flex-col items-center ${
               index === 0
-                ? `shared-content1 absolute ${scroll > 500 ? "item-fade" : "opacity-0"}`
+                ? `shared-content1 ${
+                    activeIndices.includes(index) ? "item-fade" : "opacity-0"
+                  }`
                 : index === 1
-                  ? `shared-content2 absolute ${scroll > 900 ? "item-fade" : "opacity-0"}`
-                  : `shared-content3 absolute ${scroll > 1200 ? "item-fade" : "opacity-0"}`
+                  ? `shared-content2 ${
+                      activeIndices.includes(index) ? "item-fade" : "opacity-0"
+                    }`
+                  : `shared-content3 ${
+                      activeIndices.includes(index) ? "item-fade" : "opacity-0"
+                    }`
             }`}
           >
             <div
@@ -143,17 +224,17 @@ export const WalkingGallery: FunctionComponent<Props> = ({
               <div className="absolute item-img">
                 <img src={item.imgUrl} alt={item.title} />
               </div>
-              {/* Hover 시에만 나타나는 그라데이션 배경 */}
+              {/* Hover gradient background */}
               <div className="hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
 
-              {/* Hover 시에만 나타나는 아이콘 */}
+              {/* Hover icon */}
               <img
                 src="/asset/arrow_rb_sm.svg"
                 alt="arrow-rb"
-                className="relative w-[11.5%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
+                className="relative w-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
               />
             </div>
-            <span className="item-title">{item.title}</span>
+            <span className="item-title sm:text-[1vw]">{item.title}</span>
           </div>
         ))}
       </div>

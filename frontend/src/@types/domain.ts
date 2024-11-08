@@ -44,3 +44,5 @@ export interface Option {
   description?: string;
   viewCount: number;
 }
+
+export type Nullable <T> = null | T

@@ -48,6 +48,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
   // 포커스 핸들러
   const handleFocus = () => {
+    console.log(isFocused)
     setIsFocused(true);
     onFocus?.(); // 부모에게 알림
   };
