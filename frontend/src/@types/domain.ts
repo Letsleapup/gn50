@@ -1,6 +1,13 @@
 // @types/domain.ts
 export type BoardType = "walking" | "webtoon" | "gallery";
 
+export interface ActionButton {
+  id: number;
+  title: string[];
+  path: string;
+  bgColor: string;
+  imgUrl: string;
+}
 export interface SharedContent {
   id: number;
   title: string;
@@ -30,6 +37,7 @@ export interface SelectOption {
   style?: string;
   backdrop?: string;
   description?: string;
+  viewCount: number;
 }
 
 export interface SelectOptionsType {
@@ -46,4 +54,4 @@ export interface Option {
   viewCount: number;
 }
 
-export type Nullable <T> = null | T
+export type Nullable<T> = null | T;

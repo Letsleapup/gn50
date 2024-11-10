@@ -1,18 +1,23 @@
 /* Gallery 메인 컨테이너 */
 .webtoon-gallery-container {
   position: relative;
-  width: 100%;
-  min-height: 100vh;
+  width: 100vw;
+  left: calc(-50vw + 50%);
   background-color: black;
   overflow: hidden;
 }
 
 /* Gallery 헤더 */
 .gallery-header {
+  position: relative;
+  width: 100vw;
+  left: calc(-50vw + 50%);
+  background-color: black;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 0 1rem;
+  align-items: flex-start;
+  margin-left: 20px;
 }
 
 /* Gallery 타이틀 */
@@ -29,6 +34,10 @@
 @media (min-width: 1890px) {
   .gallery-header {
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1920px;
+    margin: 0 auto;
     padding: 0 22.5rem;
   }
 
@@ -57,15 +66,9 @@
 }
 
 .slider-container {
-  overflow: hidden;
   position: relative;
-  height: 46.875rem;
-  width: 100vw;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  left: 50%;
-  right: 50%;
-  padding: 0;
+  width: 100%;
+  height: 38.625rem;
 }
 
 .slide-track {
@@ -92,15 +95,42 @@
 
 .content-card img {
   border-radius: 2rem;
-  width: 25.5rem;
+  width: 264px;
   aspect-ratio: 1;
   object-fit: cover;
 }
-@media (max-width: 64rem) {
-  /* 1024px */
+.content-card h3 {
+  color: white;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 데스크탑 */
+@media (min-width: 1920px) {
   .content-card img {
-    width: 20rem;
-    height: 20rem;
+    width: 408px;
+    height: 408px;
+  }
+
+  .content-card h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* 태블릿 */
+@media (min-width: 768px) {
+  .content-card img {
+    width: 320px;
+    height: 320px;
+  }
+
+  .content-card h3 {
+    font-size: 1.5rem;
   }
 }
 
@@ -109,7 +139,7 @@
 }
 
 .webtoon-swiper {
-  margin-top: 6.625rem;
+  margin-top: 50px;
   overflow: visible;
   height: 100%;
   z-index: 2;
@@ -165,9 +195,10 @@
   height: 3.5rem;
   background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
   border-radius: 1.75rem;
-  opacity: 1;
   color: white;
   font-size: 1.125rem;
+  line-height: 70px;
+  padding-bottom: 10px;
 }
 @media (max-width: 26.875rem) {
   /* 430px */
@@ -176,27 +207,14 @@
     height: 3rem;
     padding: 0.5rem 1rem;
   }
-
-  .moreclickbtn img {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
 }
-
+/* 더보기 버튼의 영역 컨테이너 */
 .controls-container {
   display: flex;
-  align-items: center;
-  margin-top: 12.625rem;
-  margin-left: 22.6875rem;
+  align-items: flex-start;
+  margin-top: 10rem;
 }
 
-/* 반응형 스타일 */
-@media (min-width: 1920px) {
-  .controls-container {
-    margin-left: 22.6875rem;
-    margin-top: 12.625rem;
-  }
-}
 @media (max-width: 64rem) {
   /* 1024px */
   .controls-container {
@@ -256,9 +274,9 @@
   height: 13.25rem;
   margin-left: -50vw;
   margin-right: -50vw;
-
   left: 50%;
   right: 50%;
+  pointer-events: none;
 }
 
 @font-face {
@@ -281,14 +299,12 @@
   font-family: "Paperlogy", sans-serif;
   opacity: 0.12;
   text-transform: uppercase;
-  margin-top: 3rem;
 }
 
 .infinite-text-wrap {
   animation-play-state: paused;
   animation: textLoop 200s linear infinite;
   padding-right: 2vw;
-  pointer-events: none;
 }
 
 @keyframes textLoop {
@@ -304,9 +320,11 @@
 /* 데스크톱 (1920px) */
 @media (max-width: 120rem) {
   .slider-container {
-    height: 43.75rem; /* 700px */
+    height: 34rem; /* 700px */
   }
-
+  .webtoon-swiper {
+    margin-top: 106px;
+  }
   .infinite-text {
     font-size: 9rem; /* 144px */
   }
@@ -315,13 +333,16 @@
 /* 아이패드 Pro & Air (1024px) */
 @media (max-width: 64rem) {
   .slider-container {
-    height: 37.5rem;
+    height: 30rem;
     margin-top: 4rem;
   }
 
   .slide-item {
     width: 20rem;
     height: 20rem;
+  }
+  .webtoon-swiper {
+    margin-top: 96px;
   }
 
   .infinite-text {
@@ -332,7 +353,7 @@
 /* 아이패드 미니 & 작은 태블릿 (768px) */
 @media (max-width: 48rem) {
   .slider-container {
-    height: 34rem;
+    height: 27rem;
     margin-top: 3rem;
   }
 
@@ -340,19 +361,21 @@
     width: 16rem;
     height: 16rem;
   }
-
+  .webtoon-swiper {
+    margin-top: 80px;
+  }
   .infinite-text {
     font-size: 6rem;
   }
   .infinite-text-container {
-    bottom: -5rem;
+    bottom: -15%;
   }
 }
 
 /* 모바일 (430px) */
 @media (max-width: 26.875rem) {
   .slider-container {
-    height: 25rem;
+    height: 20rem;
     margin-top: 2rem;
   }
 
@@ -365,6 +388,6 @@
     font-size: 4.5rem; /* 72px */
   }
   .infinite-text-container {
-    bottom: -2rem; /* 모바일에서 더 아래로 이동 */
+    bottom: -35%;
   }
 }

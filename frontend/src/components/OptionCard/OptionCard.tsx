@@ -71,7 +71,8 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       className="rounded-[40px] w-full h-[250px] object-cover"
                       onError={(e) => {
                         console.error("Image loading failed:", option.imgUrl);
-                        e.currentTarget.src = "/fallback-image.jpg";
+                        e.currentTarget.src =
+                          "https://via.placeholder.com/384x240";
                       }}
                     />
                   </div>

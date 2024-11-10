@@ -1,0 +1,195 @@
+/* 버튼 섹션 최상위 컨테이너 */
+.button-section-container {
+  position: relative;
+  width: 100vw;
+  left: calc(-50vw + 50%);
+}
+
+/* 버튼 섹션 전체 래퍼 - 최대 너비와 여백 설정 */
+.button-section-wrapper {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 버튼 그리드 레이아웃 */
+.button-section-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 3.5%;
+}
+
+/* 액션 버튼 기본 스타일 */
+.action-button {
+  position: relative;
+  overflow: hidden;
+  width: calc(100% - 9%);
+  height: 152px;
+  margin: 0 auto;
+  border-radius: 20px;
+  transition: opacity 0.3s;
+}
+
+/* 버튼 호버 효과 */
+.action-button:hover {
+  opacity: 0.8;
+}
+
+/*  텍스트 영역 컨테이너 */
+.text-and-arrow-container {
+  position: absolute;
+  z-index: 10;
+  left: 6.81%;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 0;
+  gap: 30px;
+}
+
+/* 텍스트 컨테이너 스타일 */
+.button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 214px;
+}
+
+/* 버튼 타이틀 텍스트 스타일 */
+.button-title {
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+}
+
+/* 화살표 아이콘 스타일 */
+.button-arrow {
+  position: absolute;
+  left: 2.81%;
+  bottom: 24px;
+  width: 20px;
+  height: 20px;
+}
+
+/* 배경 이미지 스타일 */
+.button-background {
+  position: absolute;
+  width: 163px;
+  height: 118px;
+  right: -1%;
+  top: 13%;
+  object-fit: contain;
+}
+
+/* 태블릿 화면 (640px 이상) */
+@media (min-width: 640px) {
+  /* 태블릿 래퍼 패딩 */
+  .button-section-wrapper {
+    padding: 0 calc(20px + 2vw);
+  }
+
+  /* 태블릿 그리드 레이아웃 */
+  .button-section-grid {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  /* 태블릿 버튼 크기 및 스타일 */
+  .action-button {
+    width: calc(50% - 12px);
+    height: auto;
+    margin: 0;
+    border-radius: 2.5rem;
+    aspect-ratio: 2.75625/1;
+  }
+
+  /* 태블릿 텍스트 영역 위치 */
+  .text-and-arrow-container {
+    padding: 10% 0 15%;
+  }
+
+  /* 태블릿 텍스트 컨테이너 */
+  .button-text {
+    width: auto;
+  }
+
+  /* 태블릿 타이틀 크기 */
+  .button-title {
+    font-size: 1rem;
+  }
+
+  /* 태블릿 화살표 크기 */
+  .button-arrow {
+    left: 2%;
+    bottom: 5%;
+    width: 20px;
+  }
+
+  /* 태블릿 배경 이미지 */
+  .button-background {
+    width: 45%;
+    height: auto;
+    right: 2%;
+    top: -10%;
+  }
+}
+
+/* 큰 태블릿 화면 (768px 이상) */
+@media (min-width: 768px) {
+  /* 큰 태블릿 래퍼 패딩 */
+  .button-section-wrapper {
+    padding: 0 calc(20px + 2.5vw);
+  }
+
+  /* 큰 태블릿 타이틀 크기 */
+  .button-title {
+    font-size: 2rem;
+  }
+}
+
+/* 데스크탑 화면 (1024px 이상) */
+@media (min-width: 1024px) {
+  /* 데스크탑 래퍼 패딩 */
+  .button-section-wrapper {
+    padding: 0 60px;
+  }
+
+  /* 데스크탑 버튼 간격 */
+  .button-section-grid {
+    gap: 36px;
+  }
+
+  /* 데스크탑 텍스트 영역 위치 */
+  .text-and-arrow-container {
+    left: 8%;
+    padding: 56px 0 80px;
+  }
+
+  /* 데스크탑 타이틀 크기 */
+  .button-title {
+    font-size: 2.25rem;
+    line-height: 52px;
+    letter-spacing: -0.9px;
+  }
+
+  /* 데스크탑 화살표 이미지 */
+  .button-arrow {
+    left: 1%;
+    bottom: 56px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /*데스크탑 배경 이미지 */
+  .button-background {
+    width: 50%;
+    top: -13%;
+    right: -0.1%;
+  }
+}

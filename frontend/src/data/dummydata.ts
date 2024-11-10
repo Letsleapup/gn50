@@ -1,5 +1,33 @@
-import { SharedContent, BannerContentType } from "../@types/domain";
+import {
+  SharedContent,
+  BannerContentType,
+  ActionButton,
+} from "../@types/domain";
 
+//메인페이지
+
+export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
+export const RobotUrl = "/asset/2x/main_chat_img01@2x.png";
+
+// 버튼 섹션 데이터
+export const actionButtons: ActionButton[] = [
+  {
+    id: 1,
+    title: ["나만의 걷고 싶은 강남이미지", "상상더하기 체험"],
+    path: "/select/walking",
+    bgColor: "bg-[#2942C4]",
+    imgUrl: "/asset/main_btn_img01.svg",
+  },
+  {
+    id: 2,
+    title: ["강남의 과거·현재·미래", "웹툰 생성 체험"],
+    path: "/select/webtoon",
+    bgColor: "bg-[#F79D00]",
+    imgUrl: "/asset/main_btn_img02.svg",
+  },
+];
+
+//갤러리 shareboardpage를 위한 더미
 export const sharedContents: SharedContent[] = [
   {
     id: 1,
@@ -121,8 +149,14 @@ export const starterMessage = [
   "보여드리기전에 고칠 부분이 있나 분석중이에요",
 ];
 
-export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
-export const RobotUrl = "/asset/2x/main_chat_img01@2x.png";
+// 웹툰과 워킹 데이터 분리
+export const walkingContents: SharedContent[] = sharedContents.filter(
+  (content) => content.type === "walking"
+);
+
+export const webtoonContents: SharedContent[] = sharedContents.filter(
+  (content) => content.type === "webtoon"
+);
 
 // SelectPage Dummy
 export type SelectOption = {
@@ -134,43 +168,10 @@ export type SelectOption = {
   description?: string;
 };
 
-export type SelectOptionsType = {
+export interface SelectOptionsType {
   walking: SelectOption[];
   webtoon: SelectOption[];
-};
-
-const gangnamParks = [
-  "도산공원",
-  "양재 시민의 숲",
-  "대치유수지 생태공원",
-  "선릉과 정릉",
-  "양재천",
-  "한티근린공원",
-  "개포근린공원",
-  "청담공원",
-  "세곡동 문화공원",
-  "강남세곡체육공원",
-  "율현공원",
-  "대모산자연공원",
-  "세곡지구근린공원",
-  "수서중앙공원",
-  "양재천근린공원",
-  "삼성중앙공원",
-  "일원마을공원",
-  "일원배수지체육공원",
-  "일원에코공원",
-  "도곡근린공원",
-  "장군봉근린공원",
-  "탄천근린공원",
-  "학동공원",
-  "압구정배수지공원",
-  "삼성에코공원",
-  "역삼공원",
-  "봉은공원",
-  "구룡산 도시자연공원",
-  "가로수길",
-  "신사공원",
-];
+}
 
 // 웹툰 관련 질문 리스트
 export const webtoonQuestions = [
@@ -189,42 +190,217 @@ export const walkingQuestions = [
   "다른 알아야 할 점이 있나요?",
 ];
 
-const generateWalkingOptions = (count: number): SelectOption[] => {
-  return Array.from({ length: count }, (_, index) => ({
-    id: `walking-${index + 1}`,
-    title: `${gangnamParks[index]}`,
-    imgUrl: `https://picsum.photos/id/${20 + index}/500/100`,
-    style: "",
-    backdrop: "",
-    description: `강남구의 ${gangnamParks[index]}.`,
-  }));
-};
+export const webtoonOptions: SelectOption[] = [
+  {
+    id: "webtoon-1",
+    title: "과거의 강남",
+    imgUrl: "./asset/thumb11.png",
+    style: "gray",
+    backdrop: "1960s~1995s",
+    description: "과거의 강남은 어떤 모습이었을까요?",
+  },
+  {
+    id: "webtoon-2",
+    title: "현재의 강남",
+    imgUrl: "./asset/thumb12.png",
+    style: "modern",
+    backdrop: "1996s~2025s",
+    description: "현재의 강남은 어떤 모습이 매력적이나요?",
+  },
+  {
+    id: "webtoon-3",
+    title: "미래의 강남",
+    imgUrl: "./asset/thumb13.png",
+    style: "colorfull, megacity",
+    backdrop: "2025s~2040s",
+    description: "미래의 강남은 어떤 모습으로 발전했을까요?",
+  },
+];
+
+export const walkingOptions: SelectOption[] = [
+  {
+    id: "walking-1",
+    title: "도산공원",
+    imgUrl: "./asset/thumb01.png",
+    description: "강남구의 도산공원입니다.",
+  },
+  {
+    id: "walking-2",
+    title: "양재 시민의 숲",
+    imgUrl: "./asset/thumb02.png",
+    description: "강남구의 양재 시민의 숲입니다.",
+  },
+  {
+    id: "walking-3",
+    title: "대치유수지 생태공원",
+    imgUrl: "./asset/thumb03.png",
+    description: "강남구의 대치유수지 생태공원입니다.",
+  },
+  {
+    id: "walking-4",
+    title: "선릉과 정릉",
+    imgUrl: "./asset/thumb04.png",
+    description: "강남구의 선릉과 정릉입니다.",
+  },
+  {
+    id: "walking-5",
+    title: "양재천",
+    imgUrl: "./asset/thumb05.png",
+    description: "강남구의 양재천입니다.",
+  },
+  {
+    id: "walking-6",
+    title: "한티근린공원",
+    imgUrl: "./asset/thumb06.png",
+    description: "강남구의 한티근린공원입니다.",
+  },
+  {
+    id: "walking-7",
+    title: "개포근린공원",
+    imgUrl: "./asset/thumb07.png",
+    description: "강남구의 개포근린공원입니다.",
+  },
+  {
+    id: "walking-8",
+    title: "청담공원",
+    imgUrl: "./asset/thumb08.png",
+    description: "강남구의 청담공원입니다.",
+  },
+  {
+    id: "walking-9",
+    title: "세곡동 문화공원",
+    imgUrl: "./asset/thumb09.png",
+    description: "강남구의 세곡동 문화공원입니다.",
+  },
+  {
+    id: "walking-10",
+    title: "강남세곡체육공원",
+    imgUrl: "./asset/thumb10.png",
+    description: "강남구의 강남세곡체육공원입니다.",
+  },
+  {
+    id: "walking-11",
+    title: "율현공원",
+    imgUrl: "./asset/thumb11.png",
+    description: "강남구의 율현공원입니다.",
+  },
+  {
+    id: "walking-12",
+    title: "대모산자연공원",
+    imgUrl: "./asset/thumb12.png",
+    description: "강남구의 대모산자연공원입니다.",
+  },
+  {
+    id: "walking-13",
+    title: "세곡지구근린공원",
+    imgUrl: "./asset/thumb13.png",
+    description: "강남구의 세곡지구근린공원입니다.",
+  },
+  {
+    id: "walking-14",
+    title: "수서중앙공원",
+    imgUrl: "./asset/thumb14.png",
+    description: "강남구의 수서중앙공원입니다.",
+  },
+  {
+    id: "walking-15",
+    title: "양재천근린공원",
+    imgUrl: "./asset/thumb15.png",
+    description: "강남구의 양재천근린공원입니다.",
+  },
+  {
+    id: "walking-16",
+    title: "삼성중앙공원",
+    imgUrl: "./asset/thumb16.png",
+    description: "강남구의 삼성중앙공원입니다.",
+  },
+  {
+    id: "walking-17",
+    title: "일원마을공원",
+    imgUrl: "./asset/thumb17.png",
+    description: "강남구의 일원마을공원입니다.",
+  },
+  {
+    id: "walking-18",
+    title: "일원배수지체육공원",
+    imgUrl: "./asset/thumb18.png",
+    description: "강남구의 일원배수지체육공원입니다.",
+  },
+  {
+    id: "walking-19",
+    title: "일원에코공원",
+    imgUrl: "./asset/thumb19.png",
+    description: "강남구의 일원에코공원입니다.",
+  },
+  {
+    id: "walking-20",
+    title: "도곡근린공원",
+    imgUrl: "./asset/thumb20.png",
+    description: "강남구의 도곡근린공원입니다.",
+  },
+  {
+    id: "walking-21",
+    title: "장군봉근린공원",
+    imgUrl: "./asset/thumb21.png",
+    description: "강남구의 장군봉근린공원입니다.",
+  },
+  {
+    id: "walking-22",
+    title: "탄천근린공원",
+    imgUrl: "./asset/thumb22.png",
+    description: "강남구의 탄천근린공원입니다.",
+  },
+  {
+    id: "walking-23",
+    title: "학동공원",
+    imgUrl: "./asset/thumb23.png",
+    description: "강남구의 학동공원입니다.",
+  },
+  {
+    id: "walking-24",
+    title: "압구정배수지공원",
+    imgUrl: "./asset/thumb24.png",
+    description: "강남구의 압구정배수지공원입니다.",
+  },
+  {
+    id: "walking-25",
+    title: "삼성에코공원",
+    imgUrl: "./asset/thumb25.png",
+    description: "강남구의 삼성에코공원입니다.",
+  },
+  {
+    id: "walking-26",
+    title: "역삼공원",
+    imgUrl: "./asset/thumb26.png",
+    description: "강남구의 역삼공원입니다.",
+  },
+  {
+    id: "walking-27",
+    title: "봉은공원",
+    imgUrl: "./asset/thumb27.png",
+    description: "강남구의 봉은공원입니다.",
+  },
+  {
+    id: "walking-28",
+    title: "구룡산 도시자연공원",
+    imgUrl: "./asset/thumb28.png",
+    description: "강남구의 구룡산 도시자연공원입니다.",
+  },
+  {
+    id: "walking-29",
+    title: "가로수길",
+    imgUrl: "./asset/thumb29.png",
+    description: "강남구의 가로수길입니다.",
+  },
+  {
+    id: "walking-30",
+    title: "신사공원",
+    imgUrl: "./asset/thumb30.png",
+    description: "강남구의 신사공원입니다.",
+  },
+];
+
 export const selectOptions: SelectOptionsType = {
-  walking: generateWalkingOptions(30),
-  webtoon: [
-    {
-      id: "1",
-      title: "과거의 강남",
-      imgUrl: "./1960sGN(from_gpt).webp",
-      style: "gray",
-      backdrop: "1960s~1995s",
-      description: "과거의 강남은 어떤 모습이었을까요?",
-    },
-    {
-      id: "2",
-      title: "현재의 강남",
-      imgUrl: "./2025sGN(from_gpt).webp",
-      style: "modern",
-      backdrop: "1996s~2025s",
-      description: "현재의 강남은 어떤 모습이 매력적이나요?",
-    },
-    {
-      id: "3",
-      title: "미래의 강남",
-      imgUrl: "./2040sGN(from_gpt).webp",
-      style: "colorfull, megacity, ",
-      backdrop: "2025s~2040s",
-      description: "미래의 강남은 어떤 모습으로 발전했을까요?",
-    },
-  ],
+  walking: walkingOptions,
+  webtoon: webtoonOptions,
 };

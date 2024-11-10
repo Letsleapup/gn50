@@ -111,10 +111,8 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
         <div className="controls-container">
           <button onClick={handleMoreClick} className=" moreclickbtn">
             <span>더보기</span>
-            <img
-              src="./asset/arrow_rw_s.svg"
-              className="w-4 h-4 flex justify-center items-center mt-2"
-            />
+            <div className="w-12" />
+            <img src="./asset/arrow_rw_s.svg" className="w-4 h-4 mt-1" />
           </button>
           {/* <div className="navigation-buttons">
             <button
@@ -246,11 +244,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
                     loading="lazy"
                   />
 
-                  <div className="p-2">
-                    <h3 className="text-[1.5rem] ml-[1rem] truncate text-white tracking-[-0.0375]">
-                      {content.title}
-                    </h3>
-                  </div>
+                  <h3 className="truncate">{content.title}</h3>
                 </div>
               </div>
             </SwiperSlide>

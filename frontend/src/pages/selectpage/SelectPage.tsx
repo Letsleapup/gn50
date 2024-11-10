@@ -1,52 +1,79 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
-import { SelectOptionsType, selectOptions } from "../../data/dummydata";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
+import { selectOptions } from "../../data/dummydata";
 import { ChevronsDown } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
-import { Option } from "../../@types/domain";
+import { Option, SelectOption, SelectOptionsType } from "../../@types/domain";
+
+const ITEMS_PER_PAGE = 9;
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9);
+  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
+    null
+  );
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
-  // 현재 타입에 해당하는 전체 옵션들
-  const allOptions: Option[] = type
-    ? selectOptions[type].map((item) => ({
-        ...item,
-        viewCount: 0, // TODO: API에서 받아온 viewCount
-      }))
-    : [];
+  // API로 받아올 데이터를 위한 상태 추가
+  const [options, setOptions] = useState<Option[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // 스크롤 이벤트 핸들러
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollHeight, scrollTop, clientHeight } = e.currentTarget;
+  // 데이터 가져오기
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        console.log(`Fetching ${type} options...`);
+        setIsLoading(true);
 
-    // 스크롤이 하단에 가까워지면 더 많은 옵션을 보여줌
-    if (scrollHeight - scrollTop <= clientHeight + 100) {
-      setVisibleCount((prev) => Math.min(prev + 9, allOptions.length));
+        // API 호출 예시
+        // const response = await axios.get(`/api/${type}-options`);
+        // const data = response.data;
+
+        // 임시로 더미 데이터 사용
+        const dummyData = type
+          ? selectOptions[type].map((item) => ({
+              ...item,
+              viewCount: 0, // API 연동 시 실제 조회수로 대체
+            }))
+          : [];
+
+        console.log(`Loaded ${dummyData.length} ${type} options`);
+        setOptions(dummyData);
+      } catch (error) {
+        console.error("Failed to fetch options:", error);
+        // 에러 시 빈 배열 또는 에러 처리
+        setOptions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (type) {
+      fetchOptions();
     }
-  };
+  }, [type]);
 
   // 스크롤 이벤트 핸들러를 window에 연결
   useEffect(() => {
     const handleScroll = () => {
-      // 화면 맨 아래에서 100px 위치에 도달하면 추가 로드
-      if (
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 100
-      ) {
-        setVisibleCount((prev) => Math.min(prev + 9, allOptions.length));
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const scrollThreshold = document.documentElement.scrollHeight - 100;
+
+      if (scrollPosition >= scrollThreshold) {
+        console.log("Loading more items...");
+        setVisibleCount((prev) =>
+          Math.min(prev + ITEMS_PER_PAGE, options.length)
+        );
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [allOptions.length]);
+  }, [options.length]);
 
   const onClose = () => {
     setIsOpen(false);
@@ -62,19 +89,25 @@ const SelectPage: React.FC = () => {
     navigate(`/chatbot/${type}?${params.toString()}`);
   };
 
+  if (!type) {
+    console.error("No type parameter provided");
+    return <div>Invalid page type</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>; // 또는 로딩 스피너 컴포넌트
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       {type && <PageBanner type={type} />}
-      <main
-        className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20"
-        onScroll={handleScroll}
-      >
+      <main className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20">
         <div className="min-h-[900px]">
           <div className="space-y-6">
             <OptionCard
-              options={allOptions.slice(0, visibleCount)}
+              options={options.slice(0, visibleCount)}
               type={type as "walking" | "webtoon"}
-              onSelect={(option) => {
+              onSelect={(option: SelectOption) => {
                 console.log("Option selected:", option);
                 setIsOpen(true);
                 setSelectedOption(option);
@@ -82,7 +115,7 @@ const SelectPage: React.FC = () => {
             />
 
             {/* 더 많은 옵션이 있을 경우에만 화살표 표시 */}
-            {visibleCount < allOptions.length && (
+            {visibleCount < options.length && (
               <div className="flex justify-center py-4">
                 <ChevronsDown className="animate-bounce" />
               </div>
@@ -94,7 +127,7 @@ const SelectPage: React.FC = () => {
           <Modal
             isOpen={isOpen}
             onClose={onClose}
-            btnName={type === "walking" ? "이미지 만들기" : "웹툰 그리기"}
+            btnName={type}
             onClick={() => onNavigate(selectedOption)}
             btnCancleName="닫기"
           >
