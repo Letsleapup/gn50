@@ -16,6 +16,7 @@ import { SharedContent } from "../../@types/domain";
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
+import { getAgentSystem } from "../../util/checkSystem";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const MainPage: React.FC = () => {
       )
       .catch((_rej) => setBannerUrl(MainBannerUrl));
   }, []);
-
+  console.log(getAgentSystem());
   //웹툰 컨텐츠 가져오기
   useEffect(() => {
     const fetchWebtoonContents = async () => {

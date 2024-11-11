@@ -2,7 +2,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="relative w-screen left-[calc(-50vw+50%)] text-[#ffffff] bg-black border-t border-[#323232]">
       <div className="max-w-[1920px] mx-auto pt-[60px] pb-[80px] px-5 md:px-8 lg:px-[311px]">
-        <p className="font-bold text-[22px] leading-[30px] tracking-[-0.55px] opacity-100">
+        <p className="font-bold text-[22px] leading-[30px] tracking-[-0.55px] opacity-100 mb-[1.5rem]">
           (주)렛츠립업
         </p>
         <div className="flex flex-wrap gap-[12px] text-[15px] leading-[30px] tracking-[-0.38px]">

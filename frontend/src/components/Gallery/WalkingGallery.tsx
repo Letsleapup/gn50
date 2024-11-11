@@ -134,12 +134,12 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
           {/* "더보기" Button */}
           <button
             onClick={() => navigate("/shared/walking")}
-            className="more-click-btn border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
+            className="more-click-btn p-3 transition-all hover:bg-gray-100"
           >
             <span className="text-sm md:text-base lg:text-lg">더보기</span>
             <img
               src="./asset/arrow_rw_s.svg"
-              className="w-5 h-5 ml-2"
+              className="w-4 h-4 ml-2"
               alt="Arrow"
             />
           </button>
@@ -165,7 +165,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
             >
               <img
                 src="./asset/arrow_rg_sm.svg"
-                className="w-5 h-5"
+                className="w-5 h-5 mt-1"
                 alt="Next"
               />
             </button>
@@ -196,7 +196,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_line01-1.svg"
         alt="half-circle"
-        className="half-path-2 absolute w-[12.7%] bottom-[-9.35%] left-[-0%] z-40 transition-transform duration-500"
+        className="half-path-2 absolute w-[12.7%] bottom-[-9.4%] left-[-0%] z-40 transition-transform duration-500"
         // style={{
         //   transform: `rotate(${-rotation}deg)`,
         //   transformOrigin: `top left`,
@@ -231,13 +231,13 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
                 <img src={item.imgUrl} alt={item.title} />
               </div>
               {/* Hover gradient background */}
-              <div className="hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
+              <div className="not-hover hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
 
               {/* Hover icon */}
               <img
                 src="/asset/arrow_rb_sm.svg"
                 alt="arrow-rb"
-                className="relative w-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
+                className="not-hover relative w-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
               />
             </div>
             <span className="item-title sm:text-[1vw]">{item.title}</span>
