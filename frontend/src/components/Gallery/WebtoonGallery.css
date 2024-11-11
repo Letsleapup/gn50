@@ -34,7 +34,7 @@
 /* 더보기 버튼 컨테이너 */
 .controls-container {
   margin-left: 28px;
-  margin-top: 6rem;
+  margin-top: 9rem;
 }
 
 /* 1401px 이상 화면에서의 레이아웃 */
@@ -69,7 +69,7 @@
 @media (max-width: 768px) {
   .gallery-header {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 0 30px;
   }
 
