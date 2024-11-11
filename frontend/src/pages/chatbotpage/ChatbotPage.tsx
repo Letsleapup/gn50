@@ -217,13 +217,16 @@ const ChatbotPage: React.FC = () => {
                     <div className="flex-shrink-0 mb-2">
                       {message.role === "assistant" ? (
                         <img
-                          src="/asset/main_chat_img01.png"
+                          src="/asset/prof_chat.png"
                           alt="AI-assistant"
                           className="bg-blue-700 w-12 h-12 rounded-full"
                         />
                       ) : (
                         <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
-                          <UserRound className="w-12 h-12 bg-white" />
+                          <img
+                            src="/asset/prof_user.svg"
+                            className="w-12 h-12 bg-white"
+                          />
                         </div>
                       )}
                     </div>
@@ -232,8 +235,8 @@ const ChatbotPage: React.FC = () => {
                   <div
                     className={`inline-block max-w-[70%] p-3  relative ${
                       message.role === "assistant"
-                        ? "bg-white  rounded-b-lg rounded-r-lg"
-                        : "bg-blue-500 rounded-b-lg rounded-l-lg text-white"
+                        ? "bg-white  rounded-b-lg rounded-r-lg px-4"
+                        : "bg-blue-500 rounded-b-lg rounded-l-lg text-white px-4"
                     }`}
                   >
                     {message.type === "image" ? (
