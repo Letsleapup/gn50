@@ -20,10 +20,9 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
   const robotRef = useRef<HTMLImageElement | null>(null);
 
   const handleData = (step: number) => {
-    const nextIndex = endIndex + step;
+    const nextIndex = Math.max(endIndex + step,3);
     const nextStartIndex = Math.max(nextIndex - 3, 0);
     console.log(nextIndex, nextStartIndex)
-    console.log("test for code yaml")
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
     console.log(rotation) //TODO: 삭제 예정
@@ -88,7 +87,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
           }
         });
       },
-      { threshold: 0.7 }
+      { threshold: 0.3 }
     );
 
     itemsRef.current.forEach((item) => {
@@ -107,19 +106,19 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
   }, []);
 
   return (
-    <div className="relative w-full aspect-[1.28/1] overflow-hidden flex items-center justify-center">
+    <div className="walking-gallery-container relative w-full aspect-[1.28/1] overflow-hidden flex items-center justify-center">
       {/* Robot Image */}
       <img
         ref={robotRef}
         src={robotUrl}
         alt="Robot"
-        className={`absolute top-[0%] right-[15%] w-[20%] ${
+        className={`robot-img absolute top-[0%] right-[15%] w-[20%] ${
           activeIndices.includes(-1) ? "robot" : "opacity-0"
         }`}
       />
 
       {/* Text */}
-      <span className="absolute top-[11.45%] left-[18.75%] font-bold leading-tight text-[2vw] xl:text-[52px] lg:text-[3vw] md:text-[2.5vw] sm:text-[2vw]">
+      <span className="gallery-content absolute top-[11.45%] left-[18.75%] font-bold leading-tight text-[2vw]">
         다른 사람들은 <br />
         걷고 싶은 강남을 <br />
         어떻게 만들었을까요?
@@ -130,7 +129,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
           {/* "더보기" Button */}
           <button
             onClick={() => navigate("/shared/walking")}
-            className="moreclickbtn  border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
+            className="more-click-btn border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
           >
             <span className="text-sm md:text-base lg:text-lg">더보기</span>
             <img
@@ -144,7 +143,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
           <div className="navigation-buttons flex space-x-2">
             {/* Previous Button */}
             <button
-              className="swiper-button-prev-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100 hidden xl:block lg:block md:block sm:block"
+              className="swiper-button-prev-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
               onClick={() => handleData(-3)}
             >
               <img
@@ -156,7 +155,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
 
             {/* Next Button */}
             <button
-              className="swiper-button-next-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100 hidden xl:block lg:block md:block sm:block"
+              className="swiper-button-next-custom rounded-full border-2 border-gray-300 p-3 transition-all hover:bg-gray-100"
               onClick={() => handleData(3)}
             >
               <img
@@ -173,17 +172,17 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_img01.svg"
         alt="별1"
-        className="absolute w-[5.5%] z-50 top-[4.4%] right-[4.4%]"
+        className="star-1 absolute w-[5.5%] z-40 top-[4.4%] right-[4.4%]"
       />
       <img
         src="/asset/bg_img02.svg"
         alt="별2"
-        className="absolute w-[5.5%] z-50 bottom-[18.4%] left-[4.4%]"
+        className="star-2 absolute w-[5.5%] z-40 bottom-[12.4%] left-[4.4%]"
       />
       <img
         src="/asset/bg_line01.svg"
         alt="half-circle"
-        className="half-path absolute w-[12.7%] top-[13%] right-[-1%] z-50 transition-transform duration-500"
+        className="half-path-1 absolute w-[12.7%] top-[13%] right-[-1%] z-40 transition-transform duration-500"
         // style={{
         //   transform: `rotate(${rotation}deg)`,
         //   transformOrigin: `top right`,
@@ -192,7 +191,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_line01-1.svg"
         alt="half-circle"
-        className="absolute w-[12.7%] bottom-[-3.6%] left-[0%] z-50 transition-transform duration-500"
+        className="half-path-1 absolute w-[12.7%] bottom-[-8.6%] left-[0%] z-40 transition-transform duration-500"
         // style={{
         //   transform: `rotate(${-rotation}deg)`,
         //   transformOrigin: `top left`,

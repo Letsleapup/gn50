@@ -55,9 +55,3 @@ h1 {
   line-height: 1.1;
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리 */
-@media (max-width: 48rem) {
-  #root {
-    padding: 1.5rem 1.5rem;
-  }
-}

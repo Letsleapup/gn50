@@ -59,10 +59,10 @@ const MainPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen w-min-360 w-max-1920 flex flex-col">
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
-        {bannerUrl && <Banner mainbannerUrl={bannerUrl} robotUrl={RobotUrl} />}
+        <Banner mainbannerUrl={bannerUrl ? bannerUrl : MainBannerUrl} robotUrl={RobotUrl} />
 
         {/* 버튼 섹션 */}
         <ButtonSection actionButtons={actionButtons} onButtonClick={navigate} />
