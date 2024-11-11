@@ -111,7 +111,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
         <div className="controls-container">
           <button onClick={handleMoreClick} className=" moreclickbtn">
             <span>더보기</span>
-            <div className="w-12" />
+
             <img src="./asset/arrow_rw_s.svg" className="w-4 h-4 mt-1" />
           </button>
           {/* <div className="navigation-buttons">

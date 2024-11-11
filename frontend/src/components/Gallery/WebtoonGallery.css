@@ -11,13 +11,14 @@
 .gallery-header {
   position: relative;
   width: 100vw;
-  left: calc(-50vw + 50%);
   background-color: black;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  margin-left: 20px;
+  justify-content: flex-start;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* Gallery 타이틀 */
@@ -28,47 +29,60 @@
   color: white;
   margin-top: 6rem;
   letter-spacing: -0.08125rem;
+  margin-left: 30%;
+}
+/* 더보기 버튼 컨테이너 */
+.controls-container {
+  margin-left: 28px;
+  margin-top: 6rem;
 }
 
-/* 반응형 스타일 */
-@media (min-width: 1890px) {
+/* 1401px 이상 화면에서의 레이아웃 */
+@media (min-width: 1401px) {
   .gallery-header {
-    flex-direction: row;
+    padding-top: 48px;
+    padding-left: 360px;
+    justify-content: flex-start;
+  }
+
+  .gallery-title {
+    margin-left: 0;
+  }
+
+  .controls-container {
+    margin-left: 30%;
+  }
+}
+
+/* 1400px 이하 화면에서의 레이아웃 */
+@media (max-width: 1400px) {
+  .gallery-header {
     justify-content: space-between;
-    align-items: center;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 0 22.5rem;
+    padding: 0 5%;
   }
 
   .gallery-title {
-    text-align: left;
-    font-size: 3.25rem;
-    margin-top: 10rem;
+    margin-left: 20%;
   }
 }
-
+/* 모바일 화면 */
 @media (max-width: 768px) {
-  .gallery-title {
-    width: 100%;
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 430px) {
-  .gallery-title {
-    font-size: 1.5rem;
-  }
-
   .gallery-header {
-    padding: 0 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
   }
-}
 
-.slider-container {
-  position: relative;
-  width: 100%;
-  height: 38.625rem;
+  .gallery-title {
+    margin-left: 0;
+    width: 100%;
+    text-align: start;
+  }
+
+  .controls-container {
+    margin-left: 0;
+    margin-top: 28px;
+  }
 }
 
 .slide-track {
@@ -190,39 +204,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.75rem;
-  width: 10.625rem;
-  height: 3.5rem;
+  gap: 48px;
+  padding: 1rem 1.75rem;
+  width: 170px;
+  height: 56px;
   background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
   border-radius: 1.75rem;
   color: white;
   font-size: 1.125rem;
-  line-height: 70px;
-  padding-bottom: 10px;
 }
 @media (max-width: 26.875rem) {
-  /* 430px */
-  .moreclickbtn {
-    width: 8rem;
-    height: 3rem;
-    padding: 0.5rem 1rem;
-  }
-}
-/* 더보기 버튼의 영역 컨테이너 */
-.controls-container {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 10rem;
-}
-
-@media (max-width: 64rem) {
-  /* 1024px */
+  /* 더보기 버튼의 영역 컨테이너 */
   .controls-container {
-    margin-left: 1rem;
-    margin-top: 6rem;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 5rem;
+  }
+
+  .moreclickbtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    width: 108px;
+    height: 40px;
+    gap: 20px;
+  }
+  .moreclickbtn > span {
+    font-size: 14px;
+  }
+
+  .moreclickbtn > img {
+    width: 0.75rem;
+    margin: 0;
+  }
+  @media (max-width: 64rem) {
+    /* 1024px */
+    .controls-container {
+      margin-left: 1rem;
+      margin-top: 6rem;
+    }
   }
 }
-
 @media (max-width: 48rem) {
   /* 768px */
   .controls-container {
