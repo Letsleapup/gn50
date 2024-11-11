@@ -1,5 +1,4 @@
 import React from "react";
-// import { Eye } from "lucide-react";
 import { Option } from "../../@types/domain";
 
 interface OptionCardProps {
@@ -47,7 +46,8 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                     className="rounded-[40px] h-[240px] w-full object-cover"
                     onError={(e) => {
                       console.error("Image loading failed:", option.imgUrl);
-                      e.currentTarget.src = "/fallback-image.jpg";
+                      e.currentTarget.src =
+                        "http://via.placeholder.com/384x240";
                     }}
                   />
                   <div className="px-2 pb-[32px] flex justify-between items-center">
@@ -68,28 +68,44 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                     <img
                       src={option.imgUrl}
                       alt={option.title}
-                      className="rounded-[40px] w-full h-[250px] object-cover"
+                      className="rounded-[40px] w-[486px] h-[304px] object-cover"
                       onError={(e) => {
                         console.error("Image loading failed:", option.imgUrl);
                         e.currentTarget.src =
-                          "https://via.placeholder.com/384x240";
+                          "http://via.placeholder.com/486x304";
                       }}
                     />
                   </div>
                   <div className="w-[60%] flex flex-col justify-center text-left">
-                    <h2 className="text-[32px] font-bold mb-4">
-                      {option.title}
-                    </h2>
                     {option.backdrop && (
-                      <p className="text-gray-600 text-[18px]">
+                      <p className="text-[#959595] text-[18px] leading-[76px] tracking-[-0.45px]">
                         {option.backdrop}
                       </p>
                     )}
-                    {option.description && (
-                      <p className="text-gray-500 mt-2 text-[16px]">
-                        {option.description}
-                      </p>
-                    )}
+                    <h2 className="text-[32px] font-semibold leading-[76px] tracking-[-0.8px]">
+                      {option.title}
+                    </h2>
+                    <div className="w-[494px]">
+                      {option.description && (
+                        <p className="text-[#333333] text-[18px] leading-[28px] tracking-[-0.45px]">
+                          {option.description}
+                        </p>
+                      )}
+                    </div>
+                    {/* 해시태그 섹션 */}
+                    {Array.isArray(option.hashtags) &&
+                      option.hashtags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {option.hashtags.map((tag: string, index: number) => (
+                            <span
+                              key={`${option.id}-tag-${index}`}
+                              className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[14px] font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                   </div>
                 </div>
               )}

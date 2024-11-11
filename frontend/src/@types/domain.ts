@@ -38,6 +38,7 @@ export interface SelectOption {
   backdrop?: string;
   description?: string;
   viewCount: number;
+  hashtags?: string[];
 }
 
 export interface SelectOptionsType {
@@ -52,6 +53,7 @@ export interface Option {
   backdrop?: string;
   description?: string;
   viewCount: number;
+  hashtags?: string[];
 }
 
 export type Nullable<T> = null | T;

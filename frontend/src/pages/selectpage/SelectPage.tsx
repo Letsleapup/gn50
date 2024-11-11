@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { selectOptions } from "../../data/dummydata";
-import { ChevronsDown } from "lucide-react";
+import { ChevronsDown, LoaderCircle } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
 import { Option, SelectOption, SelectOptionsType } from "../../@types/domain";
 
@@ -95,7 +95,11 @@ const SelectPage: React.FC = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>; // 또는 로딩 스피너 컴포넌트
+    return (
+      <div>
+        <LoaderCircle style={{ transform: "rotate(90deg)" }} />
+      </div>
+    );
   }
 
   return (

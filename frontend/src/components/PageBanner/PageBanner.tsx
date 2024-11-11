@@ -12,7 +12,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
 
   const bgColorGradient = {
     walking: "linear-gradient(104deg, #1B58FD 0%, #00BAA8 100%)",
-    webtoon: "linear-gradient(104deg, #F79D00 0%, #FF5C00 100%)",
+    webtoon: "linear-gradient(104deg, #F79D00 0%, #FFFA77 100%)",
     gallery: "linear-gradient(112deg, #00BAA8 0%, #CCFF88 100%)",
   };
 
@@ -49,7 +49,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
                   <img
                     src={currentBanner.robotUrl}
                     alt="Robot"
-                    className="w-[18rem] md:w-[20rem] h-auto hidden md:block"
+                    className="w-[18rem] md:w-[280px] h-auto"
                     onError={(e) => {
                       console.error(
                         "Robot image loading failed:",

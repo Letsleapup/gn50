@@ -166,6 +166,7 @@ export type SelectOption = {
   style?: string;
   backdrop?: string;
   description?: string;
+  hashtags?: string[];
 };
 
 export interface SelectOptionsType {
@@ -196,24 +197,30 @@ export const webtoonOptions: SelectOption[] = [
     title: "과거의 강남",
     imgUrl: "./asset/thumb11.png",
     style: "gray",
-    backdrop: "1960s~1995s",
-    description: "과거의 강남은 어떤 모습이었을까요?",
+    backdrop: "1960~1999",
+    description:
+      "1960~1990년대 강남은 급격한 발전을 통해 대한민국의 경제적 중심지로 떠올랐습니다.",
+    hashtags: ["#retro", "#cartoon", "#blackandwhite"],
   },
   {
     id: "webtoon-2",
     title: "현재의 강남",
     imgUrl: "./asset/thumb12.png",
     style: "modern",
-    backdrop: "1996s~2025s",
-    description: "현재의 강남은 어떤 모습이 매력적이나요?",
+    backdrop: "2000~2025",
+    description:
+      "현재 강남은 대한민국의 경제적 중심지를 넘어,아시아의 경제적 상징이자 문화의 트렌드를 선도하는 도시입니다.",
+    hashtags: ["#trendy", "#photorealistic", "#colorful"],
   },
   {
     id: "webtoon-3",
     title: "미래의 강남",
     imgUrl: "./asset/thumb13.png",
     style: "colorfull, megacity",
-    backdrop: "2025s~2040s",
-    description: "미래의 강남은 어떤 모습으로 발전했을까요?",
+    backdrop: "2025~2040",
+    description:
+      "앞으로의 강남은 전세계가 주목하는 Walkable & Workable & Smart Green City로 성장할 것입니다.",
+    hashtags: ["#futuristic", "#illustration", "#neon"],
   },
 ];
 

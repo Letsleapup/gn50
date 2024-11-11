@@ -2,11 +2,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { sharedContents } from "../../data/dummydata";
 import { BoardType, SharedContent } from "../../@types/domain";
 import PageBanner from "../../components/PageBanner/PageBanner";
+import { useState } from "react";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();
   // URL 파라미터로 게시판 타입 구분 (walking 또는 webtoon)
   const { type } = useParams<{ type?: BoardType }>();
+
+  // 활성화된 필터 버튼 상태 관리
+  const [activeFilter, setActiveFilter] = useState<string>(type || "walking");
 
   const handleContentClick = (content: SharedContent) => {
     navigate(`/shared/${content.type}/${content.id}`);
@@ -27,6 +31,12 @@ const ShareBoardPage: React.FC = () => {
     },
   ];
 
+  // 필터 버튼 클릭 핸들러
+  const handleFilterClick = (path: string, id: string) => {
+    setActiveFilter(id);
+    navigate(path);
+  };
+
   const currentType = "gallery";
   const filteredContents = sharedContents.filter(
     (content) => content.type === type
@@ -37,23 +47,49 @@ const ShareBoardPage: React.FC = () => {
       {type && <PageBanner type={currentType} />}
       <main className="flex-1 container mx-auto px-4 py-8 ">
         {/* 필터 섹션 */}
-        <div className="flex h-[60px] gap-2 mb-6">
-          {filterButtons.map((button) => (
-            <button
-              key={button.id}
-              onClick={() => navigate(button.path)}
-              className={`
-                px-6 py-2 rounded-md transition-colors
-                ${
-                  type === button.id || (!type && button.id === "all")
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
-                }
-              `}
-            >
-              {button.label}
-            </button>
-          ))}
+        <div className="flex h-[69px] mb-4 border-b border-[#959595]">
+          {/* 버튼 컨테이너에 간격 추가 */}
+          <div className="flex gap-[50px]">
+            {filterButtons.map((button) => (
+              <button
+                key={button.id}
+                onClick={() => handleFilterClick(button.path, button.id)}
+                className="h-full"
+              >
+                {/* 내부 div로 텍스트와 밑줄 효과 래핑 */}
+                <div
+                  className={`
+                    relative
+                    pt-[9px]
+                    pb-[20px]
+                    text-[24px]
+                    tracking-[-0.6px]
+                    transition-colors
+                    duration-200
+                    ${activeFilter === button.id ? "text-[#1B58FD]" : "text-[#959595]"}
+                    hover:text-[#1B58FD]
+                    after:content-['']
+                    after:absolute
+                    after:left-0
+                    after:bottom-[-1px]
+                    after:w-full
+                    after:h-[5px]
+                    after:bg-[#1B58FD]
+                    after:transform
+                    after:scale-x-0
+                    after:transition-transform
+                    after:duration-200
+                    after:origin-left
+                    hover:after:scale-x-100
+                    ${activeFilter === button.id ? "after:scale-x-100" : ""}
+                    whitespace-nowrap
+                  `}
+                >
+                  {button.label}
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* 콘텐츠 그리드 */}
@@ -62,14 +98,14 @@ const ShareBoardPage: React.FC = () => {
             <div
               key={content.id}
               onClick={() => handleContentClick(content)}
-              className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer"
+              className="cursor-pointer"
             >
               {/* 콘텐츠 미리보기 이미지 */}
-              <div className="bg-gray-200 rounded-md mb-4">
+              <div>
                 <img
                   src={content.imgUrl}
                   alt={content.title}
-                  className="object-cover w-full h-48 rounded-lg"
+                  className="object-cover aspect-square h-[384px] rounded-3xl"
                   onError={(e) => {
                     console.log("Image failed to load:", content.imgUrl);
                     e.currentTarget.src = "/placeholder-image.jpg";
@@ -79,9 +115,6 @@ const ShareBoardPage: React.FC = () => {
 
               {/* 콘텐츠 정보 */}
               <h3 className="font-semibold mb-2">{content.title}</h3>
-              <div className="flex justify-between items-center text-sm text-gray-500 ">
-                <span>{content.createdAt}</span>
-              </div>
             </div>
           ))}
         </div>

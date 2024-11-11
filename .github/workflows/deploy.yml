@@ -66,6 +66,10 @@ jobs:
 
           # SSH 접속 및 배포 명령 실행
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} << 'EOF'
+
+          # PHP 관련 bashrc 체크 제거
+            set +e  # 에러가 발생해도 계속 실행
+
             # 프로젝트 디렉토리로 이동
             cd /home/${USER}
 
@@ -79,5 +83,9 @@ jobs:
             tar -xzf dist.tar.gz -C dist
 
             # Apache 재시작
-            sudo systemctl restart apache2
+            if systemctl is-active --quiet httpd; then
+              sudo systemctl restart httpd
+            else
+              echo "httpd service not found or not running"
+            fi
           EOF

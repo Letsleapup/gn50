@@ -48,7 +48,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
   // 포커스 핸들러
   const handleFocus = () => {
-    console.log(isFocused) //TODO: 삭제예정
+    console.log(isFocused); //TODO: 삭제예정
     setIsFocused(true);
     onFocus?.(); // 부모에게 알림
   };
@@ -141,7 +141,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
           onClick={handleSend}
           disabled={!isButtonEnabled}
         >
-          ➤
+          <img src="/asset/ic_send.svg" className="w-5 h-5" alt="sendbutton" />
         </button>
       )}
     </div>
