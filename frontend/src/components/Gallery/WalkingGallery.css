@@ -1,7 +1,3 @@
-.walking-gallery-container{
-
-}
-
 .navigation-buttons {
   top: 32%;
   left: 30%;
@@ -80,6 +76,10 @@
   opacity: 1;
   color: white;
   font-size: 1.125rem;
+}
+
+.more-click-btn > img {
+  margin: 0;
 }
 
 .hover-cover {
@@ -313,7 +313,7 @@
   }
 
   .half-path-2 {
-    bottom: 50%;
+    bottom:-4.3%
   }
 
   .item-title {

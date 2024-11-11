@@ -14,7 +14,7 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFullscreen(true);
-    }, 100);
+    }, 0);
 
     return () => clearTimeout(timer);
   }, []);
@@ -30,13 +30,13 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
     <div className="banner-wrap relative flex items-center justify-center">
       {isShown && (
         <div className="banner-text absolute text-center">
-          <p className="text-[16px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[72px] lg:leading-[96px] text-center tracking-tight">
+          <p className="sm:text-[48px] md:text-[32px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[48px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
               50주년
             </span>
             을 맞이한
           </p>
-          <p className="text-[16px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[72px] lg:leading-[96px] text-center tracking-tight">
+          <p className="sm:text-[48px] md:text-[32px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[48px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
               강남
             </span>
@@ -44,7 +44,7 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
           </p>
         </div>
       )}
-      <div className="absolute w-[22%] top-[41%] flex items-center justify-center z-10">
+      <div className="mainbanner-robot absolute w-[22%] top-[41%] flex items-center justify-center z-10">
         <img
           src={robotUrl}
           alt="Cute AI Robot"

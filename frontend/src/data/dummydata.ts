@@ -8,7 +8,7 @@ import {
 
 export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
 export const RobotUrl = "/asset/2x/card_chat_img01@2x.png";
-
+export const MainBannerRobotUrl = '/asset/2x/main_chat_img01@2x.png'
 // 버튼 섹션 데이터
 export const actionButtons: ActionButton[] = [
   {

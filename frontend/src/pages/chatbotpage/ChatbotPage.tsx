@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { LoaderCircle, UserRound } from "lucide-react";
+import { LoaderCircle} from "lucide-react";
 import { walkingQuestions, webtoonQuestions } from "../../data/dummydata";
 
 interface ChatHistory {

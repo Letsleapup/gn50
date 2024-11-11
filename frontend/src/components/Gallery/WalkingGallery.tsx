@@ -20,9 +20,10 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
   const robotRef = useRef<HTMLImageElement | null>(null);
 
   const handleData = (step: number) => {
-    const nextIndex = Math.max(endIndex + step,3);
+    //TODO: 데이터 리스트 체크하기
+    const nextIndex = endIndex + step < data.length ? Math.max(endIndex + step,3) : endIndex;
     const nextStartIndex = Math.max(nextIndex - 3, 0);
-    console.log(nextIndex, nextStartIndex)
+    console.log(nextIndex, nextStartIndex, data.length)
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
     console.log(rotation) //TODO: 삭제 예정
@@ -172,12 +173,12 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_img01.svg"
         alt="별1"
-        className="star-1 absolute w-[5.5%] z-40 top-[4.4%] right-[4.4%]"
+        className="star-1 absolute w-[5.5%] z-40 top-[2.0%] right-[4.4%]"
       />
       <img
         src="/asset/bg_img02.svg"
         alt="별2"
-        className="star-2 absolute w-[5.5%] z-40 bottom-[12.4%] left-[4.4%]"
+        className="star-2 absolute w-[5.5%] z-40 bottom-[13%] left-[4.4%]"
       />
       <img
         src="/asset/bg_line01.svg"
@@ -191,7 +192,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_line01-1.svg"
         alt="half-circle"
-        className="half-path-1 absolute w-[12.7%] bottom-[-8.6%] left-[0%] z-40 transition-transform duration-500"
+        className="half-path-2 absolute w-[12.7%] bottom-[-9.35%] left-[-0%] z-40 transition-transform duration-500"
         // style={{
         //   transform: `rotate(${-rotation}deg)`,
         //   transformOrigin: `top left`,
