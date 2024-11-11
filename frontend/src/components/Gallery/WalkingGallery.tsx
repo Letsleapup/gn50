@@ -21,13 +21,13 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
 
   const handleData = (step: number) => {
     //TODO: 데이터 리스트 체크하기
-    const nextIndex = endIndex + step < data.length ? Math.max(endIndex + step,3) : endIndex;
+    const nextIndex =
+      endIndex + step < data.length ? Math.max(endIndex + step, 3) : endIndex;
     const nextStartIndex = Math.max(nextIndex - 3, 0);
-    console.log(nextIndex, nextStartIndex, data.length)
+    console.log(nextIndex, nextStartIndex, data.length);
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
-    console.log(rotation) //TODO: 삭제 예정
-    
+    console.log(rotation); //TODO: 삭제 예정
   };
 
   useEffect(() => {
@@ -69,42 +69,46 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.target === robotRef.current && entry.isIntersecting) {
-            setActiveIndices((prev) => [...prev, -1]);
-            setRotation(180);
-          } else {
-            const index = itemsRef.current.indexOf(
-              entry.target as HTMLDivElement
-            );
-            if (entry.isIntersecting && index !== -1) {
-              setTimeout(() => {
-                console.log(index)
-                setActiveIndices((prev) => [...prev, index]);
-              }, index * 200);
+    // 2초 후에 IntersectionObserver 설정
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target === robotRef.current && entry.isIntersecting) {
+              setActiveIndices((prev) => [...prev, -1]);
+              setRotation(180);
+            } else {
+              const index = itemsRef.current.indexOf(entry.target as HTMLDivElement);
+              if (entry.isIntersecting && index !== -1) {
+                setTimeout(() => {
+                  console.log(index);
+                  setActiveIndices((prev) => [...prev, index]);
+                }, index * 200);
+              }
             }
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    itemsRef.current.forEach((item) => {
-      if (item) observer.observe(item);
-    });
-
-    if (robotRef.current) observer.observe(robotRef.current);
-
-    return () => {
-      setActiveIndices([]);
+          });
+        },
+        { threshold: 0.1 }
+      );
+  
+      // Observer에 각 아이템 등록
       itemsRef.current.forEach((item) => {
-        if (item) observer.unobserve(item);
+        if (item) observer.observe(item);
       });
-      if (robotRef.current) observer.unobserve(robotRef.current);
-    };
+      if (robotRef.current) observer.observe(robotRef.current);
+  
+      // 클린업: Observer 해제 및 상태 초기화
+      return () => {
+        observer.disconnect(); // Observer 전체 해제
+        clearTimeout(timer); // 타이머 해제
+        setActiveIndices([]); // 상태 초기화
+      };
+    }, 2000); // 2초 딜레이
+  
+    // 타이머 해제 (컴포넌트가 언마운트될 때)
+    return () => clearTimeout(timer);
   }, []);
+  
 
   return (
     <div className="walking-gallery-container relative w-full aspect-[1.28/1] overflow-hidden flex items-center justify-center">
