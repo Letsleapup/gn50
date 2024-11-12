@@ -111,7 +111,7 @@ const Header: React.FC = () => {
             <img
               src="/asset/logo.svg"
               alt="강남구 CI*슬로건"
-              className="w-[30%] sm:w-[40%] md:w-[80%] lg:w-[100%] ml-0"
+              className="w-[30%] sm:w-[30%] md:w-[30%] lg:w-[30%] ml-0"
               onClick={() => navigate("/")}
               style={{ cursor: "pointer", zIndex: 100 }}
             />

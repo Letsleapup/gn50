@@ -55,3 +55,7 @@ h1 {
   line-height: 1.1;
 }
 
+img {
+  margin: 5% auto;
+  width: 100%;
+}

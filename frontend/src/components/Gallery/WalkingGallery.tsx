@@ -3,6 +3,7 @@ import "./WalkingGallery.css";
 import { SharedContent } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
 import { sharedContents } from "../../data/dummydata";
+import { getAgentSystem } from "../../util/checkSystem";
 
 interface Props {
   content?: SharedContent[];
@@ -20,6 +21,12 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
   const navigate = useNavigate();
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const robotRef = useRef<HTMLImageElement | null>(null);
+  const [isPCSystem, setIsPCSystem] = useState(false);
+
+  useEffect(() => {
+    const system = getAgentSystem();
+    setIsPCSystem(system === "windows" || system === "macos" || system === "linux");
+  }, []);
 
   const handleData = (step: number) => {
     const nextIndex = Math.min(
@@ -163,7 +170,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
             >
               <img
                 src="./asset/arrow_lg_sm.svg"
-                className={`w-5 h-5 ${isPrevActive ? 'filter-none' : 'filter grayscale'}`}
+                className={`w-5 h-5 ${isPrevActive ? 'yg-btn-prev-custom' : 'filter grayscale'}`}
                 alt="Previous"
               />
             </button>
@@ -180,7 +187,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
             >
               <img
                 src="./asset/arrow_rg_sm.svg"
-                className={`w-5 h-5 ${isNextActive ? 'filter-none' : 'filter grayscale'}`}
+                className={`w-5 h-5 ${isNextActive ? 'yg-btn-next-custom' : 'filter grayscale'}`}
                 alt="Next"
               />
             </button>
@@ -239,20 +246,24 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
             }`}
           >
             <div
-              className="relative w-full h-full flex justify-center items-center group"
+              className={`relative w-full h-full flex justify-center items-center ${isPCSystem ? 'group' : ''}`}
               onClick={() => navigate(`/shared/walking/${item.id}`)}
             >
               <div className="absolute yg-item-img">
                 <img src={item.imgUrl} alt={item.title} />
               </div>
               {/* Hover gradient background */}
-              <div className="hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
+              <div className={`yg-hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 ${
+                isPCSystem ? 'group-hover:opacity-80' : ''
+              } transition-opacity duration-300`}></div>
 
               {/* Hover icon */}
               <img
                 src="/asset/arrow_rb_sm.svg"
                 alt="arrow-rb"
-                className="relative w-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 filter invert"
+                className={`relative w-[2.5rem] opacity-0 ${
+                  isPCSystem ? 'group-hover:opacity-100' : ''
+                } transition-opacity duration-300 filter invert`}
               />
             </div>
             <span className="yg-item-title sm:text-[1vw]">{item.title}</span>
