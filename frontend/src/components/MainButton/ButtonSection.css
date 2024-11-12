@@ -132,17 +132,26 @@
     right: 0.1%;
     top: -13%;
   }
+  .button-title {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.5px;
+  }
 }
 
 /* 768px 미만 화면에서의 스타일 */
 @media (max-width: 767px) {
   .text-and-arrow-container {
-    padding: 10px 0 30px;
+    padding: 20px 0 30px;
   }
   .button-title {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 30px;
     letter-spacing: -0.5px;
+  }
+
+  .action-button {
+    border-radius: 20px;
   }
 }
 
@@ -154,11 +163,6 @@
   /* 큰 태블릿 래퍼 패딩 */
   .button-section-wrapper {
     padding: 0 calc(20px + 2.5vw);
-  }
-
-  /* 큰 태블릿 타이틀 크기 */
-  .button-title {
-    font-size: 1.5rem;
   }
 }
 

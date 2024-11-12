@@ -217,12 +217,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
             swiperInstance.autoplay.start();
           }}
           // 끝에 도달했을 때 처음으로 돌아가는 대신 계속 진행
-          onReachEnd={() => {
-            if (swiper) {
-              swiper.autoplay.start();
-              swiper.slideTo(0, 0, false);
-            }
-          }}
+
           onLoopFix={() => {
             console.log("Loop fixed");
             if (swiper) {

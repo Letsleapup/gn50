@@ -269,7 +269,7 @@
 
 .infinite-text-wrap {
   animation-play-state: paused;
-  animation: textLoop 200s linear infinite;
+  animation: textLoop 50s linear infinite;
   padding-right: 2vw;
 }
 

@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
           <div>대표자 : 김희영 </div>
           <div>사업자 등록번호 : 899-87-03465</div>
         </div>
-        <p className="text-[15px] leading-[30px] tracking-[-0.38px]">
+        <p className="text-[15px] leading-[30px] pt-[12px] tracking-[-0.38px]">
           &copy; 렛츠립업. All rights reserved.
         </p>
       </div>
