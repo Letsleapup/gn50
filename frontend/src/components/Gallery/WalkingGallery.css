@@ -1,47 +1,47 @@
-.navigation-buttons {
+.yg-navigation-buttons {
   top: 32%;
   left: 30%;
   z-index: 100;
   margin: 0;
 }
 
-.robot-img {
+.yg-robot-img {
   width: 20%;
   top: 0.5%;
   right: 15%;
 }
 
-.logo-div {
+.yg-logo-div {
   margin-left: 6vw;
 }
-.gallery-content {
+.yg-gallery-content {
   letter-spacing: -0.08125rem;
 }
 
 
-.burger-btn {
+.yg-burger-btn {
   margin-right: 6vw;
 }
 
-.shared-content1,
-.shared-content2,
-.shared-content3 {
+.yg-shared-content1,
+.yg-shared-content2,
+.yg-shared-content3 {
   position: absolute;
   width: 25.313%;
 }
 
-.item-img {
+.yg-item-img {
   width: 100%;
   height: 100%;
   border-radius: 8%;
   overflow: hidden;
 }
 
-.item-img > img {
+.yg-item-img > img {
   margin: 0 auto;
 }
 
-.item-title {
+.yg-item-title {
   text-align: left;
   padding: 4.9% 4.9% 4.9% 3%;
   margin: 0 auto 0 0;
@@ -49,26 +49,26 @@
   font-weight: 600;
 }
 
-.shared-content1 {
+.yg-shared-content1 {
   top: 10.6%;
   right: 18.75%;
 }
 
-.shared-content2 {
+.yg-shared-content2 {
   top: 44.07%;
   right: 50%;
 }
 
-.shared-content3 {
+.yg-shared-content3 {
   top: 53.53%;
   right: 18.75%;
 }
 
-.controls {
+.yg-controls {
   margin: 0;
 }
 
-.more-click-btn {
+.yg-more-click-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -82,20 +82,33 @@
   font-size: 1.125rem;
 }
 
-.more-click-btn > img {
+.yg-more-click-btn > img {
   margin: 0;
 }
 
-.hover-cover {
+.yg-hover-cover {
   border-radius: 8%;
 }
 
-.hover-cover {
+.yg-hover-cover {
   border-radius: 8%;
 }
 
-.not-hover {
+.yg-is-active {
+  border: 1px solid #000 !important;
+  cursor: pointer;
+}
 
+.yg-is-active > img {
+  filter: brightness(0)
+}
+
+.yg-is-not-active {
+  border: 3px solid #e4e4e4 !important;
+}
+
+.yg-is-not-active > img {
+  filter: brightness(100%)
 }
 
 @keyframes rotate-robot {
@@ -109,7 +122,7 @@
   }
 }
 
-.robot {
+.yg-robot {
   animation: rotate-robot 1s ease-in-out forwards;
 }
 
@@ -122,7 +135,7 @@
   }
 }
 
-.item-fade {
+.yg-item-fade {
   animation: fade-in 0.5s ease-in-out forwards;
 }
 
@@ -139,7 +152,7 @@
   }
 }
 
-.animate-float {
+.yg-animate-float {
   animation: float-robot 3s ease-in-out infinite;
 }
 
@@ -154,15 +167,15 @@
   }
 }
 
-.half-path-1,
-.half-path-2 {
+.yg-half-path-1,
+.yg-half-path-2 {
   animation: rotate-tr ease-in-out;
 }
 
 .swiper-button-prev-custom,
 .swiper-button-next-custom {
   position: static !important;
-  margin: 0 !important;
+  margin: 0 0 0 8px !important;
   width: 3.5rem !important;
   height: 3.5rem !important;
   background: transparent;
@@ -191,55 +204,55 @@
 }
 
 @media (min-width: 1440px) and (max-width: 1920px) {
-  .gallery-content {
+  .yg-gallery-content {
     font-size: 52px;
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1440px) {
-  .gallery-content {
+  .yg-gallery-content {
     font-size: 40px;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .gallery-content {
+  .yg-gallery-content {
     font-size: 35px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  .gallery-content {
+  .yg-gallery-content {
     font-size: 28px;
   }
-  .navigation-buttons {
+  .yg-navigation-buttons {
     display: none;
   }
 }
 
 @media (min-width: 468px) and (max-width: 768px) {
-  .gallery-content {
+  .yg-gallery-content {
     font-size: 20px;
   }
-  .navigation-buttons {
+  .yg-navigation-buttons {
     display: none;
   }
 }
 
 @media (min-width: 360px) and (max-width: 468px) {
-  .walking-gallery-container {
+  .yg-walking-gallery-container {
     height: 712px;
     margin: 0 auto;
   }
 
-  .robot-img {
+  .yg-robot-img {
     width: 53%;
     top: 30%;
     right: -32%;
     rotate: 0deg;
   }
 
-  .navigation-buttons {
+  .yg-navigation-buttons {
     align-items: center;
     padding: 0 auto;
     top: 5%;
@@ -248,27 +261,27 @@
     margin: 0;
   }
 
-  .gallery-content {
+  .yg-gallery-content {
     top: 7%;
     left: 8.3%;
     font-size: 1.625rem;
     letter-spacing: -0.65%;
   }
 
-  .shared-content1,
-  .shared-content2,
-  .shared-content3 {
+  .yg-shared-content1,
+  .yg-shared-content2,
+  .yg-shared-content3 {
     position: absolute;
     width: 42.25%;
   }
 
-  .controls {
+  .yg-controls {
     margin: 0px;
     top: 25.8%;
     left: 8.3%;
   }
 
-  .more-click-btn {
+  .yg-more-click-btn {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -276,55 +289,55 @@
     width: 6.75rem;
     height: 2.5rem;
   }
-  .more-click-btn > span {
+  .yg-more-click-btn > span {
     font-size: 14px;
   }
 
-  .more-click-btn > img {
+  .yg-more-click-btn > img {
     width: 0.75rem;
     margin: 0;
   }
 
-  .shared-content1 {
+  .yg-shared-content1 {
     top: 37%;
     right: 3%;
   }
 
-  .shared-content2 {
+  .yg-shared-content2 {
     top: 59%;
     left: 0%;
   }
 
-  .shared-content3 {
+  .yg-shared-content3 {
     top: 68%;
     right: 3%;
   }
 
-  .star-1,
+  .yg-star-1,
   .star-2 {
     width: 30px;
     height: auto;
   }
 
-  .star-1 {
+  .yg-star-1 {
     top: 7%;
   }
 
-  .star-2 {
+  .yg-star-2 {
     bottom: 6%;
   }
 
-  .half-path-1,
-  .half-path-2 {
+  .yg-half-path-1,
+  .yg-half-path-2 {
     width: 66px;
     height: auto;
   }
 
-  .half-path-2 {
+  .yg-half-path-2 {
     bottom:-4.3%
   }
 
-  .item-title {
+  .yg-item-title {
     font-size: 1rem;
   }
 

@@ -65,6 +65,7 @@ const Header: React.FC = () => {
             alt="강남구 CI*슬로건"
             className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%] ml-0"
             onClick={() => navigate("/")}
+            style={{ cursor: "pointer", zIndex: 100 }}
           />
         </div>
         {/* 네비게이션 메뉴 */}
@@ -91,7 +92,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className="burger-btn block xl:hidden pt-1 text-white rounded-md hover:bg-gray-100"
+          className="burger-btn block xl:hidden pt-1 text-white rounded-md hover:bg-gray-100 mr-4"
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (
@@ -104,9 +105,16 @@ const Header: React.FC = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-0 bg-white xl:hidden z-50">
+        <div className="fixed inset-0 top-0 bg-white xl:hidden z-40">
           {/* 모바일 메뉴 헤더 */}
           <div className="p-4 flex justify-end ">
+            <img
+              src="/asset/logo.svg"
+              alt="강남구 CI*슬로건"
+              className="w-[30%] sm:w-[40%] md:w-[80%] lg:w-[100%] ml-0"
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer", zIndex: 100 }}
+            />
             <button
               type="button"
               onClick={toggleMenu}
