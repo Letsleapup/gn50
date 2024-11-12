@@ -107,7 +107,7 @@ const Header: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 top-0 bg-white xl:hidden z-40">
           {/* 모바일 메뉴 헤더 */}
-          <div className="p-4 flex justify-end "> //TODO: 해당 내용 수정하기
+          <div className="p-4 flex justify-end ">
             <img
               src="/asset/logo.svg"
               alt="강남구 CI*슬로건"

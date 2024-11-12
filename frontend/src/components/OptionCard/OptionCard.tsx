@@ -50,7 +50,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                     }}
                   />
                   <div className="flex justify-between items-center">
-                    <span className="text-[24px] align-text-top tracking-[-0.5px] font-semibold truncate text-start">
+                    <span className="text-[20px] align-text-top tracking-[-0.5px] font-semibold truncate text-start">
                       {option.title}
                     </span>
                     <span className="text-gray-500 text-sm flex items-center gap-1">
