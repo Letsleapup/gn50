@@ -110,7 +110,7 @@ const SelectPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {type && <PageBanner type={type} />}
-      <main className="flex-1 mx-auto px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 py-20 mb-[90px]">
+      <main className="flex-1 mx-auto  py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-[80px] mb-[90px] transition-all duration-300 ease-in-out">
         <div>
           <div>
             <OptionCard
