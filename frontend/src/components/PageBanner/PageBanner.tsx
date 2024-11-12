@@ -44,7 +44,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
             <div className="relative w-full h-full">
               {/* 가운데 이미지*/}
               {currentBanner.robotUrl && (
-                <div className="absolute -bottom-20 left-18">
+                <div className={`absolute bottom-1 z-10 ${type === "walking" ? "-left-6" : "left-[22%]"}`}>
                   {/* 로봇 */}
                   <img
                     src={currentBanner.robotUrl}
@@ -65,7 +65,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
                 <img
                   src={currentBanner.imgUrl}
                   alt="banner"
-                  className="w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute -bottom-3 -right-[300px]"
+                  className={`w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute ${type === "walking" ? "bottom-5 -right-[240px] scale-[126.98%]" : "bottom-5 -right-[300px] scale-[126.98%]"}`}
                   onError={(e) => {
                     console.error(
                       "Image loading failed:",

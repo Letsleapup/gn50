@@ -90,10 +90,6 @@
   border-radius: 8%;
 }
 
-.yg-hover-cover {
-  border-radius: 8%;
-}
-
 .yg-is-active {
   border: 1px solid #000 !important;
   cursor: pointer;
