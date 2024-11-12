@@ -24,25 +24,24 @@
 /* Gallery 타이틀 */
 .gallery-title {
   width: min(32.3125rem, 90%);
-  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  font-size: clamp(26px, 4vw, 52px);
   font-weight: bold;
   color: white;
-  margin-top: 6rem;
+
   letter-spacing: -0.08125rem;
-  margin-left: 30%;
 }
 /* 더보기 버튼 컨테이너 */
 .controls-container {
-  margin-left: 28px;
-  margin-top: 9rem;
+  display: flex;
+  align-items: center;
 }
 
+/* 슬라이드 관련 */
 .slide-track {
   display: flex;
-  animation: slide 30s linear infinite;
+  animation: slideAnimation 50s linear infinite;
   width: fit-content;
-  position: relative;
-  z-index: 2;
+  gap: 1.5rem;
 }
 
 .slide-item {
@@ -54,7 +53,7 @@
 .content-card {
   border-radius: 2rem;
   width: 408px;
-  height: 600px;
+  height: 625px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -67,6 +66,7 @@
   aspect-ratio: 1;
   object-fit: cover;
 }
+
 .content-card h3 {
   color: white;
   font-size: 1.25rem;
@@ -77,157 +77,39 @@
   white-space: nowrap;
 }
 
-/* 태블릿 */
-@media (max-width: 1024px) {
-  .content-card {
-    width: 320px;
-    height: 400px;
-  }
-  .content-card img {
-    width: 320px;
-    height: 320px;
-  }
-
-  .content-card h3 {
-    font-size: 1.5rem;
-  }
-}
-
-/* 모바일 (768px 이하) */
-@media (max-width: 768px) {
-  .content-card {
-    width: 264px;
-    height: 320px;
-  }
-  .content-card img {
-    width: 264px;
-    height: 264px;
-  }
-  .content-card h3 {
-    font-size: 1.25rem;
-  }
-}
-
 .content-card:hover {
   transform: scale(1.1);
 }
 
-.webtoon-swiper {
-  margin-top: 50px;
-  overflow: visible;
-  height: 100%;
-  z-index: 2;
-  padding: 0;
-}
-
-/* Swiper 기본 스타일 재정의 */
-.swiper-container {
-  overflow: visible !important;
-}
-
-.swiper-slide {
-  width: auto !important;
-  transition: transform 0.3s ease;
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-33.333%));
-  }
-}
-
-/* 부드러운 스크롤을 위한 가상 요소 */
-.slider-container::before,
-.slider-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4rem;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.slider-container::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
-}
-
-.slider-container::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
-}
 .moreclickbtn {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 48px;
-  padding: 1rem 1.75rem;
+  padding: 16px 28px;
   width: 170px;
   height: 56px;
   background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
   border-radius: 1.75rem;
   color: white;
-  font-size: 1.125rem;
+  font-size: 18px;
 }
-@media (max-width: 26.875rem) {
-  /* 더보기 버튼의 영역 컨테이너 */
-  .controls-container {
-    display: flex;
-    align-items: flex-start;
-    margin-top: 5rem;
+.moreclick_arrow {
+  width: 16px;
+  height: 16px;
+}
+/* 애니메이션 */
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0);
   }
-
-  .moreclickbtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 1rem;
-    width: 108px;
-    height: 40px;
-    gap: 20px;
-  }
-  .moreclickbtn > span {
-    font-size: 14px;
-  }
-
-  .moreclickbtn > img {
-    width: 0.75rem;
-    margin: 0;
-  }
-  @media (max-width: 64rem) {
-    /* 1024px */
-    .controls-container {
-      margin-left: 1rem;
-      margin-top: 6rem;
-    }
-    .swiper-wrapper {
-      gap: 1.5rem;
-    }
+  100% {
+    transform: translateX(-50%);
   }
 }
-@media (max-width: 48rem) {
-  /* 768px */
-  .controls-container {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-    margin-top: 4rem;
-  }
-  .swiper-wrapper {
-    gap: 1rem;
-  }
-}
-
-/* Swiper 래퍼 transition 조정 */
-.swiper-wrapper {
-  display: flex;
-  gap: 1.5rem;
-  transition-timing-function: linear !important;
-  transition-duration: 2000ms !important;
+/* 마우스오버시 멈춤 */
+.group:hover .slide-track {
+  animation-play-state: paused;
 }
 
 /* infinite text */
@@ -282,87 +164,94 @@
   }
 }
 
-/* 반응형 스타일 */
-@media (min-width: 120rem) {
-  .slider-container {
-    height: 40rem;
+/* 반응형 */
+/* 1920px 이상 */
+@media (min-width: 1920px) {
+  .gallery-header {
+    padding-left: 360px;
+    padding-top: 160px;
+    margin-bottom: 106px;
   }
-  .slide-item {
-    width: 408px;
-    height: 408px;
+
+  .gallery-title {
+    margin-top: 0;
+    font-size: 52px;
+  }
+
+  .controls-container {
+    margin-left: 363px;
+    margin-top: 30px;
   }
   .infinite-text-container {
-    bottom: 2%;
+    bottom: 1%;
   }
 }
+/* 768px ~ 1920px */
+@media (min-width: 768px) and (max-width: 1919px) {
+  .content-card {
+    width: 264px;
+    height: 560px;
+  }
 
-/* 데스크톱 (1920px) */
-@media (max-width: 120rem) {
+  .content-card img {
+    width: 264px;
+    height: 264px;
+  }
+
   .slider-container {
-    height: 40rem;
+    height: 420px;
   }
+
   .slide-item {
-    width: 408px;
-    height: 408px;
+    width: 264px;
+    height: 264px;
   }
-  .webtoon-swiper {
-    margin-top: 106px;
+  .gallery-title {
+    font-size: 26px;
+    letter-spacing: -0.65px;
+  }
+  .gallery-header {
+    padding-left: 80px;
+    padding-bottom: 64px;
+    padding-top: 70px;
   }
   .infinite-text {
-    font-size: 11.25rem;
+    font-size: 90px;
   }
+
   .infinite-text-container {
-    bottom: 2%;
+    bottom: -15%;
+  }
+
+  .moreclickbtn {
+    width: 108px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    gap: 20px;
+    font-size: 14px;
+  }
+  .moreclick_arrow {
+    width: 12px;
+    height: 12px;
+  }
+  .controls-container {
+    margin-left: 0;
+    margin-top: 14px;
   }
 }
 
-/* 아이패드 Pro & Air (1024px) */
-@media (max-width: 64rem) {
-  .slider-container {
-    height: 32rem;
-    margin-top: 4rem;
+/* 360px ~ 768px */
+@media (min-width: 360px) and (max-width: 767px) {
+  .content-card {
+    width: 264px;
+    height: 320px;
   }
 
-  .slide-item {
-    width: 20rem;
-    height: 20rem;
-  }
-  .webtoon-swiper {
-    margin-top: 96px;
+  .content-card img {
+    width: 264px;
+    height: 264px;
   }
 
-  .infinite-text {
-    font-size: 7.5rem;
-  }
-  .infinite-text-container {
-    bottom: -8%;
-  }
-}
-
-/* 아이패드 미니 & 작은 태블릿 (768px) */
-@media (max-width: 48rem) {
-  .slider-container {
-    height: 27rem;
-    margin-top: 3rem;
-  }
-
-  .slide-item {
-    width: 16rem;
-    height: 16rem;
-  }
-  .webtoon-swiper {
-    margin-top: 80px;
-  }
-  .infinite-text {
-    font-size: 6rem;
-  }
-  .infinite-text-container {
-    bottom: -12%;
-  }
-}
-
-/* 모바일 (430px) */
-@media (max-width: 26.875rem) {
   .slider-container {
     height: 25rem;
     margin-top: 2rem;
@@ -373,44 +262,6 @@
     height: 264px;
   }
 
-  .infinite-text {
-    font-size: 70px;
-  }
-  .infinite-text-container {
-    bottom: -17%;
-  }
-}
-
-/* 1401px 이상 화면에서의 레이아웃 */
-@media (min-width: 1401px) {
-  .gallery-header {
-    padding-top: 48px;
-    padding-left: 360px;
-    justify-content: flex-start;
-  }
-
-  .gallery-title {
-    margin-left: 0;
-  }
-
-  .controls-container {
-    margin-left: 30%;
-  }
-}
-
-/* 1400px 이하 화면에서의 레이아웃 */
-@media (max-width: 1400px) {
-  .gallery-header {
-    justify-content: space-between;
-    padding: 0 5%;
-  }
-
-  .gallery-title {
-    margin-left: 20%;
-  }
-}
-/* 모바일 화면 */
-@media (max-width: 768px) {
   .gallery-header {
     flex-direction: column;
     align-items: flex-start;
@@ -421,10 +272,30 @@
     margin-left: 0;
     width: 100%;
     text-align: start;
+    margin-top: 50px;
   }
 
   .controls-container {
     margin-left: 0;
     margin-top: 28px;
+  }
+
+  .moreclickbtn {
+    width: 108px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    gap: 20px;
+    font-size: 14px;
+  }
+  .moreclick_arrow {
+    width: 12px;
+    height: 12px;
+  }
+  .infinite-text {
+    font-size: 70px;
+  }
+
+  .infinite-text-container {
+    bottom: -19%;
   }
 }
