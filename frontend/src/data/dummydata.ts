@@ -8,7 +8,7 @@ import {
 
 export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
 export const RobotUrl = "/asset/2x/card_chat_img01@2x.png";
-export const MainBannerRobotUrl = '/asset/2x/main_chat_img01@2x.png'
+export const MainBannerRobotUrl = "/asset/2x/main_chat_img01@2x.png";
 // 버튼 섹션 데이터
 export const actionButtons: ActionButton[] = [
   {
@@ -217,7 +217,7 @@ export const webtoonOptions: SelectOption[] = [
     title: "미래의 강남",
     imgUrl: "./asset/thumb13.png",
     style: "colorfull, megacity",
-    backdrop: "2025~2040",
+    backdrop: "2026~2040",
     description:
       "앞으로의 강남은 전세계가 주목하는 Walkable & Workable & Smart Green City로 성장할 것입니다.",
     hashtags: ["#futuristic", "#illustration", "#neon"],
@@ -229,7 +229,7 @@ export const walkingOptions: SelectOption[] = [
     id: "walking-1",
     title: "도산공원",
     imgUrl: "./asset/thumb01.png",
-    description: "강남구의 도산공원입니다.",
+    description: "도산 안창호 기념비와 조경이 잘 된 산책로를 가진 역사적 공원",
   },
   {
     id: "walking-2",
@@ -239,9 +239,9 @@ export const walkingOptions: SelectOption[] = [
   },
   {
     id: "walking-3",
-    title: "대치유수지 생태공원",
+    title: "양재천",
     imgUrl: "./asset/thumb03.png",
-    description: "강남구의 대치유수지 생태공원입니다.",
+    description: "강남구의 양재천입니다.",
   },
   {
     id: "walking-4",
@@ -251,9 +251,9 @@ export const walkingOptions: SelectOption[] = [
   },
   {
     id: "walking-5",
-    title: "양재천",
+    title: "대치유수지 생태공원",
     imgUrl: "./asset/thumb05.png",
-    description: "강남구의 양재천입니다.",
+    description: "강남구의 대치유수지 생태공원입니다.",
   },
   {
     id: "walking-6",

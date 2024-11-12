@@ -20,7 +20,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
       className={`grid  justify-center ${
         type === "walking"
           ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-          : "grid-cols-1 gap-y-6"
+          : "grid-cols-1 gap-y-[40px]"
       }`}
     >
       {options.map((option) => {
@@ -63,12 +63,12 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                 </>
               ) : (
                 // webtoon 타입일 때의 레이아웃
-                <div className="flex w-full gap-8 p-6">
-                  <div className="w-[40%] h-full">
+                <div className="flex w-full gap-[62px]">
+                  <div>
                     <img
                       src={option.imgUrl}
                       alt={option.title}
-                      className="rounded-[40px] w-[486px] h-[304px] object-cover"
+                      className="rounded-[30px] w-[486px] h-[304px] object-cover"
                       onError={(e) => {
                         console.error("Image loading failed:", option.imgUrl);
                         e.currentTarget.src =
@@ -76,16 +76,17 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       }}
                     />
                   </div>
-                  <div className="w-[60%] flex flex-col justify-center text-left">
+
+                  <div className="w-[494px] flex flex-col justify-center text-left py-[45px]">
                     {option.backdrop && (
-                      <p className="text-[#959595] text-[18px] leading-[76px] tracking-[-0.45px]">
+                      <p className="text-[#959595] text-[18px] tracking-[-0.45px] mb-[6px]">
                         {option.backdrop}
                       </p>
                     )}
-                    <h2 className="text-[32px] font-semibold leading-[76px] tracking-[-0.8px]">
+                    <h2 className="text-[32px] font-semibold mb-[12px] tracking-[-0.8px]">
                       {option.title}
                     </h2>
-                    <div className="w-[494px]">
+                    <div className="mb-[40px]">
                       {option.description && (
                         <p className="text-[#333333] text-[18px] leading-[28px] tracking-[-0.45px]">
                           {option.description}
@@ -95,11 +96,11 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                     {/* 해시태그 섹션 */}
                     {Array.isArray(option.hashtags) &&
                       option.hashtags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-4">
+                        <div className="flex flex-wrap gap-1">
                           {option.hashtags.map((tag: string, index: number) => (
                             <span
                               key={`${option.id}-tag-${index}`}
-                              className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[14px] font-medium"
+                              className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[15px] font-medium"
                             >
                               {tag}
                             </span>

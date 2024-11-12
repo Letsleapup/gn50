@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 // @types/domain.ts
 export type BoardType = "walking" | "webtoon" | "gallery";
 
@@ -57,3 +59,22 @@ export interface Option {
 }
 
 export type Nullable<T> = null | T;
+
+export interface Props {
+  isOpen: boolean;
+  type: BoardType;
+  btnName: string;
+  btnImgUrl?: string;
+  btnCancleName: string;
+  onClose: () => void;
+  onClick?: () => void;
+  children?: ReactNode;
+}
+
+export const ICON_URLS = {
+  PEN: "/asset/ic_pen.svg",
+  SEND: "/asset/ic_send.svg",
+  UPLOAD: "/asset/ic_upload.svg",
+  MENU: "/asset/ic_menu.svg",
+  EDIT: "/asset/ic_edit.svg",
+} as const;

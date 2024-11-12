@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { LoaderCircle} from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { walkingQuestions, webtoonQuestions } from "../../data/dummydata";
 
 interface ChatHistory {
@@ -186,7 +186,7 @@ const ChatbotPage: React.FC = () => {
       <div className="relative flex-1 w-[768px] mt-[200px] mb-20">
         {isLoading && (
           <div className="absolute top-0 left-0 right-0 flex justify-center">
-            <LoaderCircle style={{ transform: "rotate(90deg)" }} />
+            <LoaderCircle className="animate-spin w-20 h-20 text-blue-700 " />
           </div>
         )}
         <div className="relative flex-1 max-w-[768px] h-[700px] w-full mx-auto">
