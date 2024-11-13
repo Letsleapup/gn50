@@ -68,26 +68,26 @@ const ChatbotPage: React.FC = () => {
       };
 
       console.log("전송 데이터:", historyData);
-      try {
-        //TODO: 개발끝나면 try{괄호만}catch(error){..}부분 삭제
-        const response = await fetch("/api/chatbot/chat-history", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(historyData),
-        });
+      // try {
+      //   //TODO: 개발끝나면 try{괄호만}catch(error){..}부분 삭제
+      //   const response = await fetch("/api/chatbot/chat-history", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(historyData),
+      //   });
 
-        if (!response.ok) {
-          throw new Error("채팅 히스토리 전송 실패");
-        }
+      //   if (!response.ok) {
+      //     throw new Error("채팅 히스토리 전송 실패");
+      //   }
 
-        if (type !== "webtoon" && type !== "walking") {
-          throw new Error("잘못된 타입입니다");
-        }
-      } catch (error) {
-        console.log("작업중이라 api 호출 실패 무시됨");
-      }
+      //   if (type !== "webtoon" && type !== "walking") {
+      //     throw new Error("잘못된 타입입니다");
+      //   }
+      // } catch (error) {
+      //   console.log("작업중이라 api 호출 실패 무시됨");
+      // }
       setGeneratedContent({
         ...generatedContent,
         type: type as "webtoon" | "walking",
@@ -185,11 +185,10 @@ const ChatbotPage: React.FC = () => {
         setTimeout(() => {
           setShowResult(true);
           setIsGenerating(false);
-        }, 5000);
+        }, 10000);
       } catch (error) {
         console.error("Error:", error);
         alert("오류가 발생했습니다. 다시 시도해주세요.");
-      } finally {
         setIsGenerating(false);
       }
     }
