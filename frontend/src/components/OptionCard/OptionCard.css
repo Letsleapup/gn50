@@ -4,6 +4,8 @@
 .yg_option-grid {
   display: grid;
   justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .cr_option-button,
@@ -24,7 +26,7 @@
 /* Walking 타입 기본 스타일 */
 .yg_option-grid-walking {
   grid-template-columns: 1fr;
-  gap: 40px 24px;
+  max-width: 1200px;
 }
 
 .yg_option-button-walking {
@@ -37,13 +39,14 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .yg_option-title-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
 }
 
 .yg_option-title {
@@ -60,6 +63,8 @@
 .cr_option-grid-webtoon {
   grid-template-columns: 1fr;
   gap: 40px;
+  margin-top: 24px;
+  margin-bottom: 80px;
 }
 
 .cr_option-button-webtoon {
@@ -67,20 +72,18 @@
   display: flex;
   align-items: center;
 }
-
+.cr_option-webtoon-image {
+  border-radius: 26px;
+  width: 100%;
+  aspect-ratio: 320/200;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
 .cr_option-webtoon-content {
   display: flex;
-  flex-direction: column;
   width: 100%;
   gap: 24px;
   align-items: center;
-}
-
-.cr_option-webtoon-image {
-  border-radius: 30px;
-  aspect-ratio: 486/300;
-  object-fit: cover;
-  transition: all 0.3s;
 }
 
 .cr_option-webtoon-text {
@@ -122,7 +125,7 @@
 
 .cr_hashtag {
   color: #f79d00;
-  padding: 6px 10px;
+  padding: 4px 10px;
   border: 1px solid #f79d00;
   border-radius: 17px;
   font-size: 15px;
@@ -133,6 +136,9 @@
 @media screen and (min-width: 360px) and (max-width: 767px) {
   .yg_option-grid-walking {
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px;
+    margin-top: 24px;
   }
 
   .yg_option-button-walking {
@@ -144,10 +150,9 @@
   }
 
   .cr_option-webtoon-content {
-    padding-top: 9px;
-    height: 450px;
+    padding: 9px 0;
     gap: 0px;
-    padding-bottom: 0;
+    flex-direction: column;
   }
   .cr_option-grid-webtoon {
     grid-template-columns: 1fr;
@@ -161,7 +166,6 @@
     min-height: 320px;
   }
   .cr_option-webtoon-backdrop {
-    margin-top: 1px;
     font-size: 14px;
   }
 
@@ -180,6 +184,21 @@
 
 /* 태블릿 & 중간 화면 (768px ~ 1919px) */
 @media screen and (min-width: 768px) and (max-width: 1919px) {
+  .yg_option-grid-walking {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 800px;
+    margin-top: 24px;
+  }
+
+  .yg_option-button-walking {
+    width: 360px;
+  }
+
+  .yg_option-image-walking {
+    height: 220px;
+  }
+
   .cr_option-grid-walking {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -193,7 +212,6 @@
   }
   .cr_option-button-webtoon {
     width: 100%;
-    min-height: 400px;
     display: flex;
     align-items: center;
     padding: 20px;
@@ -207,11 +225,11 @@
 
   .cr_option-webtoon-image {
     width: 350px;
-    border-radius: 20px;
+    border-radius: 30px;
   }
 
   .cr_option-webtoon-text {
-    width: 450px;
+    width: calc(100% - 390px);
   }
 
   .cr_option-webtoon-backdrop {
@@ -231,23 +249,33 @@
 
 /* 큰 화면 (1920px 이상) */
 @media screen and (min-width: 1920px) {
-  .cr_option-grid-walking {
+  .yg_option-grid-walking {
     grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin-top: 80px;
   }
 
-  .cr_option-button-walking {
+  .yg_option-button-walking {
     width: 384px;
   }
 
-  .cr_option-image-walking {
+  .yg_option-image-walking {
     height: 240px;
   }
-
+  .cr_option-button-webtoon {
+    width: 100%;
+    display: flex;
+    margin-left: 360px;
+    padding: 0;
+  }
   .cr_option-webtoon-content {
     flex-direction: row;
     gap: 62px;
-    padding-left: 360px;
     padding-top: 80px;
+    width: 1042px;
+    display: flex;
+    align-items: center;
   }
 
   .cr_option-webtoon-image {

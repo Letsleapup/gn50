@@ -53,18 +53,15 @@ export const OptionCard: React.FC<OptionCardProps> = ({
               </div>
             ) : (
               <div className="cr_option-webtoon-content">
-                <div className="w-[97%] lg:w-auto">
-                  <img
-                    src={option.imgUrl}
-                    alt={option.title}
-                    className="cr_option-webtoon-image"
-                    onError={(e) => {
-                      console.error("Image loading failed:", option.imgUrl);
-                      e.currentTarget.src =
-                        "http://via.placeholder.com/486x304";
-                    }}
-                  />
-                </div>
+                <img
+                  src={option.imgUrl}
+                  alt={option.title}
+                  className="cr_option-webtoon-image"
+                  onError={(e) => {
+                    console.error("Image loading failed:", option.imgUrl);
+                    e.currentTarget.src = "http://via.placeholder.com/486x304";
+                  }}
+                />
 
                 <div className="cr_option-webtoon-text">
                   {option.backdrop && (
