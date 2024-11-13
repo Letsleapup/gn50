@@ -1,5 +1,24 @@
+.yg-select-banner-container {
+  width: 62.5%;
+  margin: 0 auto;
+}
+
+.yg-select-banner-wrapper{
+  height: 500px;
+}
+
+.yg-select-text-content-wrapper {
+  max-width: 40%;
+  margin-top: 12%;
+}
+
 .yg-select-title {
- 
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ font-size: 52px;
+ font-weight: bold;
+ line-height: 76px;
 }
 
 .yg-select-walking-robot-img {
@@ -11,15 +30,15 @@
 }
 
 .yg-select-walking-building-img {
-  bottom: 20px;
-  left: 48.5%;
-  scale: 125.34%;
+  bottom: -7%;
+  left: 45%;
+  scale: 105%;
 }
 
 .yg-select-webtoon-hand-img {
-  bottom: 20.5px;
-  right: -50%;
-  scale: 125.34%;
+  bottom: 5%;
+  right: -53%;
+  scale: 128%;
 }
 
 @keyframes float {
@@ -42,7 +61,7 @@
   }
   .yg-select-webtoon-robot-img {
     bottom: -5%;
-    left: -40%;
+    left: -5%;
     scale: 80%;
   }
   .yg-select-walking-building-img {
@@ -50,27 +69,47 @@
     right: -200px;
   }
   .yg-select-webtoon-hand-img {
-    bottom: 0%;
-    right: -50%;
+    bottom: -5%;
+    right: -30%;
+  }
+  .yg-select-title {
+    font-size: 40px;
+    line-height: 60px;
   }
 }
 
 @media (max-width: 361px) {
+  .yg-select-banner-container {
+    width: 95%;
+    justify-content: start;
+  }
+  .yg-select-banner-wrapper {
+    height: 424px;
+  }
   .yg-select-walking-robot-img {
-    left: -30%;
-    scale: 80%;
+    left: -60%;
+    scale: 90%;
   }
   .yg-select-webtoon-robot-img {
     bottom: -5%;
-    left: -40%;
+    left: -70%;
     scale: 80%;
   }
   .yg-select-walking-building-img {
-    bottom: 0%;
-    right: -200px;
+    display: none;
   }
   .yg-select-webtoon-hand-img {
-    bottom: 0%;
-    right: -50%;
+    display: none;
+  }
+
+  .yg-select-text-content-wrapper {
+    max-width: 100%;
+    margin-top: -5%;
+    margin-left: 4.5%;
+  }
+  .yg-select-title {
+    font-size: 24px;
+    line-height: 38px;
+    letter-spacing: -1.3px;
   }
 }

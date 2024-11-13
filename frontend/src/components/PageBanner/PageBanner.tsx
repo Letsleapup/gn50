@@ -19,15 +19,15 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
   return (
     // Banner Section - 1920x500px
 
-    <div className="w-full h-[500px] relative overflow-hidden">
+    <div className="yg-select-banner-wrapper w-full relative overflow-hidden">
       <div
         className={`w-full h-full ${currentBanner.bgColor} flex items-center rounded-b-[40px] overflow-hidden`}
         style={{ background: bgColorGradient[type] }}
       >
-        <div className="container mx-auto w-[62.5%] xs:w-[95%] relative h-full flex items-center xs:justify-start">
+        <div className="yg-select-banner-container relative h-full flex items-center">
           {/* 배너의 왼쪽 타이틀 */}
-          <div className="flex flex-col items-start gap-2 md:gap-4 max-w-[40%] xs:max-w-[100%] mt-[70px] z-10">
-            <div className="yg-select-title flex flex-col items-start text-2xl md:text-[40px] font-bold text-white leading-[76px] md:leading-[60px] xs:leading-[38px] tracking-[-1.3px]">
+          <div className="yg-select-text-content-wrapper flex flex-col items-start gap-2 md:gap-4 z-10">
+            <div className="yg-select-title text-2xl font-bold text-white">
               {currentBanner.title.split("\n").map((line, index) => (
                 <span key={index} className="whitespace-nowrap">
                   {line}
