@@ -160,7 +160,7 @@ const SelectPage: React.FC = () => {
             <img
               src={selectedOption.imgUrl}
               alt={selectedOption.title}
-              className="object-cover"
+              className="object-cover rounded-[30px]"
             />
             <p>{selectedOption.description}</p>
           </Modal>

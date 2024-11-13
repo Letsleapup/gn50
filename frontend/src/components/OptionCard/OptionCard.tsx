@@ -41,12 +41,17 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                 // walking 타입일 때의 레이아웃
                 <div>
                   <img
-                    src={option.imgUrl ? option.imgUrl : "http://via.placeholder.com/384x240"}
+                    src={
+                      option.imgUrl
+                        ? option.imgUrl
+                        : "http://via.placeholder.com/384x240"
+                    }
                     alt={option.title}
                     className="rounded-[30px] h-[200px] sm:h-[210px] md:h-[220px] lg:h-[230px] xl:h-[240px] w-full object-cover mb-[24px]"
                     onError={(e) => {
                       console.error("Image loading failed:", option.imgUrl);
-                      e.currentTarget.src = "http://via.placeholder.com/384x240";
+                      e.currentTarget.src =
+                        "http://via.placeholder.com/384x240";
                     }}
                   />
                   <div className="flex justify-between items-center">
@@ -70,7 +75,8 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       className="rounded-[30px] w-full lg:w-[450px] xl:w-[486px] aspect-[486/300] object-cover transition-all duration-300 my-0"
                       onError={(e) => {
                         console.error("Image loading failed:", option.imgUrl);
-                        e.currentTarget.src = "http://via.placeholder.com/486x304";
+                        e.currentTarget.src =
+                          "http://via.placeholder.com/486x304";
                       }}
                     />
                   </div>
@@ -92,18 +98,19 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       )}
                     </div>
                     {/* 해시태그 섹션 */}
-                    {Array.isArray(option.hashtags) && option.hashtags.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {option.hashtags.map((tag: string, index: number) => (
-                          <span
-                            key={`${option.id}-tag-${index}`}
-                            className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[15px] font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                    {Array.isArray(option.hashtags) &&
+                      option.hashtags.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {option.hashtags.map((tag: string, index: number) => (
+                            <span
+                              key={`${option.id}-tag-${index}`}
+                              className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[15px] font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                   </div>
                 </div>
               )}

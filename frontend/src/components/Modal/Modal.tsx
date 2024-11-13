@@ -30,27 +30,25 @@ export const Modal: FunctionComponent<Props> = ({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content">
-        <div
-          className={getModalContentClass()}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {children} {/* 모달 안에 표시될 내용 */}
-          <div className="btn-layout">
-            <button className="close-button" onClick={onClose}>
-              {btnCancleName}
-            </button>
-            <button className={getButtonClass()} onClick={onClick}>
-              <span>{btnName}</span>
-              {btnImgUrl && (
-                <img
-                  src={btnImgUrl}
-                  alt="button_icon"
-                  className="w-5 h-5 object-contain"
-                />
-              )}
-            </button>
-          </div>
+      <div
+        className={getModalContentClass()}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children} {/* 모달 안에 표시될 내용 */}
+        <div className="btn-layout">
+          <button className="close-button" onClick={onClose}>
+            {btnCancleName}
+          </button>
+          <button className={getButtonClass()} onClick={onClick}>
+            <span>{btnName}</span>
+            {btnImgUrl && (
+              <img
+                src={btnImgUrl}
+                alt="button_icon"
+                className="w-5 h-5 object-contain"
+              />
+            )}
+          </button>
         </div>
       </div>
     </div>

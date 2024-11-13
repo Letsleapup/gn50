@@ -78,3 +78,19 @@ export const ICON_URLS = {
   MENU: "/asset/ic_menu.svg",
   EDIT: "/asset/ic_edit.svg",
 } as const;
+
+export interface ContentDisplayProps {
+  type: "webtoon" | "walking";
+  imageUrl: string;
+  title: string;
+  scenario: string;
+  onEdit: () => void;
+  onShare: () => void;
+  onRegenerate: () => void;
+}
+export interface GeneratedContentState {
+  type: "webtoon" | "walking";
+  imageUrl: string;
+  title: string;
+  scenario: string;
+}

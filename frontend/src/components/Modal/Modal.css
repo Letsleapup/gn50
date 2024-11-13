@@ -14,12 +14,12 @@
 .modal-content {
   background: white;
   text-align: center;
-  padding: 2%;
+  padding: 40px;
   position: relative;
   height: fit-content;
-  border-radius: 40px;
-  max-width: 620px;
-  width: 90%;
+  border-radius: 50px;
+  width: 620px;
+  height: 686px;
   margin: auto;
 }
 
@@ -28,6 +28,7 @@
   justify-content: space-between; /* 버튼 간격 조정 */
   margin-top: 20px; /* 버튼과 내용 간격 */
   padding: 0 4px;
+  gap: 8px;
 }
 
 .close-button {
@@ -66,7 +67,7 @@
 
 /* walking 타입 모달 */
 .modal-content-walking {
-  border-radius: 5%;
+  border-radius: 50px;
   max-width: 620px;
 }
 .modal-content-walking > .select-title {
