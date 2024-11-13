@@ -26,10 +26,11 @@ const MainPage: React.FC = () => {
   //메인배너이미지 API호출
   useEffect(() => {
     const getBannerUrlApi = async () =>
-      await axios.get("https://mgn50.aixstudio.kr/api/api_main_banner.php");
+      await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
     getBannerUrlApi()
       .then((res) =>
-        setBannerUrl(`http://mgn50.aixstudio.kr/${res.data.banner1[0].url}`)
+        // console.log(res.data)
+        setBannerUrl(`http://gn50m.aixstudio.kr/${res.data.banner1[0].url}`)
       )
       .catch((_rej) => setBannerUrl(MainBannerUrl));
   }, []);

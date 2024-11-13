@@ -56,7 +56,6 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(isNavMenuItems);
       setIsScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll);
@@ -123,9 +122,9 @@ const Header: React.FC = () => {
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (
-            <X className="w-8 h-8" />
+            <X className="w-[24px] h-[24px]" />
           ) : (
-            <Menu className="w-8 h-8" />
+            <Menu className="w-[24px] h-[24px]" />
           )}
         </button>
       </div>
