@@ -56,6 +56,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log(isNavMenuItems);
       setIsScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll);
@@ -76,7 +77,7 @@ const Header: React.FC = () => {
 
 
   return (
-    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-500 z-50`}>  
+    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-500 z-[150]`}>  
       <div className={`relative flex justify-between items-center mt-[3vh] ${isScrolled ? `mb-[3vh]` : `mb-[0]` }`}> 
         {/* 로고 섹션 */}
         <div className="mx-[6vw]">
@@ -96,8 +97,7 @@ const Header: React.FC = () => {
                 onClick={item.onClick}
                 className={`
                   font-bold px-10 py-2 rounded-md transition-colors text-center leading-tight
-                  ${(!isNavMenuItems) ? 'text-black' : ''}
-                  ${activeNavItemId === item.id ? 'text-blue-500' : ''}
+                  ${isNavMenuItems && activeNavItemId === item.id ? 'text-blue-500' : 'text-black'}
                   ${system !== 'ios' && system !== 'android' 
                     ? 'hover:text-blue-500' 
                     : ''

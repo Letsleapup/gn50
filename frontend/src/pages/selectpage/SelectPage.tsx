@@ -12,7 +12,7 @@ import {
   SelectOptionsType,
 } from "../../@types/domain";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 30;
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
