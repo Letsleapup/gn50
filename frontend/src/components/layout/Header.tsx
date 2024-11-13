@@ -76,26 +76,26 @@ const Header: React.FC = () => {
 
 
   return (
-    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-500 z-[150]`}>  
-      <div className={`relative flex justify-between items-center mt-[3vh] ${isScrolled ? `mb-[3vh]` : `mb-[0]` }`}> 
+    <header className={`fixed top-[0] max-w-1920 w-screen h-[128px] md:h-[64px] xs:h-[64px] ${isScrolled ? `bg-white opacity-75` : `bg-transparent` } transition-all duration-500 z-[150] flex items-center`}>  
+      <div className={`relative flex justify-between items-center w-full mx-[6vw]`}>
         {/* 로고 섹션 */}
-        <div className="mx-[6vw]">
+        <div>
           <img
             src={`${(isNavMenuItems) && !isScrolled ? '/asset/logo_w.svg' : '/asset/logo.svg'}`}
             alt="강남구 CI*슬로건"
-            className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%] ml-0"
+            className="3xl:w-[100%] md:w-[55.65%] xs:w-[55.65%] ml-0"
             onClick={() => navigate("/")}
             style={{ cursor: "pointer", zIndex: 100 }}
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="absolute left-[35%] w-[31%] h-[81.9%] flex justify-between items-center opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
+        <nav className="absolute left-[50%] translate-x-[-50%] w-[31%] h-[81.9%] flex justify-between items-center opacity-75 hidden 2xl:flex bg-white rounded-full 3xl:px-[70px] md:px-[30px]">
           {navItems.map((item, index) => (
             <React.Fragment key={item.id}>
               <button
                 onClick={item.onClick}
                 className={`
-                  font-bold px-10 py-2 rounded-md transition-colors text-center leading-tight
+                  flex items-center justify-center font-bold rounded-md transition-colors text-center leading-tight
                   ${isNavMenuItems && activeNavItemId === item.id ? 'text-blue-500' : 'text-black'}
                   ${system !== 'ios' && system !== 'android' 
                     ? 'hover:text-blue-500' 
@@ -118,13 +118,13 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className={`burger-btn ${isScrolled ? "text-black" : "text-white"} block xl:hidden pt-1 rounded-md hover:bg-gray-100 mr-4`}
+          className={`burger-btn ${isScrolled ? "text-black" : "text-white"} pl-[10px] rounded-md hover:bg-gray-100 block 2xl:hidden`}
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (
-            <X className="w-[24px] h-[24px]" />
+            <X className="w-[24px] h-[24px] md:w-[48px] md:h-[48px] xs:w-[24px] xs:h-[24px]" />
           ) : (
-            <Menu className="w-[24px] h-[24px]" />
+            <Menu className="w-[24px] h-[24px] md:w-[48px] md:h-[48px] xs:w-[24px] xs:h-[24px]" />
           )}
         </button>
       </div>
@@ -133,11 +133,11 @@ const Header: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 top-0 bg-white xl:hidden z-40">
           {/* 모바일 메뉴 헤더 */}
-          <div className="p-4 flex justify-end ">
+          <div className="flex items-center justify-between h-[128px] md:h-[64px] xs:h-[64px] mx-[6vw]">
             <img
               src="/asset/logo.svg"
               alt="강남구 CI*슬로건"
-              className="w-[30%] sm:w-[30%] md:w-[30%] lg:w-[30%] ml-0"
+              className="w-[89px] mx-0"
               onClick={() => navigate("/")}
               style={{ cursor: "pointer", zIndex: 100 }}
             />
@@ -147,10 +147,10 @@ const Header: React.FC = () => {
               className="p-2 rounded-md hover:bg-gray-100"
               aria-label="메뉴 닫기"
             >
-              <X className="w-8 h-8" />
+              <X className="w-[24px] h-[24px] md:w-[48px] md:h-[48px] xs:w-[24px] xs:h-[24px]" />
             </button>
           </div>
-          <div className="flex flex-col p-4 space-y-4">
+          <div className="flex flex-col gap-[9.375%] mt-[20%]">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -158,7 +158,11 @@ const Header: React.FC = () => {
                   item.onClick();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-4xl px-4 py-2 rounded-md hover:bg-gray-100 transition-colors text-center leading-relaxed"
+                className={`w-full text-[26px] md:text-[48px] font-bold tracking-[-0.65px] line-height-[38px] rounded-md mb-[69px]
+                  ${system !== 'ios' && system !== 'android' 
+                    ? 'hover:bg-gray-100' 
+                    : ''
+                  } transition-colors text-center leading-relaxed`}
                 type="button"
               >
                 {item.label}

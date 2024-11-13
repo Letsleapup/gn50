@@ -67,33 +67,6 @@
   animation: float 2s ease-in-out infinite;
 }
 
-/* @media(min-width: 768px) and (max-width: 1919px) {
-  .yg-select-walking-robot-img {
-    bottom: 40%;
-    right: 0%;
-    scale: 100%;
-  }
-  .yg-select-webtoon-robot-img {
-    bottom: 20%;
-    left: 30%;
-    scale: 160%;
-  }
-  .yg-select-walking-building-img {
-    display: none;
-  }
-  .yg-select-webtoon-hand-img {
-  }
-  .yg-select-title {
-    font-size: 35px;
-    line-height: 55px;
-  }
-
-  .yg-select-text-content-wrapper {
-    top: 40%;
-    max-width: 50%;
-  }
-} */
-
 @media (min-width: 768px) and (max-width: 1919px) {
   .yg-select-banner-container {
     min-width: 768px;
@@ -167,7 +140,7 @@
 
   .yg-select-text-content-wrapper {
     max-width: 100%;
-    top: 20%
+    top: 25%
   }
   .yg-select-title {
     font-size: 24px;
