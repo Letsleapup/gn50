@@ -7,7 +7,7 @@
 
 .yg-robot-img {
   width: 20%;
-  top: 0.5%;
+  top: 8%;
   right: 15%;
 }
 
@@ -248,7 +248,7 @@
 
   .yg-robot-img {
     width: 53%;
-    top: 30%;
+    top: 32%;
     right: -32%;
     rotate: 0deg;
   }
@@ -315,7 +315,7 @@
   }
 
   .yg-star-1,
-  .star-2 {
+  .ygstar-2 {
     width: 30px;
     height: auto;
   }
@@ -377,5 +377,6 @@
   }
 }
 
-@media (min-width: 360px) {
+@media (max-width: 361px) {
+  
 }

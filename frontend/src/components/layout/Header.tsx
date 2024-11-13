@@ -76,7 +76,7 @@ const Header: React.FC = () => {
 
 
   return (
-    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-300 z-50`}>  
+    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-500 z-50`}>  
       <div className={`relative flex justify-between items-center mt-[3vh] ${isScrolled ? `mb-[3vh]` : `mb-[0]` }`}> 
         {/* 로고 섹션 */}
         <div className="mx-[6vw]">
@@ -119,7 +119,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className="burger-btn block xl:hidden pt-1 text-white rounded-md hover:bg-gray-100 mr-4"
+          className={`burger-btn ${isScrolled ? "text-black" : "text-white"} block xl:hidden pt-1 rounded-md hover:bg-gray-100 mr-4`}
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (

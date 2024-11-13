@@ -204,7 +204,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_img02.svg"
         alt="별2"
-        className="yg-star-2 absolute w-[5.5%] z-40 bottom-[13%] left-[4.4%]"
+        className="yg-star-2 absolute w-[5.5%] z-40 bottom-[16%] left-[4.4%]"
       />
       <img
         src="/asset/bg_line01.svg"
@@ -218,7 +218,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       <img
         src="/asset/bg_line01-1.svg"
         alt="half-circle"
-        className="yg-half-path-2 absolute w-[12.7%] bottom-[-9.4%] left-[-0%] z-40 transition-transform duration-500"
+        className="yg-half-path-2 absolute w-[12.7%] bottom-[-3%] left-[-0%] z-40 transition-transform duration-500"
         // style={{
         //   transform: `rotate(${-rotation}deg)`,
         //   transformOrigin: `top left`,
