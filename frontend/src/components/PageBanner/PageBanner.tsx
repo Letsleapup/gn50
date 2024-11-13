@@ -1,7 +1,7 @@
 import React from "react";
 import { bannerContent } from "../../data/dummydata";
 import { BoardType } from "../../@types/domain";
-
+import "./PageBanner.css";
 interface PageBannerProps {
   type?: BoardType;
 }
@@ -21,20 +21,20 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
 
     <div className="w-full h-[500px] relative overflow-hidden">
       <div
-        className={`w-full h-full ${currentBanner.bgColor} flex items-center rounded-b-[40px]`}
+        className={`w-full h-full ${currentBanner.bgColor} flex items-center rounded-b-[40px] overflow-hidden`}
         style={{ background: bgColorGradient[type] }}
       >
-        <div className="container mx-auto w-[62.5%] relative h-full flex items-end ">
+        <div className="container mx-auto w-[62.5%] xs:w-[95%] relative h-full flex items-center xs:justify-start">
           {/* 배너의 왼쪽 타이틀 */}
-          <div className="flex flex-col items-start gap-2 md:gap-4 z-10 max-w-[40%]">
-            <div className="flex flex-col items-start text-2xl md:text-[52px] font-bold text-white leading-[76px] tracking-[-1.3px]">
+          <div className="flex flex-col items-start gap-2 md:gap-4 max-w-[40%] xs:max-w-[100%] mt-[70px] z-10">
+            <div className="yg-select-title flex flex-col items-start text-2xl md:text-[40px] font-bold text-white leading-[76px] md:leading-[60px] xs:leading-[38px] tracking-[-1.3px]">
               {currentBanner.title.split("\n").map((line, index) => (
                 <span key={index} className="whitespace-nowrap">
                   {line}
                 </span>
               ))}
             </div>
-            <p className="text-white text-xl md:text-[24px] opacity-90 mb-[76px] leading-[48px] tracking-[-0.6px]">
+            <p className="text-white text-xl md:text-[24px] xs:text-[16px] opacity-90 mb-[76px] leading-[48px] tracking-[-0.6px]">
               {currentBanner.description}
             </p>
           </div>
@@ -44,12 +44,12 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
             <div className="relative w-full h-full">
               {/* 가운데 이미지*/}
               {currentBanner.robotUrl && (
-                <div className={`absolute bottom-1 z-10 ${type === "walking" ? "-left-6" : "left-[22%]"}`}>
+                <div className={`absolute bottom-1 z-10 ${type === "walking" ? "yg-select-walking-robot-img" : "yg-select-webtoon-robot-img"}`}>
                   {/* 로봇 */}
                   <img
                     src={currentBanner.robotUrl}
                     alt="Robot"
-                    className="w-[18rem] md:w-[280px] h-auto"
+                    className="w-[220px] md:w-[280px] h-auto animate-float"
                     onError={(e) => {
                       console.error(
                         "Robot image loading failed:",
@@ -65,7 +65,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
                 <img
                   src={currentBanner.imgUrl}
                   alt="banner"
-                  className={`w-[300px] md:w-[400px] lg:w-[593px] h-auto absolute ${type === "walking" ? "bottom-5 -right-[240px] scale-[126.98%]" : "bottom-5 -right-[300px] scale-[126.98%]"}`}
+                  className={`absolute w-[752px] h-auto ${type === "walking" ? "yg-select-walking-building-img" : "yg-select-webtoon-hand-img"}`}
                   onError={(e) => {
                     console.error(
                       "Image loading failed:",

@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // 타입 정의
 interface NavItem {
@@ -11,6 +11,8 @@ interface NavItem {
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const type = location.pathname.split('/')[2];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItemId, setActiveNavItemId] = useState<number | null>(null);
   const onClickNavigate = (url: string, id: number) => {
@@ -43,6 +45,16 @@ const Header: React.FC = () => {
     console.log("Toggle menu clicked"); // 토글 동작 로깅
   };
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -55,13 +67,14 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
+
   return (
-    <header className="fixed top-[3vh] max-w-1920 w-screen h-0 bg-transparent z-50">
-      <div className="relative flex justify-between items-center">
+    <header className={`fixed top-[0] max-w-1920 w-screen ${isScrolled ? `bg-white` : `bg-transparent` } transition-all duration-300 z-50`}>  
+      <div className={`relative flex justify-between items-center mt-[3vh] ${isScrolled ? `mb-[3vh]` : `mb-[0]` }`}> 
         {/* 로고 섹션 */}
         <div className="mx-[6vw]">
           <img
-            src="/asset/logo.svg"
+            src={`${(type === 'walking' || type === 'webtoon') && !isScrolled ? '/asset/logo_w.svg' : '/asset/logo.svg'}`}
             alt="강남구 CI*슬로건"
             className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%] ml-0"
             onClick={() => navigate("/")}
@@ -69,7 +82,7 @@ const Header: React.FC = () => {
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="absolute top-[3%] left-[35%] w-[31%] flex justify-between opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
+        <nav className="absolute left-[35%] w-[31%] h-[81.9%] flex justify-between opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
           {navItems.map((item, index) => (
             <React.Fragment key={item.id}>
               <button
