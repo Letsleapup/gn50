@@ -90,7 +90,7 @@ const Header: React.FC = () => {
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="absolute left-[35%] w-[31%] h-[81.9%] flex justify-between opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
+        <nav className="absolute left-[35%] w-[31%] h-[81.9%] flex justify-between items-center opacity-75 hidden xl:flex bg-white rounded-full px-4 px-6 py-2">
           {navItems.map((item, index) => (
             <React.Fragment key={item.id}>
               <button
