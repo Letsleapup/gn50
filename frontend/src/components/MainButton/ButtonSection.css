@@ -1,283 +1,167 @@
-/* 버튼 섹션 최상위 컨테이너 */
-.button-section-container {
+/* 공통 스타일 (1920px 기준) */
+.cr_button-section-container {
   position: relative;
   width: 100vw;
   left: calc(-50vw + 50%);
+  margin: 0;
 }
 
-/* 버튼 섹션 전체 래퍼 - 최대 너비와 여백 설정 */
-.button-section-wrapper {
+.cr_button-section-wrapper {
   max-width: 1920px;
   margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* 버튼 그리드 레이아웃 */
-.button-section-grid {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 3.5%;
+  justify-content: center;
 }
 
-/* 액션 버튼 기본 스타일 */
-.action-button {
+.cr_button-section-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  margin: 0;
+}
+
+.cr_action-button {
   position: relative;
   overflow: hidden;
-  width: calc(100% - 9%);
-  height: 152px;
-  margin: 0 auto;
-  border-radius: 40px;
   transition: opacity 0.3s;
+  width: 882px;
+  height: 320px;
+  border-radius: 40px;
 }
 
-/* 버튼 호버 효과 */
-.action-button:hover {
+.cr_action-button:hover {
   opacity: 0.8;
 }
 
-/*  텍스트 영역 컨테이너 */
-.text-and-arrow-container {
+.cr_text-and-arrow-container {
   position: absolute;
   z-index: 10;
-  left: 6.81%;
-  top: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 24px 0;
-  gap: 30px;
+  left: 80px;
+  top: 56px;
+  padding: 0;
 }
 
-/* 텍스트 컨테이너 스타일 */
-.button-text {
+.cr_button-text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 214px;
 }
 
-/* 버튼 타이틀 텍스트 스타일 */
-.button-title {
+.cr_button-title {
   color: white;
   font-weight: bold;
   white-space: nowrap;
-  font-size: 20px;
-  line-height: 30px;
-  letter-spacing: -0.5px;
+  font-size: 36px;
+  line-height: 52px;
+  letter-spacing: -0.9px;
 }
 
-/* 화살표 아이콘 스타일 */
-.button-arrow {
+.cr_button-arrow {
   position: absolute;
-  left: 2.81%;
-  bottom: 24px;
-  width: 20px;
-  height: 20px;
+  left: 80px;
+  bottom: 57px;
+  width: 44px;
 }
 
-/* 배경 이미지 스타일 */
-.button-background {
+.cr_button-background {
   position: absolute;
-  width: 163px;
-  height: 118px;
-  right: -1%;
-  top: 13%;
-  object-fit: contain;
+  width: 441px;
+  height: 320px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* 태블릿 화면 (640px 이상) */
-@media (min-width: 640px) {
-  /* 태블릿 래퍼 패딩 */
-  .button-section-wrapper {
-    padding: 0 calc(20px + 2vw);
+/* 모바일 */
+@media (min-width: 360px) and (max-width: 767px) {
+  .cr_button-section-wrapper {
+    padding: 0 20px;
   }
 
-  /* 태블릿 그리드 레이아웃 */
-  .button-section-grid {
-    flex-direction: row;
-    gap: 24px;
-  }
-
-  /* 태블릿 버튼 크기 및 스타일 */
-  .action-button {
-    width: calc(50% - 12px);
-    height: auto;
+  .cr_button-section-grid {
+    flex-direction: column;
+    gap: 16px;
     margin: 0;
-    border-radius: 40px;
-    aspect-ratio: 2.75625/1;
+    width: 100%;
   }
 
-  /* 태블릿 텍스트 영역 위치 */
-  .text-and-arrow-container {
-    padding: 10% 0 15%;
-  }
-
-  /* 태블릿 텍스트 컨테이너 */
-  .button-text {
-    width: auto;
-  }
-
-  /* 태블릿 화살표 크기 */
-  .button-arrow {
-    left: 2%;
-    bottom: 5%;
-  }
-
-  /* 태블릿 배경 이미지 */
-  .button-background {
-    width: 50%;
-    height: auto;
-    right: 0.1%;
-    top: -13%;
-  }
-  .button-title {
-    font-size: 20px;
-    line-height: 30px;
-    letter-spacing: -0.5px;
-  }
-}
-
-/* 768px 미만 화면에서의 스타일 */
-@media (max-width: 767px) {
-  .text-and-arrow-container {
-    padding: 20px 0 30px;
-  }
-  .button-title {
-    font-size: 20px;
-    line-height: 30px;
-    letter-spacing: -0.5px;
-  }
-
-  .action-button {
+  .cr_action-button {
+    width: 320px;
+    height: 152px;
     border-radius: 20px;
   }
-}
 
-/* 큰 태블릿 화면 (768px 이상) */
-@media (min-width: 768px) {
-  .text-and-arrow-container {
-    padding: 20px 0 50px;
-  }
-  /* 큰 태블릿 래퍼 패딩 */
-  .button-section-wrapper {
-    padding: 0 calc(20px + 2.5vw);
-  }
-}
-
-/* 데스크탑 화면 (1024px 이상) */
-@media (min-width: 1024px) {
-  /* 데스크탑 래퍼 패딩 */
-  .button-section-wrapper {
-    padding: 0 60px;
+  .cr_text-and-arrow-container {
+    left: 24px;
+    top: 24px;
+    padding: 0;
   }
 
-  /* 데스크탑 버튼 간격 */
-  .button-section-grid {
-    gap: 36px;
+  .cr_button-title {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.5px;
   }
 
-  /* 데스크탑 텍스트 영역 위치 */
-  .text-and-arrow-container {
-    left: 8%;
-    padding: 26px 0 80px;
+  .cr_button-arrow {
+    left: 24px;
+    bottom: 24px;
+    width: 20px;
   }
 
-  /* 데스크탑 타이틀 크기 */
-  .button-title {
-    font-size: 1.8rem;
-    line-height: 42px;
-    letter-spacing: -0.9px;
-  }
-
-  /* 데스크탑 화살표 이미지 */
-  .button-arrow {
-    left: 1%;
-    bottom: 20px;
-    width: clamp(
-      12px,
-      calc(44px - (44px - 12px) * ((100vw - 1024px) / (1920px - 1024px))),
-      44px
-    );
-    height: auto;
-  }
-
-  /*데스크탑 배경 이미지 */
-  .button-background {
-    width: 50%;
-    top: -11%;
-    right: -0.1%;
+  .cr_button-background {
+    width: 163px;
+    height: 118px;
+    right: 0;
+    top: 61%;
+    transform: translateY(-50%);
   }
 }
 
-/* 1260px 이상 1920px 미만 화면 */
-@media (min-width: 1240px) and (max-width: 1919px) {
-  .button-section-wrapper {
-    padding: 0 80px;
+/* 태블릿 */
+@media (min-width: 768px) and (max-width: 1919px) {
+  .cr_button-section-wrapper {
+    padding: 0 24px;
   }
 
-  .button-section-grid {
-    gap: 36px;
+  .cr_button-section-grid {
+    flex-direction: row;
+    gap: 24px;
+    margin: 0;
   }
 
-  .text-and-arrow-container {
-    left: 8%;
-    padding: 26px 0 80px;
+  .cr_action-button {
+    width: 348px;
+    height: 164px;
+    border-radius: 20px;
   }
 
-  .button-title {
-    font-size: 2rem;
-    line-height: 52px;
-    letter-spacing: -0.9px;
+  .cr_text-and-arrow-container {
+    left: 24px;
+    top: 24px;
+    padding: 0;
   }
 
-  .button-arrow {
-    left: 1%;
-    bottom: 26px;
-    width: 33px;
-    height: auto;
+  .cr_button-title {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.5px;
   }
 
-  .button-background {
-    width: 50%;
-    top: -13%;
-    right: -0.1%;
-  }
-}
-
-/* 1920px 이상 화면 */
-@media (min-width: 1920px) {
-  .button-section-wrapper {
-    padding: 0 80px;
+  .cr_button-arrow {
+    left: 24px;
+    bottom: 24px;
+    width: 22px;
   }
 
-  .button-section-grid {
-    gap: 36px;
-  }
-
-  .text-and-arrow-container {
-    left: 8%;
-    padding: 36px 0 80px;
-  }
-
-  .button-title {
-    font-size: 36px;
-    line-height: 52px;
-    letter-spacing: -0.9px;
-  }
-
-  .button-arrow {
-    left: 1%;
-    bottom: 36px;
-    width: 44px;
-    height: auto;
-  }
-
-  .button-background {
-    width: 50%;
-    top: 0%;
-    right: -0.1%;
+  .cr_button-background {
+    width: 177px;
+    height: 164px;
+    right: 0;
+    top: 61%;
+    transform: translateY(-50%);
   }
 }
-

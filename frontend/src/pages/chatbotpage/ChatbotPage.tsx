@@ -8,6 +8,8 @@ import ContentDisplay from "../../components/Generated/ContentDisplay";
 import { Loading } from "../../components/Loading/Loading";
 import { starterMessage } from "../../data/dummydata";
 import { GeneratedContentState } from "../../@types/domain";
+import "./ChatbotPage.css";
+
 interface ChatHistory {
   type: string; // walking 또는 webtoon
   selectedTitle: string; // 선택한 장소/웹툰 제목
@@ -210,72 +212,61 @@ const ChatbotPage: React.FC = () => {
   // }, [chatHistory, type, title, imgUrl]);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-blue-50 ">
+    <div className="cr_chatbot-container">
       {isGenerating ? (
         <Loading message={starterMessage} />
       ) : !showResult ? (
-        //  메세지 영역
-        <div className="relative flex-1 w-[768px] mt-[200px] mb-20">
+        <div className="cr_message-area">
           {isLoading && (
             <div className="absolute top-0 left-0 right-0 flex justify-center">
-              <LoaderCircle className="animate-spin w-20 h-20 text-blue-700 " />
+              <LoaderCircle className="animate-spin w-20 h-20 text-blue-700" />
             </div>
           )}
-          <div className="relative flex-1 max-w-[768px] h-[700px] w-full mx-auto">
-            <div
-              className="h-full overflow-y-auto pb-20 p-4 scrollbar-custom"
-              ref={messageContainerRef}
-              style={{
-                scrollbarWidth: "auto",
-                msOverflowStyle: "none",
-              }}
-            >
+          <div className="cr_message-container">
+            <div className="cr_message-scroll" ref={messageContainerRef}>
               {messages.map((message, index) => {
-                // 여기서 이전 메시지와 비교
                 const showProfile =
                   index === 0 || messages[index - 1].role !== message.role;
 
                 return (
                   <div
                     key={index}
-                    className={`mb-4 ${
+                    className={`cr_message-wrapper ${
                       message.role === "assistant"
-                        ? "flex flex-col items-start"
-                        : "flex flex-col items-end"
+                        ? "cr_message-wrapper-assistant"
+                        : "cr_message-wrapper-user"
                     }`}
                   >
-                    {/* 조건부로 프로필 이미지 표시 */}
                     {showProfile && (
-                      <div className="flex-shrink-0 mb-2">
+                      <div className="cr_profile-image">
                         {message.role === "assistant" ? (
                           <img
                             src="/asset/prof_chat.png"
                             alt="AI-assistant"
-                            className="bg-blue-700 w-12 h-12 rounded-full"
+                            className="cr_profile-assistant"
                           />
                         ) : (
-                          <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+                          <div className="cr_profile-user">
                             <img
                               src="/asset/prof_user.svg"
-                              className="w-12 h-12 bg-white"
+                              className="w-12 h-12"
                             />
                           </div>
                         )}
                       </div>
                     )}
-                    {/* 메시지 내용 */}
                     <div
-                      className={`inline-block max-w-[70%] p-3  relative ${
+                      className={`cr_message-bubble ${
                         message.role === "assistant"
-                          ? "bg-white  rounded-b-lg rounded-r-lg px-4"
-                          : "bg-blue-500 rounded-b-lg rounded-l-lg text-white px-4"
+                          ? "cr_message-bubble-assistant"
+                          : "cr_message-bubble-user"
                       }`}
                     >
                       {message.type === "image" ? (
                         <img
                           src={message.content}
                           alt={title || "선택된 이미지"}
-                          className="w-[300px] h-[200px] object-cover rounded-lg"
+                          className="cr_message-image"
                         />
                       ) : (
                         message.content
@@ -287,50 +278,35 @@ const ChatbotPage: React.FC = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* 입력 영역 */}
-            <div className="absolute bottom-0 left-0 right-0 ">
-              <div className="relative m-2 drop-shadow-[0_0px_10px_rgba(0,0,0,0.3)]">
-                {/* 그라데이션 테두리를 위한 배경 컨테이너 */}
-                <div className="rounded-full transition-all duration-300 ">
-                  <div className="m-2">
-                    <AutoResizingTextarea
-                      backgroundColor="white"
-                      color="black"
-                      hasButton={true}
-                      placeholder="답변을 입력하세요"
-                      onChange={handleTextChange}
-                      onSendData={handleSendMessage}
-                    />
-                  </div>
+            <div className="cr_input-area">
+              <div className="cr_input-container">
+                <div className="cr_input-wrapper">
+                  <AutoResizingTextarea
+                    backgroundColor="white"
+                    color="black"
+                    hasButton={true}
+                    placeholder="답변을 입력하세요"
+                    onChange={handleTextChange}
+                    onSendData={handleSendMessage}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        // showResult가 true일 때
-        // 결과 화면
         <ContentDisplay
           type={generatedContent.type}
           imageUrl={generatedContent.imageUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          onEdit={() => {
-            console.log("시나리오 수정");
-            setShowResult(false);
-          }}
-          onShare={() => {
-            console.log("갤러리 공유");
-            navigate("/shareboard");
-          }}
-          onRegenerate={() => {
-            console.log("새로운 이미지 생성");
-
-            navigate("/select/walking");
-          }}
+          onEdit={() => setShowResult(false)}
+          onShare={() => navigate("/shareboard")}
+          onRegenerate={() => navigate("/select/walking")}
         />
       )}
     </div>
   );
 };
+
 export default ChatbotPage;

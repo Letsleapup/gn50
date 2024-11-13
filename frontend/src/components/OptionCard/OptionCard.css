@@ -73,7 +73,7 @@
   align-items: center;
 }
 .cr_option-webtoon-image {
-  border-radius: 26px;
+  border-radius: 30px;
   width: 100%;
   aspect-ratio: 320/200;
   object-fit: cover;
@@ -159,7 +159,7 @@
     width: 100%;
   }
   .cr_option-webtoon-image {
-    border-radius: 20px;
+    border-radius: 30px;
   }
   .cr_option-button-webtoon {
     width: 320px;
