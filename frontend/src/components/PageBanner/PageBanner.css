@@ -29,23 +29,29 @@
 }
 
 .yg-select-walking-robot-img {
-  left: 5%;
+  width: 23.33%;
+  height: auto;
+  right: 24%;
+  bottom: 17%;
+  z-index: 10;
 }
 
 .yg-select-webtoon-robot-img {
-  left: 22%;
+  width: 23.33%;
+  height: auto;
+  right: 19%;
+  bottom: 15%;
+  z-index: 10;
 }
 
 .yg-select-walking-building-img {
-  bottom: 1%;
-  left: 45%;
-  scale: 105%;
+  right: -30.55%;
+  scale: 100%;
 }
 
 .yg-select-webtoon-hand-img {
-  bottom: 11%;
-  right: -53%;
-  scale: 128%;
+  right: -30%;
+  scale: 100%;
 }
 
 @keyframes float {
@@ -61,11 +67,11 @@
   animation: float 2s ease-in-out infinite;
 }
 
-@media(min-width: 768px) and (max-width: 1919px) {
+/* @media(min-width: 768px) and (max-width: 1919px) {
   .yg-select-walking-robot-img {
-    bottom: 10%;
+    bottom: 40%;
     right: 0%;
-    scale: 120%;
+    scale: 100%;
   }
   .yg-select-webtoon-robot-img {
     bottom: 20%;
@@ -73,7 +79,7 @@
     scale: 160%;
   }
   .yg-select-walking-building-img {
-    left: 30%;
+    display: none;
   }
   .yg-select-webtoon-hand-img {
   }
@@ -83,29 +89,74 @@
   }
 
   .yg-select-text-content-wrapper {
+    top: 40%;
     max-width: 50%;
-    margin-top: 10%;
-    margin-left: -20%;
+  }
+} */
+
+@media (min-width: 768px) and (max-width: 1919px) {
+  .yg-select-banner-container {
+    min-width: 768px;
+    height: 450px;
+  }
+
+  .yg-select-banner-wrapper {
+    width: 70%;
+  }
+
+  .yg-select-text-content-wrapper {
+    max-width: 45%;
+  }
+
+  .yg-select-title {
+    font-size: 35px;
+    line-height: 55px;
+  }
+
+  .yg-select-walking-robot-img {
+    width: 280px;
+    right: -10%;
+    bottom: 15%;
+    
+  }
+
+  .yg-select-webtoon-robot-img {
+    width: 280px;
+    right: -10%;
+    bottom: 12%;
+  }
+
+  .yg-select-walking-building-img {
+    display: none;
+  }
+
+  .yg-select-webtoon-hand-img {
+    display: none;
   }
 }
 
 @media (min-width: 360px) and (max-width: 767px) {
   .yg-select-banner-container {
-    width: 95%;
-    justify-content: start;
-  }
-  .yg-select-banner-wrapper {
+    width: 100%;
     height: 424px;
   }
+  .yg-select-banner-wrapper {
+    width: 88%;
+    margin: 0 6vw;
+    
+  }
   .yg-select-walking-robot-img {
-    bottom: 10%;
-    right: 120%;
-    scale: 200%;
+    width: 55.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5%;
+    
   }
   .yg-select-webtoon-robot-img {
-    bottom: -5%;
-    right: 50%;
-    scale: 80%;
+    width: 55.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5%;
   }
   .yg-select-walking-building-img {
     display: none;
@@ -116,8 +167,7 @@
 
   .yg-select-text-content-wrapper {
     max-width: 100%;
-    margin-top: -5%;
-    margin-left: 4.5%;
+    top: 20%
   }
   .yg-select-title {
     font-size: 24px;
@@ -125,3 +175,4 @@
     letter-spacing: -1.3px;
   }
 }
+

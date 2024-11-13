@@ -23,7 +23,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
       className={`yg-select-banner-container w-full h-full`}
       style={{ background: bgColorGradient[type] }}
     >
-      <div className="yg-select-banner-wrapper w-full h-full">
+      <div className="yg-select-banner-wrapper relative w-full h-full">
         {/* 배너의 왼쪽 타이틀 */}
         <div className="yg-select-text-content-wrapper absolute">
           <div className="yg-select-title flex flex-col items-start">
@@ -39,42 +39,37 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
         </div>
 
         {/* 배너의 중앙 오른쪽 이미지들 컨테이너*/}
-        <div className="absolute top-0 right-0 h-full w-[10%] flex items-end">
-          <div className="relative w-full h-full">
-            {/* 가운데 이미지*/}
-            {currentBanner.robotUrl && (
-              <div
-                className={`absolute ${type === "walking" ? "yg-select-walking-robot-img" : "yg-select-webtoon-robot-img"}`}
-              >
-                {/* 로봇 */}
-                <img
-                  src={currentBanner.robotUrl}
-                  alt="Robot"
-                  className="w-[220px] md:w-[280px] h-auto animate-float"
-                  onError={(e) => {
-                    console.error(
-                      "Robot image loading failed:",
-                      currentBanner.robotUrl
-                    );
-                    e.currentTarget.src = "/fallback-robot.jpg";
-                  }}
-                />
-              </div>
-            )}
-            {/* 오른쪽 - 배경 건물 이미지 */}
-            {currentBanner.imgUrl && (
-              <img
-                src={currentBanner.imgUrl}
-                alt="banner"
-                className={`absolute w-[752px] h-auto ${type === "walking" ? "yg-select-walking-building-img" : "yg-select-webtoon-hand-img"}`}
-                onError={(e) => {
-                  console.error("Image loading failed:", currentBanner.imgUrl);
-                  e.currentTarget.src = "/fallback-image.jpg";
-                }}
-              />
-            )}
+        {currentBanner.robotUrl && (
+          <div
+            className={`absolute ${type === "walking" ? "yg-select-walking-robot-img" : "yg-select-webtoon-robot-img"}`}
+          >
+            {/* 로봇 */}
+            <img
+              src={currentBanner.robotUrl}
+              alt="Robot"
+              className="h-auto animate-float"
+              onError={(e) => {
+                console.error(
+                  "Robot image loading failed:",
+                  currentBanner.robotUrl
+                );
+                e.currentTarget.src = "/fallback-robot.jpg";
+              }}
+            />
           </div>
-        </div>
+        )}
+        {/* 오른쪽 - 배경 건물 이미지 */}
+        {currentBanner.imgUrl && (
+          <img
+            src={currentBanner.imgUrl}
+            alt="banner"
+            className={`absolute w-[752px] h-auto ${type === "walking" ? "yg-select-walking-building-img" : "yg-select-webtoon-hand-img"}`}
+            onError={(e) => {
+              console.error("Image loading failed:", currentBanner.imgUrl);
+              e.currentTarget.src = "/fallback-image.jpg";
+            }}
+          />
+        )}
       </div>
     </div>
   );
