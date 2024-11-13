@@ -14,6 +14,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const type = location.pathname.split('/')[2];
+  const chatbotType = location.pathname.split('/')[1];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItemId, setActiveNavItemId] = useState<number | null>(null);
   const onClickNavigate = (url: string, id: number) => {
@@ -39,7 +40,7 @@ const Header: React.FC = () => {
     },
   ];
   
-  const isNavMenuItems = (type === 'walking' || type === 'webtoon');
+  const isNavMenuItems = (type === 'walking' || type === 'webtoon' || chatbotType === 'chatbot');
   // 모바일 메뉴 햄버거
 
   const toggleMenu = () => {
@@ -73,15 +74,21 @@ const Header: React.FC = () => {
       document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
-
+  useEffect(() => {
+    console.log(chatbotType);
+  }, [chatbotType]);
 
   return (
-    <header className={`fixed top-[0] max-w-1920 w-screen h-[128px] md:h-[64px] xs:h-[64px] ${isScrolled ? `bg-white opacity-75` : `bg-transparent` } transition-all duration-500 z-[150] flex items-center`}>  
+    <header className={`fixed top-[0] max-w-1920 w-screen md:h-[128px] xs:h-[64px] ${isScrolled ? `bg-white opacity-75` : `bg-transparent` } transition-all duration-500 z-[150] flex items-center`}>  
       <div className={`relative flex justify-between items-center w-full mx-[6vw]`}>
         {/* 로고 섹션 */}
         <div>
           <img
-            src={`${(isNavMenuItems) && !isScrolled ? '/asset/logo_w.svg' : '/asset/logo.svg'}`}
+            src={`${chatbotType === 'chatbot' 
+              ? '/asset/logo.svg' 
+              : (isNavMenuItems) && !isScrolled 
+                ? '/asset/logo_w.svg' 
+              : '/asset/logo.svg'}`}
             alt="강남구 CI*슬로건"
             className="3xl:w-[100%] md:w-[55.65%] xs:w-[55.65%] ml-0"
             onClick={() => navigate("/")}
@@ -89,7 +96,7 @@ const Header: React.FC = () => {
           />
         </div>
         {/* 네비게이션 메뉴 */}
-        <nav className="absolute left-[50%] translate-x-[-50%] w-[31%] h-[81.9%] flex justify-between items-center opacity-75 hidden 2xl:flex bg-white rounded-full 3xl:px-[70px] md:px-[30px]">
+        <nav className="absolute left-[50%] translate-x-[-50%] w-[31%] h-[40px] md:h-[64px] flex justify-between items-center opacity-75 hidden 2xl:flex bg-white rounded-full 3xl:px-[70px] md:px-[30px]">
           {navItems.map((item, index) => (
             <React.Fragment key={item.id}>
               <button
@@ -118,7 +125,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className={`burger-btn ${isScrolled ? "text-black" : "text-white"} pl-[10px] rounded-md hover:bg-gray-100 block 2xl:hidden`}
+          className={`burger-btn ${isScrolled && chatbotType === 'chatbot' ? "text-black" : "text-white"} pl-[10px] rounded-md hover:bg-gray-100 block 2xl:hidden`}
           aria-label="메뉴 열기/닫기"
         >
           {isMobileMenuOpen ? (
