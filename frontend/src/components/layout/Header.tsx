@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getAgentSystem } from "../../util/checkSystem";
 
 // 타입 정의
 interface NavItem {
@@ -37,7 +38,8 @@ const Header: React.FC = () => {
       onClick: () => onClickNavigate("/shared/walking", 3),
     },
   ];
-
+  
+  const isNavMenuItems = (type === 'walking' || type === 'webtoon');
   // 모바일 메뉴 햄버거
 
   const toggleMenu = () => {
@@ -46,6 +48,11 @@ const Header: React.FC = () => {
   };
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [system, setSystem] = useState<string>("unknown");
+
+  useEffect(() => {
+    setSystem(getAgentSystem());
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +81,7 @@ const Header: React.FC = () => {
         {/* 로고 섹션 */}
         <div className="mx-[6vw]">
           <img
-            src={`${(type === 'walking' || type === 'webtoon') && !isScrolled ? '/asset/logo_w.svg' : '/asset/logo.svg'}`}
+            src={`${(isNavMenuItems) && !isScrolled ? '/asset/logo_w.svg' : '/asset/logo.svg'}`}
             alt="강남구 CI*슬로건"
             className="w-[40%] sm:w-[50%] md:w-[80%] lg:w-[100%] ml-0"
             onClick={() => navigate("/")}
@@ -87,8 +94,15 @@ const Header: React.FC = () => {
             <React.Fragment key={item.id}>
               <button
                 onClick={item.onClick}
-                className={`font-bold px-10 py-2 rounded-md transition-colors text-center leading-tight 
-                  ${activeNavItemId === item.id ? "text-blue-500" : "hover:text-blue"}`}
+                className={`
+                  font-bold px-10 py-2 rounded-md transition-colors text-center leading-tight
+                  ${(!isNavMenuItems) ? 'text-black' : ''}
+                  ${activeNavItemId === item.id ? 'text-blue-500' : ''}
+                  ${system !== 'ios' && system !== 'android' 
+                    ? 'hover:text-blue-500' 
+                    : ''
+                  }
+                `}
                 type="button"
               >
                 {item.label}
