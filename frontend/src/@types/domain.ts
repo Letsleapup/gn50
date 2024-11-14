@@ -17,6 +17,9 @@ export interface SharedContent {
   type: BoardType;
   createdAt: string;
 }
+export interface ExtendedSharedContent extends SharedContent {
+  scenario?: string;
+}
 
 export interface BannerContent {
   title: string;
