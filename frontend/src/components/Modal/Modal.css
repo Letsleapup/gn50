@@ -69,6 +69,7 @@
 .modal-content-walking {
   border-radius: 50px;
   max-width: 620px;
+  height: 611px;
 }
 .modal-content-walking > .select-title {
   font-size: 24px;
