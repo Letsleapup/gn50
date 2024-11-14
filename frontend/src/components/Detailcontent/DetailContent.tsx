@@ -73,9 +73,9 @@ const DetailContent: React.FC<DetailContentProps> = ({
           />
         </div>
 
-        <div className="w-full max-w-[800px] mt-[50px] border border-[#E4E4E4] p-[40px]">
+        <div className="w-full max-w-[800px] mt-[50px] border border-[#E4E4E4] p-[40px] rounded-[30px]">
           {/* 시나리오 섹션 추가 */}
-          <h2 className="text-[22px] font-bold mb-6  tracking-[-0.55px]">
+          <h2 className="text-[22px] font-bold mb-6 tracking-[-0.55px]">
             시나리오
           </h2>
           {content.scenario && (

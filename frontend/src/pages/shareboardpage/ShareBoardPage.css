@@ -53,11 +53,11 @@
   transition: transform 0.2s;
 }
 
-.cr_filter-button:hover::after {
+/* .cr_filter-button:hover::after {
   transform: scaleX(1);
-}
+} */
 
-.cr_filter-button-active {
+.cr_filter-button-active::after {
   transform: scaleX(1);
 }
 
