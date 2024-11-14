@@ -26,9 +26,9 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
       <div className="yg-select-banner-wrapper relative w-full h-full">
         {/* 배너의 왼쪽 타이틀 */}
         <div className="yg-select-text-content-wrapper absolute">
-          <div className="yg-select-title flex flex-col items-start">
+          <div className={`${type ==="gallery" ? 'yg-gallery-title' :'yg-select-title'} flex flex-col items-start`}>
             {currentBanner.title.split("\n").map((line, index) => (
-              <span key={index} className="whitespace-nowrap">
+              <span key={index} className={`${type === "gallery" ? "whitespace-wrap" : "whitespace-nowrap"}`}>
                 {line}
               </span>
             ))}
@@ -41,7 +41,12 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
         {/* 배너의 중앙 오른쪽 이미지들 컨테이너*/}
         {currentBanner.robotUrl && (
           <div
-            className={`absolute ${type === "walking" ? "yg-select-walking-robot-img" : "yg-select-webtoon-robot-img"}`}
+            className={`absolute ${type === "walking" 
+              ? "yg-select-walking-robot-img" 
+              : type === "webtoon"
+                ? "yg-select-webtoon-robot-img"
+                : "yg-shared-gallery-robot-img"
+            }`}
           >
             {/* 로봇 */}
             <img
@@ -63,7 +68,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
           <img
             src={currentBanner.imgUrl}
             alt="banner"
-            className={`absolute w-[752px] h-auto ${type === "walking" ? "yg-select-walking-building-img" : "yg-select-webtoon-hand-img"}`}
+            className={`absolute w-[752px] h-auto ${type === "walking" ? "yg-select-walking-building-img" :  "yg-select-webtoon-hand-img"}`}
             onError={(e) => {
               console.error("Image loading failed:", currentBanner.imgUrl);
               e.currentTarget.src = "/fallback-image.jpg";

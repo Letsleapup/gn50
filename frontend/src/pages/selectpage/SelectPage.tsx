@@ -112,7 +112,7 @@ const SelectPage: React.FC = () => {
       {type && <PageBanner type={type} />}
       <main className="flex-1 ">
         <div>
-          <div className="mb-[182px]">
+          <div>
             <OptionCard
               options={options.slice(0, visibleCount)}
               type={type as "walking" | "webtoon"}

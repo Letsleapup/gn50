@@ -6,21 +6,29 @@
   overflow: hidden;
 }
 
-.yg-select-banner-wrapper{
+.yg-select-banner-wrapper {
   width: 62.5%;
   margin: 0 auto;
 }
 
 .yg-select-text-content-wrapper {
-  max-width: 40%;
-  bottom: 0%;
+  max-width: 100%;
+  bottom: -8%;
 }
 
 .yg-select-title {
- font-size: 52px;
- font-weight: bold;
- line-height: 76px;
- color: white;
+  font-size: 52px;
+  font-weight: bold;
+  line-height: 76px;
+  color: white;
+}
+
+.yg-gallery-title {
+  font-size: 52px;
+  font-weight: bold;
+  line-height: 76px;
+  color: white;
+  margin: 0 0 21% 0;
 }
 
 .yg-select-description {
@@ -44,6 +52,14 @@
   z-index: 10;
 }
 
+.yg-shared-gallery-robot-img {
+  width: 34.2%;
+  height: auto;
+  right: -13%;
+  bottom: 18%;
+  z-index: 10;
+}
+
 .yg-select-walking-building-img {
   right: -30.55%;
   scale: 100%;
@@ -55,11 +71,12 @@
 }
 
 @keyframes float {
-  0% , 100% {
+  0%,
+  100% {
     transform: translateY(10px);
   }
   50% {
-    transform: translateY(-10px); 
+    transform: translateY(-10px);
   }
 }
 
@@ -78,10 +95,18 @@
   }
 
   .yg-select-text-content-wrapper {
-    max-width: 45%;
+    max-width: 50%;
+    bottom: 20%;
+    left: -13%;
   }
 
   .yg-select-title {
+    font-size: 35px;
+    line-height: 55px;
+  }
+
+  .yg-gallery-title {
+    width: 150%;
     font-size: 35px;
     line-height: 55px;
   }
@@ -90,13 +115,19 @@
     width: 280px;
     right: -10%;
     bottom: 15%;
-    
   }
 
   .yg-select-webtoon-robot-img {
     width: 280px;
     right: -10%;
     bottom: 12%;
+  }
+
+  .yg-shared-gallery-robot-img {
+    width: 280px;
+    right: -13%;
+    bottom: 14.5%;
+    z-index: 10;
   }
 
   .yg-select-walking-building-img {
@@ -116,20 +147,24 @@
   .yg-select-banner-wrapper {
     width: 88%;
     margin: 0 6vw;
-    
   }
   .yg-select-walking-robot-img {
     width: 55.5%;
     left: 50%;
     transform: translateX(-50%);
     bottom: 5%;
-    
   }
   .yg-select-webtoon-robot-img {
     width: 55.5%;
     left: 50%;
     transform: translateX(-50%);
     bottom: 5%;
+  }
+  .yg-shared-gallery-robot-img {
+    width: 280px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8%;
   }
   .yg-select-walking-building-img {
     display: none;
@@ -139,13 +174,20 @@
   }
 
   .yg-select-text-content-wrapper {
-    max-width: 100%;
-    top: 25%
+    max-width: 87%;
+    letter-spacing: -0.65px;
+    line-height: 38px;
+    top: 25%;
   }
   .yg-select-title {
-    font-size: 24px;
+    font-size: 26px;
+    line-height: 38px;
+    letter-spacing: -1.3px;
+  }
+
+  .yg-gallery-title {
+    font-size: 26px;
     line-height: 38px;
     letter-spacing: -1.3px;
   }
 }
-
