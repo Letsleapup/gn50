@@ -11,6 +11,7 @@ html {
 /* 앱 루트 컨테이너 스타일 */
 #root {
   max-width: 1920px;
+  min-width: 360px;
   margin: 0 auto;
   padding: 0;
 }

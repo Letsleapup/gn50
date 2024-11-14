@@ -136,8 +136,8 @@ export const bannerContent: BannerContentType = {
       "다른 사람들이 만든 걷고 싶은\n강남의 모습&웹툰을 확인할 수 있습니다.",
     description: "",
     bgColor: "bg-[#00BAA8]",
-    robotUrl: "",
-    imgUrl: "/asset/sub_img3.png",
+    robotUrl: "/asset/sub_img3.png",
+    imgUrl: "",
   },
 };
 

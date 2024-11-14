@@ -34,7 +34,6 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
       data.length
     );
     const nextStartIndex = Math.max(nextIndex - 3, 0);
-    
     setIsPrevActive(nextStartIndex > 0);
     setIsNextActive(nextIndex < data.length);
     setEndIndex(nextIndex);
@@ -93,7 +92,6 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
               const index = itemsRef.current.indexOf(entry.target as HTMLDivElement);
               if (entry.isIntersecting && index !== -1) {
                 setTimeout(() => {
-                  console.log(index);
                   setActiveIndices((prev) => [...prev, index]);
                 }, index * 200);
               }
