@@ -4,30 +4,32 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #eff6ff;
+  background: transparent linear-gradient(0deg, #ffffff 0%, #e8eeff 100%) 0% 0%
+    no-repeat padding-box;
 }
 
 .cr_message-area {
   position: relative;
   flex: 1;
-  width: 1200px;
+  width: 768px;
   margin-top: 200px;
-  margin-bottom: 80px;
+  margin-bottom: 136px;
 }
 
 .cr_message-container {
   position: relative;
   flex: 1;
-  max-width: 1200px;
+  max-width: 768px;
   height: 700px;
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 80px;
 }
 
 .cr_message-scroll {
   height: 100%;
   overflow-y: auto;
-  padding-bottom: 80px;
+
   padding: 16px;
   scrollbar-width: auto;
   -ms-overflow-style: none;
@@ -75,15 +77,21 @@
 .cr_message-bubble {
   display: inline-block;
   max-width: 70%;
-  padding: 12px 16px;
   position: relative;
+  font-size: 18px;
+}
+/* 텍스트 메시지일 때만 패딩 적용 */
+.cr_message-bubble-assistant:not(:has(img)) {
+  padding: 12px 16px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 0;
 }
 
 .cr_message-bubble-assistant {
   background-color: white;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 30px;
 }
 
 .cr_message-bubble-user {
@@ -92,13 +100,14 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   border-top-left-radius: 8px;
+  padding: 12px 16px;
 }
 
 .cr_message-image {
-  width: 300px;
-  height: 200px;
+  width: 384px;
+  height: 240px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 30px;
 }
 
 .cr_input-area {
@@ -111,11 +120,10 @@
 .cr_input-container {
   position: relative;
   margin: 8px;
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
 }
 
 .cr_input-wrapper {
-  border-radius: 9999px;
+  border-radius: 100%;
   transition: all 0.3s;
   margin: 8px;
 }

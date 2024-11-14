@@ -17,17 +17,18 @@ interface ChatHistory {
 }
 
 const ChatbotPage: React.FC = () => {
-  const { type } = useParams<{ type: string }>();
+  const { type } = useParams<{ type: "walking" | "webtoon" }>();
   const [inputText, setInputText] = useState<string>("");
   const [messages, setMessages] = useState<
     Array<{ role: string; type: string; content: string }>
   >([]);
   const navigate = useNavigate();
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState<string[]>([]);
+  const handleTextChange = (text: string) => setInputText(text);
 
   // 메시지 영역 ref 추가
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   // 질문 리스트를 백엔드에서 가져오는 함수
@@ -97,6 +98,7 @@ const ChatbotPage: React.FC = () => {
       });
     } catch (error) {
       console.error("Error:", error);
+      setIsGenerating(false);
       throw error;
     }
   };
@@ -123,23 +125,26 @@ const ChatbotPage: React.FC = () => {
         type: "text",
         content: `${title}을 선택하셨군요!`,
       },
-      // 첫 번째 질문 표시
       {
         role: "assistant",
         type: "text",
         content: questions[0],
       },
     ];
-    initialMessages.forEach((message, index) => {
-      setTimeout(() => {
-        setMessages((prev) => [...prev, message]);
-      }, index * 1000); // 각 메시지마다 1초 간격
-    });
-  }, [type, imgUrl, title, navigate]);
 
-  const handleTextChange = (text: string) => {
-    setInputText(text);
-  };
+    const timeoutIds: number[] = [];
+
+    initialMessages.forEach((message, index) => {
+      const timeoutId = setTimeout(() => {
+        setMessages((prev) => [...prev, message]);
+      }, index * 1000);
+      timeoutIds.push(timeoutId);
+    });
+
+    return () => {
+      timeoutIds.forEach((id) => window.clearTimeout(id));
+    };
+  }, [type, imgUrl, title, navigate]);
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
@@ -195,20 +200,52 @@ const ChatbotPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (messages.length > 0) {
-      // 메시지 컨테이너의 스크롤을 bottom으로
-      const messageContainer = messageContainerRef.current;
-      if (messageContainer) {
-        messageContainer.scrollTop = messageContainer.scrollHeight;
-      }
+    // 메시지 컨테이너의 스크롤을 bottom으로
+    if (messages.length > 0 && messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, messageContainerRef.current]);
 
-  // useEffect(() => {
-  //   if (chatHistory.length > 0) {
-  //     sendChatHistory();
-  //   }
-  // }, [chatHistory, type, title, imgUrl]);
+  // 시나리오 수정 처리 함수
+  const handleScenarioEdit = async (newScenario: string): Promise<boolean> => {
+    try {
+      console.log("시나리오 수정:", newScenario);
+
+      // state로 시나리오 업데이트
+      setGeneratedContent((prev) => ({
+        ...prev,
+        scenario: newScenario,
+      }));
+
+      console.log("수정된 시나리오:", newScenario);
+      return true;
+    } catch (error) {
+      console.error("시나리오 수정 중 오류:", error);
+      return false;
+    }
+  };
+
+  // 공유하기 처리 함수
+  const handleShare = async (): Promise<boolean> => {
+    try {
+      console.log("갤러리 공유:", generatedContent);
+      navigate("/shareboard"); // 갤러리 페이지로 이동
+      return true;
+    } catch (error) {
+      console.error("공유 중 오류:", error);
+      return false;
+    }
+  };
+
+  // 처음부터 다시 시작하는 함수
+  const handleRestart = () => {
+    console.log("처음부터 다시 시작");
+    // 선택했던 type으로 select 페이지로 이동
+    navigate(`/select/${type}`, {
+      replace: true, // 뒤로 가기 방지를 위해 replace 사용
+    });
+  };
 
   return (
     <div className="cr_chatbot-container">
@@ -274,7 +311,6 @@ const ChatbotPage: React.FC = () => {
                   </div>
                 );
               })}
-              <div ref={messagesEndRef} />
             </div>
 
             <div className="cr_input-area">
@@ -299,9 +335,10 @@ const ChatbotPage: React.FC = () => {
           imageUrl={generatedContent.imageUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          onEdit={() => setShowResult(false)}
-          onShare={() => navigate("/shareboard")}
-          onRegenerate={() => navigate("/select/walking")}
+          contentId="test-1"
+          onEdit={handleScenarioEdit}
+          onShare={handleShare}
+          onRegenerate={handleRestart}
         />
       )}
     </div>

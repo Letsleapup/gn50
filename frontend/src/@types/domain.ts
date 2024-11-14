@@ -63,7 +63,7 @@ export interface Option {
 
 export type Nullable<T> = null | T;
 
-export interface Props {
+export interface ModalProps {
   isOpen: boolean;
   type: BoardType;
   btnName: string;
@@ -71,6 +71,7 @@ export interface Props {
   btnCancleName: string;
   onClose: () => void;
   onClick?: () => void;
+  modalStyle?: React.CSSProperties;
   children?: ReactNode;
 }
 
@@ -83,12 +84,13 @@ export const ICON_URLS = {
 } as const;
 
 export interface ContentDisplayProps {
-  type: "webtoon" | "walking";
+  type: BoardType;
   imageUrl: string;
   title: string;
   scenario: string;
-  onEdit: () => void;
-  onShare: () => void;
+  contentId?: string;
+  onEdit: (newScenario: string) => Promise<boolean>;
+  onShare: () => Promise<boolean>;
   onRegenerate: () => void;
 }
 export interface GeneratedContentState {

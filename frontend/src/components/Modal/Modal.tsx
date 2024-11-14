@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
-import { Props } from "../../@types/domain";
+import { ModalProps } from "../../@types/domain";
 import "./Modal.css";
 
-export const Modal: FunctionComponent<Props> = ({
+export const Modal: FunctionComponent<ModalProps> = ({
   isOpen,
   type,
   onClose,
@@ -10,6 +10,7 @@ export const Modal: FunctionComponent<Props> = ({
   btnImgUrl,
   btnCancleName = "닫기",
   onClick,
+  modalStyle,
   children,
 }) => {
   if (!isOpen) return null; // 모달이 열리지 않은 상태라면 아무것도 렌더링하지 않음
@@ -33,6 +34,7 @@ export const Modal: FunctionComponent<Props> = ({
       <div
         className={getModalContentClass()}
         onClick={(e) => e.stopPropagation()}
+        style={modalStyle}
       >
         {children} {/* 모달 안에 표시될 내용 */}
         <div className="btn-layout">

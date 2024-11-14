@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 150;
 }
 
 .modal-content {
@@ -18,8 +18,8 @@
   position: relative;
   height: fit-content;
   border-radius: 50px;
-  width: 620px;
-  height: 686px;
+  width: var(--modal-width, 620px);
+  height: var(--modal-height, 686px);
   margin: auto;
 }
 
