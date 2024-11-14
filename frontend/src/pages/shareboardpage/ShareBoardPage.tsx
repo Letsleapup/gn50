@@ -53,8 +53,8 @@ const ShareBoardPage: React.FC = () => {
                 className="cr_filter-button"
               >
                 <div
-                  className={`cr_filter-button-content ${
-                    activeFilter === button.id ? "filter-button-active" : ""
+                  className={`cr_filter-button ${
+                    activeFilter === button.id ? "cr_filter-button-active" : ""
                   }`}
                 >
                   {button.label}

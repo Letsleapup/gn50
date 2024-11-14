@@ -10,11 +10,17 @@ interface NavItem {
   onClick: () => void;
 }
 
+const isNumeric = () => {
+  const pathSegments = location.hash.split('/');
+  const lastSegment = pathSegments[pathSegments.length - 1];
+  return !isNaN(Number(lastSegment));
+}
+
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const type = location.pathname.split("/")[2];
-  const chatbotType = location.pathname.split("/")[1];
+  const pageType = location.pathname.split("/")[1];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItemId, setActiveNavItemId] = useState<number | null>(null);
   const onClickNavigate = (url: string, id: number) => {
@@ -41,7 +47,7 @@ const Header: React.FC = () => {
   ];
 
   const isNavMenuItems =
-    type === "walking" || type === "webtoon" || chatbotType === "chatbot";
+    type === "walking" || type === "webtoon";
   // 모바일 메뉴 햄버거
 
   const toggleMenu = () => {
@@ -76,8 +82,9 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
   useEffect(() => {
-    console.log(chatbotType);
-  }, [chatbotType]);
+    console.log(pageType);
+    console.log(isNavMenuItems);
+  }, [pageType, isNavMenuItems]);
 
   return (
     <header
@@ -90,7 +97,7 @@ const Header: React.FC = () => {
         <div>
           <img
             src={`${
-              chatbotType === "chatbot"
+              pageType === "chatbot" || isNumeric()
                 ? "/asset/logo.svg"
                 : isNavMenuItems && !isScrolled
                   ? "/asset/logo_w.svg"
@@ -109,7 +116,7 @@ const Header: React.FC = () => {
               <button
                 onClick={item.onClick}
                 className={`
-                  flex items-center justify-center font-bold rounded-md transition-colors text-center leading-tight
+                  flex items-center justify-center font-bold rounded-md transition-colors text-center leading-tight md:text-[20px] xs:text-[16px]
                   ${isNavMenuItems && activeNavItemId === item.id ? "text-blue-500" : "text-black"}
                   ${
                     system !== "ios" && system !== "android"
@@ -133,10 +140,10 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleMenu}
-          className={`burger-btn ${isScrolled || chatbotType === "chatbot" ? "text-black" : "text-white"} pl-[10px] rounded-md 
+          className={`burger-btn ${isScrolled || pageType === "chatbot" || isNumeric() ? "text-black" : "text-white"} pl-[10px] rounded-md 
           ${system !== "ios" && system !== "android" ? "hover:bg-gray-100" : ""} block 2xl:hidden`}
           aria-label="메뉴 열기/닫기"
-        >
+        > 
           {isMobileMenuOpen ? (
             <X className="w-[24px] h-[24px] md:w-[48px] md:h-[48px] xs:w-[24px] xs:h-[24px]" />
           ) : (
