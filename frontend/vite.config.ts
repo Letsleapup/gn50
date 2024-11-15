@@ -13,13 +13,8 @@ export default defineConfig({
     },
   },
   server: {
-    proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    // 필요한 경우 포트 설정이나 기본 서버 설정만 남깁니다.
+    port: 5173, // 원하는 포트 설정
   },
   optimizeDeps: {
     include: ["swiper/react"],

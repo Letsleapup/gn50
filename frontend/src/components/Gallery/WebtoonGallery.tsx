@@ -28,7 +28,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
     console.log(`Navigating to ${path}`);
     navigate(path);
   }, [navigate, path]);
-
+  console.log(multipleContents)
   return (
     <div className="webtoon-gallery-container">
       {/* 헤더 섹션 */}

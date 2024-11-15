@@ -21,7 +21,7 @@ import { getAgentSystem } from "../../util/checkSystem";
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const [bannerUrl, setBannerUrl] = useState<string>();
-  const [webtoonList, setWebtoonList] = useState<SharedContent[]>([]);
+  const [webtoonList] = useState<SharedContent[]>(webtoonContents);
 
   //메인배너이미지 API호출
   useEffect(() => {
@@ -30,35 +30,36 @@ const MainPage: React.FC = () => {
     getBannerUrlApi()
       .then((res) =>
         // console.log(res.data)
-        setBannerUrl(`http://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
+        setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
       )
       .catch((_rej) => setBannerUrl(MainBannerUrl));
   }, []);
   console.log(getAgentSystem());
   //웹툰 컨텐츠 가져오기
   useEffect(() => {
-    const fetchWebtoonContents = async () => {
-      try {
-        console.log("Fetching webtoon contents...");
-        const response = await axios.get<SharedContent[]>("/api/webtoons");
+    // const fetchWebtoonContents = async () => {
+    //   try {
+    //     console.log("Fetching webtoon contents...");
+    //     await axios.get<SharedContent[]>("/api/webtoons")
+    //     .then((res) => {
+    //       console.log(res.data)
+    //       console.log("Using API data, count:", res.data.length);
+    //       setWebtoonList(res.data);
+    //     })
+    //     .catch(() => {
+    //       console.log(
+    //         "Using dummy webtoon data, count:",
+    //         webtoonContents.length
+    //       );
+    //       setWebtoonList(webtoonContents);
+    //     });
+    //   } catch (error) {
+    //     console.error("API error, using dummy data:", error);
+    //   }
+    // };
 
-        if (response.data?.length > 0) {
-          console.log("Using API data, count:", response.data.length);
-          setWebtoonList(response.data);
-        } else {
-          console.log(
-            "Using dummy webtoon data, count:",
-            webtoonContents.length
-          );
-          setWebtoonList(webtoonContents);
-        }
-      } catch (error) {
-        console.error("API error, using dummy data:", error);
-        setWebtoonList(webtoonContents);
-      }
-    };
-
-    fetchWebtoonContents();
+    // fetchWebtoonContents();
+    // setWebtoonList(webtoonContents);
   }, []);
 
   return (
