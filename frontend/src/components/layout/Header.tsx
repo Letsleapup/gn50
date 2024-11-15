@@ -54,8 +54,12 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (pageType === "shared") {
       setActiveNavItemId(3);
+    } else if (pageType === "select" && type === "walking") {
+      setActiveNavItemId(1);
+    } else if (pageType === "select" && type === "webtoon") {
+      setActiveNavItemId(2);
     }
-  }, [pageType]);
+  }, [pageType, type]);
 
   const isActiveNavItem = (item: NavItem) => {
     if (isNavMenuItems && activeNavItemId === item.id) return true;

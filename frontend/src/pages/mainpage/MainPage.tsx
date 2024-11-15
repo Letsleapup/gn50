@@ -30,7 +30,7 @@ const MainPage: React.FC = () => {
     getBannerUrlApi()
       .then((res) =>
         // console.log(res.data)
-        setBannerUrl(`http://gn50m.aixstudio.kr/${res.data.banner1[0].url}`)
+        setBannerUrl(`http://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
       )
       .catch((_rej) => setBannerUrl(MainBannerUrl));
   }, []);
