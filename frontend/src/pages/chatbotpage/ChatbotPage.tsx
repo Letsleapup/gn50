@@ -313,18 +313,15 @@ const ChatbotPage: React.FC = () => {
               })}
             </div>
 
-            <div className="cr_input-area">
-              <div className="cr_input-container">
-                <div className="cr_input-wrapper">
-                  <AutoResizingTextarea
-                    backgroundColor="white"
-                    color="black"
-                    hasButton={true}
-                    placeholder="답변을 입력하세요"
-                    onChange={handleTextChange}
-                    onSendData={handleSendMessage}
-                  />
-                </div>
+            <div className="cr_input-container">
+              <div className="cr_input-wrapper">
+                <AutoResizingTextarea
+                  backgroundColor="white"
+                  color="black"
+                  hasButton={true}
+                  onChange={handleTextChange}
+                  onSendData={handleSendMessage}
+                />
               </div>
             </div>
           </div>

@@ -12,15 +12,15 @@
   position: relative;
   flex: 1;
   width: 768px;
-  margin-top: 200px;
-  margin-bottom: 136px;
+  margin-top: 140px;
+  margin-bottom: 133px;
 }
 
 .cr_message-container {
   position: relative;
   flex: 1;
   max-width: 768px;
-  height: 700px;
+  height: calc(100vh - 200px);
   width: 100%;
   margin: 0 auto;
   padding-bottom: 80px;
@@ -29,7 +29,6 @@
 .cr_message-scroll {
   height: 100%;
   overflow-y: auto;
-
   padding: 16px;
   scrollbar-width: auto;
   -ms-overflow-style: none;
@@ -76,7 +75,7 @@
 
 .cr_message-bubble {
   display: inline-block;
-  max-width: 70%;
+  max-width: 90%;
   position: relative;
   font-size: 18px;
 }
@@ -119,7 +118,6 @@
 
 .cr_input-container {
   position: relative;
-  margin: 8px;
 }
 
 .cr_input-wrapper {
@@ -132,23 +130,41 @@
 @media (min-width: 360px) and (max-width: 767px) {
   .cr_message-area {
     width: 100%;
-    margin-top: 100px;
-    margin-bottom: 40px;
+    margin-top: 64px;
+    margin-bottom: 32px;
+  }
+  .cr_message-scroll {
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    scrollbar-width: auto;
+    -ms-overflow-style: none;
+  }
+  .cr_message-bubble-assistant:not(:has(img)) {
+    padding: 16px 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 0;
   }
 
   .cr_message-container {
     max-width: 100%;
-    height: 500px;
+    height: calc(100vh - 96px);
   }
-
+  .cr_message-wrapper {
+    margin-bottom: 12px;
+    width: 100%;
+  }
   .cr_message-bubble {
-    max-width: 85%;
-    padding: 8px 12px;
+    font-size: 16px;
+    letter-spacing: -0.4px;
+    font-weight: 400;
   }
 
   .cr_message-image {
-    width: 240px;
-    height: 160px;
+    width: 288px;
+    height: 180px;
   }
 }
 
@@ -156,13 +172,13 @@
 @media (min-width: 768px) and (max-width: 1919px) {
   .cr_message-area {
     width: 768px;
-    margin-top: 150px;
+    margin-top: 140px;
     margin-bottom: 60px;
   }
 
   .cr_message-container {
     max-width: 768px;
-    height: 600px;
+    height: calc(100vh - 200px);
   }
 
   .cr_message-bubble {
@@ -172,5 +188,8 @@
   .cr_message-image {
     width: 280px;
     height: 180px;
+  }
+  .cr_message-bubble-assistant:not(:has(img)) {
+    padding: 16px 20px;
   }
 }

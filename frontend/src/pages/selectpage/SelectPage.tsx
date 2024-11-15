@@ -11,6 +11,7 @@ import {
   SelectOption,
   SelectOptionsType,
 } from "../../@types/domain";
+import "./SelectPage.css";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -101,18 +102,18 @@ const SelectPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute top-0 left-0 right-0 flex justify-center">
-        <LoaderCircle className="animate-spin w-20 h-20 text-blue-700" />
+      <div className="cr_loading-container">
+        <LoaderCircle className="cr_loading-spinner" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="cr_select-page">
       {type && <PageBanner type={type} />}
-      <main className="flex-1 ">
-        <div>
-          <div>
+      <main className="cr_select-main">
+        <div className="cr_select-content">
+          <div className="cr_select-grid">
             <OptionCard
               options={options.slice(0, visibleCount)}
               type={type as "walking" | "webtoon"}
@@ -122,11 +123,10 @@ const SelectPage: React.FC = () => {
                 setSelectedOption(option);
               }}
             />
-
             {/* 더 많은 옵션이 있을 경우에만 화살표 표시 */}
             {visibleCount < options.length && (
-              <div className="flex justify-center py-4">
-                <ChevronsDown className="animate-bounce " />
+              <div className="cr_select-more">
+                <ChevronsDown className="cr_select-arrow" />
               </div>
             )}
           </div>
@@ -142,15 +142,15 @@ const SelectPage: React.FC = () => {
             onClick={() => onNavigate(selectedOption)}
             btnCancleName="닫기"
           >
-            <div className="select-title">{selectedOption.title}</div>
-            {/* 해시태그가 있을 때만 렌더링 */}
+            <div className="cr_select-modal-title">{selectedOption.title}</div>
+            {/* 해시태그 있을때만 렌더링 */}
             {Array.isArray(selectedOption.hashtags) &&
               selectedOption.hashtags.length > 0 && (
-                <div className="select-hashtags flex flex-wrap gap-1 justify-center mb-4">
+                <div className="cr_select-modal-hashtags">
                   {selectedOption.hashtags.map((tag, index) => (
                     <span
                       key={`modal-tag-${index}`}
-                      className="text-[#F79D00] px-[10px] py-[6px] border border-[#F79D00] rounded-[17px] text-[15px] font-medium"
+                      className="cr_select-modal-tag"
                     >
                       {tag}
                     </span>
@@ -160,9 +160,13 @@ const SelectPage: React.FC = () => {
             <img
               src={selectedOption.imgUrl}
               alt={selectedOption.title}
-              className="object-cover rounded-[30px]"
+              className="cr_select-modal-image"
             />
-            <p>{selectedOption.description}</p>
+            <p className="cr_select-modal-description">
+              {type === "walking"
+                ? selectedOption.description
+                : selectedOption.modalsuggest}
+            </p>
           </Modal>
         )}
       </main>

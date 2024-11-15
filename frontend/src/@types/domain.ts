@@ -42,6 +42,7 @@ export interface SelectOption {
   style?: string;
   backdrop?: string;
   description?: string;
+  modalsuggest?: string;
   viewCount: number;
   hashtags?: string[];
 }
@@ -57,6 +58,7 @@ export interface Option {
   imgUrl: string;
   backdrop?: string;
   description?: string;
+  modalsuggest?: string;
   viewCount: number;
   hashtags?: string[];
 }

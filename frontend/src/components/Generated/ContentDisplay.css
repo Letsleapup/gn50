@@ -1,0 +1,127 @@
+.cr_modal_edit_content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 620px;
+  height: 544px;
+}
+
+.cr_modal_share_content,
+.cr_modal_regenerate_content {
+  width: 486px;
+  height: 294px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cr_modal_title {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -0.6px;
+}
+
+.cr_modal_desc {
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: -0.45px;
+}
+
+.cr_modal_textarea {
+  width: 100%;
+  min-height: 240px;
+  border-radius: 16px;
+  resize: none;
+}
+
+.cr_modal_button_group {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.cr_modal_cancel_btn {
+  width: 29%;
+  height: 56px;
+  border-radius: 28px;
+  background: #ededed;
+  color: #666666;
+}
+
+.cr_modal_action_btn {
+  width: 71%;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cr_modal_edit .cr_modal_action_btn {
+  background: #1b58fd;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 768px) and (max-width: 1919px) {
+  .cr_modal_edit_content {
+    width: calc(320px + (620 - 320) * ((100vw - 768px) / (1919 - 768)));
+    height: calc(379px + (544 - 379) * ((100vw - 768px) / (1919 - 768)));
+  }
+
+  .cr_modal_share_content,
+  .cr_modal_regenerate_content {
+    width: calc(320px + (486 - 320) * ((100vw - 768px) / (1919 - 768)));
+    height: calc(250px + (294 - 250) * ((100vw - 768px) / (1919 - 768)));
+  }
+
+  .cr_modal_edit_title,
+  .cr_modal_share_title,
+  .cr_modal_regenerate_title {
+    font-size: calc(20px + (24 - 20) * ((100vw - 768px) / (1919 - 768)));
+  }
+
+  .cr_modal_edit_desc,
+  .cr_modal_share_desc,
+  .cr_modal_regenerate_desc {
+    font-size: calc(16px + (18 - 16) * ((100vw - 768px) / (1919 - 768)));
+  }
+
+  .cr_modal_edit_textarea {
+    min-height: calc(180px + (240 - 180) * ((100vw - 768px) / (1919 - 768)));
+  }
+}
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .cr_modal_edit_content {
+    width: 320px;
+    height: 379px;
+    margin: 0 20px;
+  }
+
+  .cr_modal_share_content,
+  .cr_modal_regenerate_content {
+    width: 320px;
+    height: 250px;
+    margin: 0 20px;
+  }
+
+  .cr_modal_edit_title,
+  .cr_modal_share_title,
+  .cr_modal_regenerate_title {
+    font-size: 20px;
+  }
+
+  .cr_modal_edit_desc,
+  .cr_modal_share_desc,
+  .cr_modal_regenerate_desc {
+    font-size: 16px;
+    padding: 0 20px;
+  }
+
+  .cr_modal_edit_textarea {
+    min-height: 180px;
+  }
+}

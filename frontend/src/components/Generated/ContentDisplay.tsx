@@ -127,22 +127,19 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     onClick: handleEditSubmit,
     modalStyle: getModalStyle("edit"),
     children: (
-      <div className="flex flex-col gap-4">
-        <h2 className="text-[24px] font-bold tracking-[-0.6px]">
-          시나리오 수정하기
-        </h2>
-        <h3 className="text-[#333333] text-[18px] tracking-[-0.45px]">
+      <div className="cr_modal_edit_content flex flex-col gap-4">
+        <h2 className="cr_modal_edit_title">시나리오 수정하기</h2>
+        <h3 className="cr_modal_edit_desc">
           시나리오 내용을 수정할 수 있습니다.
         </h3>
-        <div className="relative flex-1 min-h-[240px]">
+        <div className="cr_modal_edit_form">
           <textarea
+            className="cr_modal_edit_textarea"
             value={editedScenario}
             onChange={(e) => {
               console.log("시나리오 수정중:", e.target.value);
               setEditedScenario(e.target.value);
             }}
-            className="w-full h- p-4 border rounded-[16px] resize-none
-                       focus:outline-none focus:ring-2 focus:ring-[#1B58FD] text-[20px]"
             placeholder="시나리오를 수정해주세요"
             disabled={isEditing}
           />
@@ -163,15 +160,13 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     onClose: () => setShowShareModal(false),
     btnName: "확인",
     btnImgUrl: "",
-    btnCancleName: "닫기",
+    btnCancleName: "취소",
     onClick: handleShare,
     modalStyle: getModalStyle("share"),
     children: (
-      <div className="flex flex-col gap-4">
-        <h2 className="text-[24px] font-bold tracking-[-0.6px]">
-          갤러리 올리기
-        </h2>
-        <p className="text-[#333333] text-[18px] tracking-[-0.45px]">
+      <div className="cr_modal_share_content flex flex-col gap-4">
+        <h2 className="cr_modal_share_title">갤러리 올리기</h2>
+        <p className="cr_modal_share_desc">
           '확인'을 누르면 생성된 이미지가 갤러리에 올라갑니다. 이미지를 갤러리에
           올리시겠습니까?
         </p>
