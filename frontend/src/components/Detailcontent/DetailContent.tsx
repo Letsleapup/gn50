@@ -106,7 +106,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
             className="w-full h-full object-cover "
             onError={(e) => {
               console.log("Image load failed:", content.imgUrl);
-              e.currentTarget.src = "http://via.placeholder.com/690x690";
+              e.currentTarget.src = "https://via.placeholder.com/690x690";
             }}
           />
         </div>

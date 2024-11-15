@@ -39,12 +39,12 @@ export const OptionCard: React.FC<OptionCardProps> = ({
             {type === "walking" ? (
               <div>
                 <img
-                  src={option.imgUrl || "http://via.placeholder.com/384x240"}
+                  src={option.imgUrl || "https://via.placeholder.com/384x240"}
                   alt={option.title}
                   className="yg_option-image-walking"
                   onError={(e) => {
                     console.error("Image loading failed:", option.imgUrl);
-                    e.currentTarget.src = "http://via.placeholder.com/384x240";
+                    e.currentTarget.src = "https://via.placeholder.com/384x240";
                   }}
                 />
                 <div className="yg_option-title-container">
@@ -59,7 +59,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                   className="cr_option-webtoon-image"
                   onError={(e) => {
                     console.error("Image loading failed:", option.imgUrl);
-                    e.currentTarget.src = "http://via.placeholder.com/486x304";
+                    e.currentTarget.src = "https://via.placeholder.com/486x304";
                   }}
                 />
 

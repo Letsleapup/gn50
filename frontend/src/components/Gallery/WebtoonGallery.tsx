@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { SharedContent } from "../../@types/domain";
 import "./WebtoonGallery.css";
@@ -12,7 +12,10 @@ interface WebtoonGalleryProps {
 const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   const navigate = useNavigate();
 
-  const multipleContents = [...contents, ...contents, ...contents];
+  const multipleContents = useMemo(() => {
+    console.log("Generating multipleContents"); // 디버깅용
+    return [...contents, ...contents, ...contents];
+  }, [contents]);
 
   const handleContentClick = useCallback(
     (content: SharedContent) => {
@@ -77,4 +80,4 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   );
 };
 
-export default WebtoonGallery;
+export default React.memo(WebtoonGallery);

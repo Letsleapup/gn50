@@ -15,7 +15,7 @@ import { ScrollToTop } from "./util/ScrollToTop";
 
 const App: React.FC = () => {
   return (
-    <Router basename="">
+    <Router basename="" future={{ v7_relativeSplatPath: true }}>
       <div className="App">
         <Header />
         <ScrollToTop />
