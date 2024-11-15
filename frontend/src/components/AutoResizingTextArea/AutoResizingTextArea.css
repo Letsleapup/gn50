@@ -67,3 +67,30 @@
   pointer-events: none;
   cursor: not-allowed;
 }
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .input-container {
+    padding: 12px 16px;
+    gap: 0;
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+  .input-container:focus-within {
+    padding: 12px 16px;
+    gap: 0;
+  }
+  .send-button {
+    width: 36px;
+    height: 36px;
+  }
+  .byte-counter {
+    margin-right: 8px;
+    font-size: 12px;
+  }
+  .input-field {
+    margin: 0 4px;
+    font-size: 16px;
+    line-height: 1.28;
+    letter-spacing: -0.4px;
+  }
+}

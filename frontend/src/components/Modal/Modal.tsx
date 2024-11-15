@@ -41,7 +41,10 @@ export const Modal: FunctionComponent<ModalProps> = ({
           <button className="close-button" onClick={onClose}>
             {btnCancleName}
           </button>
-          <button className={getButtonClass()} onClick={onClick}>
+          <button
+            className={`${getButtonClass()} navigate-button`}
+            onClick={onClick}
+          >
             <span>{btnName}</span>
             {btnImgUrl && (
               <img
