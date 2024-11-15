@@ -15,7 +15,10 @@ import { ScrollToTop } from "./util/ScrollToTop";
 
 const App: React.FC = () => {
   return (
-    <Router basename="" future={{ v7_relativeSplatPath: true }}>
+    <Router
+      basename=""
+      future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+    >
       <div className="App">
         <Header />
         <ScrollToTop />
@@ -30,7 +33,7 @@ const App: React.FC = () => {
               element={<Loading message={starterMessage} />}
             />
             <Route
-              path="/shared/:type/:contentId"
+              path="shared/:type/:contentId"
               element={<DetailContent source="shareboard" />}
             />
             <Route path="*" element={<ErrorPage />} />
