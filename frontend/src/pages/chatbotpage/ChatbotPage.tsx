@@ -26,9 +26,10 @@ const ChatbotPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState<string[]>([]);
   const handleTextChange = (text: string) => setInputText(text);
-
+  const [isInputEnabled, setIsInputEnabled] = useState(false); // 입력창 활성화 상태
+  const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]); // 각 질문의 답변 여부
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
   // 메시지 영역 ref 추가
-
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   // 질문 리스트를 백엔드에서 가져오는 함수
@@ -113,6 +114,9 @@ const ChatbotPage: React.FC = () => {
 
     const questions = type === "walking" ? walkingQuestions : webtoonQuestions;
 
+    // 답변 상태 배열 초기화
+    setAnsweredQuestions(new Array(questions.length).fill(false));
+
     // 선택한 이미지 먼저 보여주기
     const initialMessages = [
       {
@@ -135,8 +139,18 @@ const ChatbotPage: React.FC = () => {
     const timeoutIds: number[] = [];
 
     initialMessages.forEach((message, index) => {
+      if (index === 0) {
+        setIsLoading(true);
+        setIsLoading(false); // 첫 메시지 시작할 때 로딩 시작
+      }
+
       const timeoutId = setTimeout(() => {
         setMessages((prev) => [...prev, message]);
+        // 첫 번째 질문이 표시되면 입력창 활성화
+        if (index === initialMessages.length - 1) {
+          setIsInputEnabled(true);
+          setCurrentQuestionIndex(0);
+        }
       }, index * 1000);
       timeoutIds.push(timeoutId);
     });
@@ -148,7 +162,19 @@ const ChatbotPage: React.FC = () => {
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
-    if (!inputText.trim()) return;
+    if (
+      !inputText.trim() ||
+      !isInputEnabled ||
+      answeredQuestions[currentQuestionIndex]
+    )
+      return;
+
+    // 현재 질문을 답변 완료로 표시
+    setAnsweredQuestions((prev) => {
+      const newAnswered = [...prev];
+      newAnswered[currentQuestionIndex] = true;
+      return newAnswered;
+    });
 
     // 사용자 메시지 추가
     const userMessage = {
@@ -160,11 +186,9 @@ const ChatbotPage: React.FC = () => {
     setMessages((prev) => [...prev, userMessage]);
     setChatHistory((prev) => [...prev, inputText.trim()]); // 채팅 히스토리에 저장
     setInputText("");
-
+    setIsInputEnabled(false);
     // 다음 질문 처리
     const questions = type === "walking" ? walkingQuestions : webtoonQuestions;
-    const currentQuestionIndex = Math.floor((messages.length - 2) / 2);
-
     if (currentQuestionIndex < questions.length - 1) {
       setTimeout(() => {
         setMessages((prev) => [
@@ -175,13 +199,12 @@ const ChatbotPage: React.FC = () => {
             content: questions[currentQuestionIndex + 1],
           },
         ]);
+        setCurrentQuestionIndex((prev) => prev + 1);
+        setIsInputEnabled(true); // 다음 질문이 나오면 다시 활성화
       }, 1000);
     } else {
-      // 마지막 답변 후 로딩 상태로 전환
       setIsGenerating(true);
-
       try {
-        // 채팅 히스토리 전송
         await sendChatHistory();
 
         //TODO: 로딩이 끝나면 결과 화면으로// 이건 개발끝나면 살리기

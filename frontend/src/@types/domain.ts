@@ -16,6 +16,7 @@ export interface SharedContent {
   imgUrl: string;
   type: BoardType;
   createdAt: string;
+  scenario?: string;
 }
 export interface ExtendedSharedContent extends SharedContent {
   scenario?: string;

@@ -35,6 +35,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-15",
+    scenario:
+      "화창한 봄날에 안창호 선생님과 함께 도산공원을 걷는 모습을 그려보았습니다. 상상하신 모습을 바탕으로 Walkable City로 발전하는 강남구의 모습을 기대해 주세요.",
   },
   {
     id: 2,
@@ -42,6 +44,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-14",
+    scenario:
+      "한티근린공원의 울창한 숲길을 가족과 함께 산책하는 모습입니다. 도심 속 자연을 느끼며 건강한 생활을 즐기는 강남구 주민들의 일상을 담아보았습니다.",
   },
   {
     id: 3,
@@ -49,6 +53,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "webtoon",
     createdAt: "2024-03-13",
+    scenario:
+      "2040년 강남의 모습을 상상해보았습니다. 친환경 교통수단과 첨단 기술이 조화를 이루는 스마트 시티의 모습, 하늘을 가로지르는 UAM과 지하도로를 통해 더욱 효율적으로 변화할 미래 강남의 전경을 그려보았습니다.",
   },
   {
     id: 4,
@@ -56,6 +62,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "webtoon",
     createdAt: "2024-03-12",
+    scenario:
+      "1970년대 강남 개발 초기의 모습을 담아보았습니다. 논밭이었던 땅이 도시로 변모해가는 과정, 그 시대를 살았던 사람들의 희망찬 발걸음을 웹툰으로 표현해보았습니다.",
   },
   {
     id: 5,
@@ -63,6 +71,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-11",
+    scenario:
+      "조선시대의 역사가 숨쉬는 선정릉에서 현대적 감성을 더해 그려보았습니다. 도심 속 문화유산을 통해 과거와 현재가 공존하는 강남구의 독특한 정체성을 느낄 수 있습니다.",
   },
   {
     id: 6,
@@ -70,6 +80,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-10",
+    scenario:
+      "퇴근 후 직장인들이 역삼공원에서 여유를 즐기는 모습을 담았습니다. 바쁜 일상 속 작은 쉼터가 되어주는 도심 속 공원에서 휴식을 취하는 시민들의 모습을 표현해보았습니다.",
   },
   {
     id: 7,
@@ -77,6 +89,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "/asset/webtoonimg3.png",
     type: "webtoon",
     createdAt: "2024-03-09",
+    scenario:
+      "활기 넘치는 현재 강남의 일상을 그려보았습니다. 첨단 오피스와 문화시설이 어우러진 거리, 다양한 사람들의 라이프스타일이 공존하는 강남의 현재를 웹툰으로 표현했습니다.",
   },
   {
     id: 8,
@@ -84,6 +98,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-08",
+    scenario:
+      "청담동의 세련된 거리와 공원이 조화를 이루는 모습을 표현해보았습니다. 트렌디한 문화와 자연이 어우러진 청담동만의 특별한 분위기를 담아냈습니다.",
   },
   {
     id: 9,
@@ -91,6 +107,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "/asset/webtoonimg2.png",
     type: "webtoon",
     createdAt: "2024-03-07",
+    scenario:
+      "강남의 낮과 밤을 대비하여 표현해보았습니다. 열정적인 비즈니스의 현장에서 화려한 문화생활까지, 24시간 살아숨쉬는 강남의 모습을 담았습니다.",
   },
   {
     id: 10,
@@ -98,6 +116,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "https://picsum.photos/200",
     type: "walking",
     createdAt: "2024-03-06",
+    scenario:
+      "사계절 아름다운 양재천의 산책로를 걷는 시민들의 모습을 담아보았습니다. 도시와 자연이 조화롭게 어우러진 친환경 강남구의 모습을 느낄 수 있습니다.",
   },
   {
     id: 11,
@@ -105,6 +125,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "/asset/webtoonimg1.png",
     type: "webtoon",
     createdAt: "2024-03-05",
+    scenario:
+      "2040년, 친환경 스마트시티로 진화한 강남의 모습입니다. 옥상 정원과 태양광 발전, 자율주행 차량이 일상이 된 미래 도시를 상상하여 그려보았습니다.",
   },
   {
     id: 12,
@@ -112,6 +134,8 @@ export const sharedContents: SharedContent[] = [
     imgUrl: "/asset/webtoonimg4.png",
     type: "webtoon",
     createdAt: "2024-03-04",
+    scenario:
+      "1980년대 강남 개발이 한창이던 시기의 모습입니다. 아파트 단지가 들어서고 새로운 도시가 형성되어가는 과정에서 강남 발전의 역동적인 순간을 담아보았습니다.",
   },
 ];
 
