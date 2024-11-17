@@ -13,47 +13,63 @@ export const Modal: FunctionComponent<ModalProps> = ({
   modalStyle,
   children,
 }) => {
-  if (!isOpen) return null; // 모달이 열리지 않은 상태라면 아무것도 렌더링하지 않음
+  // 모달이 닫혀있으면 렌더링하지 않음
+  if (!isOpen) return null;
 
-  const getModalContentClass = () => {
+  // 모달 타입에 따른 사이즈 클래스 결정
+  const getModalSizeClass = () => {
+    // 기본 클래스
     const baseClass = "modal-content";
-    if (type === "walking") return `${baseClass} modal-content-walking`;
-    if (type === "webtoon") return `${baseClass} modal-content-webtoon`;
+
+    // 화면 너비에 따른 분기
+    const isMobile = window.innerWidth < 768;
+
+    // 모달 타입과 크기에 따른 클래스 결정
+    if (type === "walking") {
+      return `${baseClass} ${isMobile ? "modal-walking-mobile" : "modal-walking-desktop"}`;
+    }
+    if (type === "webtoon") {
+      return `${baseClass} ${isMobile ? "modal-webtoon-mobile" : "modal-webtoon-desktop"}`;
+    }
+    if (type === "edit") {
+      return `${baseClass} ${isMobile ? "modal-edit-mobile" : "modal-edit-desktop"}`;
+    }
+    if (type === "share" || type === "regenerate") {
+      return `${baseClass} ${isMobile ? "modal-action-mobile" : "modal-action-desktop"}`;
+    }
+
     return baseClass;
   };
 
-  const getButtonClass = () => {
-    const baseClass = "navigate-button";
-    if (type === "walking") return `${baseClass} navigate-button-walking`;
-    if (type === "webtoon") return `${baseClass} navigate-button-webtoon`;
-    return baseClass;
-  };
+  console.log("Modal type:", type); // 모달 타입 로깅
+  console.log("Modal size class:", getModalSizeClass()); // 적용된 사이즈 클래스 로깅
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-        className={getModalContentClass()}
+        className={getModalSizeClass()}
         onClick={(e) => e.stopPropagation()}
         style={modalStyle}
       >
-        {children} {/* 모달 안에 표시될 내용 */}
-        <div className="btn-layout">
-          <button className="close-button" onClick={onClose}>
-            {btnCancleName}
-          </button>
-          <button
-            className={`${getButtonClass()} navigate-button`}
-            onClick={onClick}
-          >
-            <span>{btnName}</span>
-            {btnImgUrl && (
-              <img
-                src={btnImgUrl}
-                alt="button_icon"
-                className="w-5 h-5 object-contain"
-              />
-            )}
-          </button>
+        <div className="modal-inner">
+          {children}
+          <div className="btn-layout">
+            <button className="close-button" onClick={onClose}>
+              {btnCancleName}
+            </button>
+            <button className="navigate-button" onClick={onClick}>
+              <div className="navigate-button-content">
+                <span className="button-text">{btnName}</span>
+                {btnImgUrl && (
+                  <img
+                    src={btnImgUrl}
+                    alt="button icon"
+                    className="button-icon"
+                  />
+                )}
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>

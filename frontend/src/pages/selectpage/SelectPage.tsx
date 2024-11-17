@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { selectOptions } from "../../data/dummydata";
@@ -12,11 +12,13 @@ import {
   SelectOptionsType,
 } from "../../@types/domain";
 import "./SelectPage.css";
+import { logger } from "../../util/logger";
 
 const ITEMS_PER_PAGE = 30;
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
@@ -80,6 +82,18 @@ const SelectPage: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [options.length]);
+
+  // Back navigation event handling
+  useEffect(() => {
+    const handlePopState = () => {
+      logger.log("Back navigation detected - closing modal");
+      setIsOpen(false);
+      setSelectedOption(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const onClose = () => {
     setIsOpen(false);
@@ -162,7 +176,9 @@ const SelectPage: React.FC = () => {
               alt={selectedOption.title}
               className="cr_select-modal-image"
             />
-            <p className="cr_select-modal-description">
+            <p
+              className={`cr_select-modal-description ${type === "walking" ? "walking" : ""}`}
+            >
               {type === "walking"
                 ? selectedOption.description
                 : selectedOption.modalsuggest}

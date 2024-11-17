@@ -133,7 +133,7 @@
 }
 
 /* 모바일 (360px ~ 767px) */
-@media screen and (min-width: 360px) and (max-width: 767px) {
+@media screen and (min-width: 360px) and (max-width: 768px) {
   .yg_option-grid-walking {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -187,7 +187,7 @@
 }
 
 /* 태블릿 & 중간 화면 (768px ~ 1919px) */
-@media screen and (min-width: 768px) and (max-width: 1919px) {
+@media screen and (min-width: 768px) and (max-width: 1920px) {
   .yg_option-grid-walking {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px;

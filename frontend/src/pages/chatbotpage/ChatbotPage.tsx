@@ -160,6 +160,25 @@ const ChatbotPage: React.FC = () => {
     };
   }, [type, imgUrl, title, navigate]);
 
+  //블러처리때문에 메시지가 아래에 뜨고 올라가게 애니메이션
+  useEffect(() => {
+    // 메시지 컨테이너의 스크롤을 bottom으로
+    if (messages.length > 0 && messageContainerRef.current) {
+      const scrollElement = messageContainerRef.current;
+
+      // 새 메시지가 추가될 때 애니메이션 클래스 추가
+      scrollElement.classList.add("has-new-message");
+
+      // 스크롤 이동
+      scrollElement.scrollTop = scrollElement.scrollHeight;
+
+      // 애니메이션 종료 후 클래스 제거
+      setTimeout(() => {
+        scrollElement.classList.remove("has-new-message");
+      }, 500); // 애니메이션 지속 시간과 동일하게 설정
+    }
+  }, [messages]);
+
   // 메시지 전송 처리
   const handleSendMessage = async () => {
     if (

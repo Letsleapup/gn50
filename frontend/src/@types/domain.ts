@@ -18,9 +18,6 @@ export interface SharedContent {
   createdAt: string;
   scenario?: string;
 }
-export interface ExtendedSharedContent extends SharedContent {
-  scenario?: string;
-}
 
 export interface BannerContent {
   title: string;
@@ -68,7 +65,7 @@ export type Nullable<T> = null | T;
 
 export interface ModalProps {
   isOpen: boolean;
-  type: BoardType;
+  type: "walking" | "webtoon" | "edit" | "share" | "regenerate";
   btnName: string;
   btnImgUrl?: string;
   btnCancleName: string;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { sharedContents } from "../../data/dummydata";
-import { ExtendedSharedContent, SharedContent } from "../../@types/domain";
+import { SharedContent } from "../../@types/domain";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 interface DetailContentProps {
   content?: SharedContent;
@@ -13,11 +13,10 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { type, contentId } = useParams<{ type: string; contentId: string }>();
-  const [content, setContent] = useState<ExtendedSharedContent | null>(null);
+  const [content, setContent] = useState<SharedContent | null>(null);
 
   const { source: stateSource, content: stateContent } =
-    (location.state as { source?: string; content?: ExtendedSharedContent }) ||
-    {};
+    (location.state as { source?: string; content?: SharedContent }) || {};
 
   const source = propSource || stateSource;
 
@@ -62,18 +61,18 @@ const DetailContent: React.FC<DetailContentProps> = ({
         className={`
         flex flex-col items-center 
         px-[20px]
-        pt-[64px]
-        pb-[20px]
+        pt-[84px]
+        pb-[80px]
         md:px-[40px]
-        md:pt-[calc(64px+(243-64)*(100vw-768px)/(1920-768))]
+        md:pt-[calc(84px+(183-84)*(100vw-768px)/(1920-768))]
         md:pb-[40px]
         xl:px-[183px] 
-        xl:pt-[243px]
+        xl:pt-[160px]
         xl:pb-[183px]
         max-w-[1200px]`}
       >
         <h1
-          className="text-[24px] 
+          className="text-[26px] 
           tracking-[-0.65px]
           md:text-[28px] 
           md:tracking-[-0.65px]
@@ -107,6 +106,9 @@ const DetailContent: React.FC<DetailContentProps> = ({
             onError={(e) => {
               console.log("Image load failed:", content.imgUrl);
               e.currentTarget.src = "https://via.placeholder.com/690x690";
+            }}
+            onLoad={() => {
+              console.log("Image loaded successfully:", content.imgUrl);
             }}
           />
         </div>
@@ -170,21 +172,21 @@ const DetailContent: React.FC<DetailContentProps> = ({
           className="px-[30px]
             md:px-[40px]
             xl:px-[50px] 
-            py-[15px]
-            md:py-[16px]
-            xl:py-[17.5px] 
+            py-[12px]
+            md:py-[15px]
+            xl:py-[18px] 
             bg-[#333333] 
             text-white 
             rounded-[28px] 
-            text-[16px]
-            md:text-[17px]
+            text-[14px]
+            md:text-[16px]
             xl:text-[18px] 
             hover:bg-gray-200 
             transition-colors 
-            mt-[25px]
+            mt-[30px]
             md:mt-[35px]
             xl:mt-[50px]
-            font-regular"
+            font-normal"
         >
           목록으로 이동하기
         </button>

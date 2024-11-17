@@ -259,61 +259,71 @@ export const walkingOptions: SelectOption[] = [
     id: "walking-1",
     title: "도산공원",
     imgUrl: "/asset/thumb01.png",
-    description: "도산 안창호 기념비와 조경이 잘 된 산책로를 가진 역사적 공원",
+    description:
+      "도산 안창호 선생의 애국정신이 살아있는 역사적인 공원으로, 아름다운 산책로와 조경이 어우러진 도심 속 휴식공간",
   },
   {
     id: "walking-2",
     title: "양재 시민의 숲",
     imgUrl: "/asset/thumb02.png",
-    description: "강남구의 양재 시민의 숲입니다.",
+    description:
+      "울창한 메타세쿼이아 숲길과 자연학습장이 있는 도심 속 자연휴양림",
   },
   {
     id: "walking-3",
     title: "양재천",
     imgUrl: "/asset/thumb03.png",
-    description: "강남구의 양재천입니다.",
+    description:
+      "계절마다 다른 풍경을 자랑하는 산책로와 자전거도로가 잘 정비된 도심 속 생태하천",
   },
   {
     id: "walking-4",
     title: "선릉과 정릉",
     imgUrl: "/asset/thumb04.png",
-    description: "강남구의 선릉과 정릉입니다.",
+    description:
+      "조선시대 왕릉의 고즈넉함과 울창한 숲이 공존하는 UNESCO 세계문화유산",
   },
   {
     id: "walking-5",
     title: "대치유수지 생태공원",
     imgUrl: "/asset/thumb05.png",
-    description: "강남구의 대치유수지 생태공원입니다.",
+    description:
+      "도심 속 자연생태계를 그대로 보존한 습지공원으로, 다양한 식물과 조류를 관찰할 수 있는 생태학습장",
   },
   {
     id: "walking-6",
     title: "한티근린공원",
     imgUrl: "/asset/thumb06.png",
-    description: "강남구의 한티근린공원입니다.",
+    description:
+      "한티역 인근에 위치한 도심 속 녹지공원으로, 운동시설과 산책로가 잘 조성된 주민 휴식공간",
   },
   {
     id: "walking-7",
     title: "개포근린공원",
     imgUrl: "/asset/thumb07.png",
-    description: "강남구의 개포근린공원입니다.",
+    description:
+      "개포동의 중심에 자리 잡은 녹지공원으로, 운동시설과 산책로가 조화롭게 어우러진 주민 쉼터",
   },
   {
     id: "walking-8",
     title: "청담공원",
     imgUrl: "/asset/thumb08.png",
-    description: "강남구의 청담공원입니다.",
+    description:
+      "한강변에 위치한 현대적 감각의 공원으로, 예술적 조형물과 아름다운 조경이 돋보이는 휴식공간",
   },
   {
     id: "walking-9",
     title: "세곡동 문화공원",
     imgUrl: "/asset/thumb09.png",
-    description: "강남구의 세곡동 문화공원입니다.",
+    description:
+      "문화시설과 녹지가 어우러진 복합문화공간으로, 다양한 문화행사와 여가활동이 가능한 주민 소통공간",
   },
   {
     id: "walking-10",
     title: "강남세곡체육공원",
     imgUrl: "/asset/thumb10.png",
-    description: "강남구의 강남세곡체육공원입니다.",
+    description:
+      "다양한 체육시설과 산책로를 갖춘 복합체육공원으로, 건강한 여가생활을 즐길 수 있는 체육문화공간",
   },
   {
     id: "walking-11",
