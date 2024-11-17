@@ -50,15 +50,11 @@ const ShareBoardPage: React.FC = () => {
               <button
                 key={button.id}
                 onClick={() => handleFilterClick(button.path, button.id)}
-                className="cr_filter-button"
+                className={`cr_filter-button ${
+                  activeFilter === button.id ? "cr_filter-button-active" : ""
+                }`}
               >
-                <div
-                  className={`cr_filter-button ${
-                    activeFilter === button.id ? "cr_filter-button-active" : ""
-                  }`}
-                >
-                  {button.label}
-                </div>
+                {button.label}
               </button>
             ))}
           </div>
@@ -72,7 +68,7 @@ const ShareBoardPage: React.FC = () => {
               onClick={() => handleContentClick(content)}
               className="cr_content-card"
             >
-              <div>
+              <div className="yg_content-card-inner-div">
                 <img
                   src={content.imgUrl}
                   alt={content.title}

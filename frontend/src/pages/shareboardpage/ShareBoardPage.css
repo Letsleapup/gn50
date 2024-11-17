@@ -7,17 +7,17 @@
 }
 
 .cr_shareboard-main {
-  width: 66%;
-  max-width: 1280px;
+  width: 65.88%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 70px 0 20px 0;
 }
 
 /* 필터 섹션 */
 .cr_filter-section {
   display: flex;
   height: 69px;
-  margin-bottom: 16px;
+  margin-bottom: 50px;
   border-bottom: 1px solid #959595;
 }
 
@@ -29,8 +29,9 @@
 /* 필터 버튼 스타일링 */
 .cr_filter-button {
   position: relative;
-  padding: 9px 0 20px;
+  padding: 9px 0 16px;
   font-size: 24px;
+  font-weight: 600;
   color: #959595;
   transition: color 0.2s;
 }
@@ -44,7 +45,7 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: -1px;
+  bottom: 0;
   width: 100%;
   height: 5px;
   background: #1b58fd;
@@ -69,41 +70,52 @@
 .cr_content-grid {
   display: grid;
   gap: 24px;
-  margin: 51px auto;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* 콘텐츠 카드 */
 .cr_content-card {
-  cursor: pointer;
-  transition: transform 0.2s;
+  display: flex; 
+  flex-direction: column;
+  width: 100%;
+  max-width: 384px;
+  margin: 0 auto;
 }
 
-.cr_content-card:hover {
-  transform: translateY(-4px);
+.yg_content-card-inner-div {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
 }
 
 .cr_content-image {
-  width: 384px;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  margin: 0;
   border-radius: 24px;
 }
 
 .cr_content-title {
+  width: 100%;
   margin-top: 12px;
   font-size: 18px;
   font-weight: 600;
+  text-align: left;
+  max-width: 100%;
 }
 
 /* 반응형 스타일링 */
 @media (max-width: 767px) {
   .cr_shareboard-main {
-    padding: 24px 20px 84px 20px;
+    width: 90%;
+    padding: 24px 0px 84px;
   }
 
   .cr_content-grid {
     grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .cr_filter-buttons {
@@ -116,34 +128,45 @@
 
   .cr_content-image {
     width: 320px;
-    height: 200px;
+    height: 320px;
+  }
+
+  .cr_content-card {
+    max-width: 320px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1919px) {
   .cr_shareboard-main {
-    padding: 24px 20px 84px 20px;
+    width: 80%;
   }
   .cr_content-grid {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .cr_filter-button {
     font-size: 20px;
   }
   .cr_content-image {
-    width: 320px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
+  }
+
+  .cr_content-card {
+    max-width: 350px;
   }
 }
 
 @media (min-width: 1920px) {
-  .cr_shareboard-main {
-    max-width: 1920px;
-    padding: 32px;
-  }
-
   .cr_content-grid {
     grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cr_content-card {
+    max-width: 384px;
   }
 }
