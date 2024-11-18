@@ -10,17 +10,17 @@ import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { SharedContent } from "../../@types/domain";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
-import { getAgentSystem } from "../../util/checkSystem";
+// import { getAgentSystem } from "../../util/checkSystem";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const [bannerUrl, setBannerUrl] = useState<string>();
+  const [bannerUrl] = useState<string>();
   const [webtoonList] = useState<SharedContent[]>(webtoonContents);
 
   //메인배너이미지 API호출
