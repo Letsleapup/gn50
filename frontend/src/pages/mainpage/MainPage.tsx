@@ -33,9 +33,8 @@ const MainPage: React.FC = () => {
     //     setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
     //   )
     //   .catch((_rej) => setBannerUrl(MainBannerUrl));
-    setBannerUrl(MainBannerUrl);
   }, []);
-  console.log(getAgentSystem());
+  // console.log(getAgentSystem());
   //웹툰 컨텐츠 가져오기
   useEffect(() => {
     // const fetchWebtoonContents = async () => {

@@ -21,18 +21,18 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const source = propSource || stateSource;
 
   useEffect(() => {
-    console.log("DetailContent params:", { type, contentId });
+    // console.log("DetailContent params:", { type, contentId });
 
     // 상태로 전달된 content가 있으면 사용
     if (stateContent) {
-      console.log("Using state content:", stateContent);
+      // console.log("Using state content:", stateContent);
       setContent(stateContent);
     } else {
       // 없으면 dummy data에서 찾기
       const foundContent = sharedContents.find(
         (c) => c.id === Number(contentId)
       );
-      console.log("Found content from dummy data:", foundContent);
+      // console.log("Found content from dummy data:", foundContent);
       setContent(foundContent || null);
     }
   }, [contentId, stateContent]);
@@ -104,11 +104,11 @@ const DetailContent: React.FC<DetailContentProps> = ({
             alt={content.title}
             className="w-full h-full object-cover "
             onError={(e) => {
-              console.log("Image load failed:", content.imgUrl);
+              // console.log("Image load failed:", content.imgUrl);
               e.currentTarget.src = "https://via.placeholder.com/690x690";
             }}
             onLoad={() => {
-              console.log("Image loaded successfully:", content.imgUrl);
+              // console.log("Image loaded successfully:", content.imgUrl);
             }}
           />
         </div>
