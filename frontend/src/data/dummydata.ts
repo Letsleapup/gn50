@@ -32,7 +32,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 1,
     title: "도산공원",
-    imgUrl: "/asset/test/도산공원.webp",
+    imgUrl: "/asset/test/dosanPark.webp",
     type: "walking",
     createdAt: "2024-03-15",
     scenario:
@@ -41,7 +41,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 2,
     title: "한티근린공원",
-    imgUrl: "/asset/test/한티근린공원.webp",
+    imgUrl: "/asset/test/hantiPark.webp",
     type: "walking",
     createdAt: "2024-03-14",
     scenario:
@@ -50,7 +50,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 3,
     title: "미래의 강남",
-    imgUrl: "/asset/test/미래.webp",
+    imgUrl: "/asset/test/future.webp",
     type: "webtoon",
     createdAt: "2024-03-13",
     scenario:
@@ -69,7 +69,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 5,
     title: "선정릉",
-    imgUrl: "/asset/test/선정릉.webp",
+    imgUrl: "/asset/test/samsungdong_sunjung.webp",
     type: "walking",
     createdAt: "2024-03-11",
     scenario:
@@ -78,7 +78,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 6,
     title: "역삼공원",
-    imgUrl: "/asset/test/역삼공원.webp",
+    imgUrl: "/asset/test/yeoksamPark.webp",
     type: "walking",
     createdAt: "2024-03-10",
     scenario:
@@ -87,7 +87,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 7,
     title: "현재의 강남",
-    imgUrl: "/asset/test/현재.webp",
+    imgUrl: "/asset/test/present.webp",
     type: "webtoon",
     createdAt: "2024-03-09",
     scenario:
@@ -96,7 +96,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 8,
     title: "양재천 산책로",
-    imgUrl: "/asset/test/양재천 산책로.webp",
+    imgUrl: "/asset/test/yangjae-stream.webp",
 
     type: "walking",
     createdAt: "2024-03-08",
@@ -106,7 +106,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 9,
     title: "과거의 강남",
-    imgUrl: "https://via.placeholder.com/384",
+    imgUrl: "/asset/test/past.webp",
     type: "webtoon",
     createdAt: "2024-03-12",
     scenario:
@@ -115,7 +115,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 10,
     title: "청담 공원",
-    imgUrl: "https://via.placeholder.com/384",
+    imgUrl: "/asset/test/chengdamPark.webp",
     type: "walking",
     createdAt: "2024-03-06",
     scenario:
@@ -124,7 +124,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 11,
     title: "미래의 강남",
-    imgUrl: "https://via.placeholder.com/384",
+    imgUrl: "/asset/test/future2.webp",
     type: "webtoon",
     createdAt: "2024-03-05",
     scenario:
@@ -133,7 +133,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 12,
     title: "과거의 강남",
-    imgUrl: "https://via.placeholder.com/384",
+    imgUrl: "/asset/test/past.webp",
     type: "webtoon",
     createdAt: "2024-03-04",
     scenario:
