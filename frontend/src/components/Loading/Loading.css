@@ -15,10 +15,10 @@
 /* PC (1920px 이상) */
 .yg-loading-messagebox {
   display: flex;
-  width: 544px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   padding: 20px 40px;
   margin-bottom: 60px;
   border-radius: 42px;
@@ -27,6 +27,7 @@
   color: white;
   letter-spacing: -0.5px;
   line-height: 52px;
+  word-break: normal;
 }
 
 .yg-loading-robot-container {

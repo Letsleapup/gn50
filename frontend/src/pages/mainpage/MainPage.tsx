@@ -25,14 +25,15 @@ const MainPage: React.FC = () => {
 
   //메인배너이미지 API호출
   useEffect(() => {
-    const getBannerUrlApi = async () =>
-      await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
-    getBannerUrlApi()
-      .then((res) =>
-        // console.log(res.data)
-        setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
-      )
-      .catch((_rej) => setBannerUrl(MainBannerUrl));
+    // const getBannerUrlApi = async () =>
+    //   await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
+    // getBannerUrlApi()
+    //   .then((res) =>
+    //     // console.log(res.data)
+    //     setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
+    //   )
+    //   .catch((_rej) => setBannerUrl(MainBannerUrl));
+    setBannerUrl(MainBannerUrl);
   }, []);
   console.log(getAgentSystem());
   //웹툰 컨텐츠 가져오기

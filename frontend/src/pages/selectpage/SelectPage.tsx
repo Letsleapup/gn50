@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { selectOptions } from "../../data/dummydata";
@@ -18,7 +18,7 @@ const ITEMS_PER_PAGE = 30;
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
