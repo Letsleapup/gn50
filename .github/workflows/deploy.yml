@@ -71,7 +71,7 @@ jobs:
             set +e  # 에러가 발생해도 계속 실행
 
             # 프로젝트 디렉토리로 이동
-            cd /home/${USER}
+            cd /home/${USER}/backup
 
             # 기존 빌드 백업
             if [ -d "dist" ]; then
@@ -81,6 +81,9 @@ jobs:
             # 새 빌드 파일 압축 해제
             mkdir -p dist
             tar -xzf dist.tar.gz -C dist
+
+            # dist 디렉토리의 모든 파일을 /var/www/html로 이동
+            mv /home/${USER}/backup/dist/* /var/www/html/
 
             # Apache 재시작
             if systemctl is-active --quiet httpd; then
