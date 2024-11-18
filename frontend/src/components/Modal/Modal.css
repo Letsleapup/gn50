@@ -92,11 +92,11 @@
   color: #333333;
 }
 
-.cr_select-modal-description.walking {
+.modal-content .cr_select-modal-description.walking {
   margin-top: 24px;
 }
 
-.cr_select-modal-description.webtoon {
+.modal-content .cr_select-modal-description.webtoon {
   margin-top: 16px;
 }
 
@@ -285,14 +285,14 @@
 
   .cr_select-modal-description {
     font-size: 14px;
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 30px;
+    padding-left: 30px;
     line-height: 20px;
     letter-spacing: -0.35px;
   }
 
-  .cr_select-modal-description.walking,
-  .cr_select-modal-description.webtoon {
+  .modal-content .cr_select-modal-description.walking,
+  .modal-content .cr_select-modal-description.webtoon {
     margin-top: 16px;
   }
 
