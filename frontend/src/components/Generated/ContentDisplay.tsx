@@ -252,7 +252,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
             />
 
             {/* 제목 */}
-            <h1 className="order-2 md:order-2 w-[200px] md:w-[326px] text-center text-[24px] md:text-[36px] font-bold tracking-[-0.6px] md:tracking-[-0.9px] leading-[36px] md:leading-[52px]">
+            <h1 className="order-2 md:order-2 w-[235px] md:w-[326px] text-center text-[26px] md:text-[36px] font-bold tracking-[-0.65px] md:tracking-[-0.9px] leading-[38px] md:leading-[52px]">
               {type === "walking" ? (
                 <>
                   나만의 걷고 싶은 강남이

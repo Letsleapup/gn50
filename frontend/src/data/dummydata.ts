@@ -5,10 +5,10 @@ import {
 } from "../@types/domain";
 
 //메인페이지
-
 export const MainBannerUrl = "/asset/2x/main_img01@2x.png";
 export const RobotUrl = "/asset/2x/card_chat_img01@2x.png";
 export const MainBannerRobotUrl = "/asset/2x/main_chat_img01@2x.png";
+
 // 버튼 섹션 데이터
 export const actionButtons: ActionButton[] = [
   {
@@ -32,7 +32,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 1,
     title: "도산공원",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "/asset/test/도산공원.webp",
     type: "walking",
     createdAt: "2024-03-15",
     scenario:
@@ -41,7 +41,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 2,
     title: "한티근린공원",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "/asset/test/한티근린공원.webp",
     type: "walking",
     createdAt: "2024-03-14",
     scenario:
@@ -50,7 +50,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 3,
     title: "미래의 강남",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "/asset/test/미래.webp",
     type: "webtoon",
     createdAt: "2024-03-13",
     scenario:
@@ -58,17 +58,18 @@ export const sharedContents: SharedContent[] = [
   },
   {
     id: 4,
-    title: "과거의 강남",
-    imgUrl: "https://picsum.photos/200",
+    title: "현재의 강남",
+    imgUrl: "/asset/webtoonimg4.png",
     type: "webtoon",
-    createdAt: "2024-03-12",
+    createdAt: "2024-03-07",
     scenario:
-      "1970년대 강남 개발 초기의 모습을 담아보았습니다. 논밭이었던 땅이 도시로 변모해가는 과정, 그 시대를 살았던 사람들의 희망찬 발걸음을 웹툰으로 표현해보았습니다.",
+      "강남의 낮과 밤을 대비하여 표현해보았습니다. 열정적인 비즈니스의 현장에서 화려한 문화생활까지, 24시간 살아숨쉬는 강남의 모습을 담았습니다.",
   },
+
   {
     id: 5,
     title: "선정릉",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "/asset/test/선정릉.webp",
     type: "walking",
     createdAt: "2024-03-11",
     scenario:
@@ -77,7 +78,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 6,
     title: "역삼공원",
-    imgUrl: "https://picsum.photos/200",
+    imgUrl: "/asset/test/역삼공원.webp",
     type: "walking",
     createdAt: "2024-03-10",
     scenario:
@@ -86,7 +87,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 7,
     title: "현재의 강남",
-    imgUrl: "/asset/webtoonimg3.png",
+    imgUrl: "/asset/test/현재.webp",
     type: "webtoon",
     createdAt: "2024-03-09",
     scenario:
@@ -94,35 +95,36 @@ export const sharedContents: SharedContent[] = [
   },
   {
     id: 8,
-    title: "청담 공원",
-    imgUrl: "https://picsum.photos/200",
+    title: "양재천 산책로",
+    imgUrl: "/asset/test/양재천 산책로.webp",
+
     type: "walking",
     createdAt: "2024-03-08",
-    scenario:
-      "청담동의 세련된 거리와 공원이 조화를 이루는 모습을 표현해보았습니다. 트렌디한 문화와 자연이 어우러진 청담동만의 특별한 분위기를 담아냈습니다.",
-  },
-  {
-    id: 9,
-    title: "현재의 강남",
-    imgUrl: "/asset/webtoonimg2.png",
-    type: "webtoon",
-    createdAt: "2024-03-07",
-    scenario:
-      "강남의 낮과 밤을 대비하여 표현해보았습니다. 열정적인 비즈니스의 현장에서 화려한 문화생활까지, 24시간 살아숨쉬는 강남의 모습을 담았습니다.",
-  },
-  {
-    id: 10,
-    title: "양재천 산책로",
-    imgUrl: "https://picsum.photos/200",
-    type: "walking",
-    createdAt: "2024-03-06",
     scenario:
       "사계절 아름다운 양재천의 산책로를 걷는 시민들의 모습을 담아보았습니다. 도시와 자연이 조화롭게 어우러진 친환경 강남구의 모습을 느낄 수 있습니다.",
   },
   {
+    id: 9,
+    title: "과거의 강남",
+    imgUrl: "https://via.placeholder.com/384",
+    type: "webtoon",
+    createdAt: "2024-03-12",
+    scenario:
+      "1970년대 강남 개발 초기의 모습을 담아보았습니다. 논밭이었던 땅이 도시로 변모해가는 과정, 그 시대를 살았던 사람들의 희망찬 발걸음을 웹툰으로 표현해보았습니다.",
+  },
+  {
+    id: 10,
+    title: "청담 공원",
+    imgUrl: "https://via.placeholder.com/384",
+    type: "walking",
+    createdAt: "2024-03-06",
+    scenario:
+      "청담동의 세련된 거리와 공원이 조화를 이루는 모습을 표현해보았습니다. 트렌디한 문화와 자연이 어우러진 청담동만의 특별한 분위기를 담아냈습니다.",
+  },
+  {
     id: 11,
     title: "미래의 강남",
-    imgUrl: "/asset/webtoonimg1.png",
+    imgUrl: "https://via.placeholder.com/384",
     type: "webtoon",
     createdAt: "2024-03-05",
     scenario:
@@ -131,7 +133,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 12,
     title: "과거의 강남",
-    imgUrl: "/asset/webtoonimg4.png",
+    imgUrl: "https://via.placeholder.com/384",
     type: "webtoon",
     createdAt: "2024-03-04",
     scenario:
@@ -219,7 +221,7 @@ export const webtoonOptions: SelectOption[] = [
   {
     id: "webtoon-1",
     title: "과거의 강남",
-    imgUrl: "/asset/thumb11.png",
+    imgUrl: "/asset/select-webtoon-img1.png",
     style: "gray",
     backdrop: "1960~1999",
     description:
@@ -231,7 +233,7 @@ export const webtoonOptions: SelectOption[] = [
   {
     id: "webtoon-2",
     title: "현재의 강남",
-    imgUrl: "/asset/thumb12.png",
+    imgUrl: "/asset/select-webtoon-img2.png",
     style: "modern",
     backdrop: "2000~2025",
     description:
@@ -243,7 +245,7 @@ export const webtoonOptions: SelectOption[] = [
   {
     id: "webtoon-3",
     title: "미래의 강남",
-    imgUrl: "/asset/thumb13.png",
+    imgUrl: "/asset/select-webtoon-img3.png",
     style: "colorfull, megacity",
     backdrop: "2026~2040",
     description:
