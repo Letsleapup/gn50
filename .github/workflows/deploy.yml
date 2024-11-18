@@ -62,7 +62,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           # 빌드 파일 전송
-          scp -o StrictHostKeyChecking=no -i private_key dist.tar.gz ${USER}@${HOST}:/home/${USER}
+          scp -o StrictHostKeyChecking=no -i private_key dist.tar.gz ${USER}@${HOST}:/home/${USER}/backup
 
           # SSH 접속 및 배포 명령 실행
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} << 'EOF'
