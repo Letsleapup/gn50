@@ -10,7 +10,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   btnImgUrl,
   btnCancleName = "닫기",
   onClick,
-  modalStyle,
+
   children,
 }) => {
   // 모달이 닫혀있으면 렌더링하지 않음
@@ -19,26 +19,39 @@ export const Modal: FunctionComponent<ModalProps> = ({
   // 모달 타입에 따른 사이즈 클래스 결정
   const getModalSizeClass = () => {
     // 기본 클래스
-    const baseClass = "modal-content";
+    const baseClasses = ["modal-content"];
 
     // 화면 너비에 따른 분기
     const isMobile = window.innerWidth < 768;
 
     // 모달 타입과 크기에 따른 클래스 결정
     if (type === "walking") {
-      return `${baseClass} ${isMobile ? "modal-walking-mobile" : "modal-walking-desktop"}`;
-    }
-    if (type === "webtoon") {
-      return `${baseClass} ${isMobile ? "modal-webtoon-mobile" : "modal-webtoon-desktop"}`;
-    }
-    if (type === "edit") {
-      return `${baseClass} ${isMobile ? "modal-edit-mobile" : "modal-edit-desktop"}`;
-    }
-    if (type === "share" || type === "regenerate") {
-      return `${baseClass} ${isMobile ? "modal-action-mobile" : "modal-action-desktop"}`;
+      baseClasses.push("modal-content-walking");
+      baseClasses.push(
+        isMobile ? "modal-walking-mobile" : "modal-walking-desktop"
+      );
+    } else if (type === "webtoon") {
+      baseClasses.push("modal-content-webtoon");
+      baseClasses.push(
+        isMobile ? "modal-webtoon-mobile" : "modal-webtoon-desktop"
+      );
+    } else if (type === "edit") {
+      baseClasses.push("modal-content-edit"); // 추가
+      baseClasses.push(isMobile ? "modal-edit-mobile" : "modal-edit-desktop");
+    } else if (type === "share") {
+      baseClasses.push("modal-content-share"); // 추가
+      baseClasses.push(
+        isMobile ? "modal-action-mobile" : "modal-action-desktop"
+      );
+    } else if (type === "regenerate") {
+      baseClasses.push("modal-content-regenerate"); // 추가
+      baseClasses.push(
+        isMobile ? "modal-action-mobile" : "modal-action-desktop"
+      );
     }
 
-    return baseClass;
+    console.log("[Modal] Classes:", baseClasses.join(" ")); // 디버깅용
+    return baseClasses.join(" ");
   };
 
   console.log("Modal type:", type); // 모달 타입 로깅
@@ -46,11 +59,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-        className={getModalSizeClass()}
-        onClick={(e) => e.stopPropagation()}
-        style={modalStyle}
-      >
+      <div className={getModalSizeClass()} onClick={(e) => e.stopPropagation()}>
         <div className="modal-inner">
           {children}
           <div className="btn-layout">

@@ -74,46 +74,6 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     }
   };
 
-  const getModalStyle = (modalType: "edit" | "share" | "regenerate") => {
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const footerHeight = 100; // 푸터 높이
-    const availableHeight = viewportHeight - footerHeight;
-
-    const style = document.documentElement.style;
-
-    if (modalType === "edit") {
-      const width = Math.min(viewportWidth / 3, 620); // 화면 너비의 1/3, 최대 620px
-      const height = Math.min(availableHeight / 2, 544); // 사용 가능 높이의 1/2, 최대 544px
-
-      console.log("Edit Modal Size:", { width, height });
-
-      style.setProperty("--modal-width", `${width}px`);
-      style.setProperty("--modal-height", `${height}px`);
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-        maxWidth: "620px !important",
-        maxHeight: "544px !important",
-        margin: "0 !important",
-      } as const;
-    } else {
-      const width = Math.min((viewportWidth * 2) / 5, 486);
-      const height = Math.min(availableHeight / 3, 294);
-
-      console.log("Share/Regenerate Modal Size:", { width, height });
-
-      style.setProperty("--modal-width", `${width}px`);
-      style.setProperty("--modal-height", `${height}px`);
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-        maxWidth: "486px !important",
-        maxHeight: "294px !important",
-        margin: "0 !important",
-      } as const;
-    }
-  };
   // 시나리오 수정 모달
   const getByteLength = (str: string) => {
     const encoder = new TextEncoder();
@@ -131,7 +91,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     btnImgUrl: "",
     btnCancleName: "취소",
     onClick: handleEditSubmit,
-    modalStyle: getModalStyle("edit"),
+
     children: (
       <div className="cr_modal_edit_content flex flex-col gap-4">
         <h2 className="cr_modal_edit_title">시나리오 수정하기</h2>
@@ -174,7 +134,6 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     btnImgUrl: "",
     btnCancleName: "취소",
     onClick: handleShare,
-    modalStyle: getModalStyle("share"),
     children: (
       <div className="cr_modal_share_content flex flex-col gap-4">
         <h2 className="cr_modal_share_title">갤러리 올리기</h2>
@@ -198,7 +157,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
       setShowRegenerateModal(false);
       onRegenerate();
     },
-    modalStyle: getModalStyle("regenerate"),
+
     children: (
       <div className="cr_modal_regenerate_content flex flex-col gap-4">
         <h2 className="cr_modal_regenerate_title">이미지 다시 만들기</h2>
