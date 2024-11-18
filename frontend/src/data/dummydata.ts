@@ -116,6 +116,7 @@ export const sharedContents: SharedContent[] = [
     id: 10,
     title: "청담 공원",
     imgUrl: "/asset/test/chengdamPark.webp",
+
     type: "walking",
     createdAt: "2024-03-06",
     scenario:
