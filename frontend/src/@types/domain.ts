@@ -71,7 +71,6 @@ export interface ModalProps {
   btnCancleName: string;
   onClose: () => void;
   onClick?: () => void;
-  modalStyle?: React.CSSProperties;
   children?: ReactNode;
 }
 
