@@ -237,10 +237,10 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
           </div>
 
           {/* 컨텐츠 카드 */}
-          <div className="w-[calc(100vw-40px)] md:w-[768px] xl:w-[1200px] min-h-[665px] md:h-[690px] bg-white rounded-[30px] md:rounded-[50px] overflow-hidden shadow-[8px_16px_28px_rgba(36,56,159,0.29)] md:shadow-[16px_24px_36px_rgba(36,56,159,0.29)]">
-            <div className="flex flex-col md:flex-row h-full">
+          <div className="w-[calc(100vw-40px)] md:w-[768px] xl:w-[1200px] min-h-[665px] md:min-h-[450px] bg-white rounded-[30px] md:rounded-[50px] overflow-hidden shadow-[8px_16px_28px_rgba(36,56,159,0.29)] md:shadow-[16px_24px_36px_rgba(36,56,159,0.29)]">
+            <div className="flex flex-col md:flex-row h-full md:items-center md:px-[30px]">
               {/* 이미지 섹션 */}
-              <div className="w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[440px] md:h-[440px] xl:w-[690px] xl:h-[690px] flex-shrink-0">
+              <div className="w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[384px] md:h-[384px] xl:w-[690px] xl:h-[690px] flex-shrink-0">
                 <img
                   src={imageUrl}
                   alt={title}
@@ -249,7 +249,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
               </div>
 
               {/* 컨텐츠 섹션 */}
-              <div className="flex-1 relative flex flex-col h-full p-[20px] pt-[30px] md:pt-[20px] md:py-[60px] md:px-[40px] xl:py-[80px] xl:px-[65px]">
+              <div className="flex-1 relative flex flex-col h-full p-[20px] pt-[30px] md:pt-[40px] md:py-[40px] md:pr-[30px] xl:py-[80px] xl:px-[65px]">
                 {/* 편집 버튼 */}
                 <button
                   onClick={() => setShowEditModal(true)}
@@ -264,15 +264,15 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
                 </button>
 
                 {/* 제목 */}
-                <div className="flex justify-between items-center mb-[16px] md:mb-[24px]">
+                <div className="flex justify-between items-center mb-[16px] md:mb-0 mt-[20px] md:mt-0">
                   <h1 className="text-[22px] md:text-[30px] tracking-[-0.6px] md:tracking-[-0.75px] font-bold">
                     {title}
                   </h1>
                 </div>
 
                 {/* 시나리오 텍스트 */}
-                <div className="flex-1 overflow-y-auto mb-4 md:mb-6">
-                  <div className="p-4 md:p-6 rounded-[16px]">
+                <div className="flex-1 overflow-y-auto mb-4 md:mb-4">
+                  <div className="p-4 md:p-6 md:pt-4 rounded-[16px]">
                     {displayScenario.split("\n").map((paragraph, index) => (
                       <p
                         key={index}
