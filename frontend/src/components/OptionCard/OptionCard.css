@@ -26,7 +26,7 @@
 /* Walking 타입 기본 스타일 */
 .yg_option-grid-walking {
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 50px 24px;
   max-width: 1200px;
   margin-bottom: 182px;
 }
