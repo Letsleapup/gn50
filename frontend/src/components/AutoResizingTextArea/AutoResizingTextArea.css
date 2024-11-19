@@ -61,6 +61,7 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .send-button.disabled {
@@ -81,6 +82,8 @@
     gap: 0;
   }
   .send-button {
+    min-width: 36px;
+    min-height: 36px;
     width: 36px;
     height: 36px;
     flex-shrink: 0;

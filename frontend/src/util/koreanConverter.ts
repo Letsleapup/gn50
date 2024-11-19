@@ -1,3 +1,11 @@
+// util/koreanConverter.ts
+
+// 초성, 중성, 종성 정의
+const INITIALS = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+const MEDIALS = "ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ";
+const FINALS = "ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ";
+
+// 키보드 매핑
 const engToKor: { [key: string]: string } = {
   q: "ㅂ",
   w: "ㅈ",
@@ -32,9 +40,59 @@ const engToKor: { [key: string]: string } = {
   T: "ㅆ",
 };
 
+// 한글 조합 함수
+const combineHangul = (
+  cho: string,
+  jung: string,
+  jong: string = ""
+): string => {
+  const choIndex = INITIALS.indexOf(cho);
+  const jungIndex = MEDIALS.indexOf(jung);
+  const jongIndex = jong ? FINALS.indexOf(jong) + 1 : 0;
+
+  if (choIndex < 0 || jungIndex < 0) return cho + jung + jong;
+
+  const code = 0xac00 + (choIndex * 21 + jungIndex) * 28 + jongIndex;
+  return String.fromCharCode(code);
+};
+
 export const convertEngToKor = (text: string): string => {
-  return text
-    .split("")
-    .map((char) => engToKor[char] || char)
-    .join("");
+  let result = "";
+  let current = { cho: "", jung: "", jong: "" };
+
+  // 영어를 한글 자모로 변환
+  const chars = text.split("").map((char) => engToKor[char] || char);
+
+  for (const char of chars) {
+    if (INITIALS.includes(char)) {
+      if (current.cho && current.jung) {
+        // 이전 글자 완성
+        result += combineHangul(current.cho, current.jung, current.jong);
+        current = { cho: char, jung: "", jong: "" };
+      } else if (!current.cho) {
+        current.cho = char;
+      } else {
+        current.jong = char;
+      }
+    } else if (MEDIALS.includes(char)) {
+      if (current.cho) {
+        current.jung = char;
+      } else {
+        result += char;
+      }
+    } else {
+      if (current.cho) {
+        result += combineHangul(current.cho, current.jung, current.jong);
+      }
+      result += char;
+      current = { cho: "", jung: "", jong: "" };
+    }
+  }
+
+  // 마지막 글자 처리
+  if (current.cho) {
+    result += combineHangul(current.cho, current.jung, current.jong);
+  }
+
+  return result;
 };
