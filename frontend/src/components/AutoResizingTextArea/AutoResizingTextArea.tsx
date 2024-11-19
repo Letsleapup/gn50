@@ -9,6 +9,7 @@ import {
 import { getByteLength } from "../../util/getByteLength";
 import "./AutoResizingTextArea.css";
 import { filterTextByKorean } from "../../util/filterText";
+import { convertEngToKor } from "../../util/koreanConverter";
 
 const MAX_BYTE_LENGTH = 200;
 
@@ -66,7 +67,8 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
     if (byteLength <= MAX_BYTE_LENGTH) {
       if (!isComposing) {
-        const filteredText = filterTextByKorean(inputText);
+        const convertedText = convertEngToKor(inputText);
+        const filteredText = filterTextByKorean(convertedText);
         setText(filteredText);
         onChange?.(filteredText); //부모컴포넌트 상태에 텍스트 세팅
       } else {
@@ -82,7 +84,8 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
   // 한글 입력이 끝났을 때 (조합 완료)
   const handleCompositionEnd = (e: CompositionEvent<HTMLTextAreaElement>) => {
     setIsComposing(false); // 조합 완료 표시
-    const filteredText = filterTextByKorean(e.currentTarget.value); // 조합 후 필터링
+    const convertedText = convertEngToKor(e.currentTarget.value);
+    const filteredText = filterTextByKorean(convertedText); // 조합 후 필터링
     setText(filteredText);
     onChange?.(filteredText); // 조합이 끝났을 때 필터링된 텍스트 전달
   };
