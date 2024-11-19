@@ -212,7 +212,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
             />
 
             {/* 제목 */}
-            <h1 className="order-2 md:order-2 w-[235px] md:w-[326px] text-center text-[26px] md:text-[36px] font-bold tracking-[-0.65px] md:tracking-[-0.9px] leading-[38px] md:leading-[52px]">
+            <h1 className="order-2 md:order-2 w-[235px] md:w-[326px] text-center text-[26px] md:text-[32px] font-bold tracking-[-0.65px] md:tracking-[-0.9px] leading-[38px] md:leading-[52px]">
               {type === "walking" ? (
                 <>
                   나만의 걷고 싶은 강남이
@@ -238,7 +238,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
 
           {/* 컨텐츠 카드 */}
           <div className="w-[calc(100vw-40px)] md:w-[768px] xl:w-[1200px] min-h-[665px] md:min-h-[450px] bg-white rounded-[30px] md:rounded-[50px] overflow-hidden shadow-[8px_16px_28px_rgba(36,56,159,0.29)] md:shadow-[16px_24px_36px_rgba(36,56,159,0.29)]">
-            <div className="flex flex-col md:flex-row h-full md:items-center md:px-[30px]">
+            <div className="flex flex-col md:flex-row h-full md:items-center md:px-[30px] xl:px-0">
               {/* 이미지 섹션 */}
               <div className="w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[384px] md:h-[384px] xl:w-[690px] xl:h-[690px] flex-shrink-0">
                 <img
