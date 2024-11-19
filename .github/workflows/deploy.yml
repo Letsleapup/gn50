@@ -83,7 +83,10 @@ jobs:
             tar -xzf dist.tar.gz -C dist
 
             # dist 디렉토리의 모든 파일을 /var/www/html로 이동
-            mv /home/${USER}/backup/dist/* /var/www/html/
+            sudo rm -rf /var/www/html/asset
+            sudo rm -rf /var/www/html/assets
+            sudo rm -rf /var/www/html/favicon
+            sudo mv -f /home/${USER}/backup/dist/* /var/www/html/
 
             # Apache 재시작
             if systemctl is-active --quiet httpd; then
