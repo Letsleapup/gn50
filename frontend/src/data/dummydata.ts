@@ -32,7 +32,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 1,
     title: "도산공원",
-    imgUrl: "/asset/test/도산공원.webp",
+    imgUrl: "/asset/test/dosanPark.webp",
     type: "walking",
     createdAt: "2024-03-15",
     scenario:
@@ -41,7 +41,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 2,
     title: "한티근린공원",
-    imgUrl: "/asset/test/한티근린공원.webp",
+    imgUrl: "/asset/test/hantiPark.webp",
     type: "walking",
     createdAt: "2024-03-14",
     scenario:
@@ -50,7 +50,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 3,
     title: "미래의 강남",
-    imgUrl: "/asset/test/미래.webp",
+    imgUrl: "/asset/test/future.webp",
     type: "webtoon",
     createdAt: "2024-03-13",
     scenario:
@@ -69,7 +69,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 5,
     title: "선정릉",
-    imgUrl: "/asset/test/선정릉.webp",
+    imgUrl: "/asset/test/samsungdong_sunjung.webp",
     type: "walking",
     createdAt: "2024-03-11",
     scenario:
@@ -78,7 +78,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 6,
     title: "역삼공원",
-    imgUrl: "/asset/test/역삼공원.webp",
+    imgUrl: "/asset/test/yeoksamPark.webp",
     type: "walking",
     createdAt: "2024-03-10",
     scenario:
@@ -87,7 +87,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 7,
     title: "현재의 강남",
-    imgUrl: "/asset/test/현재.webp",
+    imgUrl: "/asset/test/present.webp",
     type: "webtoon",
     createdAt: "2024-03-09",
     scenario:
@@ -96,7 +96,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 8,
     title: "양재천 산책로",
-    imgUrl: "/asset/test/양재천 산책로.webp",
+    imgUrl: "/asset/test/yangjae-stream.webp",
 
     type: "walking",
     createdAt: "2024-03-08",
@@ -106,7 +106,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 9,
     title: "과거의 강남",
-    imgUrl: "/asset/test/과거.webp",
+    imgUrl: "/asset/test/past.webp",
     type: "webtoon",
     createdAt: "2024-03-12",
     scenario:
@@ -115,7 +115,8 @@ export const sharedContents: SharedContent[] = [
   {
     id: 10,
     title: "청담 공원",
-    imgUrl: "/asset/test/청담공원.webp",
+    imgUrl: "/asset/test/chengdamPark.webp",
+
     type: "walking",
     createdAt: "2024-03-06",
     scenario:
@@ -124,7 +125,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 11,
     title: "미래의 강남",
-    imgUrl: "/asset/test/미래2.webp",
+    imgUrl: "/asset/test/future2.webp",
     type: "webtoon",
     createdAt: "2024-03-05",
     scenario:
@@ -133,7 +134,7 @@ export const sharedContents: SharedContent[] = [
   {
     id: 12,
     title: "과거의 강남",
-    imgUrl: "/asset/test/과거.webp",
+    imgUrl: "/asset/test/past.webp",
     type: "webtoon",
     createdAt: "2024-03-04",
     scenario:
@@ -171,8 +172,8 @@ export const bannerContent: BannerContentType = {
 export const starterMessage = [
   ["입력하신 내용을 저장하고 있어요"],
   ["저장한 내용을 분석중이에요"],
-  ["분석한 내용을 기반으로 이미지를", "만들고 있어요"],
-  ["보여드리기전에 고칠 부분이 있나", "분석중이에요"],
+  ["분석한 내용을 기반으로 이미지를 만들고 있어요"],
+  ["보여드리기전에 고칠 부분이 있나 분석중이에요"],
 ];
 
 // 웹툰과 워킹 데이터 분리
@@ -212,7 +213,6 @@ export const webtoonQuestions = [
 export const walkingQuestions = [
   "어떤 계절에 걷고 싶으신가요?",
   "걸을 때의 날씨는 어떤가요?",
-  "누구와 함께 걷고 싶으세요?",
   "걸을 때의 기분을 알려주세요",
   "다른 알아야 할 점이 있나요?",
 ];
@@ -261,191 +261,181 @@ export const walkingOptions: SelectOption[] = [
     id: "walking-1",
     title: "도산공원",
     imgUrl: "/asset/thumb01.png",
-    description:
-      "도산 안창호 선생의 애국정신이 살아있는 역사적인 공원으로, 아름다운 산책로와 조경이 어우러진 도심 속 휴식공간",
+    description: "도산 안창호 기념비와 조경이 잘 된 산책로를 가진 역사적 공원",
   },
   {
     id: "walking-2",
     title: "양재 시민의 숲",
     imgUrl: "/asset/thumb02.png",
-    description:
-      "울창한 메타세쿼이아 숲길과 자연학습장이 있는 도심 속 자연휴양림",
+    description: "메타세쿼이아가 우거진 도심 숲 공원입니다",
   },
   {
     id: "walking-3",
     title: "양재천",
     imgUrl: "/asset/thumb03.png",
-    description:
-      "계절마다 다른 풍경을 자랑하는 산책로와 자전거도로가 잘 정비된 도심 속 생태하천",
+    description: "사계절 아름다운 생태 하천 공원입니다",
   },
   {
     id: "walking-4",
     title: "선릉과 정릉",
     imgUrl: "/asset/thumb04.png",
-    description:
-      "조선시대 왕릉의 고즈넉함과 울창한 숲이 공존하는 UNESCO 세계문화유산",
+    description: "세계문화유산 조선 왕릉 공원입니다",
   },
   {
     id: "walking-5",
     title: "대치유수지 생태공원",
     imgUrl: "/asset/thumb05.png",
-    description:
-      "도심 속 자연생태계를 그대로 보존한 습지공원으로, 다양한 식물과 조류를 관찰할 수 있는 생태학습장",
+    description: "도심 속 자연생태 관찰 공원입니다",
   },
   {
     id: "walking-6",
     title: "한티근린공원",
     imgUrl: "/asset/thumb06.png",
-    description:
-      "한티역 인근에 위치한 도심 속 녹지공원으로, 운동시설과 산책로가 잘 조성된 주민 휴식공간",
+    description: "운동시설이 풍부한 녹지 공원입니다",
   },
   {
     id: "walking-7",
     title: "개포근린공원",
     imgUrl: "/asset/thumb07.png",
-    description:
-      "개포동의 중심에 자리 잡은 녹지공원으로, 운동시설과 산책로가 조화롭게 어우러진 주민 쉼터",
+    description: "주민 운동과 휴식의 녹지 공원입니다",
   },
   {
     id: "walking-8",
     title: "청담공원",
     imgUrl: "/asset/thumb08.png",
-    description:
-      "한강변에 위치한 현대적 감각의 공원으로, 예술적 조형물과 아름다운 조경이 돋보이는 휴식공간",
+    description: "예술 조형물이 있는 한강변 공원입니다",
   },
   {
     id: "walking-9",
     title: "세곡동 문화공원",
     imgUrl: "/asset/thumb09.png",
-    description:
-      "문화시설과 녹지가 어우러진 복합문화공간으로, 다양한 문화행사와 여가활동이 가능한 주민 소통공간",
+    description: "문화행사가 열리는 복합 공원입니다",
   },
   {
     id: "walking-10",
     title: "강남세곡체육공원",
     imgUrl: "/asset/thumb10.png",
-    description:
-      "다양한 체육시설과 산책로를 갖춘 복합체육공원으로, 건강한 여가생활을 즐길 수 있는 체육문화공간",
+    description: "다양한 체육시설의 복합 공원입니다",
   },
   {
     id: "walking-11",
     title: "율현공원",
     imgUrl: "/asset/thumb11.png",
-    description: "강남구의 율현공원입니다.",
+    description: "주거지역 인근의 녹지 공원입니다",
   },
   {
     id: "walking-12",
     title: "대모산자연공원",
     imgUrl: "/asset/thumb12.png",
-    description: "강남구의 대모산자연공원입니다.",
+    description: "도심 속 자연 등산로 공원입니다",
   },
   {
     id: "walking-13",
     title: "세곡지구근린공원",
     imgUrl: "/asset/thumb13.png",
-    description: "강남구의 세곡지구근린공원입니다.",
+    description: "주민 친화적인 근린 공원입니다",
   },
   {
     id: "walking-14",
     title: "수서중앙공원",
     imgUrl: "/asset/thumb14.png",
-    description: "강남구의 수서중앙공원입니다.",
+    description: "수서지역 중심의 휴식 공원입니다",
   },
   {
     id: "walking-15",
     title: "양재천근린공원",
     imgUrl: "/asset/thumb15.png",
-    description: "강남구의 양재천근린공원입니다.",
+    description: "하천변 산책로가 있는 공원입니다",
   },
   {
     id: "walking-16",
     title: "삼성중앙공원",
     imgUrl: "/asset/thumb16.png",
-    description: "강남구의 삼성중앙공원입니다.",
+    description: "삼성동의 중심 휴식 공원입니다",
   },
   {
     id: "walking-17",
     title: "일원마을공원",
     imgUrl: "/asset/thumb17.png",
-    description: "강남구의 일원마을공원입니다.",
+    description: "마을 주민을 위한 근린 공원입니다",
   },
   {
     id: "walking-18",
     title: "일원배수지체육공원",
     imgUrl: "/asset/thumb18.png",
-    description: "강남구의 일원배수지체육공원입니다.",
+    description: "체육시설이 있는 배수지 공원입니다",
   },
   {
     id: "walking-19",
     title: "일원에코공원",
     imgUrl: "/asset/thumb19.png",
-    description: "강남구의 일원에코공원입니다.",
+    description: "생태친화적인 도심 공원입니다",
   },
   {
     id: "walking-20",
     title: "도곡근린공원",
     imgUrl: "/asset/thumb20.png",
-    description: "강남구의 도곡근린공원입니다.",
+    description: "도곡동의 대표적인 근린 공원입니다",
   },
   {
     id: "walking-21",
     title: "장군봉근린공원",
     imgUrl: "/asset/thumb21.png",
-    description: "강남구의 장군봉근린공원입니다.",
+    description: "역사적 의미가 있는 근린 공원입니다",
   },
   {
     id: "walking-22",
     title: "탄천근린공원",
     imgUrl: "/asset/thumb22.png",
-    description: "강남구의 탄천근린공원입니다.",
+    description: "탄천변 생태환경의 근린 공원입니다",
   },
   {
     id: "walking-23",
     title: "학동공원",
     imgUrl: "/asset/thumb23.png",
-    description: "강남구의 학동공원입니다.",
+    description: "주민들의 일상 휴식 공원입니다",
   },
   {
     id: "walking-24",
     title: "압구정배수지공원",
     imgUrl: "/asset/thumb24.png",
-    description: "강남구의 압구정배수지공원입니다.",
+    description: "전망이 좋은 배수지 공원입니다",
   },
   {
     id: "walking-25",
     title: "삼성에코공원",
     imgUrl: "/asset/thumb25.png",
-    description: "강남구의 삼성에코공원입니다.",
+    description: "친환경적인 생태 체험 공원입니다",
   },
   {
     id: "walking-26",
     title: "역삼공원",
     imgUrl: "/asset/thumb26.png",
-    description: "강남구의 역삼공원입니다.",
+    description: "역삼동의 대표적인 휴식 공원입니다",
   },
   {
     id: "walking-27",
     title: "봉은공원",
     imgUrl: "/asset/thumb27.png",
-    description: "강남구의 봉은공원입니다.",
+    description: "역사문화 유적이 있는 공원입니다",
   },
   {
     id: "walking-28",
     title: "구룡산 도시자연공원",
     imgUrl: "/asset/thumb28.png",
-    description: "강남구의 구룡산 도시자연공원입니다.",
+    description: "자연친화적인 산림 공원입니다",
   },
   {
     id: "walking-29",
     title: "가로수길",
     imgUrl: "/asset/thumb29.png",
-    description: "강남구의 가로수길입니다.",
+    description: "문화와 자연이 어우러진 거리입니다",
   },
   {
     id: "walking-30",
     title: "신사공원",
     imgUrl: "/asset/thumb30.png",
-    description: "강남구의 신사공원입니다.",
+    description: "신사동의 녹지휴식 공원입니다",
   },
 ];
 
