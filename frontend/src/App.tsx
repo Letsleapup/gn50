@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,22 +18,37 @@ import ErrorPage from "./pages/errorpage/ErrorPage";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { ScrollToTop } from "./util/ScrollToTop";
+import { logger } from "./util/logger";
 import ContentDisplay from "./components/Generated/ContentDisplay";
 import { BoardType } from "./@types/domain";
 
 // AppRoutes 컴포넌트 - 실제 라우팅 로직을 담당
 const AppRoutes: React.FC = () => {
   const location = useLocation();
-  const isChatbotPage = location.pathname.includes("/chatbot");
+  // 챗봇 페이지지만 결과를 보여주는 상태인지 확인하기 위해 상태 공유 필요
+  const [showingResult, setShowingResult] = useState(false);
+
+  // 디버깅용 로그 추가
+  useEffect(() => {
+    logger.log("AppRoutes - showingResult 상태:", showingResult);
+    logger.log("현재 경로:", location.pathname);
+  }, [showingResult, location]);
+
+  // 챗봇 페이지이면서 결과를 보여주지 않을 때만 header/footer 숨김
+  const hideHeaderFooter =
+    location.pathname.includes("/chatbot") && !showingResult;
 
   return (
     <div className="App">
-      {!isChatbotPage && <Header />}
+      {!hideHeaderFooter && <Header />}
       <ScrollToTop />
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="chatbot/:type" element={<ChatbotPage />} />
+          <Route
+            path="chatbot/:type"
+            element={<ChatbotPage onShowResult={setShowingResult} />}
+          />
           <Route path="select/:type" element={<SelectPage />} />
           <Route path="shared/:type" element={<ShareBoardPage />} />
           <Route
@@ -67,7 +82,7 @@ const AppRoutes: React.FC = () => {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
-      {!isChatbotPage && <Footer />}
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
 };
