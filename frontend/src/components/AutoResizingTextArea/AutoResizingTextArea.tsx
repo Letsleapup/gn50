@@ -111,6 +111,9 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
   const byteLength = getByteLength(text);
 
+  // 200자 제한 추가
+  const isTextLengthValid = byteLength <= MAX_BYTE_LENGTH;
+
   return (
     <div className="input-container">
       <div className="input-area ">
@@ -133,20 +136,24 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
             color: color ? color : "#000",
           }} // 크기 조절 제한 및 스크롤 제거
         />
-      </div>
-      <p className="byte-counter">
-        {byteLength}/{MAX_BYTE_LENGTH}
-      </p>
+        <p className="byte-counter">
+          {byteLength}/{MAX_BYTE_LENGTH}
+        </p>
 
-      {hasButton && (
-        <button
-          className={`send-button ${!isButtonEnabled ? "disabled " : ""}`}
-          onClick={handleSend}
-          disabled={!isButtonEnabled}
-        >
-          <img src="/asset/ic_send.svg" className="w-5 h-5" alt="sendbutton" />
-        </button>
-      )}
+        {hasButton && (
+          <button
+            className={`send-button ${!isButtonEnabled ? "disabled " : ""}`}
+            onClick={handleSend}
+            disabled={!isTextLengthValid || !isButtonEnabled}
+          >
+            <img
+              src="/asset/ic_send.svg"
+              className="w-5 h-5"
+              alt="sendbutton"
+            />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
