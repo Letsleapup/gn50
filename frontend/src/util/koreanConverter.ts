@@ -1,20 +1,12 @@
-<<<<<<< Updated upstream
-// util/koreanConverter.ts
-
 // 초성, 중성, 종성 정의
 const INITIALS = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
 const MEDIALS = "ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ";
 const FINALS = "ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ";
 
 // 키보드 매핑
-=======
-<<<<<<< Updated upstream
-=======
 // util/koreanConverter.ts
 import * as Hangul from "hangul-js";
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 const engToKor: { [key: string]: string } = {
   q: "ㅂ",
   w: "ㅈ",
@@ -49,7 +41,6 @@ const engToKor: { [key: string]: string } = {
   T: "ㅆ",
 };
 
-<<<<<<< Updated upstream
 // 한글 조합 함수
 const combineHangul = (
   cho: string,
@@ -105,19 +96,9 @@ export const convertEngToKor = (text: string): string => {
   }
 
   return result;
-=======
-export const convertEngToKor = (text: string): string => {
-<<<<<<< Updated upstream
-  return text
-    .split("")
-    .map((char) => engToKor[char] || char)
-    .join("");
-=======
   // 영어를 한글 자모로 변환
   const jamos: string[] = text.split("").map((char) => engToKor[char] || char);
 
   // 자모를 조합하여 완성된 한글로 변환
   return Hangul.assemble(jamos);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 };
