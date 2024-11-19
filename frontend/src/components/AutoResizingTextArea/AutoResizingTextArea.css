@@ -23,6 +23,7 @@
 }
 
 .input-field {
+  flex: 1;
   margin-left: 20px;
   border: none;
   font-size: 18px;
@@ -32,19 +33,18 @@
 }
 
 .input-area {
-  flex: 1;
+  width: 100%;
   display: flex;
   position: relative;
-  flex-direction: column;
-  align-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .byte-counter {
   font-size: 15px;
-  position: flex;
   color: #959595;
-  margin-bottom: 0px;
-  margin-right: 10px;
+  margin: 0 8px;
+  flex-shrink: 0;
 }
 
 .send-button {
