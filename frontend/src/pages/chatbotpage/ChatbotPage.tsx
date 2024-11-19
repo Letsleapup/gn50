@@ -11,12 +11,6 @@ import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
 
-interface ChatHistory {
-  type: string; // walking 또는 webtoon
-  selectedTitle: string; // 선택한 장소/웹툰 제목
-  chatHistory: string[]; // 사용자 응답들만 순서대로 저장
-}
-
 const ChatbotPage: React.FC = () => {
   const { type } = useParams<{ type: "walking" | "webtoon" }>();
   const [searchParams] = useSearchParams();
@@ -47,50 +41,6 @@ const ChatbotPage: React.FC = () => {
       scenario: "",
     });
 
-  const sendChatHistory = async () => {
-    try {
-      setIsGenerating(true);
-      const historyData: ChatHistory = {
-        type: type || "",
-        selectedTitle: title || "",
-        chatHistory,
-      };
-
-      logger.log("전송 데이터:", historyData);
-      // try {
-      //   //TODO: 개발끝나면 try{괄호만}catch(error){..}부분 삭제
-      //   const response = await fetch("/api/chatbot/chat-history", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(historyData),
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error("채팅 히스토리 전송 실패");
-      //   }
-
-      //   if (type !== "webtoon" && type !== "walking") {
-      //     throw new Error("잘못된 타입입니다");
-      //   }
-      // } catch (error) {
-      //   logger.log("작업중이라 api 호출 실패 무시됨");
-      // }
-      setGeneratedContent({
-        ...generatedContent,
-        type: type as "webtoon" | "walking",
-        imageUrl: decodeURIComponent(imgUrl || ""),
-        title: title || "",
-        scenario: chatHistory.join("\n"),
-      });
-    } catch (error) {
-      logger.error("Error:", error);
-      setIsGenerating(false);
-      throw error;
-    }
-  };
-
   // 웰컴 메세지
   useEffect(() => {
     if (!type || !title || !imgUrl) {
@@ -98,7 +48,8 @@ const ChatbotPage: React.FC = () => {
       navigate("/select");
       return;
     }
-
+    setIsLoading(true);
+    setIsLoading(false);
     const questions = type === "walking" ? walkingQuestions : webtoonQuestions;
 
     // 답변 상태 배열 초기화
