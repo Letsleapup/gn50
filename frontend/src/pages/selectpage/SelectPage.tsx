@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { selectOptions } from "../../data/dummydata";
@@ -18,7 +18,7 @@ const ITEMS_PER_PAGE = 30;
 
 const SelectPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const { type } = useParams<{ type?: keyof SelectOptionsType }>();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
@@ -34,7 +34,7 @@ const SelectPage: React.FC = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        console.log(`Fetching ${type} options...`);
+        // console.log(`Fetching ${type} options...`);
         setIsLoading(true);
 
         // API 호출 예시
@@ -49,7 +49,7 @@ const SelectPage: React.FC = () => {
             }))
           : [];
 
-        console.log(`Loaded ${dummyData.length} ${type} options`);
+        // console.log(`Loaded ${dummyData.length} ${type} options`);
         setOptions(dummyData);
       } catch (error) {
         console.error("Failed to fetch options:", error);
@@ -72,7 +72,7 @@ const SelectPage: React.FC = () => {
       const scrollThreshold = document.documentElement.scrollHeight - 100;
 
       if (scrollPosition >= scrollThreshold) {
-        console.log("Loading more items...");
+        // console.log("Loading more items...");
         setVisibleCount((prev) =>
           Math.min(prev + ITEMS_PER_PAGE, options.length)
         );

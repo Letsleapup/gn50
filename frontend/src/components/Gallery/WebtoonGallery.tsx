@@ -13,7 +13,7 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   const navigate = useNavigate();
 
   const multipleContents = useMemo(() => {
-    console.log("Generating multipleContents"); // 디버깅용
+    // console.log("Generating multipleContents"); // 디버깅용
     return [...contents, ...contents, ...contents];
   }, [contents]);
 
@@ -25,10 +25,10 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   );
 
   const handleMoreClick = useCallback(() => {
-    console.log(`Navigating to ${path}`);
+    // console.log(`Navigating to ${path}`);
     navigate(path);
   }, [navigate, path]);
-  console.log(multipleContents)
+  // console.log(multipleContents)
   return (
     <div className="webtoon-gallery-container">
       {/* 헤더 섹션 */}

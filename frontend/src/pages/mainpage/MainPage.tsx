@@ -10,31 +10,31 @@ import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { SharedContent } from "../../@types/domain";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
-import { getAgentSystem } from "../../util/checkSystem";
+// import { getAgentSystem } from "../../util/checkSystem";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const [bannerUrl, setBannerUrl] = useState<string>();
+  const [bannerUrl] = useState<string>();
   const [webtoonList] = useState<SharedContent[]>(webtoonContents);
 
   //메인배너이미지 API호출
   useEffect(() => {
-    const getBannerUrlApi = async () =>
-      await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
-    getBannerUrlApi()
-      .then((res) =>
-        // console.log(res.data)
-        setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
-      )
-      .catch((_rej) => setBannerUrl(MainBannerUrl));
+    // const getBannerUrlApi = async () =>
+    //   await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
+    // getBannerUrlApi()
+    //   .then((res) =>
+    //     // console.log(res.data)
+    //     setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
+    //   )
+    //   .catch((_rej) => setBannerUrl(MainBannerUrl));
   }, []);
-  console.log(getAgentSystem());
+  // console.log(getAgentSystem());
   //웹툰 컨텐츠 가져오기
   useEffect(() => {
     // const fetchWebtoonContents = async () => {

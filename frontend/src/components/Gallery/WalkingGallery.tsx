@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
-  const data = sharedContents;
+  const data = sharedContents.filter(content => content.type === "walking");
   const [testData, setTestData] = useState(data.slice(0, 3));
   const [rotation, setRotation] = useState(0);
   const [activeIndices, setActiveIndices] = useState<number[]>([]);

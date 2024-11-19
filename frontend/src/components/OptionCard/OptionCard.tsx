@@ -13,7 +13,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
   type,
   onSelect,
 }) => {
-  console.log("OptionCard rendering with options:", options);
+  // console.log("OptionCard rendering with options:", options);
 
   return (
     <div
@@ -25,7 +25,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
         <div key={option.id} className="flex justify-center">
           <button
             onClick={() => {
-              console.log("Option selected:", option);
+              // console.log("Option selected:", option);
               onSelect(option);
             }}
             className={`${

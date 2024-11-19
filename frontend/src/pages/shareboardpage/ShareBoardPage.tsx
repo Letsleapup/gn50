@@ -10,7 +10,7 @@ const ShareBoardPage: React.FC = () => {
   const { type } = useParams<{ type?: BoardType }>();
   const [activeFilter, setActiveFilter] = useState<string>(type || "walking");
 
-  console.log("현재 게시판 타입:", type); // 디버깅용
+  // console.log("현재 게시판 타입:", type); // 디버깅용
 
   const filterButtons = [
     {
@@ -50,15 +50,11 @@ const ShareBoardPage: React.FC = () => {
               <button
                 key={button.id}
                 onClick={() => handleFilterClick(button.path, button.id)}
-                className="cr_filter-button"
+                className={`cr_filter-button ${
+                  activeFilter === button.id ? "cr_filter-button-active" : ""
+                }`}
               >
-                <div
-                  className={`cr_filter-button ${
-                    activeFilter === button.id ? "cr_filter-button-active" : ""
-                  }`}
-                >
-                  {button.label}
-                </div>
+                {button.label}
               </button>
             ))}
           </div>
@@ -72,13 +68,13 @@ const ShareBoardPage: React.FC = () => {
               onClick={() => handleContentClick(content)}
               className="cr_content-card"
             >
-              <div>
+              <div className="yg_content-card-inner-div">
                 <img
                   src={content.imgUrl}
                   alt={content.title}
                   className="cr_content-image"
                   onError={(e) => {
-                    console.log("이미지 로드 실패:", content.imgUrl);
+                    // console.log("이미지 로드 실패:", content.imgUrl);
                     e.currentTarget.src = "/placeholder-image.jpg";
                   }}
                 />

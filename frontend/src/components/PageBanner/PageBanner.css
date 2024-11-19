@@ -13,7 +13,7 @@
 
 .yg-select-text-content-wrapper {
   max-width: 100%;
-  bottom: -8%;
+  bottom: 0%;
 }
 
 .yg-select-title {
@@ -28,7 +28,7 @@
   font-weight: bold;
   line-height: 76px;
   color: white;
-  margin: 0 0 21% 0;
+  margin: 0 0 15% 0;
 }
 
 .yg-select-description {

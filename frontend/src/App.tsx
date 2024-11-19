@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   useLocation,
+  useParams,
 } from "react-router-dom";
 import "./index.css";
 import ShareBoardPage from "./pages/shareboardpage/ShareBoardPage";
@@ -18,6 +19,8 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { ScrollToTop } from "./util/ScrollToTop";
 import { logger } from "./util/logger";
+import ContentDisplay from "./components/Generated/ContentDisplay";
+import { BoardType } from "./@types/domain";
 
 // AppRoutes 컴포넌트 - 실제 라우팅 로직을 담당
 const AppRoutes: React.FC = () => {
@@ -56,6 +59,26 @@ const AppRoutes: React.FC = () => {
             path="shared/:type/:contentId"
             element={<DetailContent source="shareboard" />}
           />
+          <Route path="generated/:type/:contentId" 
+            element={<ContentDisplay 
+            type={useParams().type as BoardType} 
+            imageUrl="/asset/webtoonimg1.png" 
+            title="과거의 강남" 
+            scenario="과거의 강남, hello world" 
+            contentId="test-1" 
+            onEdit={async () => {
+              console.log("edit");
+              return true;
+            }} 
+            onShare={async () => {
+              console.log("share");
+              return true;
+            }}
+            onRegenerate={async () => {
+              console.log("regenerate");
+              return true;
+            }}
+          />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
