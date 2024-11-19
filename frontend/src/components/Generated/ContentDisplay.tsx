@@ -24,6 +24,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
 
   // 시나리오 prop이 변경될 때 상태들 업데이트
   useEffect(() => {
+    window.scrollTo(0, 0);
     setEditedScenario(scenario);
     setDisplayScenario(scenario);
   }, [scenario]);
