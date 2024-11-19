@@ -17,10 +17,7 @@ import ErrorPage from "./pages/errorpage/ErrorPage";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { ScrollToTop } from "./util/ScrollToTop";
-<<<<<<< Updated upstream
-=======
 import { logger } from "./util/logger";
->>>>>>> Stashed changes
 
 // AppRoutes 컴포넌트 - 실제 라우팅 로직을 담당
 const AppRoutes: React.FC = () => {

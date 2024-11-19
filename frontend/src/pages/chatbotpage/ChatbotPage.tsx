@@ -11,7 +11,11 @@ import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
 
-const ChatbotPage: React.FC = () => {
+interface ChatbotPageProps {
+  onShowResult: (showing: boolean) => void;
+}
+
+const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const { type } = useParams<{ type: "walking" | "webtoon" }>();
   const [searchParams] = useSearchParams();
   const title = searchParams.get("title");
@@ -156,6 +160,8 @@ const ChatbotPage: React.FC = () => {
     } else {
       // 최종 결과 시나리오 생성
       try {
+        setIsGenerating(true);
+
         setGeneratedContent((prev) => ({
           ...prev,
           type: type as "webtoon" | "walking",
@@ -164,10 +170,11 @@ const ChatbotPage: React.FC = () => {
           scenario: updatedHistory.join("\n"),
         }));
         setShowResult(true);
+        setIsGenerating(false);
       } catch (error) {
         logger.error("Error:", error);
         alert("오류가 발생했습니다. 다시 시도해주세요.");
-      } finally {
+
         setIsGenerating(false);
       }
     }
@@ -220,6 +227,11 @@ const ChatbotPage: React.FC = () => {
       replace: true, // 뒤로 가기 방지를 위해 replace 사용
     });
   };
+
+  // showResult 상태가 변경될 때마다 상위 컴포넌트에 알림
+  useEffect(() => {
+    onShowResult(showResult);
+  }, [showResult, onShowResult]);
 
   return (
     <div className="cr_chatbot-container">
