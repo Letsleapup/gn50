@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from "react";
+// import React, { useState } from "react";
 import { bannerContent } from "../../data/dummydata";
 import { BoardType } from "../../@types/domain";
 import "./PageBanner.css";
-import { logger } from "../../util/logger";
-import axios from "axios";
+// import { logger } from "../../util/logger";
+// import axios from "axios";
 interface PageBannerProps {
   type?: BoardType;
 }
 const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
-  const [webtoonBannerUrl, setWebtoonBannerUrl] = useState<string | null>(null);
-  useEffect(() => {
-    const fetchWebtoonBanner = async () => {
-      if (type !== "webtoon") return;
-      try {
-        const response = await axios.get(
-          "https://gn50m.aixstudio.kr/api/api_wm_banner.php"
-        );
-        logger.log("웹툰 배너 응답:", response.data);
+  // const [webtoonBannerUrl, setWebtoonBannerUrl] = useState<string | null>(null);
+  // useEffect(() => {
+  //   const fetchWebtoonBanner = async () => {
+  //     if (type !== "webtoon") return;
+  //     try {
+  //       const response = await axios.get(
+  //         "https://gn50m.aixstudio.kr/api/api_wm_banner.php"
+  //       );
+  //       logger.log("웹툰 배너 응답:", response.data);
 
-        // resultCode 체크 및 data.url 접근
-        if (response.data.resultCode === "Y" && response.data.data?.url) {
-          logger.log("배너 URL:", response.data.data.url);
-          setWebtoonBannerUrl(
-            `https://gn50m.aixstudio.kr${response.data.data.url}`
-          );
-        }
-      } catch (error) {
-        logger.error("웹툰 배너 로딩 실패:", error);
-      }
-    };
-    fetchWebtoonBanner();
-  }, [type]);
+  //       // resultCode 체크 및 data.url 접근
+  //       if (response.data.resultCode === "Y" && response.data.data?.url) {
+  //         logger.log("배너 URL:", response.data.data.url);
+  //         setWebtoonBannerUrl(
+  //           `https://gn50m.aixstudio.kr${response.data.data.url}`
+  //         );
+  //       }
+  //     } catch (error) {
+  //       logger.error("웹툰 배너 로딩 실패:", error);
+  //     }
+  //   };
+  //   fetchWebtoonBanner();
+  // }, [type]);
 
   if (!type || !bannerContent[type]) return null;
   const currentBanner = {
     ...bannerContent[type],
-    imgUrl:
-      type === "webtoon" && webtoonBannerUrl
-        ? webtoonBannerUrl
-        : bannerContent[type].imgUrl,
+    imgUrl:bannerContent[type].imgUrl,
+      // type === "webtoon" && webtoonBannerUrl
+      //   ? webtoonBannerUrl
+      //   : bannerContent[type].imgUrl,
   };
   const bgColorGradient = {
     walking: "linear-gradient(104deg, #1B58FD 0%, #00BAA8 100%)",
