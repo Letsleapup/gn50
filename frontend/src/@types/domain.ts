@@ -12,7 +12,7 @@ export interface ActionButton {
 }
 
 export interface GalleryData {
-  idx: number;
+  idx: number | string;
   title: string;
   url: string;
 }
