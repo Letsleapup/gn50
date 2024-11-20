@@ -1,18 +1,21 @@
-import { FunctionComponent, useEffect, useState, useRef } from "react";
+import { FunctionComponent, useEffect, useState, useRef, useMemo } from "react";
 import "./WalkingGallery.css";
-import { SharedContent } from "../../@types/domain";
+import { GalleryData, SharedContent } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
 import { sharedContents } from "../../data/dummydata";
 import { getAgentSystem } from "../../util/checkSystem";
 
 interface Props {
-  content?: SharedContent[];
+  content?: GalleryData[] | SharedContent[];
   robotUrl: string;
 }
 
-export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
-  const data = sharedContents.filter(content => content.type === "walking");
-  const [testData, setTestData] = useState(data.slice(0, 3));
+export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) => {
+  console.log("tes123124t",content)
+  const data = useMemo(() => {
+    return content ? content : sharedContents.filter(content => content.type === "walking");
+  }, [content])
+  const [testData, setTestData] = useState(Array.isArray(data) ? data.slice(0, 3) : []);
   const [rotation, setRotation] = useState(0);
   const [activeIndices, setActiveIndices] = useState<number[]>([]);
   const [isPrevActive, setIsPrevActive] = useState(false);
@@ -225,9 +228,10 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl }) => {
 
       {/* Item Grid */}
       <div className="flex space-x-6 lg:space-x-8 md:space-x-6 sm:space-x-4">
+        {JSON.stringify(testData)}
         {testData.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
             ref={(el) => (itemsRef.current[index] = el)}
             className={`aspect-square flex flex-col items-center ${
               index === 0
