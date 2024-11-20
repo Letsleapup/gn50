@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { ModalProps } from "../../@types/domain";
 import "./Modal.css";
+import { logger } from "../../util/logger";
 
 export const Modal: FunctionComponent<ModalProps> = ({
   isOpen,
@@ -50,12 +51,12 @@ export const Modal: FunctionComponent<ModalProps> = ({
       );
     }
 
-    console.log("[Modal] Classes:", baseClasses.join(" ")); // 디버깅용
+    logger.log("[Modal] Classes:", baseClasses.join(" ")); // 디버깅용
     return baseClasses.join(" ");
   };
 
-  console.log("Modal type:", type); // 모달 타입 로깅
-  console.log("Modal size class:", getModalSizeClass()); // 적용된 사이즈 클래스 로깅
+  logger.log("Modal type:", type); // 모달 타입 로깅
+  logger.log("Modal size class:", getModalSizeClass()); // 적용된 사이즈 클래스 로깅
 
   return (
     <div className="modal-overlay" onClick={onClose}>

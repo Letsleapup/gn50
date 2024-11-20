@@ -3,6 +3,7 @@ import { Modal } from "../../components/Modal/Modal";
 import { ICON_URLS } from "../../@types/domain";
 import { ContentDisplayProps, ModalProps } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
+import { logger } from "../../util/logger";
 
 const ContentDisplay: React.FC<ContentDisplayProps> = ({
   type,
@@ -37,14 +38,14 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
   const handleEditSubmit = async () => {
     try {
       setIsEditing(true);
-      console.log("시나리오 수정 시도:", editedScenario);
+      logger.log("시나리오 수정 시도:", editedScenario);
 
       const success = await onEdit(editedScenario);
       if (success) {
         // 수정된 시나리오를 화면에 바로 반영
         setDisplayScenario(editedScenario);
         setShowEditModal(false);
-        console.log("시나리오 수정 성공:", editedScenario);
+        logger.log("시나리오 수정 성공:", editedScenario);
       }
     } catch (error) {
       console.error("시나리오 수정 실패:", error);
@@ -58,7 +59,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
 
   // 갤러리 공유 처리 함수
   const handleShare = async () => {
-    console.log("갤러리 공유 시작:", { type, contentId });
+    logger.log("갤러리 공유 시작:", { type, contentId });
     try {
       await onShare(); // 공유 처리
       // DetailContent로 이동
@@ -110,7 +111,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
               className="cr_modal_edit_textarea "
               value={editedScenario}
               onChange={(e) => {
-                console.log("시나리오 수정중:", e.target.value);
+                logger.log("시나리오 수정중:", e.target.value);
                 setEditedScenario(e.target.value);
               }}
               placeholder="시나리오를 수정해주세요"
