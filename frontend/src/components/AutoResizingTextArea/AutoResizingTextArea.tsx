@@ -39,14 +39,130 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
   const [isComposing, setIsComposing] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 텍스트가 변경될 때마다 높이 자동 조절
+  // iOS 키보드 처리를 위한 효과
+  useEffect(() => {
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    if (!isIOS || !window.visualViewport) return;
+
+    logger.log("iOS device detected");
+
+    // visualViewport API 지원 여부 확인
+    if (typeof window === "undefined" || !("visualViewport" in window)) {
+      logger.log("visualViewport not supported");
+      return;
+    }
+    const handleViewportChange = () => {
+      // viewport가 없으면 early return
+      if (!window.visualViewport) {
+        logger.log("visualViewport is null");
+        return;
+      }
+
+      const viewport = window.visualViewport;
+
+      if (textareaRef.current && containerRef.current) {
+        // 키보드가 올라왔는지 확인 (viewport가 줄어들었는지)
+        const viewportHeight = viewport?.height || window.innerHeight;
+        const isKeyboardVisible = window.innerHeight - viewport.height > 50;
+
+        if (isKeyboardVisible && isFocused) {
+          // 키보드가 올라왔고 입력창이 포커스된 상태
+          const keyboardHeight = window.innerHeight - viewport.height;
+
+          // 입력창을 키보드 위로 올림
+          containerRef.current.style.transform = `translateY(-${keyboardHeight}px)`;
+          containerRef.current.style.position = "fixed";
+          containerRef.current.style.bottom = "0";
+          containerRef.current.style.width = "100%";
+
+          // 스크롤 조정
+          setTimeout(() => {
+            textareaRef.current?.scrollIntoView({ block: "center" });
+          }, 100);
+
+          logger.log("Keyboard shown:", { keyboardHeight, viewportHeight });
+        } else {
+          // 키보드가 내려갔거나 포커스가 해제된 상태
+          containerRef.current.style.transform = "";
+          containerRef.current.style.position = "";
+          containerRef.current.style.bottom = "";
+          containerRef.current.style.width = "";
+
+          logger.log("Keyboard hidden");
+        }
+      }
+    };
+
+    const cleanup = () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener(
+          "resize",
+          handleViewportChange
+        );
+        window.visualViewport.removeEventListener(
+          "scroll",
+          handleViewportChange
+        );
+      }
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleViewportChange);
+      window.visualViewport.addEventListener("scroll", handleViewportChange);
+    }
+
+    // cleanup 함수 반환
+    return cleanup;
+  }, [isFocused]);
+
+  // 텍스트 높이 자동 조절
   useEffect(() => {
     if (textareaRef.current) {
+      const scrollIntoViewIfNeeded = () => {
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+          setTimeout(() => {
+            textareaRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
+          }, 100);
+        }
+      };
       textareaRef.current.style.height = "auto"; // 높이 초기화
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // 내용에 맞게 높이 조절
+
+      textareaRef.current.addEventListener("focus", scrollIntoViewIfNeeded);
+      return () => {
+        textareaRef.current?.removeEventListener(
+          "focus",
+          scrollIntoViewIfNeeded
+        );
+      };
     }
   }, [text]);
+
+  // iOS에서 키보드 표시/숨김 처리
+  useEffect(() => {
+    const handleVisualViewportResize = () => {
+      const viewport = window.visualViewport;
+      if (viewport) {
+        document.body.style.height = `${viewport.height}px`;
+      }
+    };
+
+    // visualViewport 기능 지원 여부 체크
+    if ("visualViewport" in window) {
+      const viewport = window.visualViewport;
+      viewport?.addEventListener("resize", handleVisualViewportResize);
+
+      return () => {
+        viewport?.removeEventListener("resize", handleVisualViewportResize);
+      };
+    }
+    return () => {};
+  }, []);
 
   // 포커스 핸들러
   const handleFocus = () => {
@@ -116,7 +232,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
   const isTextLengthValid = byteLength <= MAX_BYTE_LENGTH;
 
   return (
-    <div className="input-container">
+    <div className="input-container" ref={containerRef}>
       <div className="input-area ">
         <textarea
           ref={textareaRef}
