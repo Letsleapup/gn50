@@ -137,7 +137,6 @@
   .yg_option-grid-walking {
     grid-template-columns: 1fr;
     gap: 28px;
-    padding: 0 16px;
     margin-top: 24px;
   }
 
@@ -189,32 +188,25 @@
 /* 태블릿 & 중간 화면 (768px ~ 1919px) */
 @media screen and (min-width: 768px) and (max-width: 1919px) {
   .yg_option-grid-walking {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
-    max-width: 800px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px 20px;
     margin-top: 24px;
-    padding: 0 20px;
+    padding: 0 auto;
   }
 
   .yg_option-button-walking {
-    width: 360px;
+    width: 100%;
+    max-width: 384px;
+  }
+
+  .cr_option-grid-webtoon {
+    gap: 0;
   }
 
   .yg_option-image-walking {
     height: 220px;
   }
 
-  .cr_option-grid-walking {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .cr_option-button-walking {
-    width: 360px;
-  }
-
-  .cr_option-image-walking {
-    height: 220px;
-  }
   .cr_option-button-webtoon {
     width: 100%;
     display: flex;
