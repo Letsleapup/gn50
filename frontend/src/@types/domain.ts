@@ -11,6 +11,7 @@ export interface ActionButton {
   imgUrl: string;
 }
 
+//갤러리 공유페이지 API관련
 export interface GalleryData {
   idx: number | string;
   title: string;
@@ -22,7 +23,7 @@ export interface SharedContent {
   title: string;
   imgUrl: string;
   type: BoardType;
-  createdAt: string;
+  createdAt?: string;
   scenario?: string;
 }
 
