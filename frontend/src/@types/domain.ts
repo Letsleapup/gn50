@@ -10,6 +10,13 @@ export interface ActionButton {
   bgColor: string;
   imgUrl: string;
 }
+
+export interface GalleryData {
+  idx: number;
+  title: string;
+  url: string;
+}
+
 export interface SharedContent {
   id: number;
   title: string;

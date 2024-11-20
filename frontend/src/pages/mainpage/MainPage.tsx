@@ -11,55 +11,37 @@ import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
 import { useState, useEffect } from "react";
 // import axios from "axios";
-import { SharedContent } from "../../@types/domain";
+import { GalleryData, SharedContent } from "../../@types/domain";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
-// import { getAgentSystem } from "../../util/checkSystem";
+import { getBannerUrlApi, getWalkingGalleryApi } from "../../API/mainPage_api";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const [bannerUrl] = useState<string>();
+  const [bannerUrl, setBannerUrl] = useState<string>();
   const [webtoonList] = useState<SharedContent[]>(webtoonContents);
+  const [walkingGalleryData, setWalkingGalleryData] = useState<GalleryData[]>([]);
+
+  
 
   //메인배너이미지 API호출
   useEffect(() => {
-    // const getBannerUrlApi = async () =>
-    //   await axios.get("https://gn50m.aixstudio.kr/api/api_main_banner.php");
-    // getBannerUrlApi()
-    //   .then((res) =>
-    //     // console.log(res.data)
-    //     setBannerUrl(`https://gn50m.aixstudio.kr${res.data.banner1[0].url}`)
-    //   )
-    //   .catch((_rej) => setBannerUrl(MainBannerUrl));
+    getBannerUrlApi().then((res) => {
+      setBannerUrl(res)
+    }).catch((_rej) => {
+      setBannerUrl(MainBannerUrl)
+    })
+
+    getWalkingGalleryApi().then((res) => {
+      setWalkingGalleryData(res)
+    })
   }, []);
-  // console.log(getAgentSystem());
+
   //웹툰 컨텐츠 가져오기
   useEffect(() => {
-    // const fetchWebtoonContents = async () => {
-    //   try {
-    //     console.log("Fetching webtoon contents...");
-    //     await axios.get<SharedContent[]>("/api/webtoons")
-    //     .then((res) => {
-    //       console.log(res.data)
-    //       console.log("Using API data, count:", res.data.length);
-    //       setWebtoonList(res.data);
-    //     })
-    //     .catch(() => {
-    //       console.log(
-    //         "Using dummy webtoon data, count:",
-    //         webtoonContents.length
-    //       );
-    //       setWebtoonList(webtoonContents);
-    //     });
-    //   } catch (error) {
-    //     console.error("API error, using dummy data:", error);
-    //   }
-    // };
-
-    // fetchWebtoonContents();
-    // setWebtoonList(webtoonContents);
+    
   }, []);
 
   return (
@@ -75,7 +57,7 @@ const MainPage: React.FC = () => {
 
         <div>
           {/* Walking 갤러리 */}
-          <WalkingGallery robotUrl={RobotUrl} />
+          <WalkingGallery robotUrl={RobotUrl} content={walkingGalleryData} />
 
           {/* Webtoon 갤러리 */}
           <WebtoonGallery
