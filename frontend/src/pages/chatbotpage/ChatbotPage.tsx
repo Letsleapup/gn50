@@ -34,9 +34,10 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   // 결과 관련 상태
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 첫메시지 나오기 전
   const [showResult, setShowResult] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false); //로딩전환
+
   const [generatedContent, setGeneratedContent] =
     useState<GeneratedContentState>({
       type: type === "webtoon" ? "webtoon" : "walking",
@@ -160,17 +161,22 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     } else {
       // 최종 결과 시나리오 생성
       try {
-        setIsGenerating(true);
+        setIsGenerating(true); // 로딩 시작
+        logger.log("결과 생성 로딩 시작");
 
-        setGeneratedContent((prev) => ({
-          ...prev,
-          type: type as "webtoon" | "walking",
-          imageUrl: decodeURIComponent(imgUrl || ""),
-          title: title || "",
-          scenario: updatedHistory.join("\n"),
-        }));
-        setShowResult(true);
-        setIsGenerating(false);
+        // 10초 후 결과 화면으로 전환
+        setTimeout(() => {
+          setGeneratedContent((prev) => ({
+            ...prev,
+            type: type as "webtoon" | "walking",
+            imageUrl: decodeURIComponent(imgUrl || ""),
+            title: title || "",
+            scenario: updatedHistory.join("\n"),
+          }));
+          setShowResult(true);
+          setIsGenerating(false);
+          logger.log("결과 화면으로 전환");
+        }, 10000);
       } catch (error) {
         logger.error("Error:", error);
         alert("오류가 발생했습니다. 다시 시도해주세요.");
