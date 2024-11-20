@@ -1,16 +1,37 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { sharedContents } from "../../data/dummydata";
 import { BoardType, SharedContent } from "../../@types/domain";
 import PageBanner from "../../components/PageBanner/PageBanner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ShareBoardPage.css";
+import { logger } from "../../util/logger";
+import { getGalleryByType } from "../../API/galleryPage_api";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();
   const { type } = useParams<{ type?: BoardType }>();
   const [activeFilter, setActiveFilter] = useState<string>(type || "walking");
+  const [contents, setContents] = useState<SharedContent[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // console.log("현재 게시판 타입:", type); // 디버깅용
+  //API로 불러오기
+  useEffect(() => {
+    const fetchGalleryData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getGalleryByType(
+          activeFilter as "walking" | "webtoon"
+        );
+        setContents(data);
+        logger.log("Gallery data loaded:", data);
+      } catch (error) {
+        logger.error("Failed to load gallery:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGalleryData();
+  }, [activeFilter]);
 
   const filterButtons = [
     {
@@ -35,9 +56,6 @@ const ShareBoardPage: React.FC = () => {
   };
 
   const currentType = "gallery";
-  const filteredContents = sharedContents.filter(
-    (content) => content.type === activeFilter
-  );
 
   return (
     <div className="cr_shareboard-container">
@@ -62,26 +80,31 @@ const ShareBoardPage: React.FC = () => {
 
         {/* 콘텐츠 그리드 */}
         <div className="cr_content-grid">
-          {filteredContents.map((content) => (
-            <div
-              key={content.id}
-              onClick={() => handleContentClick(content)}
-              className="cr_content-card"
-            >
-              <div className="yg_content-card-inner-div">
-                <img
-                  src={content.imgUrl}
-                  alt={content.title}
-                  className="cr_content-image"
-                  onError={(e) => {
-                    // console.log("이미지 로드 실패:", content.imgUrl);
-                    e.currentTarget.src = "/placeholder-image.jpg";
-                  }}
-                />
+          {isLoading ? (
+            <div className="cr_loading">Loading...</div>
+          ) : contents.length > 0 ? (
+            contents.map((content) => (
+              <div
+                key={content.id}
+                onClick={() => handleContentClick(content)}
+                className="cr_content-card"
+              >
+                <div className="yg_content-card-inner-div">
+                  <img
+                    src={content.imgUrl}
+                    alt={content.title}
+                    className="cr_content-image"
+                    onError={(e) => {
+                      e.currentTarget.src = "/placeholder-image.jpg";
+                    }}
+                  />
+                </div>
+                <h3 className="cr_content-title">{content.title}</h3>
               </div>
-              <h3 className="cr_content-title">{content.title}</h3>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div>등록된 게시물이 없습니다.</div>
+          )}
         </div>
       </main>
     </div>
