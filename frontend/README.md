@@ -1,5 +1,8 @@
 # React + TypeScript + Vite
 
+반응형 구현된 디자인
+생성형 AI를 이용한 이미지 생성 체험형 서비스
+
 npm create vite@latest my-chatbot-app -- --template react-ts<br>
 cd my-chatbot-app<br>
 npm install<br>
@@ -32,3 +35,11 @@ eslint-plugin-react-hooks: React Hooks 규칙<br>
 3. PM2로 Node 서버 실행
 4. Apache로 정적 파일 서빙 및 Node 서버로 프록시
 5. 자동 배포 완료
+
+## 라이브러리
+
+- hangul.js : 영타->한글변환
+
+## 트러블슈팅
+
+- inko : vite와의 충돌로 추측..hangul.js로 대신함

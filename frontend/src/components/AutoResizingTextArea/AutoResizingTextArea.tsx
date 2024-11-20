@@ -43,10 +43,49 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
   // 텍스트가 변경될 때마다 높이 자동 조절
   useEffect(() => {
     if (textareaRef.current) {
+      const scrollIntoViewIfNeeded = () => {
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+          setTimeout(() => {
+            textareaRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
+          }, 100);
+        }
+      };
       textareaRef.current.style.height = "auto"; // 높이 초기화
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // 내용에 맞게 높이 조절
+
+      textareaRef.current.addEventListener("focus", scrollIntoViewIfNeeded);
+      return () => {
+        textareaRef.current?.removeEventListener(
+          "focus",
+          scrollIntoViewIfNeeded
+        );
+      };
     }
   }, [text]);
+
+  // iOS에서 키보드 표시/숨김 처리
+  useEffect(() => {
+    const handleVisualViewportResize = () => {
+      const viewport = window.visualViewport;
+      if (viewport) {
+        document.body.style.height = `${viewport.height}px`;
+      }
+    };
+
+    // visualViewport 기능 지원 여부 체크
+    if ("visualViewport" in window) {
+      const viewport = window.visualViewport;
+      viewport?.addEventListener("resize", handleVisualViewportResize);
+
+      return () => {
+        viewport?.removeEventListener("resize", handleVisualViewportResize);
+      };
+    }
+    return () => {};
+  }, []);
 
   // 포커스 핸들러
   const handleFocus = () => {

@@ -30,6 +30,7 @@
   line-height: 1.5;
   background: white;
   outline: none; /* 입력필드 포커스 됐을때 검은색 선 제거 */
+  overflow-y: auto;
 }
 
 .input-area {
