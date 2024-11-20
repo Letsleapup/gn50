@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MainBannerUrl } from '../data/dummydata';
+import { MainBannerUrl } from "../const/const";
 import { logger } from '../util/logger';
 
 export const getBannerUrlApi = () => {
@@ -20,9 +20,10 @@ export const getBannerUrlApi = () => {
 };
 
 
-export const getWalkingGalleryApi = () => {
+export const getGalleryInMainPageApi = (url: string) => {
+  console.log(url)
   return axios
-    .get('https://gn50m.aixstudio.kr/api/api_mid_banner.php')
+    .get(url)
     .then((res) => {
       const checkData = res.data
       if (checkData.resultCode === 'Y' && checkData.data) {
@@ -32,3 +33,4 @@ export const getWalkingGalleryApi = () => {
       }
     })
 }
+
