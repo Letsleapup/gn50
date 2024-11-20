@@ -1,21 +1,20 @@
-import { FunctionComponent, useEffect, useState, useRef, useMemo } from "react";
+import { FunctionComponent, useEffect, useState, useRef, useMemo, useCallback } from "react";
 import "./WalkingGallery.css";
-import { GalleryData, SharedContent } from "../../@types/domain";
+import { GalleryData } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
-import { sharedContents } from "../../data/dummydata";
 import { getAgentSystem } from "../../util/checkSystem";
 
 interface Props {
-  content?: GalleryData[] | SharedContent[];
+  content?: GalleryData[];
   robotUrl: string;
 }
 
 export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) => {
-  console.log("tes123124t",content)
   const data = useMemo(() => {
-    return content ? content : sharedContents.filter(content => content.type === "walking");
-  }, [content])
-  const [testData, setTestData] = useState(Array.isArray(data) ? data.slice(0, 3) : []);
+    return content ? content : []
+  },[content]);
+  
+  const [testData, setTestData] = useState<GalleryData[]>([]);
   const [rotation, setRotation] = useState(0);
   const [activeIndices, setActiveIndices] = useState<number[]>([]);
   const [isPrevActive, setIsPrevActive] = useState(false);
@@ -26,12 +25,16 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
   const robotRef = useRef<HTMLImageElement | null>(null);
   const [isPCSystem, setIsPCSystem] = useState(false);
 
+  useEffect(()=> {
+    setTestData(data.slice(0, 3))
+  },[data])
+
   useEffect(() => {
     const system = getAgentSystem();
     setIsPCSystem(system === "windows" || system === "macos" || system === "linux");
   }, []);
 
-  const handleData = (step: number) => {
+  const handleData = useCallback((step: number) => {
     const nextIndex = Math.min(
       Math.max(endIndex + step, 3),
       data.length
@@ -42,7 +45,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
     console.log(rotation); //TODO: 삭제 예정
-  };
+  }, [endIndex, data]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -123,6 +126,36 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
   }, []);
   
 
+  // 조건부 렌더링을 위한 메모이제이션된 값들
+  const navigationButtons = useMemo(() => (
+    <div className="yg-navigation-buttons flex space-x-2">
+      <button
+        className={`swiper-button-prev-custom rounded-full border-2 p-3 transition-all
+          ${isPrevActive ? 'yg-is-active' : 'yg-is-not-active'}`}
+        onClick={() => isPrevActive && handleData(-3)}
+        disabled={!isPrevActive}
+      >
+        <img
+          src="./asset/arrow_lg_sm.svg"
+          className={`w-5 h-5 ${isPrevActive ? 'yg-btn-prev-custom' : 'filter grayscale'}`}
+          alt="Previous"
+        />
+      </button>
+      <button
+        className={`swiper-button-next-custom rounded-full border-2 p-3 transition-all
+          ${isNextActive ? 'yg-is-active' : 'yg-is-not-active'}`}
+        onClick={() => isNextActive && handleData(3)}
+        disabled={!isNextActive}
+      >
+        <img
+          src="./asset/arrow_rg_sm.svg"
+          className={`w-5 h-5 ${isNextActive ? 'yg-btn-next-custom' : 'filter grayscale'}`}
+          alt="Next"
+        />
+      </button>
+    </div>
+  ), [isPrevActive, isNextActive, handleData]);
+
   return (
     <div className="yg-walking-gallery-container relative w-full aspect-[1.28/1] overflow-hidden flex items-center justify-center">
       {/* Robot Image */}
@@ -157,42 +190,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
             />
           </button> 
 
-          {/* Navigation Buttons */}
-          <div className="yg-navigation-buttons flex space-x-2">
-            {/* Previous Button */}
-            <button
-              className={`swiper-button-prev-custom rounded-full border-2 p-3 transition-all
-                ${isPrevActive 
-                  ? 'yg-is-active' 
-                  : 'yg-is-not-active'
-                }`}
-              onClick={() => isPrevActive && handleData(-3)}
-              disabled={!isPrevActive}
-            >
-              <img
-                src="./asset/arrow_lg_sm.svg"
-                className={`w-5 h-5 ${isPrevActive ? 'yg-btn-prev-custom' : 'filter grayscale'}`}
-                alt="Previous"
-              />
-            </button>
-
-            {/* Next Button */}
-            <button
-              className={`swiper-button-next-custom rounded-full border-2 p-3 transition-all
-                ${isNextActive 
-                  ? 'yg-is-active' 
-                  : 'yg-is-not-active'
-                }`}
-              onClick={() => isNextActive && handleData(3)}
-              disabled={!isNextActive}
-            >
-              <img
-                src="./asset/arrow_rg_sm.svg"
-                className={`w-5 h-5 ${isNextActive ? 'yg-btn-next-custom' : 'filter grayscale'}`}
-                alt="Next"
-              />
-            </button>
-          </div>
+          {navigationButtons}
         </div>
       </div>
 
@@ -228,10 +226,9 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
 
       {/* Item Grid */}
       <div className="flex space-x-6 lg:space-x-8 md:space-x-6 sm:space-x-4">
-        {JSON.stringify(testData)}
         {testData.map((item, index) => (
           <div
-            key={index}
+            key={item.idx}
             ref={(el) => (itemsRef.current[index] = el)}
             className={`aspect-square flex flex-col items-center ${
               index === 0
@@ -249,10 +246,10 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
           >
             <div
               className={`relative w-full h-full flex justify-center items-center ${isPCSystem ? 'group' : ''}`}
-              onClick={() => navigate(`/shared/walking/${item.id}`)}
+              onClick={() => navigate(`/shared/walking/${item.idx}`)}
             >
               <div className="absolute yg-item-img">
-                <img src={item.imgUrl} alt={item.title} />
+                <img src={`https://gn50m.aixstudio.kr${item.url}`} alt={item.title} />
               </div>
               {/* Hover gradient background */}
               <div className={`yg-hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 ${

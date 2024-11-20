@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { SharedContent } from "../../@types/domain";
+import { GalleryData} from "../../@types/domain";
 import "./WebtoonGallery.css";
 
 interface WebtoonGalleryProps {
   title: string;
   path: string;
-  contents: SharedContent[];
+  contents: GalleryData[];
 }
 
 const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
@@ -18,8 +18,8 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
   }, [contents]);
 
   const handleContentClick = useCallback(
-    (content: SharedContent) => {
-      navigate(`/shared/${content.type}/${content.id}`);
+    (content: GalleryData) => {
+      navigate(`/shared/webtton/${content.idx}`);
     },
     [navigate]
   );
@@ -53,12 +53,12 @@ const WebtoonGallery: React.FC<WebtoonGalleryProps> = ({ path, contents }) => {
         <div className="slide-track">
           {multipleContents.map((content, index) => (
             <div
-              key={`slide-${content.id}-${index}`}
+              key={`slide-${content.idx}-${index}`}
               onClick={() => handleContentClick(content)}
               className="slide-item"
             >
               <div className="content-card">
-                <img src={content.imgUrl} alt={content.title} loading="lazy" />
+                <img src={`https://gn50m.aixstudio.kr${content.url}`} alt={content.title} loading="lazy" />
                 <h3 className="truncate">{content.title}</h3>
               </div>
             </div>

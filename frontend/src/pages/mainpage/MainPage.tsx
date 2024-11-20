@@ -1,28 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import {
+  actionButtons,
+} from "../../data/dummydata";
+import {
   MainBannerRobotUrl,
   MainBannerUrl,
-  RobotUrl,
-  actionButtons,
-  webtoonContents,
-} from "../../data/dummydata";
+  RobotUrl
+} from "../../const/const";
 import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
 import { WalkingGallery } from "../../components/Gallery/WalkingGallery";
 import { useState, useEffect } from "react";
-// import axios from "axios";
-import { GalleryData, SharedContent } from "../../@types/domain";
+import { GalleryData } from "../../@types/domain";
 
 // Swiper 필수 CSS
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
-import { getBannerUrlApi, getWalkingGalleryApi } from "../../API/mainPage_api";
+import { getBannerUrlApi, getGalleryInMainPageApi } from "../../api/mainPage_api";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const [bannerUrl, setBannerUrl] = useState<string>();
-  const [webtoonList] = useState<SharedContent[]>(webtoonContents);
-  const [walkingGalleryData, setWalkingGalleryData] = useState<GalleryData[]>([]);
+  const [webtoonGalleryList, setWebtoonGalleryList] = useState<GalleryData[]>([]);
+  const [walkingGalleryList, setWalkingGalleryList] = useState<GalleryData[]>([]);
 
   
 
@@ -34,14 +34,22 @@ const MainPage: React.FC = () => {
       setBannerUrl(MainBannerUrl)
     })
 
-    getWalkingGalleryApi().then((res) => {
-      setWalkingGalleryData(res)
+    getGalleryInMainPageApi('https://gn50m.aixstudio.kr/api/api_mid_banner.php')
+    .then((res) => {
+      console.log(res)
+      setWalkingGalleryList(res)
     })
-  }, []);
+    .catch((_rej) => {
+      setWalkingGalleryList([])
+    })
 
-  //웹툰 컨텐츠 가져오기
-  useEffect(() => {
-    
+    getGalleryInMainPageApi('https://gn50m.aixstudio.kr/api/api_bottom_banner.php')
+    .then((res) => {
+      setWebtoonGalleryList(res)
+    })
+    .catch((_rej) => {
+      setWebtoonGalleryList([])
+    })
   }, []);
 
   return (
@@ -57,13 +65,13 @@ const MainPage: React.FC = () => {
 
         <div>
           {/* Walking 갤러리 */}
-          <WalkingGallery robotUrl={RobotUrl} content={walkingGalleryData} />
+          <WalkingGallery robotUrl={RobotUrl} content={walkingGalleryList} />
 
           {/* Webtoon 갤러리 */}
           <WebtoonGallery
             title="웹툰 생성 체험"
             path="/shared/webtoon"
-            contents={webtoonList}
+            contents={webtoonGalleryList}
           />
         </div>
       </div>
