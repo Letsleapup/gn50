@@ -67,15 +67,15 @@ const AppRoutes: React.FC = () => {
             scenario="과거의 강남, hello world" 
             contentId="test-1" 
             onEdit={async () => {
-              console.log("edit");
+              logger.log("edit");
               return true;
             }} 
             onShare={async () => {
-              console.log("share");
+              logger.log("share")
               return true;
             }}
             onRegenerate={async () => {
-              console.log("regenerate");
+              logger.log("regenerate")
               return true;
             }}
           />} />

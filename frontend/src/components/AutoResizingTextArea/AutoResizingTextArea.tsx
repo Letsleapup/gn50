@@ -10,6 +10,7 @@ import { getByteLength } from "../../util/getByteLength";
 import "./AutoResizingTextArea.css";
 import { filterTextByKorean } from "../../util/filterText";
 import { convertEngToKor } from "../../util/koreanConverter";
+import { logger } from "../../util/logger";
 
 const MAX_BYTE_LENGTH = 200;
 
@@ -49,7 +50,7 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
   // 포커스 핸들러
   const handleFocus = () => {
-    console.log(isFocused); //TODO: 삭제예정
+    logger.log(isFocused); //TODO: 삭제예정
     setIsFocused(true);
     onFocus?.(); // 부모에게 알림
   };
