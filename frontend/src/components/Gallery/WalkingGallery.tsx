@@ -45,7 +45,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
     setEndIndex(nextIndex);
     setTestData(data.slice(nextStartIndex, nextIndex));
     console.log(rotation); //TODO: 삭제 예정
-  }, [endIndex, data]);
+  }, [endIndex, data, rotation]);
 
   useEffect(() => {
     const handleScroll = () => {
