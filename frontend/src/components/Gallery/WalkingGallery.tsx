@@ -3,6 +3,7 @@ import "./WalkingGallery.css";
 import { GalleryData } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
 import { getAgentSystem } from "../../util/checkSystem";
+import { BASE_URL } from "../../const/const";
 
 interface Props {
   content?: GalleryData[];
@@ -249,7 +250,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
               onClick={() => navigate(`/shared/walking/${item.idx}`)}
             >
               <div className="absolute yg-item-img">
-                <img src={`https://gn50m.aixstudio.kr${item.url}`} alt={item.title} />
+                <img src={`${BASE_URL}${item.url}`} alt={item.title} />
               </div>
               {/* Hover gradient background */}
               <div className={`yg-hover-cover absolute inset-0 bg-gradient-to-br from-blue-500 to-green-400 opacity-0 ${

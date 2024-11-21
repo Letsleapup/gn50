@@ -25,7 +25,6 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
     }, 1000);
     return () => clearTimeout(robotTimer);
   }, []);
-
   return (
     <div className="banner-wrap relative flex items-center justify-center">
       {isShown && (

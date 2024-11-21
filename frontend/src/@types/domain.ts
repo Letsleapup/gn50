@@ -106,3 +106,21 @@ export interface GeneratedContentState {
   title: string;
   scenario: string;
 }
+
+export interface CommonResponse<T> {
+  resultCode: "Y" | "N";
+  cnt: Nullable<number>;
+  data: T[] | T;
+}
+
+export interface BannerData {
+  idx: string | number;
+  url: string;
+}
+
+export interface BannerResponse extends CommonResponse<BannerData> {
+  data: BannerData;
+}
+
+export type GalleryResponse = CommonResponse<GalleryData>
+
