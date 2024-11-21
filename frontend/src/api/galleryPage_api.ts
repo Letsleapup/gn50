@@ -3,6 +3,7 @@ import { logger } from "../util/logger";
 import { GalleryData, SharedContent } from "../@types/domain";
 import { BASE_URL } from "../const/const";
 
+
 interface GalleryResponse {
   resultCode: "Y" | "N";
   cnt: number | null;
@@ -96,7 +97,6 @@ export const getWalkingGalleryApi = async (): Promise<SharedContent[]> => {
       `${BASE_URL}/api/api_sp_gallery_list.php`
     );
     const checkData = response.data;
-
     if (
       checkData.data &&
       Array.isArray(checkData.data) &&
@@ -104,6 +104,7 @@ export const getWalkingGalleryApi = async (): Promise<SharedContent[]> => {
     ) {
       return checkData.data.map((item) => ({
         id: typeof item.idx === "string" ? parseFloat(item.idx) : item.idx,
+
         title: item.title,
         imgUrl: `${BASE_URL}${item.url}`,
         type: "walking",
@@ -122,7 +123,6 @@ export const getWebtoonGalleryApi = async (): Promise<SharedContent[]> => {
       `${BASE_URL}/api/api_wm_gallery_list.php`
     );
     const checkData = response.data;
-
     if (
       checkData.data &&
       Array.isArray(checkData.data) &&
@@ -130,12 +130,12 @@ export const getWebtoonGalleryApi = async (): Promise<SharedContent[]> => {
     ) {
       return checkData.data.map((item) => ({
         id: typeof item.idx === "string" ? parseFloat(item.idx) : item.idx,
+
         title: item.title,
         imgUrl: `${BASE_URL}${item.url}`,
         type: "webtoon",
       }));
     }
-
     return [];
   } catch (error) {
     return [];
@@ -148,7 +148,6 @@ export const getGalleryByType = (type: "walking" | "webtoon") => {
 };
 
 // 갤러리 클릭시 조회수 증가
-
 export const ViewCountWalkingGalleryApi = async (
   idx: string | number
 ): Promise<number | null> => {
@@ -197,3 +196,4 @@ export const ViewCountWebtoonGalleryApi = async (
     return null;
   }
 };
+
