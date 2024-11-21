@@ -1,0 +1,55 @@
+/* selectpage.css */
+/* 기본 레이아웃 */
+.cr_select-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cr_select-main {
+  flex: 1;
+}
+
+.cr_select-content {
+  width: 100%;
+}
+
+.cr_select-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+.cr_select-more {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.cr_select-arrow {
+  animation: bounce 1s infinite;
+}
+
+/* 로딩 스타일 */
+.cr_loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+
+.cr_loading-spinner {
+  width: 80px;
+  height: 80px;
+  color: #1d4ed8;
+  animation: spin 1s linear infinite;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 360px) and (max-width: 767px) {
+  .cr_select-grid {
+    gap: 16px;
+    padding: 16px;
+  }
+}

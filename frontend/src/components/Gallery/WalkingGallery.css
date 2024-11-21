@@ -1,0 +1,379 @@
+.yg-navigation-buttons {
+  top: 32%;
+  left: 30%;
+  z-index: 100;
+  margin: 0;
+}
+
+.yg-robot-img {
+  width: 20%;
+  top: 8%;
+  right: 15%;
+}
+
+.yg-logo-div {
+  margin-left: 6vw;
+}
+.yg-gallery-content {
+  letter-spacing: -0.08125rem;
+}
+
+
+.yg-burger-btn {
+  margin-right: 6vw;
+}
+
+.yg-shared-content1,
+.yg-shared-content2,
+.yg-shared-content3 {
+  position: absolute;
+  width: 25.313%;
+}
+
+.yg-item-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8%;
+  overflow: hidden;
+}
+
+.yg-item-img > img {
+  margin: 0 auto;
+}
+
+.yg-item-title {
+  text-align: left;
+  padding: 4.9% 4.9% 4.9% 3%;
+  margin: 0 auto 0 0;
+  font-size: 150%;
+  font-weight: 600;
+}
+
+.yg-shared-content1 {
+  top: 10.6%;
+  right: 18.75%;
+}
+
+.yg-shared-content2 {
+  top: 44.07%;
+  right: 50%;
+}
+
+.yg-shared-content3 {
+  top: 53.53%;
+  right: 18.75%;
+}
+
+.yg-controls {
+  margin: 0;
+}
+
+.yg-more-click-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  width: 10.625rem;
+  height: 3.5rem;
+  background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
+  border-radius: 1.75rem;
+  opacity: 1;
+  color: white;
+  font-size: 1.125rem;
+}
+
+.yg-more-click-btn > img {
+  margin: 0;
+}
+
+.yg-hover-cover {
+  border-radius: 8%;
+}
+
+.yg-is-active {
+  border: 3px solid #000 !important;
+  cursor: pointer;
+}
+
+.yg-is-active > img {
+  filter: brightness(0)
+}
+
+.yg-is-not-active {
+  border: 3px solid #e4e4e4 !important;
+  opacity: 0.5;
+}
+
+.yg-is-not-active > img {
+  filter: brightness(100%);
+  opacity: 0.5;
+}
+
+@keyframes rotate-robot {
+  0% {
+    transform: translateX(0%) rotate(-15%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-105%) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.yg-robot {
+  animation: rotate-robot 1s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.yg-item-fade {
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+/* Animation for Floating Effect */
+@keyframes float-robot {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.yg-animate-float {
+  animation: float-robot 3s ease-in-out infinite;
+}
+
+@keyframes rotate-tr {
+  0% {
+    transform: rotate(0);
+    transform-origin: top right;
+  }
+  100% {
+    transform: rotate(90deg);
+    transform-origin: top right;
+  }
+}
+
+.yg-half-path-1,
+.yg-half-path-2 {
+  animation: rotate-tr ease-in-out;
+}
+
+.yg-btn-next-custom,
+.yg-btn-prev-custom {
+  filter: brightness(0%);
+}
+
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+  position: static !important;
+  margin: 0 0 0 8px !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  background: transparent;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  opacity: 0.4;
+  z-index: 100 !important;
+}
+
+.swiper-button-next-custom:hover,
+.swiper-button-prev-custom:hover {
+  background-color: #fff;
+}
+
+.swiper-button-next-custom::after,
+.swiper-button-prev-custom::after {
+  display: none !important;
+}
+
+.swiper-button-prev-custom img,
+.swiper-button-next-custom img {
+  width: 1rem;
+  height: 1rem;
+  filter: brightness(0%);
+  z-index: 100 !important;
+}
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+  .yg-gallery-content {
+    font-size: 52px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1440px) {
+  .yg-gallery-content {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .yg-gallery-content {
+    font-size: 35px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .yg-gallery-content {
+    font-size: 28px;
+  }
+  .yg-navigation-buttons {
+    display: none;
+  }
+}
+
+@media (min-width: 468px) and (max-width: 768px) {
+  .yg-gallery-content {
+    font-size: 20px;
+  }
+  .yg-navigation-buttons {
+    display: none;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 468px) {
+  .yg-walking-gallery-container {  
+    height: 712px;
+    margin: 0 auto;
+  }
+
+  .yg-robot-img {
+    width: 53%;
+    top: 32%;
+    right: -32%;
+    rotate: 0deg;
+  }
+
+  .yg-navigation-buttons {
+    align-items: center;
+    padding: 0 auto;
+    top: 5%;
+    left: 30%;
+    z-index: 100;
+    margin: 0;
+  }
+
+  .yg-gallery-content {
+    top: 7%;
+    left: 8.3%;
+    font-size: 1.625rem;
+    letter-spacing: -0.65%;
+  }
+
+  .yg-shared-content1,
+  .yg-shared-content2,
+  .yg-shared-content3 {
+    position: absolute;
+    width: 42.25%;
+  }
+
+  .yg-controls {
+    margin: 0px;
+    top: 25.8%;
+    left: 8.3%;
+  }
+
+  .yg-more-click-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 6.75rem;
+    height: 2.5rem;
+  }
+  .yg-more-click-btn > span {
+    font-size: 14px;
+  }
+
+  .yg-more-click-btn > img {
+    width: 0.75rem;
+    margin: 0;
+  }
+
+  .yg-shared-content1 {
+    top: 37%;
+    right: 3%;
+  }
+
+  .yg-shared-content2 {
+    top: 59%;
+    left: 0%;
+  }
+
+  .yg-shared-content3 {
+    top: 68%;
+    right: 3%;
+  }
+
+  .yg-star-1,
+  .ygstar-2 {
+    width: 30px;
+    height: auto;
+  }
+
+  .yg-star-1 {
+    top: 7%;
+  }
+
+  .yg-star-2 {
+    bottom: 6%;
+  }
+
+  .yg-half-path-1,
+  .yg-half-path-2 {
+    width: 66px;
+    height: auto;
+  }
+
+  .yg-half-path-2 {
+    bottom:-4.3%
+  }
+
+  .yg-item-title {
+    font-size: 1rem;
+  }
+
+  .swiper-button-prev-custom,
+  .swiper-button-next-custom {
+    margin: 0 0 0 10px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    padding: 0px;
+  }
+
+  .swiper-button-next-custom:hover,
+  .swiper-button-prev-custom:hover {
+    background-color: #fff;
+  }
+
+  .swiper-button-next-custom::after,
+  .swiper-button-prev-custom::after {
+    display: none !important;
+  }
+
+  .swiper-button-prev-custom img,
+  .swiper-button-next-custom img {
+    width: 1rem;
+    height: 1rem;
+  }
+  .not-hover {
+    display: hidden;
+  }
+}
+
+@media (max-width: 361px) {
+  
+}

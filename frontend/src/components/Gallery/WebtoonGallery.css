@@ -1,0 +1,301 @@
+/* Gallery 메인 컨테이너 */
+.webtoon-gallery-container {
+  position: relative;
+  width: 100vw;
+  left: calc(-50vw + 50%);
+  background-color: black;
+  overflow: hidden;
+}
+
+/* Gallery 헤더 */
+.gallery-header {
+  position: relative;
+  width: 100vw;
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Gallery 타이틀 */
+.gallery-title {
+  width: min(32.3125rem, 90%);
+  font-size: clamp(26px, 4vw, 52px);
+  font-weight: bold;
+  color: white;
+
+  letter-spacing: -0.08125rem;
+}
+/* 더보기 버튼 컨테이너 */
+.controls-container {
+  display: flex;
+  align-items: center;
+}
+
+/* 슬라이드 관련 */
+.slide-track {
+  display: flex;
+  animation: slideAnimation 50s linear infinite;
+  width: fit-content;
+  gap: 1.5rem;
+}
+
+.slide-item {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.content-card {
+  border-radius: 2rem;
+  width: 408px;
+  height: 625px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.content-card img {
+  width: 408px;
+  height: 408px;
+  border-radius: 2rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.content-card h3 {
+  color: white;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-card:hover {
+  transform: scale(1.1);
+}
+
+.moreclickbtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 16px 28px;
+  width: 170px;
+  height: 56px;
+  background: linear-gradient(90deg, #1b58fd 0%, #00baa8 100%);
+  border-radius: 1.75rem;
+  color: white;
+  font-size: 18px;
+}
+.moreclick_arrow {
+  width: 16px;
+  height: 16px;
+}
+/* 애니메이션 */
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+/* 마우스오버시 멈춤 */
+.group:hover .slide-track {
+  animation-play-state: paused;
+}
+
+/* infinite text */
+.infinite-text-container {
+  position: absolute;
+  bottom: 1%;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 0;
+  height: 13.25rem;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  right: 50%;
+  pointer-events: none;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2")
+    format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+.infinite-text {
+  display: flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: 0.3s;
+  font-size: 11.25rem;
+  letter-spacing: 5.4px;
+  color: #ffffff;
+  font-family: "Paperlogy", sans-serif;
+  opacity: 0.12;
+  text-transform: uppercase;
+}
+
+.infinite-text-wrap {
+  animation-play-state: paused;
+  animation: textLoop 50s linear infinite;
+  padding-right: 2vw;
+}
+
+@keyframes textLoop {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* 반응형 */
+/* 1920px 이상 */
+@media screen and (min-width: 1920px) {
+  .gallery-header {
+    padding-left: 360px;
+    padding-top: 160px;
+    margin-bottom: 106px;
+  }
+
+  .gallery-title {
+    margin-top: 0;
+    font-size: 52px;
+  }
+
+  .controls-container {
+    margin-left: 363px;
+    margin-top: 30px;
+  }
+  .infinite-text-container {
+    bottom: 1%;
+  }
+}
+/* 768px ~ 1920px */
+@media (min-width: 768px) and (max-width: 1919px) {
+  .content-card {
+    width: 264px;
+    height: 560px;
+  }
+
+  .content-card img {
+    width: 264px;
+    height: 264px;
+  }
+
+  .slider-container {
+    height: 420px;
+  }
+
+  .slide-item {
+    width: 264px;
+    height: 264px;
+  }
+  .gallery-title {
+    font-size: 26px;
+    letter-spacing: -0.65px;
+  }
+  .gallery-header {
+    padding-left: 80px;
+    padding-bottom: 64px;
+    padding-top: 70px;
+  }
+  .infinite-text {
+    font-size: 90px;
+  }
+
+  .infinite-text-container {
+    bottom: -15%;
+  }
+
+  .moreclickbtn {
+    width: 108px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    gap: 20px;
+    font-size: 14px;
+  }
+  .moreclick_arrow {
+    width: 12px;
+    height: 12px;
+  }
+  .controls-container {
+    margin-left: 0;
+    margin-top: 14px;
+  }
+}
+
+/* 360px ~ 768px */
+@media (min-width: 360px) and (max-width: 767px) {
+  .content-card {
+    width: 264px;
+    height: 320px;
+  }
+
+  .content-card img {
+    width: 264px;
+    height: 264px;
+  }
+
+  .slider-container {
+    height: 25rem;
+    margin-top: 2rem;
+  }
+
+  .slide-item {
+    width: 264px;
+    height: 264px;
+  }
+
+  .gallery-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 30px;
+  }
+
+  .gallery-title {
+    margin-left: 0;
+    width: 100%;
+    text-align: start;
+    margin-top: 50px;
+  }
+
+  .controls-container {
+    margin-left: 0;
+    margin-top: 28px;
+  }
+
+  .moreclickbtn {
+    width: 108px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    gap: 20px;
+    font-size: 14px;
+  }
+  .moreclick_arrow {
+    width: 12px;
+    height: 12px;
+  }
+  .infinite-text {
+    font-size: 70px;
+  }
+
+  .infinite-text-container {
+    bottom: -19%;
+  }
+}

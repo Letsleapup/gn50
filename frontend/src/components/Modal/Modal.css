@@ -1,0 +1,373 @@
+/* modal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 150;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 50px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.modal-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* SelectPage 모달 사이즈 */
+.modal-walking-desktop {
+  width: 620px;
+  height: 611px;
+  padding: 40px;
+}
+
+.modal-webtoon-desktop {
+  width: 620px;
+  height: 686px;
+  padding: 40px;
+}
+
+.modal-walking-mobile {
+  width: 320px;
+  height: 379px;
+  padding: 20px;
+}
+
+.modal-webtoon-mobile {
+  width: 320px;
+  height: 435px;
+  padding: 20px;
+}
+.cr_select-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: -0.6px;
+  line-height: 29px;
+}
+.cr_select-modal-title.walking {
+  margin-bottom: 8px;
+}
+
+.cr_select-modal-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.cr_select-modal-tag {
+  color: #f79d00;
+  padding: 6px 10px;
+  border: 1px solid #f79d00;
+  border-radius: 17px;
+  font-size: 15px;
+}
+
+.cr_select-modal-image {
+  width: 100%;
+  object-fit: cover;
+  height: 337px;
+  border-radius: 30px;
+}
+
+.cr_select-modal-description {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-weight: normal;
+  color: #333333;
+  padding-top: 16px;
+}
+
+.modal-content-walking .cr_select-modal-description.walking {
+  margin-top: 8px;
+}
+
+/* ContentDisplay 모달 사이즈 */
+.modal-edit-desktop {
+  width: 620px;
+  height: 544px;
+  padding: 40px;
+}
+
+.modal-edit-mobile {
+  width: 320px;
+  height: 450px;
+  padding: 20px 24px;
+}
+
+.cr_modal_edit_content,
+.cr_modal_share_content {
+  height: calc(100% - 76px); /* 버튼 영역 제외 */
+}
+
+.cr_modal_edit_textarea {
+  width: 100%;
+  height: 240px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  resize: none;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+  font-weight: medium;
+}
+.cr_modal_edit_title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+  letter-spacing: -0.6px;
+}
+.cr_modal_edit_desc {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  font-weight: normal;
+  color: #333333;
+}
+
+/* 공유하기/다시생성하기 모달 공통 사이즈 */
+.cr_modal_share_title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: -0.6px;
+  line-height: 52px;
+}
+
+.cr_modal_share_desc {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  font-weight: normal;
+  color: #333333;
+}
+.cr_modal_regenerate_title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: -0.6px;
+  line-height: 52px;
+}
+
+.cr_modal_regenerate_desc {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  font-weight: normal;
+  color: #333333;
+}
+
+.modal-action-desktop {
+  width: 486px;
+  height: 294px;
+  padding: 40px;
+}
+
+.modal-action-mobile {
+  width: 320px;
+  height: 216px;
+  padding: 20px;
+}
+
+/* 버튼 레이아웃 */
+
+.btn-layout {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+}
+.close-button {
+  width: 29%;
+  height: 56px;
+  font-size: 18px;
+  border-radius: 40px;
+  background-color: #ededed;
+  color: #666666;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.navigate-button {
+  width: 71%;
+  height: 56px;
+  font-size: 18px;
+  border-radius: 40px;
+  background: linear-gradient(to right, #2666fb, #00c8ad);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigate-button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-text {
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+.navigate-button:hover {
+  box-shadow: 4px 4px 16px rgba(36, 56, 159, 0.2);
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .btn-layout {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .navigate-button {
+    height: 40px;
+  }
+
+  .navigate-button-content {
+    gap: 4px;
+  }
+
+  .button-text {
+    font-size: 14px;
+  }
+
+  .button-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cr_select-modal-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .close-button,
+  .navigate-button {
+    height: 40px;
+    font-size: 14px;
+    gap: 4px;
+    padding: 0 16px;
+  }
+
+  .cr_select-modal-description {
+    font-size: 14px;
+    padding-right: 20px;
+    padding-left: 20px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+    font-weight: normal;
+  }
+  .modal-content-walking .cr_select-modal-description.walking {
+    margin-top: 0;
+  }
+
+  .cr_select-modal-image {
+    width: 280px;
+    height: 175px;
+    border-radius: 20px;
+  }
+  .modal-content {
+    border-radius: 30px;
+  }
+  .cr_select-modal-hashtags {
+    gap: 4px;
+  }
+  .cr_select-modal-tag {
+    padding: 5px 8px;
+    border-radius: 13px;
+    font-size: 12px;
+  }
+  /* 편집 모달 */
+  .cr_modal_edit_title {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .cr_modal_edit_desc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+  }
+
+  .cr_modal_edit_textarea {
+    height: 200px;
+    padding: 12px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  /* 공유하기 모달 */
+  .cr_modal_share_title {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .cr_modal_share_desc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+  }
+
+  /* 다시생성 모달 */
+  .cr_modal_regenerate_title {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .cr_modal_regenerate_desc {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+  }
+
+  /* 공통 컨텐츠 영역 */
+  .cr_modal_edit_content,
+  .cr_modal_share_content {
+    height: calc(100% - 60px); /* 모바일에서는 버튼 영역이 더 작음 */
+  }
+}
