@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { sharedContents } from "../../data/dummydata";
 import { SharedContent } from "../../@types/domain";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { logger } from "../../util/logger";
+import {
+  ViewCountWalkingGalleryApi,
+  ViewCountWebtoonGalleryApi,
+  WalkingGalleryDetailsApi,
+  WebtoonGalleryDetailsApi,
+} from "../../API/galleryPage_api";
 interface DetailContentProps {
   content?: SharedContent;
   source?: "chatbot" | "shareboard"; //어디서 넘어왔는지에 따라
@@ -14,6 +20,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const location = useLocation();
   const { type, contentId } = useParams<{ type: string; contentId: string }>();
   const [content, setContent] = useState<SharedContent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { source: stateSource, content: stateContent } =
     (location.state as { source?: string; content?: SharedContent }) || {};
@@ -21,22 +28,65 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const source = propSource || stateSource;
 
   useEffect(() => {
-    // console.log("DetailContent params:", { type, contentId });
+    //   // 상태로 전달된 content가 있으면 사용
+    //   if (stateContent) {
+    //     // console.log("Using state content:", stateContent);
+    //     setContent(stateContent);
+    //   } else {
+    //     // 없으면 dummy data에서 찾기
+    //     const foundContent = sharedContents.find(
+    //       (c) => c.id === Number(contentId)
+    //     );
+    //     // console.log("Found content from dummy data:", foundContent);
+    //     setContent(foundContent || null);
+    //   }
+    // }, [contentId, stateContent]);
+    const fetchContent = async () => {
+      if (!contentId || !type) {
+        logger.error("Missing contentId or type");
+        return;
+      }
 
-    // 상태로 전달된 content가 있으면 사용
-    if (stateContent) {
-      // console.log("Using state content:", stateContent);
-      setContent(stateContent);
-    } else {
-      // 없으면 dummy data에서 찾기
-      const foundContent = sharedContents.find(
-        (c) => c.id === Number(contentId)
-      );
-      // console.log("Found content from dummy data:", foundContent);
-      setContent(foundContent || null);
-    }
-  }, [contentId, stateContent]);
+      try {
+        setIsLoading(true);
+        logger.log("Fetching content:", { type, contentId });
 
+        // 상태로 전달된 content가 있으면 사용
+        if (stateContent) {
+          setContent(stateContent);
+          // 조회수만 증가
+          const viewCountApi =
+            type === "walking"
+              ? ViewCountWalkingGalleryApi
+              : ViewCountWebtoonGalleryApi;
+          await viewCountApi(contentId);
+          return;
+        }
+
+        // API로 데이터 조회
+        const data =
+          type === "walking"
+            ? await WalkingGalleryDetailsApi(contentId)
+            : await WebtoonGalleryDetailsApi(contentId);
+
+        if (data) {
+          setContent(data);
+          // 조회수 증가
+          const viewCountApi =
+            type === "walking"
+              ? ViewCountWalkingGalleryApi
+              : ViewCountWebtoonGalleryApi;
+          await viewCountApi(contentId);
+        }
+      } catch (error) {
+        logger.error("Error fetching content:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, [contentId, type, stateContent]);
   const handleBack = () => {
     if (source === "chatbot") {
       navigate("/chatbot");
@@ -45,11 +95,33 @@ const DetailContent: React.FC<DetailContentProps> = ({
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-900"></div>
+            <p className="mt-4 text-lg text-gray-600">로딩 중...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (!content) {
     return (
       <div className="min-h-screen flex flex-col">
         <div className="flex-1 flex items-center justify-center">
-          Loading...
+          <div className="text-center">
+            <p className="text-lg text-gray-800 mb-4">
+              콘텐츠를 찾을 수 없습니다.
+            </p>
+            <button
+              onClick={handleBack}
+              className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
+            >
+              목록으로 돌아가기
+            </button>
+          </div>
         </div>
       </div>
     );
