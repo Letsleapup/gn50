@@ -18,7 +18,7 @@ import { GalleryData } from "../../@types/domain";
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
 import { getBannerUrlApi, getGalleryInMainPageApi } from "../../api/mainPage_api";
-import { isArray } from "../../util/isArray";
+import { toArray } from "../../util/toArray";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const MainPage: React.FC = () => {
       .then((res) => {
         console.log(res)
         if (isSubscribed) {
-          setWalkingGalleryList(isArray(res));
+          setWalkingGalleryList(toArray(res));
         }
       })
       .catch(() => {
@@ -58,7 +58,7 @@ const MainPage: React.FC = () => {
     getGalleryInMainPageApi(`${BASE_URL}/api/api_bottom_banner.php`)
       .then((res) => {
         if (isSubscribed) {
-          setWebtoonGalleryList(isArray(res));
+          setWebtoonGalleryList(toArray(res));
         }
       })
       .catch(() => {
