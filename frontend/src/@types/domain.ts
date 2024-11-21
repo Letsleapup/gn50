@@ -41,33 +41,24 @@ export interface BannerContentType {
   gallery: BannerContent;
 }
 
-export interface SelectOption {
-  id: string;
-  title: string;
-  imgUrl: string;
-  style?: string;
-  backdrop?: string;
-  description?: string;
-  modalsuggest?: string;
-  viewCount: number;
-  hashtags?: string[];
-}
+// export interface SelectOption {
+//   id: string;
+//   title: string;
+//   imgUrl: string;
+//   style?: string;
+//   backdrop?: string;
+//   description?: string;
+//   modalsuggest?: string;
+//   viewCount: number;
+//   hashtags?: string[];
+// }
 
 export interface SelectOptionsType {
   walking: SelectOption[];
   webtoon: SelectOption[];
 }
 
-export interface Option {
-  id: string;
-  title: string;
-  imgUrl: string;
-  backdrop?: string;
-  description?: string;
-  modalsuggest?: string;
-  viewCount: number;
-  hashtags?: string[];
-}
+
 
 export type Nullable<T> = null | T;
 
@@ -113,6 +104,8 @@ export interface CommonResponse<T> {
   data: T[] | T;
 }
 
+//mainpage api
+
 export interface BannerData {
   idx: string | number;
   url: string;
@@ -124,3 +117,21 @@ export interface BannerResponse extends CommonResponse<BannerData> {
 
 export type GalleryResponse = CommonResponse<GalleryData>
 
+
+export interface SelectOption extends Option {
+  backdrop?: string;
+  backinfo_title?: string;
+  backinfo_intro_txt?: string;
+  modalsuggest?: string;
+  viewCount?: number;
+  backinfo_hashtag?: string;
+  backinfo_file1?: string; // 이미지 파일 경로
+}
+
+export interface Option {
+  idx: number;
+  title: string;
+  url: string;
+}
+//selectpage api
+export type SelectOptionsResponse = CommonResponse<SelectOption>
