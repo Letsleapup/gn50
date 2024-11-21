@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { sharedContents } from "../../data/dummydata";
 import { SharedContent } from "../../@types/domain";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { logger } from "../../util/logger";
