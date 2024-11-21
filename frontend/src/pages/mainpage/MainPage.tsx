@@ -5,7 +5,8 @@ import {
 import {
   MainBannerRobotUrl,
   MainBannerUrl,
-  RobotUrl
+  RobotUrl,
+  BASE_URL
 } from "../../const/const";
 import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";
@@ -30,24 +31,24 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     getBannerUrlApi().then((res) => {
       setBannerUrl(res)
-    }).catch((_rej) => {
+    }).catch(() => {
       setBannerUrl(MainBannerUrl)
     })
 
-    getGalleryInMainPageApi('https://gn50m.aixstudio.kr/api/api_mid_banner.php')
+    getGalleryInMainPageApi(`${BASE_URL}/api/api_mid_banner.php`)
     .then((res) => {
       console.log(res)
       setWalkingGalleryList(res)
     })
-    .catch((_rej) => {
+    .catch(() => {
       setWalkingGalleryList([])
     })
 
-    getGalleryInMainPageApi('https://gn50m.aixstudio.kr/api/api_bottom_banner.php')
+    getGalleryInMainPageApi(`${BASE_URL}/api/api_bottom_banner.php`)
     .then((res) => {
       setWebtoonGalleryList(res)
     })
-    .catch((_rej) => {
+    .catch(() => {
       setWebtoonGalleryList([])
     })
   }, []);

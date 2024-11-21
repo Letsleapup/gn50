@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { MainBannerUrl } from "../const/const";
+import { BASE_URL, MainBannerUrl } from "../const/const";
 import { logger } from '../util/logger';
 
 export const getBannerUrlApi = () => {
   return axios
-    .get('https://gn50m.aixstudio.kr/api/api_main_banner.php')
+    .get(`${BASE_URL}/api/api_main_banner.php`)
     .then((res) => {
       const checkData = res.data
       if (checkData.resultCode === 'Y' && checkData.data && checkData.data.url.length > 0) {
