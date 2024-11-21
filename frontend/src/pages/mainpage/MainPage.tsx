@@ -18,6 +18,7 @@ import { GalleryData } from "../../@types/domain";
 import "swiper/swiper-bundle.css";
 import ButtonSection from "../../components/MainButton/ButtonSection";
 import { getBannerUrlApi, getGalleryInMainPageApi } from "../../api/mainPage_api";
+import { isArray } from "../../util/isArray";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -29,28 +30,46 @@ const MainPage: React.FC = () => {
 
   //메인배너이미지 API호출
   useEffect(() => {
+    let isSubscribed = true;
+
     getBannerUrlApi().then((res) => {
-      setBannerUrl(res)
+      if (isSubscribed) {
+        setBannerUrl(res);
+      }
     }).catch(() => {
-      setBannerUrl(MainBannerUrl)
-    })
+      if (isSubscribed) {
+        setBannerUrl(MainBannerUrl);
+      }
+    });
 
     getGalleryInMainPageApi(`${BASE_URL}/api/api_mid_banner.php`)
-    .then((res) => {
-      console.log(res)
-      setWalkingGalleryList(res)
-    })
-    .catch(() => {
-      setWalkingGalleryList([])
-    })
+      .then((res) => {
+        console.log(res)
+        if (isSubscribed) {
+          setWalkingGalleryList(isArray(res));
+        }
+      })
+      .catch(() => {
+        if (isSubscribed) {
+          setWalkingGalleryList([]);
+        }
+      });
 
     getGalleryInMainPageApi(`${BASE_URL}/api/api_bottom_banner.php`)
-    .then((res) => {
-      setWebtoonGalleryList(res)
-    })
-    .catch(() => {
-      setWebtoonGalleryList([])
-    })
+      .then((res) => {
+        if (isSubscribed) {
+          setWebtoonGalleryList(isArray(res));
+        }
+      })
+      .catch(() => {
+        if (isSubscribed) {
+          setWebtoonGalleryList([]);
+        }
+      });
+
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
