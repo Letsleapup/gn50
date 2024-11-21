@@ -8,7 +8,7 @@ import {
   getGalleryByType,
   ViewCountWalkingGalleryApi,
   ViewCountWebtoonGalleryApi,
-} from "../../API/galleryPage_api";
+} from "../../api/galleryPage_api";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();

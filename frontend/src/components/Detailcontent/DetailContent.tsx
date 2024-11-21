@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { sharedContents } from "../../data/dummydata";
 import { SharedContent } from "../../@types/domain";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { logger } from "../../util/logger";
@@ -7,7 +8,7 @@ import {
   ViewCountWebtoonGalleryApi,
   WalkingGalleryDetailsApi,
   WebtoonGalleryDetailsApi,
-} from "../../API/galleryPage_api";
+} from "../../api/galleryPage_api";
 interface DetailContentProps {
   content?: SharedContent;
   source?: "chatbot" | "shareboard"; //어디서 넘어왔는지에 따라
