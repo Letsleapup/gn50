@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
-import { selectOptions } from "../../data/dummydata";
 import { ChevronsDown, LoaderCircle } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
 import {
@@ -13,6 +12,8 @@ import {
 } from "../../@types/domain";
 import "./SelectPage.css";
 import { logger } from "../../util/logger";
+import { getSelectOptionsApi } from "../../api/selecPage_api";
+import { BASE_URL } from "../../const/const";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -34,23 +35,9 @@ const SelectPage: React.FC = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        // console.log(`Fetching ${type} options...`);
         setIsLoading(true);
-
-        // API 호출 예시
-        // const response = await axios.get(`/api/${type}-options`);
-        // const data = response.data;
-
-        // 임시로 더미 데이터 사용
-        const dummyData = type
-          ? selectOptions[type].map((item) => ({
-              ...item,
-              viewCount: 0, // API 연동 시 실제 조회수로 대체
-            }))
-          : [];
-
-        // console.log(`Loaded ${dummyData.length} ${type} options`);
-        setOptions(dummyData);
+        const options = await getSelectOptionsApi(type ? type : 'walking')
+        if(options) setOptions(options as Option[])
       } catch (error) {
         console.error("Failed to fetch options:", error);
         // 에러 시 빈 배열 또는 에러 처리
@@ -58,11 +45,8 @@ const SelectPage: React.FC = () => {
       } finally {
         setIsLoading(false);
       }
-    };
-
-    if (type) {
-      fetchOptions();
     }
+    fetchOptions()
   }, [type]);
 
   // 스크롤 이벤트 핸들러를 window에 연결
@@ -99,11 +83,11 @@ const SelectPage: React.FC = () => {
     setIsOpen(false);
   };
 
-  const onNavigate = (option: Option) => {
+  const onNavigate = (option: SelectOption) => {
     const params = new URLSearchParams({
       title: option.title,
-      imgUrl: encodeURIComponent(option.imgUrl),
-      description: option.description || "",
+      imgUrl: encodeURIComponent(option.url),
+      description: option.backinfo_intro_txt || "",
     });
 
     navigate(`/chatbot/${type}?${params.toString()}`);
@@ -145,7 +129,6 @@ const SelectPage: React.FC = () => {
             )}
           </div>
         </div>
-
         {selectedOption && (
           <Modal
             isOpen={isOpen}
@@ -156,12 +139,12 @@ const SelectPage: React.FC = () => {
             onClick={() => onNavigate(selectedOption)}
             btnCancleName="닫기"
           >
-            <div className="cr_select-modal-title">{selectedOption.title}</div>
+            <div className="cr_select-modal-title">{type === "walking" ? selectedOption.title : selectedOption.backinfo_title}</div>
             {/* 해시태그 있을때만 렌더링 */}
-            {Array.isArray(selectedOption.hashtags) &&
-              selectedOption.hashtags.length > 0 && (
+            {selectedOption.backinfo_hashtag &&
+              selectedOption.backinfo_hashtag.length > 0 && (
                 <div className="cr_select-modal-hashtags">
-                  {selectedOption.hashtags.map((tag, index) => (
+                  {selectedOption.backinfo_hashtag.split(" ").map((tag, index) => (
                     <span
                       key={`modal-tag-${index}`}
                       className="cr_select-modal-tag"
@@ -172,8 +155,8 @@ const SelectPage: React.FC = () => {
                 </div>
               )}
             <img
-              src={selectedOption.imgUrl}
-              alt={selectedOption.title}
+              src={type === "walking" ? `${BASE_URL}${selectedOption.url}` : `${BASE_URL}${selectedOption.backinfo_file1}`}
+              alt={type === "walking" ? selectedOption.title : selectedOption.backinfo_title}
               className="cr_select-modal-image"
             />
             <p

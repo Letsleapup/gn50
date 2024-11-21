@@ -1,11 +1,13 @@
 import React from "react";
-import { Option } from "../../@types/domain";
+import { SelectOption } from "../../@types/domain";
 import "./OptionCard.css";
+import { BASE_URL } from "../../const/const";
+import { logger } from "../../util/logger";
 
 interface OptionCardProps {
-  options: Option[];
+  options: SelectOption[];
   type: "walking" | "webtoon";
-  onSelect: (option: Option) => void;
+  onSelect: (option: SelectOption) => void;
 }
 
 export const OptionCard: React.FC<OptionCardProps> = ({
@@ -13,7 +15,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
   type,
   onSelect,
 }) => {
-  // console.log("OptionCard rendering with options:", options);
+  logger.log("OptionCard rendering with options:", options);
 
   return (
     <div
@@ -22,7 +24,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
       }`}
     >
       {options.map((option) => (
-        <div key={option.id} className="flex justify-center">
+        <div key={option.idx} className="flex justify-center">
           <button
             onClick={() => {
               // console.log("Option selected:", option);
@@ -39,11 +41,11 @@ export const OptionCard: React.FC<OptionCardProps> = ({
             {type === "walking" ? (
               <div>
                 <img
-                  src={option.imgUrl || "https://via.placeholder.com/384x240"}
+                  src={`${BASE_URL}${option.url}` || "https://via.placeholder.com/384x240"}
                   alt={option.title}
                   className="yg_option-image-walking"
                   onError={(e) => {
-                    console.error("Image loading failed:", option.imgUrl);
+                    console.error("Image loading failed:", option.url);
                     e.currentTarget.src = "https://via.placeholder.com/384x240";
                   }}
                 />
@@ -54,11 +56,11 @@ export const OptionCard: React.FC<OptionCardProps> = ({
             ) : (
               <div className="cr_option-webtoon-content">
                 <img
-                  src={option.imgUrl}
-                  alt={option.title}
+                  src={`${BASE_URL}${option.backinfo_file1}`}
+                  alt={option.backinfo_title}
                   className="cr_option-webtoon-image"
                   onError={(e) => {
-                    console.error("Image loading failed:", option.imgUrl);
+                    console.error("Image loading failed:", option.backinfo_file1);
                     e.currentTarget.src = "https://via.placeholder.com/486x304";
                   }}
                 />
@@ -69,25 +71,28 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                       {option.backdrop}
                     </p>
                   )}
-                  <h2 className="cr_option-webtoon-title">{option.title}</h2>
-                  {option.description && (
+                  <h2 className="cr_option-webtoon-title">{option.backinfo_title}</h2>
+                  {option.backinfo_intro_txt && (
                     <p className="cr_option-webtoon-description">
-                      {option.description}
+                      {option.backinfo_intro_txt}
                     </p>
                   )}
-                  {Array.isArray(option.hashtags) &&
-                    option.hashtags.length > 0 && (
+                  {option.backinfo_hashtag &&
+                    option.backinfo_hashtag.length > 0 && (
                       <div className="cr_hashtags-container">
-                        {option.hashtags.map((tag: string, index: number) => (
+                        {option.backinfo_hashtag
+                        .split(" ")
+                        .map((tag: string, index: number) => (
                           <span
-                            key={`${option.id}-tag-${index}`}
+                            key={`${option.idx}-tag-${index}`}
                             className="cr_hashtag"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
-                    )}
+                    )
+                  }
                 </div>
               </div>
             )}
