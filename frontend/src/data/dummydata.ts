@@ -1,6 +1,5 @@
 import {
   SharedContent,
-  BannerContentType,
   ActionButton,
 } from "../@types/domain";
 
@@ -136,32 +135,6 @@ export const sharedContents: SharedContent[] = [
       "1980년대 강남 개발이 한창이던 시기의 모습입니다. 아파트 단지가 들어서고 새로운 도시가 형성되어가는 과정에서 강남 발전의 역동적인 순간을 담아보았습니다.",
   },
 ];
-
-// 배너 데이터
-export const bannerContent: BannerContentType = {
-  walking: {
-    title: "내가 걷고 싶은 강남의\n모습을 만들어 보세요!",
-    description: "걷고 싶은 강남구의 장소를 선택하세요.",
-    bgColor: "bg-[#2942C4]",
-    robotUrl: "/asset/sub_chat1.png",
-    imgUrl: "/asset/sub_img1.svg",
-  },
-  webtoon: {
-    title: "강남의 과거·현재·미래를\n웹툰으로 그려 보세요!",
-    description: "그리고 싶은 웹툰의 배경을 선택하세요.",
-    bgColor: "bg-[#F79D00]",
-    robotUrl: "/asset/sub_chat2.png",
-    imgUrl: "/asset/sub_img2.svg",
-  },
-  gallery: {
-    title:
-      "다른 사람들이 만든 걷고 싶은\n강남의 모습&웹툰을 확인할 수 있습니다.",
-    description: "",
-    bgColor: "bg-[#00BAA8]",
-    robotUrl: "/asset/sub_img3.png",
-    imgUrl: "",
-  },
-};
 
 //loading welcome_message
 export const starterMessage = [

@@ -1,36 +1,24 @@
 // import React, { useState } from "react";
-import { bannerContent } from "../../data/dummydata";
-import { BoardType } from "../../@types/domain";
+import { bannerContent } from "../../const/const";
+import { BoardType, Nullable } from "../../@types/domain";
 import "./PageBanner.css";
+import { memo, useEffect, useState } from "react";
+import { getSelectBannnerApi } from "../../api/selecPage_api";
 // import { logger } from "../../util/logger";
 // import axios from "axios";
 interface PageBannerProps {
   type?: BoardType;
 }
 const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
-  // const [webtoonBannerUrl, setWebtoonBannerUrl] = useState<string | null>(null);
-  // useEffect(() => {
-  //   const fetchWebtoonBanner = async () => {
-  //     if (type !== "webtoon") return;
-  //     try {
-  //       const response = await axios.get(
-  //         "https://gn50m.aixstudio.kr/api/api_wm_banner.php"
-  //       );
-  //       logger.log("웹툰 배너 응답:", response.data);
+  const [bannerUrl, setBannerUrl] = useState<Nullable<string>>(null)
 
-  //       // resultCode 체크 및 data.url 접근
-  //       if (response.data.resultCode === "Y" && response.data.data?.url) {
-  //         logger.log("배너 URL:", response.data.data.url);
-  //         setWebtoonBannerUrl(
-  //           `https://gn50m.aixstudio.kr${response.data.data.url}`
-  //         );
-  //       }
-  //     } catch (error) {
-  //       logger.error("웹툰 배너 로딩 실패:", error);
-  //     }
-  //   };
-  //   fetchWebtoonBanner();
-  // }, [type]);
+  useEffect(() => {
+    const fetchBanner = async () => {
+      const banner = await getSelectBannnerApi(type ? type : 'walking')
+      if(banner) setBannerUrl(banner)
+    }
+    fetchBanner()
+  }, [type])
 
   if (!type || !bannerContent[type]) return null;
   const currentBanner = {
@@ -51,6 +39,9 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
       className={`yg-select-banner-container w-full h-full`}
       style={{ background: bgColorGradient[type] }}
     >
+      {/* 테스트코드 */}
+      {!bannerUrl && <img src={bannerUrl ? "" : ""} alt="banner" className="w-full h-full object-cover" />} 
+
       <div className="yg-select-banner-wrapper relative w-full h-full">
         {/* 배너의 왼쪽 타이틀 */}
         <div className="yg-select-text-content-wrapper absolute">
@@ -106,4 +97,4 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
     </div>
   );
 };
-export default PageBanner;
+export default memo(PageBanner);

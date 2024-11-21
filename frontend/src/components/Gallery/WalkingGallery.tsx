@@ -87,7 +87,6 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
   }, []);
 
   useEffect(() => {
-    // 2초 후에 IntersectionObserver 설정
     const timer = setTimeout(() => {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -108,26 +107,22 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
         { threshold: 0.1 }
       );
   
-      // Observer에 각 아이템 등록
       itemsRef.current.forEach((item) => {
         if (item) observer.observe(item);
       });
       if (robotRef.current) observer.observe(robotRef.current);
   
-      // 클린업: Observer 해제 및 상태 초기화
       return () => {
-        observer.disconnect(); // Observer 전체 해제
-        clearTimeout(timer); // 타이머 해제
-        setActiveIndices([]); // 상태 초기화
+        observer.disconnect(); 
+        clearTimeout(timer); 
+        setActiveIndices([]); 
       };
     }, 2000); // 2초 딜레이
   
-    // 타이머 해제 (컴포넌트가 언마운트될 때)
     return () => clearTimeout(timer);
   }, []);
   
 
-  // 조건부 렌더링을 위한 메모이제이션된 값들
   const navigationButtons = useMemo(() => (
     <div className="yg-navigation-buttons flex space-x-2">
       <button
