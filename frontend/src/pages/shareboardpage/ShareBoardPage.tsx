@@ -4,7 +4,11 @@ import PageBanner from "../../components/PageBanner/PageBanner";
 import { useEffect, useState } from "react";
 import "./ShareBoardPage.css";
 import { logger } from "../../util/logger";
-import { getGalleryByType } from "../../API/galleryPage_api";
+import {
+  getGalleryByType,
+  ViewCountWalkingGalleryApi,
+  ViewCountWebtoonGalleryApi,
+} from "../../api/galleryPage_api";
 
 const ShareBoardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -51,8 +55,29 @@ const ShareBoardPage: React.FC = () => {
     navigate(path);
   };
 
-  const handleContentClick = (content: SharedContent) => {
-    navigate(`/shared/${content.type}/${content.id}`);
+  const handleContentClick = async (content: SharedContent) => {
+    try {
+      logger.log("Content clicked:", content);
+
+      // 조회수 증가 API 호출
+      const viewCountApi =
+        content.type === "walking"
+          ? ViewCountWalkingGalleryApi
+          : ViewCountWebtoonGalleryApi;
+
+      await viewCountApi(content.id);
+
+      // 상세 페이지로 이동
+      navigate(`/shared/${content.type}/${content.id}`, {
+        state: { content, source: "shareboard" },
+      });
+    } catch (error) {
+      logger.error("Error handling content click:", error);
+      // 에러가 발생해도 페이지 이동은 수행
+      navigate(`/shared/${content.type}/${content.id}`, {
+        state: { content, source: "shareboard" },
+      });
+    }
   };
 
   const currentType = "gallery";
