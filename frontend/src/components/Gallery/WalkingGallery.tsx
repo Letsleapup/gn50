@@ -226,7 +226,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
           <div
             key={item.idx}
             ref={(el) => (itemsRef.current[index] = el)}
-            className={`aspect-square flex flex-col items-center ${
+            className={`aspect-square flex flex-col items-center object-cover ${
               index === 0
                 ? `yg-shared-content1 ${
                     activeIndices.includes(index) ? "item-fade" : "opacity-0"
