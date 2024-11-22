@@ -13,7 +13,6 @@ import SelectPage from "./pages/selectpage/SelectPage";
 import ChatbotPage from "./pages/chatbotpage/ChatbotPage";
 import DetailContent from "./components/Detailcontent/DetailContent";
 import { Loading } from "./components/Loading/Loading";
-import { starterMessage } from "./data/dummydata";
 import ErrorPage from "./pages/errorpage/ErrorPage";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -27,7 +26,7 @@ const AppRoutes: React.FC = () => {
   const location = useLocation();
   // 챗봇 페이지지만 결과를 보여주는 상태인지 확인하기 위해 상태 공유 필요
   const [showingResult, setShowingResult] = useState(false);
-
+  const loadingType = location.state?.type || "walking";
   // 디버깅용 로그 추가
   useEffect(() => {
     logger.log("AppRoutes - showingResult 상태:", showingResult);
@@ -53,32 +52,43 @@ const AppRoutes: React.FC = () => {
           <Route path="shared/:type" element={<ShareBoardPage />} />
           <Route
             path="loading"
-            element={<Loading message={starterMessage} />}
+            element={
+              <Loading
+                type={loadingType}
+                onLoadingComplete={() => {
+                  logger.log(`${loadingType} 로딩 완료`);
+                }}
+              />
+            }
           />
           <Route
             path="shared/:type/:contentId"
             element={<DetailContent source="shareboard" />}
           />
-          <Route path="generated/:type/:contentId" 
-            element={<ContentDisplay 
-            type={useParams().type as BoardType} 
-            imageUrl="/asset/webtoonimg1.png" 
-            title="과거의 강남" 
-            scenario="과거의 강남, hello world" 
-            contentId="test-1" 
-            onEdit={async () => {
-              logger.log("edit");
-              return true;
-            }} 
-            onShare={async () => {
-              logger.log("share")
-              return true;
-            }}
-            onRegenerate={async () => {
-              logger.log("regenerate")
-              return true;
-            }}
-          />} />
+          <Route
+            path="generated/:type/:contentId"
+            element={
+              <ContentDisplay
+                type={useParams().type as BoardType}
+                imgUrl="/asset/webtoonimg1.png"
+                title="과거의 강남"
+                scenario="과거의 강남, hello world"
+                contentId="test-1"
+                onEdit={async () => {
+                  logger.log("edit");
+                  return true;
+                }}
+                onShare={async () => {
+                  logger.log("share");
+                  return true;
+                }}
+                onRegenerate={async () => {
+                  logger.log("regenerate");
+                  return true;
+                }}
+              />
+            }
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>

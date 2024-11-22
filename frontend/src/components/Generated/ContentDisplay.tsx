@@ -8,7 +8,7 @@ import {} from "../../api/resultPage_api";
 
 const ContentDisplay: React.FC<ContentDisplayProps> = ({
   type,
-  imageUrl,
+  imgUrl,
   title,
   scenario,
   contentId,
@@ -71,7 +71,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
             id: Number(contentId),
             type,
             title,
-            imgUrl: imageUrl,
+            imgUrl: imgUrl,
             createdAt: new Date().toISOString().split("T")[0],
             scenario: displayScenario,
           },
@@ -261,7 +261,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
               {/* 이미지 섹션 */}
               <div className="w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[384px] md:h-[384px] xl:w-[690px] xl:h-[690px] flex-shrink-0">
                 <img
-                  src={imageUrl}
+                  src={imgUrl}
                   alt={title}
                   className="w-full h-full object-cover rounded-[30px] md:rounded-[50px]"
                 />

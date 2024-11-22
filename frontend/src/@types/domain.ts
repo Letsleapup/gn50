@@ -58,8 +58,6 @@ export interface SelectOptionsType {
   webtoon: SelectOption[];
 }
 
-
-
 export type Nullable<T> = null | T;
 
 export interface ModalProps {
@@ -83,7 +81,7 @@ export const ICON_URLS = {
 
 export interface ContentDisplayProps {
   type: BoardType;
-  imageUrl: string;
+  imgUrl: string;
   title: string;
   scenario: string;
   contentId?: string;
@@ -93,7 +91,7 @@ export interface ContentDisplayProps {
 }
 export interface GeneratedContentState {
   type: "webtoon" | "walking";
-  imageUrl: string;
+  imgUrl: string;
   title: string;
   scenario: string;
 }
@@ -115,8 +113,7 @@ export interface BannerResponse extends CommonResponse<BannerData> {
   data: BannerData;
 }
 
-export type GalleryResponse = CommonResponse<GalleryData>
-
+export type GalleryResponse = CommonResponse<GalleryData>;
 
 export interface SelectOption extends Option {
   backinfo_year?: string;
@@ -136,4 +133,4 @@ export interface Option {
   url: string;
 }
 //selectpage api
-export type SelectOptionsResponse = CommonResponse<SelectOption>
+export type SelectOptionsResponse = CommonResponse<SelectOption>;
