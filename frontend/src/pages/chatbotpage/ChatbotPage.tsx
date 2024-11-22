@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
@@ -8,6 +8,7 @@ import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
 import { chatbotApi } from "../../api/chatbotPage_api";
+import { getResultWalkingAiapi, getResultWebtoonAiapi } from "../../api/resultPage_api";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
@@ -66,7 +67,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     setVh();
     window.addEventListener("resize", setVh);
     return () => window.removeEventListener("resize", setVh);
-  }, [window.innerHeight]);
+  }, []);
 
   // 웰컴 메세지
   useEffect(() => {
@@ -115,8 +116,12 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
 
         // 메시지 순차적 표시
         initialMessages.forEach((message, index) => {
+          if(index === 1 && type === 'walking') {
+            message.content = `${title}${message.content}`
+          }
           setTimeout(() => {
             setMessages((prev) => [...prev, message]);
+            
             if (index === initialMessages.length - 1) {
               setIsInputEnabled(true);
               setCurrentQuestionIndex(0);
@@ -132,7 +137,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     };
 
     loadChatbotData();
-  }, [type, idx, navigate]);
+  }, [type, idx, navigate, title, imgUrl]);
 
   // 메세지 스크롤 애니메이션
   useEffect(() => {
@@ -152,6 +157,11 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       }, 500); // 애니메이션 지속 시간과 동일하게 설정
     }
   }, [messages]);
+
+  const getResult = useCallback(async () => {
+    const result = type === 'walking' ? await getResultWalkingAiapi(chatHistory.join('\n'), idx ? idx : '1') : await getResultWebtoonAiapi(chatHistory.join('\n'), idx ? idx : '1')
+    return result
+  },[type, chatHistory, idx])
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
@@ -209,20 +219,30 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       try {
         setIsGenerating(true); // 로딩 시작
         logger.log("결과 생성 로딩 시작");
+        const resultData = await getResult()
+        
+          logger.log("결과 생성 로딩 완료", resultData);
 
-        // 10초 후 결과 화면으로 전환
-        setTimeout(() => {
-          setGeneratedContent((prev) => ({
-            ...prev,
-            type: type as "webtoon" | "walking",
-            imgUrl: decodeURIComponent(imgUrl || ""),
-            title: title || "",
-            scenario: updatedHistory.join("\n"),
-          }));
-          setShowResult(true);
+        setGeneratedContent({
+          type: type as "webtoon" | "walking",
+          imgUrl: decodeURIComponent(resultData?.image_url || ""),
+          title: title || "",
+          scenario: resultData?.description || "",
+        })
+        setShowResult(true);
           setIsGenerating(false);
           logger.log("결과 화면으로 전환");
-        }, 10000);
+        // // 10초 후 결과 화면으로 전환
+        // setTimeout(() => {
+        //   // setGeneratedContent((prev) => ({
+        //   //   ...prev,
+        //   //   type: type as "webtoon" | "walking",
+        //   //   imgUrl: decodeURIComponent(imgUrl || ""),
+        //   //   title: title || "",
+        //   //   scenario: updatedHistory.join("\n"),
+        //   // }));
+          
+        // }, 10000);
       } catch (error) {
         logger.error("Error:", error);
         alert("오류가 발생했습니다. 다시 시도해주세요.");
@@ -238,7 +258,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       messageContainerRef.current.scrollTop =
         messageContainerRef.current.scrollHeight;
     }
-  }, [messages, messageContainerRef.current]);
+  }, [messages]);
 
   // 시나리오 수정 처리 함수
   const handleScenarioEdit = async (newScenario: string): Promise<boolean> => {

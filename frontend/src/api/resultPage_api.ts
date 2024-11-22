@@ -36,7 +36,7 @@ interface ResultPageAiResponse {
 }
 
 // API 에러 처리 함수
-const handleApiError = (error: any, message: string) => {
+const handleApiError = (error: unknown, message: string) => {
   logger.error(`${message}:`, error);
   if (axios.isAxiosError(error)) {
     const errorMessage = error.response?.data?.message || error.message;
