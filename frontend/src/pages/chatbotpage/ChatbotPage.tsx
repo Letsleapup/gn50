@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { AutoResizingTextarea } from "../../components/AutoResizingTextArea/AutoResizingTextArea";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
-import { walkingQuestions, webtoonQuestions } from "../../data/dummydata";
 import ContentDisplay from "../../components/Generated/ContentDisplay";
 import { Loading } from "../../components/Loading/Loading";
 import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
+import { chatbotApi } from "../../api/chatbotPage_api";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
@@ -16,9 +16,20 @@ interface ChatbotPageProps {
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const { type } = useParams<{ type: "walking" | "webtoon" }>();
   const [searchParams] = useSearchParams();
+
+  // URL 파라미터
+  const idx = searchParams.get("idx");
   const title = searchParams.get("title");
   const imgUrl = searchParams.get("imgUrl");
-  const navigate = useNavigate();
+
+  // API 데이터 상태
+  const [chatbotData, setChatbotData] = useState<{
+    title: string;
+    imgUrl: string;
+    chatbotFiles: string[];
+    welcomeMessage: string;
+    questions: string[];
+  } | null>(null);
 
   // 채팅 관련 상태
   const [inputText, setInputText] = useState("");
@@ -30,6 +41,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
   const messageContainerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // 결과 관련 상태
   const [isLoading, setIsLoading] = useState(false); // 첫메시지 나오기 전
@@ -39,8 +51,8 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const [generatedContent, setGeneratedContent] =
     useState<GeneratedContentState>({
       type: type === "webtoon" ? "webtoon" : "walking",
-      imageUrl: decodeURIComponent(imgUrl || ""),
-      title: title || "",
+      imgUrl: chatbotData?.imgUrl || decodeURIComponent(imgUrl || ""),
+      title: chatbotData?.title || "",
       scenario: "",
     });
 
@@ -58,48 +70,69 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
 
   // 웰컴 메세지
   useEffect(() => {
-    if (!type || !title || !imgUrl) {
-      logger.error("Required parameters missing");
-      navigate("/select");
-      return;
-    }
-    setIsLoading(true);
-    setIsLoading(false);
-    const questions = type === "walking" ? walkingQuestions : webtoonQuestions;
-
-    // 답변 상태 배열 초기화
-    setAnsweredQuestions(new Array(questions.length).fill(false));
-
-    // 선택한 이미지 먼저 보여주기
-    const initialMessages = [
-      {
-        role: "assistant",
-        type: "image",
-        content: decodeURIComponent(imgUrl),
-      },
-      {
-        role: "assistant",
-        type: "text",
-        content: `${title}을 선택하셨군요!`,
-      },
-      {
-        role: "assistant",
-        type: "text",
-        content: questions[0],
-      },
-    ];
-
-    initialMessages.forEach((message, index) => {
-      setTimeout(() => {
-        setMessages((prev) => [...prev, message]);
-        // 첫 번째 질문이 표시되면 입력창 활성화
-        if (index === initialMessages.length - 1) {
-          setIsInputEnabled(true);
-          setCurrentQuestionIndex(0);
+    const loadChatbotData = async () => {
+      try {
+        if (!type || !title || !imgUrl) {
+          logger.error("Required parameters missing");
+          navigate("/select");
+          return;
         }
-      }, index * 1000);
-    });
-  }, [type, imgUrl, title, navigate]);
+        setIsLoading(true);
+        // setIsLoading(false);
+
+        logger.log("챗봇 데이터 로딩 시작", { type, idx });
+
+        // API 호출
+        const data =
+          type === "walking"
+            ? await chatbotApi.getSpChatbotForm(Number(idx))
+            : await chatbotApi.getWmChatbotForm(Number(idx));
+
+        setChatbotData(data);
+        logger.log("챗봇 데이터 로드 완료", data);
+
+        // 답변 상태 배열 초기화
+        setAnsweredQuestions(new Array(data.questions.length).fill(false));
+
+        // 선택한 이미지 먼저 보여주기
+        const initialMessages = [
+          {
+            role: "assistant",
+            type: "image",
+            content: data.imgUrl,
+          },
+          {
+            role: "assistant",
+            type: "text",
+            content: data.welcomeMessage,
+          },
+          {
+            role: "assistant",
+            type: "text",
+            content: data.questions[0],
+          },
+        ];
+
+        // 메시지 순차적 표시
+        initialMessages.forEach((message, index) => {
+          setTimeout(() => {
+            setMessages((prev) => [...prev, message]);
+            if (index === initialMessages.length - 1) {
+              setIsInputEnabled(true);
+              setCurrentQuestionIndex(0);
+            }
+          }, index * 1000);
+        });
+      } catch (error) {
+        logger.error("챗봇 데이터 로딩 실패:", error);
+        navigate("/select");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadChatbotData();
+  }, [type, idx, navigate]);
 
   // 메세지 스크롤 애니메이션
   useEffect(() => {
@@ -125,44 +158,47 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     if (
       !inputText.trim() ||
       !isInputEnabled ||
+      !chatbotData ||
       answeredQuestions[currentQuestionIndex]
     )
       return;
 
     const currentAnswer = inputText.trim();
-    const questions = type === "walking" ? walkingQuestions : webtoonQuestions;
 
-    // 현재 질문을 답변 완료로 표시
+    // 현재 질문 답변 완료 처리
     setAnsweredQuestions((prev) => {
       const newAnswered = [...prev];
       newAnswered[currentQuestionIndex] = true;
       return newAnswered;
     });
+
     // 메시지 추가
-    const userMessage = {
-      role: "user",
-      type: "text",
-      content: currentAnswer,
-    };
-    setMessages((prev) => [...prev, userMessage]);
-    //입력 초기화
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        type: "text",
+        content: currentAnswer,
+      },
+    ]);
+
+    // 입력 초기화
     setInputText("");
     setIsInputEnabled(false);
 
-    // 답변 저장
+    // 채팅 히스토리 업데이트
     const updatedHistory = [...chatHistory, currentAnswer];
     setChatHistory(updatedHistory);
 
     // 다음 질문 또는 결과 처리
-    if (currentQuestionIndex < questions.length - 1) {
-      // 다음 질문
+    if (currentQuestionIndex < chatbotData.questions.length - 1) {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
             type: "text",
-            content: questions[currentQuestionIndex + 1],
+            content: chatbotData.questions[currentQuestionIndex + 1],
           },
         ]);
         setCurrentQuestionIndex((prev) => prev + 1);
@@ -179,7 +215,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
           setGeneratedContent((prev) => ({
             ...prev,
             type: type as "webtoon" | "walking",
-            imageUrl: decodeURIComponent(imgUrl || ""),
+            imgUrl: decodeURIComponent(imgUrl || ""),
             title: title || "",
             scenario: updatedHistory.join("\n"),
           }));
@@ -284,15 +320,16 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
                       <div className="cr_profile-image">
                         {message.role === "assistant" ? (
                           <img
-                            src="/asset/prof_chat.png"
+                            src={chatbotData?.chatbotFiles[0]}
                             alt="AI-assistant"
                             className="cr_profile-assistant"
                           />
                         ) : (
                           <div className="cr_profile-user">
                             <img
-                              src="/asset/prof_user.svg"
+                              src={chatbotData?.chatbotFiles[1]}
                               className="w-12 h-12"
+                              alt="userProfileImage"
                             />
                           </div>
                         )}
@@ -336,7 +373,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       ) : (
         <ContentDisplay
           type={generatedContent.type}
-          imageUrl={generatedContent.imageUrl}
+          imgUrl={generatedContent.imgUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
           contentId="test-1"

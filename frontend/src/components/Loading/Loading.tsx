@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import "./Loading.css";
-import { chatbotApi } from "../../api/chatbotPage_api";
+import { chatbotLoadingApi } from "../../api/chatbotPage_api";
 
 interface LoadingProps {
   type: "walking" | "webtoon";
@@ -21,12 +21,14 @@ export const Loading: FunctionComponent<LoadingProps> = ({
       try {
         const result =
           type === "walking"
-            ? await chatbotApi.checkSpLoading()
-            : await chatbotApi.checkWmLoading();
+            ? await chatbotLoadingApi.checkSpLoading()
+            : await chatbotLoadingApi.checkWmLoading();
 
         // API에서 받은 메시지를 2차원 배열로 변환
         const formattedMessages = result.messages.map((msg) => [msg]);
         setMessages(formattedMessages);
+
+        setLoadingFile(result.loadingFile);
       } catch (err) {
         console.error("로딩 데이터 가져오기 실패:", err);
         // 에러 시 기본 메시지 설정
@@ -78,6 +80,13 @@ export const Loading: FunctionComponent<LoadingProps> = ({
           src={"/asset/2x/chat_b@2x.png"}
           alt="robot icon"
         />
+        {!loadingFile && (
+          <img
+            src={loadingFile}
+            alt="loading animation"
+            className="loading-animation"
+          />
+        )}
       </div>
     </div>
   );
