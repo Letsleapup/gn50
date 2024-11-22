@@ -4,6 +4,7 @@ import { ICON_URLS } from "../../@types/domain";
 import { ContentDisplayProps, ModalProps } from "../../@types/domain";
 import { useNavigate } from "react-router-dom";
 import { logger } from "../../util/logger";
+import {} from "../../api/resultPage_api";
 
 const ContentDisplay: React.FC<ContentDisplayProps> = ({
   type,
@@ -27,7 +28,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 500)
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -41,15 +42,15 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
       logger.log("시나리오 수정 시도:", editedScenario);
 
       const success = await onEdit(editedScenario);
+
       if (success) {
-        // 수정된 시나리오를 화면에 바로 반영
         setDisplayScenario(editedScenario);
         setShowEditModal(false);
-        logger.log("시나리오 수정 성공:", editedScenario);
+      } else {
+        setEditedScenario(displayScenario);
+        alert("시나리오 수정에 실패했습니다. 다시 시도해주세요.");
       }
     } catch (error) {
-      console.error("시나리오 수정 실패:", error);
-      // 실패 시 원래 시나리오로 복구
       setEditedScenario(displayScenario);
       alert("시나리오 수정에 실패했습니다. 다시 시도해주세요.");
     } finally {
@@ -77,7 +78,18 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
         },
       });
     } catch (error) {
-      console.error("갤러리 공유 실패:", error);
+      logger.error("갤러리 공유 실패:", error);
+    }
+  };
+
+  const handleRegenerate = async () => {
+    try {
+      setShowRegenerateModal(false);
+      await onRegenerate();
+    } catch (error) {
+      alert(
+        `${type === "webtoon" ? "웹툰" : "이미지"} 재생성에 실패했습니다. 다시 시도해주세요.`
+      );
     }
   };
 
@@ -160,17 +172,18 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     btnName: "확인",
     btnImgUrl: "",
     btnCancleName: "취소",
-    onClick: () => {
-      setShowRegenerateModal(false);
-      onRegenerate();
-    },
+    onClick: handleRegenerate,
 
     children: (
       <div className="cr_modal_regenerate_content flex flex-col gap-4">
-        <h2 className="cr_modal_regenerate_title">이미지 다시 만들기</h2>
+        <h2 className="cr_modal_regenerate_title">
+          {type === "webtoon" ? "웹툰" : "이미지"} 다시 만들기
+        </h2>
         <p className="cr_modal_regenerate_desc">
-          '확인'을 누르면 생성된 이미지가 삭제되고 이미지를 다시 만들게 됩니다.
-          이미지를 다시 만들겠습니까?
+          '확인'을 누르면 생성된 {type === "webtoon" ? "웹툰이" : "이미지가"}
+          삭제되고 {type === "webtoon" ? "웹툰을" : "이미지를"} 다시 만들게
+          됩니다. {type === "webtoon" ? "웹툰을" : "이미지를"} 다시
+          만들겠습니까?
         </p>
       </div>
     ),

@@ -4,9 +4,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
 import { walkingQuestions, webtoonQuestions } from "../../data/dummydata";
 import ContentDisplay from "../../components/Generated/ContentDisplay";
-
 import { Loading } from "../../components/Loading/Loading";
-import { starterMessage } from "../../data/dummydata";
 import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
@@ -254,7 +252,12 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   return (
     <div className="cr_chatbot-container">
       {isGenerating ? (
-        <Loading message={starterMessage} />
+        <Loading
+          type={type || "walking"}
+          onLoadingComplete={() => {
+            logger.log("로딩완료");
+          }}
+        />
       ) : !showResult ? (
         <div className="cr_message-area">
           {isLoading && (
