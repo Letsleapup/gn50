@@ -119,13 +119,15 @@ export type GalleryResponse = CommonResponse<GalleryData>
 
 
 export interface SelectOption extends Option {
-  backdrop?: string;
+  backinfo_year?: string;
+  backinfo_guide_txt?: string; //모달 웹툰 가이드
   backinfo_title?: string;
   backinfo_intro_txt?: string;
-  modalsuggest?: string;
-  viewCount?: number;
   backinfo_hashtag?: string;
   backinfo_file1?: string; // 이미지 파일 경로
+  park_main_txt?: string;
+  modalsuggest?: string;
+  viewCount?: number;
 }
 
 export interface Option {

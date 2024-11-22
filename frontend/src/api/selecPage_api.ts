@@ -1,7 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../const/const";
 import { BannerResponse, SelectOptionsResponse } from "../@types/domain";
-import { toArray } from "../util/toArray";
 import { logger } from "../util/logger";
 
 const getBannerApi = (url: string) => {
@@ -20,12 +19,13 @@ export const getSelectBannnerApi = (type: string) => {
 }
 
 
-const getOptionsApi = (url: string) => {
-  return axios.get<SelectOptionsResponse>(`${BASE_URL}${url}`)
+const getOptionsApi = (url: string, idx: string) => {
+  return axios.get<SelectOptionsResponse>(`${BASE_URL}${url}?`,{params: {idx}})
   .then((res) => {
     const checkData = res.data
-    logger.log(checkData)
-    if(checkData.resultCode === 'Y' && toArray(checkData.data).length > 0) {
+    logger.log("options1",checkData)
+    if(checkData.resultCode === 'Y' && checkData.data) {
+      logger.log("options2",checkData.data)
       return checkData.data
     }
   })
@@ -37,5 +37,12 @@ const getOptionsApi = (url: string) => {
 
 export const getSelectOptionsApi = (type: string) => {
   const optionsUrl = type === 'walking' ? '/api/api_sp_list.php' : '/api/api_wm_list.php'
-  return getOptionsApi(optionsUrl)
+  return getOptionsApi(optionsUrl,'')
+}
+
+export const getDetailInfoApi = (type: string, idx: string) => {
+  console.log("TEST type", type, idx);
+  const optionsUrl = type === 'walking' ? '/api/api_sp_select.php' : '/api/api_wm_select.php'
+  console.log("TEST optionsUrl", optionsUrl);
+  return getOptionsApi(optionsUrl, idx)
 }

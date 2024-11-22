@@ -27,7 +27,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
         <div key={option.idx} className="flex justify-center">
           <button
             onClick={() => {
-              // console.log("Option selected:", option);
+              logger.log("Option selected:", option, type);
               onSelect(option);
             }}
             className={`${
@@ -66,9 +66,9 @@ export const OptionCard: React.FC<OptionCardProps> = ({
                 />
 
                 <div className="cr_option-webtoon-text">
-                  {option.backdrop && (
+                  {option.backinfo_year && (
                     <p className="cr_option-webtoon-backdrop">
-                      {option.backdrop}
+                      {option.backinfo_year}
                     </p>
                   )}
                   <h2 className="cr_option-webtoon-title">{option.backinfo_title}</h2>
