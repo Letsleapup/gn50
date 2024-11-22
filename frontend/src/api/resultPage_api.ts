@@ -24,6 +24,17 @@ interface CompleteRequest {
   complete_yn: "Y" | "N";
 }
 
+interface ResultPageAiResponse {
+  status: string;
+  data: {
+    idx: number;
+    image_url: string;
+    description: string;
+    translated_text: string;
+    excute_time: string;
+  }
+}
+
 // API 에러 처리 함수
 const handleApiError = (error: any, message: string) => {
   logger.error(`${message}:`, error);
@@ -33,6 +44,29 @@ const handleApiError = (error: any, message: string) => {
   }
   throw error;
 };
+
+export const getResultPageApi = async (type: string, inp: string, idx: string) => {
+  const resultPageUrl = type === 'walking' ? '/api/api_img_ai3.php' : '/api/api_img_ai2.php'
+  try {
+    const response = await axios.get<ResultPageAiResponse>(`${BASE_URL}${resultPageUrl}`,{params: {idx:idx, inp:inp}})
+    if(response.data.status === 'success') {
+      return response.data.data
+    } else {
+      return null
+    }
+  } catch (error) {
+    return handleApiError(error, "결과 데이터 가져오기 실패");
+  }
+}
+
+export const getResultWalkingAiapi = (inp: string, idx: string) => {
+  return getResultPageApi('walking', inp, idx)
+}
+
+export const getResultWebtoonAiapi = (inp: string, idx: string) => {
+  return getResultPageApi('webtoon', inp, idx)
+}
+
 
 // API 함수들
 export const resultPageApi = {
