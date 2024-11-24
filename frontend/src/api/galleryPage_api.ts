@@ -2,6 +2,7 @@ import axios from "axios";
 import { logger } from "../util/logger";
 import { GalleryData, SharedContent } from "../@types/domain";
 import { BASE_URL } from "../const/const";
+import { toArray } from "../util/toArray";
 
 
 interface GalleryResponse {
@@ -20,7 +21,7 @@ interface ViewCountResponse {
 interface GalleryDetailData {
   idx: number | string;
   image_title: string;
-  image_file: string;
+  image_file1: string;
   image_analysis_txt: string;
 }
 
@@ -41,13 +42,12 @@ export const WalkingGalleryDetailsApi = async (
     );
     const checkData = response.data;
     logger.log("Walking gallery detail response:", checkData);
-
-    if (checkData.resultCode === "Y" && checkData.data?.length > 0) {
-      const item = checkData.data[0];
+    if (checkData.resultCode === "Y" && toArray(checkData.data).length > 0) {
+      const item = toArray(checkData.data)[0];
       return {
         id: typeof item.idx === "string" ? parseFloat(item.idx) : item.idx,
         title: item.image_title,
-        imgUrl: `${BASE_URL}${item.image_file}`,
+        imgUrl: `${BASE_URL}${item.image_file1}`,
         type: "walking",
         scenario: item.image_analysis_txt,
       };
@@ -72,12 +72,12 @@ export const WebtoonGalleryDetailsApi = async (
     const checkData = response.data;
     logger.log("Webtoon gallery detail response:", checkData);
 
-    if (checkData.resultCode === "Y" && checkData.data?.length > 0) {
-      const item = checkData.data[0];
+    if (checkData.resultCode === "Y" && toArray(checkData.data).length > 0) {
+      const item = toArray(checkData.data)[0];
       return {
         id: typeof item.idx === "string" ? parseFloat(item.idx) : item.idx,
         title: item.image_title,
-        imgUrl: `${BASE_URL}${item.image_file}`,
+        imgUrl: `${BASE_URL}${item.image_file1}`,
         type: "webtoon",
         scenario: item.image_analysis_txt,
       };
@@ -125,10 +125,9 @@ export const getWebtoonGalleryApi = async (): Promise<SharedContent[]> => {
     const checkData = response.data;
     if (
       checkData.data &&
-      Array.isArray(checkData.data) &&
-      checkData.data.length > 0
+      toArray(checkData.data).length > 0
     ) {
-      return checkData.data.map((item) => ({
+      return toArray(checkData.data).map((item) => ({
         id: typeof item.idx === "string" ? parseFloat(item.idx) : item.idx,
 
         title: item.title,
