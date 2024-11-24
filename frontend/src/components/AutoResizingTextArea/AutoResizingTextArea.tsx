@@ -8,7 +8,7 @@ import {
 } from "react";
 import { getByteLength } from "../../util/getByteLength";
 import "./AutoResizingTextArea.css";
-import { filterTextByKorean } from "../../util/filterText";
+import { filterTextByKorean, hasEnglish } from "../../util/filterText";
 import { convertEngToKor } from "../../util/koreanConverter";
 import { logger } from "../../util/logger";
 
@@ -184,8 +184,12 @@ export const AutoResizingTextarea: FunctionComponent<Props> = ({
 
     if (byteLength <= MAX_BYTE_LENGTH) {
       if (!isComposing) {
-        const convertedText = convertEngToKor(inputText);
-        const filteredText = filterTextByKorean(convertedText);
+        // const convertedText = convertEngToKor(inputText);
+        // const filteredText = filterTextByKorean(convertedText);
+        if (hasEnglish(inputText)) {
+          alert("한글로 입력해주세요. 한/영 키를 눌러 한글로 전환해주세요.");
+        }
+        const filteredText = filterTextByKorean(inputText);
         setText(filteredText);
         onChange?.(filteredText); //부모컴포넌트 상태에 텍스트 세팅
       } else {
