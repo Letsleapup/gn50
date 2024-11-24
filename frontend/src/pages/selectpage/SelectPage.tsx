@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { ChevronsDown, LoaderCircle } from "lucide-react";
-import PageBanner from "../../components/PageBanner/PageBanner";
+// import PageBanner from "../../components/PageBanner/PageBanner";
 import {
   ICON_URLS,
   Nullable,
@@ -54,7 +54,6 @@ const SelectPage: React.FC = () => {
     if (selectedOption && isOpen) {
       const fetchDetailInfo = async () => {
         try {
-          console.log("TEST", type);
           const detailInfo = await getDetailInfoApi(
             type ? type : "walking",
             selectedOption.idx.toString()
@@ -109,7 +108,7 @@ const SelectPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("isOpen state changed:", isOpen);
+    // console.log("isOpen state changed:", isOpen);
   }, [isOpen]);
 
   const onNavigate = (option: SelectOption) => {
@@ -125,7 +124,7 @@ const SelectPage: React.FC = () => {
   };
 
   if (!type) {
-    console.error("No type parameter provided");
+    logger.error("No type parameter provided");
     return <div>Invalid page type</div>;
   }
 
@@ -139,7 +138,7 @@ const SelectPage: React.FC = () => {
 
   return (
     <div className="cr_select-page">
-      {type && <PageBanner type={type} />}
+      {/* {type && <PageBanner type={type} />} */}
       {detailInfo && (
         <span>
           {type}
