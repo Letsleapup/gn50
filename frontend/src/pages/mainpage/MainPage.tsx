@@ -49,7 +49,6 @@ const MainPage: React.FC = () => {
 
     getGalleryInMainPageApi(`${BASE_URL}/api/api_mid_banner.php`)
       .then((res) => {
-        console.log(res);
         if (isSubscribed) {
           setWalkingGalleryList(toArray(res));
         }

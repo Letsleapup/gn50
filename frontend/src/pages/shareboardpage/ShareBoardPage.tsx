@@ -66,7 +66,6 @@ const ShareBoardPage: React.FC = () => {
           : ViewCountWebtoonGalleryApi;
 
       await viewCountApi(content.id);
-
       // 상세 페이지로 이동
       navigate(`/shared/${content.type}/${content.id}`, {
         state: { content, source: "shareboard" },
