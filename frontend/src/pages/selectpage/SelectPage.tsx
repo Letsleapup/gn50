@@ -139,12 +139,6 @@ const SelectPage: React.FC = () => {
   return (
     <div className="cr_select-page">
       {type && <PageBanner type={type} />}
-      {detailInfo && (
-        <span>
-          {type}
-          {detailInfo?.url}HELDKFJ:SLDKFJ
-        </span>
-      )}
       <main className="cr_select-main">
         <div className="cr_select-content">
           <div className="cr_select-grid">

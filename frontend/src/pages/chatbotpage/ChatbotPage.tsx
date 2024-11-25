@@ -8,7 +8,7 @@ import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
 import { chatbotApi } from "../../api/chatbotPage_api";
-import { getResultWalkingAiapi, getResultWebtoonAiapi } from "../../api/resultPage_api";
+import { getResultWalkingAiapi, getResultWebtoonAiapi, resultPageApi } from "../../api/resultPage_api";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
@@ -55,6 +55,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       imgUrl: chatbotData?.imgUrl || decodeURIComponent(imgUrl || ""),
       title: chatbotData?.title || "",
       scenario: "",
+      idx: idx ? idx : ''
     });
 
   useEffect(() => {
@@ -220,14 +221,14 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
         setIsGenerating(true); // 로딩 시작
         logger.log("결과 생성 로딩 시작");
         const resultData = await getResult()
-        
-          logger.log("결과 생성 로딩 완료", resultData);
+        logger.log("결과 생성 로딩 완료", resultData);
 
         setGeneratedContent({
           type: type as "webtoon" | "walking",
           imgUrl: decodeURIComponent(resultData?.image_url || ""),
           title: title || "",
           scenario: resultData?.description || "",
+          idx: resultData?.idx,
         })
         setShowResult(true);
           setIsGenerating(false);
@@ -261,10 +262,17 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   }, [messages]);
 
   // 시나리오 수정 처리 함수
-  const handleScenarioEdit = async (newScenario: string): Promise<boolean> => {
+  const handleScenarioEdit = async (newScenario: string, idx: number | string): Promise<boolean> => {
     try {
-      logger.log("시나리오 수정:", newScenario);
+      logger.log("시나리오 수정:", newScenario, idx);
 
+      const response = await resultPageApi.editScenario({
+        idx: String(generatedContent?.idx || '1'),
+        context: newScenario
+      })
+
+      //TODO: 에러처리 추가 진행
+      logger.log("시나리오 수정 응답:", response);
       // state로 시나리오 업데이트
       setGeneratedContent((prev) => ({
         ...prev,
@@ -292,12 +300,22 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   };
 
   // 처음부터 다시 시작하는 함수
-  const handleRestart = () => {
+  const handleRestart = async () => {
     logger.log("처음부터 다시 시작");
+    try {
+      const response = await resultPageApi.isUpdateComplete({
+        idx: String(generatedContent?.idx || '1'),
+        complete_yn: 'N'
+      })
+
+      console.log("TEST response", response);
     // 선택했던 type으로 select 페이지로 이동
     navigate(`/select/${type}`, {
-      replace: true, // 뒤로 가기 방지를 위해 replace 사용
-    });
+        replace: true, // 뒤로 가기 방지를 위해 replace 사용
+      });
+    } catch (error) {
+      logger.error("처음부터 다시 시작 중 오류:", error);
+    }
   };
 
   // showResult 상태가 변경될 때마다 상위 컴포넌트에 알림
@@ -396,7 +414,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
           imgUrl={generatedContent.imgUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          contentId="test-1"
+          contentId={idx ? idx : '1'}
           onEdit={handleScenarioEdit}
           onShare={handleShare}
           onRegenerate={handleRestart}

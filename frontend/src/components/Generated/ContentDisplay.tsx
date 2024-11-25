@@ -39,9 +39,9 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
   const handleEditSubmit = async () => {
     try {
       setIsEditing(true);
-      logger.log("시나리오 수정 시도:", editedScenario);
+      logger.log("시나리오 수정 시도:", editedScenario, contentId);
 
-      const success = await onEdit(editedScenario);
+      const success = await onEdit(editedScenario, contentId ? contentId : '1');
 
       if (success) {
         setDisplayScenario(editedScenario);
@@ -50,6 +50,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
         setEditedScenario(displayScenario);
         alert("시나리오 수정에 실패했습니다. 다시 시도해주세요.");
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setEditedScenario(displayScenario);
       alert("시나리오 수정에 실패했습니다. 다시 시도해주세요.");
@@ -86,6 +87,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     try {
       setShowRegenerateModal(false);
       await onRegenerate();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       alert(
         `${type === "webtoon" ? "웹툰" : "이미지"} 재생성에 실패했습니다. 다시 시도해주세요.`
