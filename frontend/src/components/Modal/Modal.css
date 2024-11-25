@@ -90,8 +90,8 @@
   line-height: 28px;
   letter-spacing: -0.45px;
   text-align: center;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: auto;
+  padding-right: auto;
   font-weight: normal;
   color: #333333;
   padding-top: 16px;

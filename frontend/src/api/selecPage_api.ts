@@ -41,8 +41,6 @@ export const getSelectOptionsApi = (type: string) => {
 }
 
 export const getDetailInfoApi = (type: string, idx: string) => {
-  console.log("TEST type", type, idx);
   const optionsUrl = type === 'walking' ? '/api/api_sp_select.php' : '/api/api_wm_select.php'
-  console.log("TEST optionsUrl", optionsUrl);
   return getOptionsApi(optionsUrl, idx)
 }

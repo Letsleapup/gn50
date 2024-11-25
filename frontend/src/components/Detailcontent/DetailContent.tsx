@@ -60,15 +60,14 @@ const DetailContent: React.FC<DetailContentProps> = ({
               ? ViewCountWalkingGalleryApi
               : ViewCountWebtoonGalleryApi;
           await viewCountApi(contentId);
-          return;
         }
-
+        
         // API로 데이터 조회
         const data =
           type === "walking"
             ? await WalkingGalleryDetailsApi(contentId)
             : await WebtoonGalleryDetailsApi(contentId);
-
+        console.log("data", data);
         if (data) {
           setContent(data);
           // 조회수 증가
