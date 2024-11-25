@@ -116,7 +116,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
 
         // 메시지 순차적 표시
         initialMessages.forEach((message, index) => {
-          if(index === 1 && type === 'walking') {
+          if(index === 1) {
             message.content = `${title}${message.content}`
           }
           setTimeout(() => {
