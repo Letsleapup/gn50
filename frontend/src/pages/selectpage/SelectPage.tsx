@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { ChevronsDown, LoaderCircle } from "lucide-react";
-// import PageBanner from "../../components/PageBanner/PageBanner";
+import PageBanner from "../../components/PageBanner/PageBanner";
 import {
   ICON_URLS,
   Nullable,
@@ -138,7 +138,7 @@ const SelectPage: React.FC = () => {
 
   return (
     <div className="cr_select-page">
-      {/* {type && <PageBanner type={type} />} */}
+      {type && <PageBanner type={type} />}
       {detailInfo && (
         <span>
           {type}
