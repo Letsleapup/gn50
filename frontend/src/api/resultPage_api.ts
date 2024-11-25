@@ -9,18 +9,18 @@ interface ResultPageResponse {
   data: {
     idx: number;
     image_title: string;
-    image_file: string;
+    image_file1: string;
     image_analysis_txt: string;
   };
 }
 
 interface EditScenarioRequest {
-  idx: number;
-  scenario: string;
+  idx: string;
+  context: string;
 }
 
 interface CompleteRequest {
-  idx: number;
+  idx: number | string;
   complete_yn: "Y" | "N";
 }
 
@@ -88,10 +88,12 @@ export const resultPageApi = {
   // 시나리오 수정하기
   editScenario: async (data: EditScenarioRequest) => {
     try {
-      const response = await axios.post<ResultPageResponse>(
+      console.log("TEST API data", data);
+      const response = await axios.get<ResultPageResponse>(
         `${BASE_URL}/api/api_sp_edit_senario.php`,
-        data
+        {params: data}
       );
+      console.log("TEST API response", response.data);
       if (response.data.resultCode === "Y") {
         return true;
       }
@@ -102,12 +104,13 @@ export const resultPageApi = {
   },
 
   // 완료 상태 업데이트
-  updateComplete: async (data: CompleteRequest) => {
+  isUpdateComplete: async (data: CompleteRequest) => {
     try {
-      const response = await axios.post<ResultPageResponse>(
+      const response = await axios.get<ResultPageResponse>(
         `${BASE_URL}/api/api_sp_complete.php`,
-        data
+        {params: data}
       );
+      console.log("TEST API status response", response.data);
       if (response.data.resultCode === "Y") {
         return true;
       }

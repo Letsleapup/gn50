@@ -85,7 +85,7 @@ export interface ContentDisplayProps {
   title: string;
   scenario: string;
   contentId?: string;
-  onEdit: (newScenario: string) => Promise<boolean>;
+  onEdit: (newScenario: string, idx:string) => Promise<boolean>;
   onShare: () => Promise<boolean>;
   onRegenerate: () => void;
 }
@@ -94,6 +94,7 @@ export interface GeneratedContentState {
   imgUrl: string;
   title: string;
   scenario: string;
+  idx?: number | string;
 }
 
 export interface CommonResponse<T> {
