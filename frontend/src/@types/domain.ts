@@ -11,6 +11,11 @@ export interface ActionButton {
   imgUrl: string;
 }
 
+export interface ButtonSectionProps {
+  actionButtons: ActionButton[];
+  onButtonClick: (path: string) => void;
+}
+
 //갤러리 공유페이지 API관련
 export interface GalleryData {
   idx: number | string;
@@ -41,18 +46,6 @@ export interface BannerContentType {
   gallery: BannerContent;
 }
 
-// export interface SelectOption {
-//   id: string;
-//   title: string;
-//   imgUrl: string;
-//   style?: string;
-//   backdrop?: string;
-//   description?: string;
-//   modalsuggest?: string;
-//   viewCount: number;
-//   hashtags?: string[];
-// }
-
 export interface SelectOptionsType {
   walking: SelectOption[];
   webtoon: SelectOption[];
@@ -71,21 +64,13 @@ export interface ModalProps {
   children?: ReactNode;
 }
 
-export const ICON_URLS = {
-  PEN: "/asset/ic_pen.svg",
-  SEND: "/asset/ic_send.svg",
-  UPLOAD: "/asset/ic_upload.svg",
-  MENU: "/asset/ic_menu.svg",
-  EDIT: "/asset/ic_edit.svg",
-} as const;
-
 export interface ContentDisplayProps {
   type: BoardType;
   imgUrl: string;
   title: string;
   scenario: string;
   contentId?: string;
-  onEdit: (newScenario: string, idx:string) => Promise<boolean>;
+  onEdit: (newScenario: string, idx: string) => Promise<boolean>;
   onShare: () => Promise<boolean>;
   onRegenerate: () => void;
 }

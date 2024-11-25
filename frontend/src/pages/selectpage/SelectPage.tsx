@@ -5,7 +5,6 @@ import { OptionCard } from "../../components/OptionCard/OptionCard";
 import { ChevronsDown, LoaderCircle } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
 import {
-  ICON_URLS,
   Nullable,
   Option,
   SelectOption,
@@ -13,8 +12,11 @@ import {
 } from "../../@types/domain";
 import "./SelectPage.css";
 import { logger } from "../../util/logger";
-import { getDetailInfoApi, getSelectOptionsApi } from "../../api/selecPage_api";
-import { BASE_URL } from "../../const/const";
+import {
+  getDetailInfoApi,
+  getSelectOptionsApi,
+} from "../../api/selectPage_api";
+import { BASE_URL, ICON_URLS } from "../../const/const";
 
 const ITEMS_PER_PAGE = 30;
 
