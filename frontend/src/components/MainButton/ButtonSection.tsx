@@ -1,15 +1,5 @@
+import { ButtonSectionProps } from "../../@types/domain";
 import "./ButtonSection.css";
-
-interface ButtonSectionProps {
-  actionButtons: Array<{
-    id: number;
-    title: string[];
-    path: string;
-    bgColor: string;
-    imgUrl: string;
-  }>;
-  onButtonClick: (path: string) => void;
-}
 
 const ButtonSection: React.FC<ButtonSectionProps> = ({
   actionButtons,

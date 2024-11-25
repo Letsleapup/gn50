@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { actionButtons } from "../../data/dummydata";
 import {
   MainBannerRobotUrl,
   MainBannerUrl,
   RobotUrl,
   BASE_URL,
+  actionButtons,
 } from "../../const/const";
 import Banner from "../../components/MainBanner/MainBanner";
 import WebtoonGallery from "../../components/Gallery/WebtoonGallery";

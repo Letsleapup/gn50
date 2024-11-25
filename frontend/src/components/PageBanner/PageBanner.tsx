@@ -3,30 +3,30 @@ import { bannerContent } from "../../const/const";
 import { BoardType, Nullable } from "../../@types/domain";
 import "./PageBanner.css";
 import { memo, useEffect, useState } from "react";
-import { getSelectBannnerApi } from "../../api/selecPage_api";
+import { getSelectBannnerApi } from "../../api/selectPage_api";
 // import { logger } from "../../util/logger";
 // import axios from "axios";
 interface PageBannerProps {
   type?: BoardType;
 }
 const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
-  const [bannerUrl, setBannerUrl] = useState<Nullable<string>>(null)
+  const [bannerUrl, setBannerUrl] = useState<Nullable<string>>(null);
 
   useEffect(() => {
     const fetchBanner = async () => {
-      const banner = await getSelectBannnerApi(type ? type : 'walking')
-      if(banner) setBannerUrl(banner)
-    }
-    fetchBanner()
-  }, [type])
+      const banner = await getSelectBannnerApi(type ? type : "walking");
+      if (banner) setBannerUrl(banner);
+    };
+    fetchBanner();
+  }, [type]);
 
   if (!type || !bannerContent[type]) return null;
   const currentBanner = {
     ...bannerContent[type],
-    imgUrl:bannerContent[type].imgUrl,
-      // type === "webtoon" && webtoonBannerUrl
-      //   ? webtoonBannerUrl
-      //   : bannerContent[type].imgUrl,
+    imgUrl: bannerContent[type].imgUrl,
+    // type === "webtoon" && webtoonBannerUrl
+    //   ? webtoonBannerUrl
+    //   : bannerContent[type].imgUrl,
   };
   const bgColorGradient = {
     walking: "linear-gradient(104deg, #1B58FD 0%, #00BAA8 100%)",
@@ -40,7 +40,13 @@ const PageBanner: React.FC<PageBannerProps> = ({ type }) => {
       style={{ background: bgColorGradient[type] }}
     >
       {/* 테스트코드 */}
-      {!bannerUrl && <img src={bannerUrl ? "" : ""} alt="banner" className="w-full h-full object-cover" />} 
+      {!bannerUrl && (
+        <img
+          src={bannerUrl ? "" : ""}
+          alt="banner"
+          className="w-full h-full object-cover"
+        />
+      )}
 
       <div className="yg-select-banner-wrapper relative w-full h-full">
         {/* 배너의 왼쪽 타이틀 */}

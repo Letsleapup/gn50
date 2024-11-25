@@ -70,10 +70,10 @@ const AppRoutes: React.FC = () => {
             element={
               <ContentDisplay
                 type={useParams().type as BoardType}
-                imgUrl="/asset/webtoonimg1.png"
-                title="과거의 강남"
-                scenario="과거의 강남, hello world"
-                contentId="test-1"
+                imgUrl={location.state?.imgUrl || ""}
+                title={location.state?.title || ""}
+                scenario={location.state?.scenario || ""}
+                contentId={useParams().contentId || ""}
                 onEdit={async () => {
                   logger.log("edit");
                   return true;
