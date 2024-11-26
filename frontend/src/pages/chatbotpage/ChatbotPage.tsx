@@ -8,11 +8,24 @@ import { GeneratedContentState } from "../../@types/domain";
 import "./ChatbotPage.css";
 import { logger } from "../../util/logger";
 import { chatbotApi } from "../../api/chatbotPage_api";
-import { getResultWalkingAiapi, getResultWebtoonAiapi, resultPageApi } from "../../api/resultPage_api";
+import {
+  getResultWalkingAiapi,
+  getResultWebtoonAiapi,
+  resultPageApi,
+} from "../../api/resultPage_api";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
 }
+
+// 웹툰 시대별 프롬프트
+const WEBTOON_ERA_PROMPTS = {
+  past: "An urban scene of Gangnam, Seoul during the 1970s to 1990s. Depict a developing cityscape with low-rise buildings, construction sites, and wide, dusty roads. Small shops, old buses, and sparse vegetation line the streets. People are seen wearing vintage Korean clothing from the era. The skyline is a mix of unfinished buildings and traditional Korean architecture.",
+  present:
+    "A vibrant urban scene of Gangnam, Seoul in the present day. Depict a modern cityscape with tall glass skyscrapers, luxury boutiques, and bustling streets filled with cars and pedestrians. Bright LED billboards and neon signs in Hangul light up the area, especially around iconic locations like Gangnam Station and the COEX Mall. The streets are clean and lined with trees, with stylish cafes and restaurants in the background. People are dressed in trendy, contemporary Korean fashion, reflecting the cosmopolitan vibe of the district. The atmosphere is lively, with a mix of traditional elements and ultra-modern architecture.",
+  future:
+    "A futuristic cityscape of Gangnam, Seoul in the year 2050. The skyline is dominated by sleek, ultra-modern skyscrapers with innovative architecture, featuring holographic displays and vertical gardens. Autonomous vehicles and drones move seamlessly through clean, elevated streets. People walk along multi-level pedestrian paths, wearing futuristic fashion with technological accessories. Smart technology and AI kiosks are integrated into the urban environment, with dynamic lighting and vibrant colors illuminating the city at night. The overall atmosphere is advanced, energetic, and highly interconnected, showcasing a harmonious blend of nature and technology.",
+};
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const { type } = useParams<{ type: "walking" | "webtoon" }>();
@@ -55,7 +68,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       imgUrl: chatbotData?.imgUrl || decodeURIComponent(imgUrl || ""),
       title: chatbotData?.title || "",
       scenario: "",
-      idx: idx ? idx : ''
+      idx: idx ? idx : "",
     });
 
   useEffect(() => {
@@ -117,12 +130,12 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
 
         // 메시지 순차적 표시
         initialMessages.forEach((message, index) => {
-          if(index === 1) {
-            message.content = `${title}${message.content}`
+          if (index === 1) {
+            message.content = `${title}${message.content}`;
           }
           setTimeout(() => {
             setMessages((prev) => [...prev, message]);
-            
+
             if (index === initialMessages.length - 1) {
               setIsInputEnabled(true);
               setCurrentQuestionIndex(0);
@@ -160,9 +173,34 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   }, [messages]);
 
   const getResult = useCallback(async () => {
-    const result = type === 'walking' ? await getResultWalkingAiapi(chatHistory.join('\n'), idx ? idx : '1') : await getResultWebtoonAiapi(chatHistory.join('\n'), idx ? idx : '1')
-    return result
-  },[type, chatHistory, idx])
+    const currentHistory = chatHistory;
+    logger.log("Sending chat history to API:", currentHistory);
+
+    let result;
+    if (type === "walking") {
+      result = await getResultWalkingAiapi(
+        chatHistory.join("\n\n"),
+        idx || "1"
+      );
+    } else {
+      // 웹툰일 경우 시대별 프롬프트 추가
+      const era = chatbotData?.title?.includes("과거")
+        ? "past"
+        : chatbotData?.title?.includes("현재")
+          ? "present"
+          : chatbotData?.title?.includes("미래")
+            ? "future"
+            : "present";
+
+      const combinedPrompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${chatHistory.join("\n\n")}`;
+      logger.log("Webtoon Generation Prompt:", combinedPrompt);
+
+      result = await getResultWebtoonAiapi(combinedPrompt, idx || "1");
+    }
+
+    logger.log("API Response:", result);
+    return result;
+  }, [type, chatHistory, idx, chatbotData?.title]);
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
@@ -175,33 +213,39 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       return;
 
     const currentAnswer = inputText.trim();
+    const currentQuestion = chatbotData.questions[currentQuestionIndex];
 
-    // 현재 질문 답변 완료 처리
-    setAnsweredQuestions((prev) => {
-      const newAnswered = [...prev];
-      newAnswered[currentQuestionIndex] = true;
-      return newAnswered;
+    if (!currentQuestion) {
+      logger.error("Invalid question data.");
+      return;
+    }
+
+    // 현재 질문-답변 페어 생성
+    const questionAnswerPair = `Q: ${currentQuestion}\nA: ${currentAnswer}`;
+
+    // chatHistory 업데이트
+    setChatHistory((prevHistory) => {
+      const updatedHistory = [...prevHistory, questionAnswerPair];
+      logger.log("Updated Chat History:", updatedHistory);
+
+      // 마지막 질문 처리 및 API 호출
+      if (currentQuestionIndex === chatbotData.questions.length - 1) {
+        handleLastQuestion(updatedHistory); // 마지막 질문일 경우 처리
+      }
+
+      return updatedHistory; // 업데이트된 history 반환
     });
 
-    // 메시지 추가
+    // 메시지 UI 업데이트
     setMessages((prev) => [
       ...prev,
-      {
-        role: "user",
-        type: "text",
-        content: currentAnswer,
-      },
+      { role: "user", type: "text", content: currentAnswer },
     ]);
 
-    // 입력 초기화
     setInputText("");
     setIsInputEnabled(false);
 
-    // 채팅 히스토리 업데이트
-    const updatedHistory = [...chatHistory, currentAnswer];
-    setChatHistory(updatedHistory);
-
-    // 다음 질문 또는 결과 처리
+    // 마지막 질문이 아니면 다음 질문 표시
     if (currentQuestionIndex < chatbotData.questions.length - 1) {
       setTimeout(() => {
         setMessages((prev) => [
@@ -215,41 +259,49 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
         setCurrentQuestionIndex((prev) => prev + 1);
         setIsInputEnabled(true);
       }, 1000);
-    } else {
-      // 최종 결과 시나리오 생성
-      try {
-        setIsGenerating(true); // 로딩 시작
-        logger.log("결과 생성 로딩 시작");
-        const resultData = await getResult()
-        logger.log("결과 생성 로딩 완료", resultData);
+    }
+  };
 
-        setGeneratedContent({
-          type: type as "webtoon" | "walking",
-          imgUrl: decodeURIComponent(resultData?.image_url || ""),
-          title: title || "",
-          scenario: resultData?.description || "",
-          idx: resultData?.idx,
-        })
-        setShowResult(true);
-          setIsGenerating(false);
-          logger.log("결과 화면으로 전환");
-        // // 10초 후 결과 화면으로 전환
-        // setTimeout(() => {
-        //   // setGeneratedContent((prev) => ({
-        //   //   ...prev,
-        //   //   type: type as "webtoon" | "walking",
-        //   //   imgUrl: decodeURIComponent(imgUrl || ""),
-        //   //   title: title || "",
-        //   //   scenario: updatedHistory.join("\n"),
-        //   // }));
-          
-        // }, 10000);
-      } catch (error) {
-        logger.error("Error:", error);
-        alert("오류가 발생했습니다. 다시 시도해주세요.");
+  // 마지막 질문 처리 함수
+  const handleLastQuestion = async (updatedHistory: string[]) => {
+    try {
+      setIsGenerating(true);
 
-        setIsGenerating(false);
+      // 웹툰 타입일 경우 시대별 프롬프트 추가
+      let prompt = "";
+      if (type === "webtoon") {
+        const era = chatbotData?.title?.includes("과거")
+          ? "past"
+          : chatbotData?.title?.includes("현재")
+            ? "present"
+            : chatbotData?.title?.includes("미래")
+              ? "future"
+              : "present";
+
+        prompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${updatedHistory.join("\n\n")}`;
+        logger.log("Final Webtoon Prompt:", prompt);
+      } else {
+        prompt = updatedHistory.join("\n\n");
       }
+
+      // API 호출
+      const result = await getResult();
+
+      // 결과 상태 업데이트
+      setGeneratedContent({
+        type: type as "webtoon" | "walking",
+        imgUrl: decodeURIComponent(result?.image_url || ""),
+        title: result?.keywords || "",
+        scenario: result?.description || "",
+        idx: result?.idx,
+      });
+
+      setShowResult(true);
+    } catch (error) {
+      logger.error("Error generating result:", error);
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -262,14 +314,17 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   }, [messages]);
 
   // 시나리오 수정 처리 함수
-  const handleScenarioEdit = async (newScenario: string, idx: number | string): Promise<boolean> => {
+  const handleScenarioEdit = async (
+    newScenario: string,
+    idx: number | string
+  ): Promise<boolean> => {
     try {
       logger.log("시나리오 수정:", newScenario, idx);
 
       const response = await resultPageApi.editScenario({
-        idx: String(generatedContent?.idx || '1'),
-        context: newScenario
-      })
+        idx: String(generatedContent?.idx || "1"),
+        context: newScenario,
+      });
 
       //TODO: 에러처리 추가 진행
       logger.log("시나리오 수정 응답:", response);
@@ -304,13 +359,13 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     logger.log("처음부터 다시 시작");
     try {
       const response = await resultPageApi.isUpdateComplete({
-        idx: String(generatedContent?.idx || '1'),
-        complete_yn: 'N'
-      })
+        idx: String(generatedContent?.idx || "1"),
+        complete_yn: "N",
+      });
 
       console.log("TEST response", response);
-    // 선택했던 type으로 select 페이지로 이동
-    navigate(`/select/${type}`, {
+      // 선택했던 type으로 select 페이지로 이동
+      navigate(`/select/${type}`, {
         replace: true, // 뒤로 가기 방지를 위해 replace 사용
       });
     } catch (error) {
@@ -414,7 +469,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
           imgUrl={generatedContent.imgUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          contentId={idx ? idx : '1'}
+          contentId={idx ? idx : "1"}
           onEdit={handleScenarioEdit}
           onShare={handleShare}
           onRegenerate={handleRestart}
