@@ -100,6 +100,19 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
     return encoder.encode(str).length;
   };
 
+  // 시나리오 수정 처리
+  const handleScenarioChange = (newValue: string) => {
+    const byteLength = getByteLength(newValue);
+
+    // 200바이트 초과시 입력 제한
+    if (byteLength <= 500) {
+      setEditedScenario(newValue);
+      logger.log("시나리오 수정중:", newValue, "바이트:", byteLength);
+    } else {
+      logger.log("최대 글자수 초과");
+    }
+  };
+
   const editModalProps: ModalProps = {
     isOpen: showEditModal,
     type: "edit",
@@ -125,13 +138,13 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
               value={editedScenario}
               onChange={(e) => {
                 logger.log("시나리오 수정중:", e.target.value);
-                setEditedScenario(e.target.value);
+                handleScenarioChange(e.target.value);
               }}
               placeholder="시나리오를 수정해주세요"
               disabled={isEditing}
             />
             <p className="edit-byte-counter absolute right-0 -bottom-6 text-[15px] text-[#959595] mr-2">
-              {getByteLength(editedScenario)}/200
+              {getByteLength(editedScenario)}/500
             </p>
           </div>
 
@@ -273,7 +286,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
                 {/* 편집 버튼 */}
                 <button
                   onClick={() => setShowEditModal(true)}
-                  className="p-2 border rounded-full cursor-pointer absolute top-[20px] right-[20px] md:top-[25px] md:right-[40px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+                  className="p-2 border rounded-full cursor-pointer absolute top-[20px] right-[20px] md:top-[20px] md:right-[40px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
                   style={{ boxShadow: "4px 4px 8px #0000001A" }}
                 >
                   <img
