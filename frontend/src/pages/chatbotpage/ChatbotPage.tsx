@@ -19,12 +19,15 @@ interface ChatbotPageProps {
 }
 
 // 웹툰 시대별 프롬프트
+
 const WEBTOON_ERA_PROMPTS = {
-  past: "An urban scene of Gangnam, Seoul during the 1970s to 1990s. Depict a developing cityscape with low-rise buildings, construction sites, and wide, dusty roads. Small shops, old buses, and sparse vegetation line the streets. People are seen wearing vintage Korean clothing from the era. The skyline is a mix of unfinished buildings and traditional Korean architecture.",
+  past: "((4-panel webtoon style illustration)), Gangnam Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((grayscale)). Focus on:",
+
   present:
-    "A vibrant urban scene of Gangnam, Seoul in the present day. Depict a modern cityscape with tall glass skyscrapers, luxury boutiques, and bustling streets filled with cars and pedestrians. Bright LED billboards and neon signs in Hangul light up the area, especially around iconic locations like Gangnam Station and the COEX Mall. The streets are clean and lined with trees, with stylish cafes and restaurants in the background. People are dressed in trendy, contemporary Korean fashion, reflecting the cosmopolitan vibe of the district. The atmosphere is lively, with a mix of traditional elements and ultra-modern architecture.",
+    "((4-panel webtoon style illustration)), Gangnam Seoul 2000s-2025s. Include: modern buildings, busy streets, trendy fashion. Focus on:",
+
   future:
-    "A futuristic cityscape of Gangnam, Seoul in the year 2050. The skyline is dominated by sleek, ultra-modern skyscrapers with innovative architecture, featuring holographic displays and vertical gardens. Autonomous vehicles and drones move seamlessly through clean, elevated streets. People walk along multi-level pedestrian paths, wearing futuristic fashion with technological accessories. Smart technology and AI kiosks are integrated into the urban environment, with dynamic lighting and vibrant colors illuminating the city at night. The overall atmosphere is advanced, energetic, and highly interconnected, showcasing a harmonious blend of nature and technology.",
+    "((4-panel webtoon style illustration)), Gangnam Seoul 2050s. Include: modern buildings, vertical gardens, smart technology, futuristic fashion. Focus on:",
 };
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
@@ -172,34 +175,34 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     }
   }, [messages]);
 
-  const getResult = useCallback(async (prompt: string) => {
-    logger.log("Sending chat history to API:", prompt, chatHistory);
+  const getResult = useCallback(
+    async (prompt: string) => {
+      logger.log("Sending chat history to API:", prompt, chatHistory);
 
-    let result;
-    if (type === "walking") {
-      result = await getResultWalkingAiapi(
-        prompt,
-        idx || "1"
-      );
-    } else {
-      // 웹툰일 경우 시대별 프롬프트 추가
-      const era = chatbotData?.title?.includes("과거")
-        ? "past"
-        : chatbotData?.title?.includes("현재")
-          ? "present"
-          : chatbotData?.title?.includes("미래")
-            ? "future"
-            : "present";
+      let result;
+      if (type === "walking") {
+        result = await getResultWalkingAiapi(prompt, idx || "1");
+      } else {
+        // 웹툰일 경우 시대별 프롬프트 추가
+        const era = chatbotData?.title?.includes("과거")
+          ? "past"
+          : chatbotData?.title?.includes("현재")
+            ? "present"
+            : chatbotData?.title?.includes("미래")
+              ? "future"
+              : "present";
 
-      const combinedPrompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${prompt}`;
-      logger.log("Webtoon Generation Prompt:", combinedPrompt);
+        const combinedPrompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${prompt}`;
+        logger.log("Webtoon Generation Prompt:", combinedPrompt);
 
-      result = await getResultWebtoonAiapi(combinedPrompt, idx || "1");
-    }
+        result = await getResultWebtoonAiapi(prompt, idx || "1");
+      }
 
-    logger.log("API Response:", result);
-    return result;
-  }, [type, idx, chatHistory, chatbotData?.title]);
+      logger.log("API Response:", result);
+      return result;
+    },
+    [type, idx, chatHistory, chatbotData?.title]
+  );
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
@@ -227,7 +230,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       const updatedHistory = [...prevHistory, questionAnswerPair];
       logger.log("Updated Chat History:", updatedHistory);
       // 마지막 질문 처리 및 API 호출
-      if (currentQuestionIndex === chatbotData.questions.length-1) {
+      if (currentQuestionIndex === chatbotData.questions.length - 1) {
         handleLastQuestion(updatedHistory); // 마지막 질문일 경우 처리
       }
 
@@ -277,7 +280,9 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
         prompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${updatedHistory.join("\n\n")}`;
         logger.log("Final Webtoon Prompt:", prompt);
       } else {
-        prompt = updatedHistory.join("\n\n") + "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
+        prompt =
+          updatedHistory.join("\n\n") +
+          "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
       }
 
       // API 호출
@@ -300,14 +305,6 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       setIsGenerating(false);
     }
   };
-
-  useEffect(() => {
-    // 메시지 컨테이너의 스크롤을 bottom으로
-    if (messages.length > 0 && messageContainerRef.current) {
-      messageContainerRef.current.scrollTop =
-        messageContainerRef.current.scrollHeight;
-    }
-  }, [messages]);
 
   // 시나리오 수정 처리 함수
   const handleScenarioEdit = async (
