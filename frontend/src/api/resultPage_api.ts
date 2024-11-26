@@ -30,9 +30,10 @@ interface ResultPageAiResponse {
     idx: number;
     image_url: string;
     description: string;
-    translated_text: string;
-    excute_time: string;
+    keywords: string  
   }
+  translated_text: string;
+  excute_time: string;
 }
 
 // API 에러 처리 함수
@@ -49,6 +50,7 @@ export const getResultPageApi = async (type: string, inp: string, idx: string) =
   const resultPageUrl = type === 'walking' ? '/api/api_img_ai3.php' : '/api/api_img_ai2.php'
   try {
     const response = await axios.get<ResultPageAiResponse>(`${BASE_URL}${resultPageUrl}`,{params: {idx:idx, inp:inp}})
+    console.log(response)
     if(response.data.status === 'success') {
       return response.data.data
     } else {
@@ -88,12 +90,10 @@ export const resultPageApi = {
   // 시나리오 수정하기
   editScenario: async (data: EditScenarioRequest) => {
     try {
-      console.log("TEST API data", data);
       const response = await axios.get<ResultPageResponse>(
         `${BASE_URL}/api/api_sp_edit_senario.php`,
         {params: data}
       );
-      console.log("TEST API response", response.data);
       if (response.data.resultCode === "Y") {
         return true;
       }
@@ -110,7 +110,6 @@ export const resultPageApi = {
         `${BASE_URL}/api/api_sp_complete.php`,
         {params: data}
       );
-      console.log("TEST API status response", response.data);
       if (response.data.resultCode === "Y") {
         return true;
       }
