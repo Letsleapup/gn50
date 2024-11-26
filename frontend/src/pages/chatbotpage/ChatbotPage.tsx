@@ -465,7 +465,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
           imgUrl={generatedContent.imgUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          contentId={generatedContent ? generatedContent.idx : "1"}
+          contentId={generatedContent ? String(generatedContent.idx) : "1"}
           onEdit={handleScenarioEdit}
           onShare={handleShare}
           onRegenerate={handleRestart}
