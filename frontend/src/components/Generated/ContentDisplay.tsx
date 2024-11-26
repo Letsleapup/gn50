@@ -273,7 +273,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
                 {/* 편집 버튼 */}
                 <button
                   onClick={() => setShowEditModal(true)}
-                  className="p-2 border rounded-full cursor-pointer absolute top-[20px] right-[20px] md:top-[40px] md:right-[40px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
+                  className="p-2 border rounded-full cursor-pointer absolute top-[20px] right-[20px] md:top-[25px] md:right-[40px] w-[44px] h-[44px] md:w-[64px] md:h-[64px]"
                   style={{ boxShadow: "4px 4px 8px #0000001A" }}
                 >
                   <img

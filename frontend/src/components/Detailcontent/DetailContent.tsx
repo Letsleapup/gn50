@@ -54,7 +54,6 @@ const DetailContent: React.FC<DetailContentProps> = ({
           type === "walking"
             ? await WalkingGalleryDetailsApi(contentId)
             : await WebtoonGalleryDetailsApi(contentId);
-        console.log("data", data);
         if (data) {
           setContent(data);
           // 조회수 증가

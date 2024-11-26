@@ -35,7 +35,6 @@ const SelectPage: React.FC = () => {
 
   // 데이터 가져오기
   useEffect(() => {
-    console.log("TEST", type);
     const fetchOptions = async () => {
       try {
         setIsLoading(true);
