@@ -92,6 +92,14 @@ const SelectPage: React.FC = () => {
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, [options.length]);
 
+  // 처음 로드될 때 옵션 30개로 제한
+  useEffect(() => {
+    if (options.length > ITEMS_PER_PAGE) {
+      setVisibleCount(ITEMS_PER_PAGE);
+      logger.log(`Limiting options to ${ITEMS_PER_PAGE} items`);
+    }
+  }, [options]);
+
   // Back navigation event handling
   useEffect(() => {
     const handlePopState = () => {
