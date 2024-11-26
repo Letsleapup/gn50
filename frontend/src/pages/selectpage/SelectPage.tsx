@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { OptionCard } from "../../components/OptionCard/OptionCard";
-import { ChevronsDown, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import PageBanner from "../../components/PageBanner/PageBanner";
 import {
   Nullable,
@@ -75,22 +75,22 @@ const SelectPage: React.FC = () => {
   }, [selectedOption, type, isOpen]);
 
   // 스크롤 이벤트 핸들러를 window에 연결
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const scrollThreshold = document.documentElement.scrollHeight - 100;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollPosition = window.innerHeight + window.scrollY;
+  //     const scrollThreshold = document.documentElement.scrollHeight - 100;
 
-      if (scrollPosition >= scrollThreshold) {
-        // console.log("Loading more items...");
-        setVisibleCount((prev) =>
-          Math.min(prev + ITEMS_PER_PAGE, options.length)
-        );
-      }
-    };
+  //     if (scrollPosition >= scrollThreshold) {
+  //       // console.log("Loading more items...");
+  //       setVisibleCount((prev) =>
+  //         Math.min(prev + ITEMS_PER_PAGE, options.length)
+  //       );
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [options.length]);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [options.length]);
 
   // Back navigation event handling
   useEffect(() => {
@@ -153,11 +153,11 @@ const SelectPage: React.FC = () => {
               }}
             />
             {/* 더 많은 옵션이 있을 경우에만 화살표 표시 */}
-            {visibleCount < options.length && (
+            {/* {visibleCount < options.length && (
               <div className="cr_select-more">
                 <ChevronsDown className="cr_select-arrow" />
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {detailInfo && (
