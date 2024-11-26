@@ -172,14 +172,13 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     }
   }, [messages]);
 
-  const getResult = useCallback(async () => {
-    const currentHistory = chatHistory;
-    logger.log("Sending chat history to API:", currentHistory);
+  const getResult = useCallback(async (prompt: string) => {
+    logger.log("Sending chat history to API:", prompt, chatHistory);
 
     let result;
     if (type === "walking") {
       result = await getResultWalkingAiapi(
-        chatHistory.join("\n\n"),
+        prompt,
         idx || "1"
       );
     } else {
@@ -192,7 +191,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
             ? "future"
             : "present";
 
-      const combinedPrompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${chatHistory.join("\n\n")}`;
+      const combinedPrompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${prompt}`;
       logger.log("Webtoon Generation Prompt:", combinedPrompt);
 
       result = await getResultWebtoonAiapi(combinedPrompt, idx || "1");
@@ -200,7 +199,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
 
     logger.log("API Response:", result);
     return result;
-  }, [type, chatHistory, idx, chatbotData?.title]);
+  }, [type, idx, chatHistory, chatbotData?.title]);
 
   // 메시지 전송 처리
   const handleSendMessage = async () => {
@@ -221,15 +220,14 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     }
 
     // 현재 질문-답변 페어 생성
-    const questionAnswerPair = `Q: ${currentQuestion}\nA: ${currentAnswer}`;
+    const questionAnswerPair = `Q: ((${currentQuestion}))\nA: ((${currentAnswer}))`;
 
     // chatHistory 업데이트
     setChatHistory((prevHistory) => {
       const updatedHistory = [...prevHistory, questionAnswerPair];
       logger.log("Updated Chat History:", updatedHistory);
-
       // 마지막 질문 처리 및 API 호출
-      if (currentQuestionIndex === chatbotData.questions.length - 1) {
+      if (currentQuestionIndex === chatbotData.questions.length-1) {
         handleLastQuestion(updatedHistory); // 마지막 질문일 경우 처리
       }
 
@@ -266,7 +264,6 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const handleLastQuestion = async (updatedHistory: string[]) => {
     try {
       setIsGenerating(true);
-
       // 웹툰 타입일 경우 시대별 프롬프트 추가
       let prompt = "";
       if (type === "webtoon") {
@@ -277,15 +274,14 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
             : chatbotData?.title?.includes("미래")
               ? "future"
               : "present";
-
         prompt = `${WEBTOON_ERA_PROMPTS[era]}\n\nUser Context:\n${updatedHistory.join("\n\n")}`;
         logger.log("Final Webtoon Prompt:", prompt);
       } else {
-        prompt = updatedHistory.join("\n\n");
+        prompt = updatedHistory.join("\n\n") + "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
       }
 
       // API 호출
-      const result = await getResult();
+      const result = await getResult(prompt);
 
       // 결과 상태 업데이트
       setGeneratedContent({
@@ -346,7 +342,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const handleShare = async (): Promise<boolean> => {
     try {
       logger.log("갤러리 공유:", generatedContent);
-      navigate("/shareboard"); // 갤러리 페이지로 이동
+      navigate("/shared"); // 갤러리 페이지로 이동
       return true;
     } catch (error) {
       logger.error("공유 중 오류:", error);
@@ -363,7 +359,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
         complete_yn: "N",
       });
 
-      console.log("TEST response", response);
+      logger.log("TEST response", response);
       // 선택했던 type으로 select 페이지로 이동
       navigate(`/select/${type}`, {
         replace: true, // 뒤로 가기 방지를 위해 replace 사용
@@ -469,7 +465,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
           imgUrl={generatedContent.imgUrl}
           title={generatedContent.title}
           scenario={generatedContent.scenario}
-          contentId={idx ? idx : "1"}
+          contentId={generatedContent ? generatedContent.idx : "1"}
           onEdit={handleScenarioEdit}
           onShare={handleShare}
           onRegenerate={handleRestart}

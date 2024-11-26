@@ -69,7 +69,7 @@ export interface ContentDisplayProps {
   imgUrl: string;
   title: string;
   scenario: string;
-  contentId?: string;
+  contentId?: string | number;
   onEdit: (newScenario: string, idx: string) => Promise<boolean>;
   onShare: () => Promise<boolean>;
   onRegenerate: () => void;
