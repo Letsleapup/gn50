@@ -172,7 +172,7 @@ export const WalkingGallery: FunctionComponent<Props> = ({ robotUrl, content }) 
       </span>
 
       <div className="yg-controls absolute top-[28.3%] left-[18.9%] mt-0">
-        <div className="flex space-x-4 md:space-x-6 lg:space-x-8">
+        <div className="flex space-x-4 md:space-x-5 lg:space-x-8">
           {/* "더보기" Button */}
           <button
             onClick={() => navigate("/shared/walking")}
