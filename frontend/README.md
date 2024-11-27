@@ -73,22 +73,6 @@ frontend/
 - **프롬프트 최적화**: Custom Prompt Engineering
 
 <details>
-<summary>결과물 페이지</summary>
-![메인페이지1](https://github.com/user-attachments/assets/c4e8d08a-64c7-4be2-af32-a8f52cecf0ad)
-![메인페이지2](https://github.com/user-attachments/assets/b392acef-b654-411f-a601-71576a7decc3)
-![메인페이지3](https://github.com/user-attachments/assets/498c4bf3-ad9f-40aa-b328-bdca39323c97)
-![체험페이지1](https://github.com/user-attachments/assets/f0b9f5fe-1bd4-40a8-af0f-f6dd7e4d762f)
-![체험-모달](https://github.com/user-attachments/assets/a7999ddb-1188-4ed7-8a81-704cfacf9548)
-![챗봇페이지](https://github.com/user-attachments/assets/173f25e5-51c2-4ccf-90c4-64a2d2ed44ce)
-![생성페이지](https://github.com/user-attachments/assets/999e50b1-4e9f-4508-b36b-e287cf53b00e)
-![시나리오수정](https://github.com/user-attachments/assets/4ccd1c16-48ec-4606-a8eb-a1be2898291c)
-![체험페이지2](https://github.com/user-attachments/assets/5a3dace7-85ac-4e9b-84de-96790b7b5bde)
-![갤러리1](https://github.com/user-attachments/assets/1e52c586-0e42-4654-9b08-b0e843e1f4de)
-![갤러리2](https://github.com/user-attachments/assets/ebe4af7a-6aa2-4798-81a3-2575c44b0e9a)
-![상세페이지](https://github.com/user-attachments/assets/0aa87384-35a4-4bfc-918c-1215941c1a0b)
-</details>
-
-<details>
 <summary>초기세팅 명령어</summary>
 
 npm create vite@latest my-chatbot-app -- --template react-ts<br>
@@ -110,6 +94,25 @@ eslint-plugin-react-hooks: React Hooks 규칙<br>
 @tailwind base;<br>
 @tailwind components;<br>
 @tailwind utilities;<br>
+
+</details>
+
+## 페이지
+
+<details>
+<summary>각 페이지별 캡쳐</summary>
+<img src="https://github.com/user-attachments/assets/c4e8d08a-64c7-4be2-af32-a8f52cecf0ad" alt="메인페이지1" />
+<img src="https://github.com/user-attachments/assets/b392acef-b654-411f-a601-71576a7decc3" alt="메인페이지2" />
+<img src="https://github.com/user-attachments/assets/498c4bf3-ad9f-40aa-b328-bdca39323c97" alt="메인페이지3" />
+<img src="https://github.com/user-attachments/assets/f0b9f5fe-1bd4-40a8-af0f-f6dd7e4d762f" alt="체험페이지1" />
+<img src="https://github.com/user-attachments/assets/a7999ddb-1188-4ed7-8a81-704cfacf9548" alt="체험-모달" />
+<img src="https://github.com/user-attachments/assets/173f25e5-51c2-4ccf-90c4-64a2d2ed44ce" alt="챗봇페이지" />
+<img src="https://github.com/user-attachments/assets/999e50b1-4e9f-4508-b36b-e287cf53b00e" alt="생성페이지" />
+<img src="https://github.com/user-attachments/assets/4ccd1c16-48ec-4606-a8eb-a1be2898291c" alt="시나리오수정" />
+<img src="https://github.com/user-attachments/assets/5a3dace7-85ac-4e9b-84de-96790b7b5bde" alt="체험페이지2" />
+<img src="https://github.com/user-attachments/assets/1e52c586-0e42-4654-9b08-b0e843e1f4de" alt="갤러리1" />
+<img src="https://github.com/user-attachments/assets/ebe4af7a-6aa2-4798-81a3-2575c44b0e9a" alt="갤러리2" />
+<img src="https://github.com/user-attachments/assets/0aa87384-35a4-4bfc-918c-1215941c1a0b" alt="상세페이지" />
 
 </details>
 
