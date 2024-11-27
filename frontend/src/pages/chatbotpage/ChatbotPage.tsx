@@ -13,6 +13,7 @@ import {
   getResultWebtoonAiapi,
   resultPageApi,
 } from "../../api/resultPage_api";
+import { profanityApi } from "../../api/profanity_api";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
@@ -21,13 +22,12 @@ interface ChatbotPageProps {
 // 웹툰 시대별 프롬프트
 
 const WEBTOON_ERA_PROMPTS = {
-  past: "((4-panel webtoon style illustration)), Gangnam Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((grayscale)). Focus on:",
+  past: "((4-panel webtoon)), Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((blackandwhite)). Focus on:",
 
-  present:
-    "((4-panel webtoon style illustration)), Gangnam Seoul 2000s-2025s. Include: modern buildings, busy streets, trendy fashion. Focus on:",
+  present: "((4-panel webtoon)), Seoul 2000s-2025s. Focus on:",
 
   future:
-    "((4-panel webtoon style illustration)), Gangnam Seoul 2050s. Include: modern buildings, vertical gardens, smart technology, futuristic fashion. Focus on:",
+    "((4-panel webtoon)), Seoul 2050s. Include: modern buildings, vertical gardens, smart technology, futuristic fashion. Focus on:",
 };
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
@@ -214,55 +214,93 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
     )
       return;
 
-    const currentAnswer = inputText.trim();
-    const currentQuestion = chatbotData.questions[currentQuestionIndex];
+    try {
+      // 금칙어 체크
+      logger.info("Checking profanity for text:", inputText);
+      const response = await profanityApi.checkProfanity(inputText.trim());
 
-    if (!currentQuestion) {
-      logger.error("Invalid question data.");
-      return;
-    }
+      const currentAnswer = inputText.trim();
 
-    // 현재 질문-답변 페어 생성
-    const questionAnswerPair = `Q: ((${currentQuestion}))\nA: ((${currentAnswer}))`;
+      if (response.data.resultCode === "Y") {
+        logger.warn("Profanity detected in message");
 
-    // chatHistory 업데이트
-    setChatHistory((prevHistory) => {
-      const updatedHistory = [...prevHistory, questionAnswerPair];
-      logger.log("Updated Chat History:", updatedHistory);
-      // 마지막 질문 처리 및 API 호출
-      if (currentQuestionIndex === chatbotData.questions.length - 1) {
-        handleLastQuestion(updatedHistory); // 마지막 질문일 경우 처리
+        // 금칙어 발견시:
+        // 1. 입력창 초기화
+        setInputText("");
+
+        // 2. 에러 메시지 추가
+        if (chatbotData && currentQuestionIndex >= 0) {
+          setMessages((prev) => [
+            ...prev,
+            { role: "user", type: "text", content: currentAnswer },
+            {
+              role: "assistant",
+              type: "text",
+              content: "부적절한 단어가 포함되어 있습니다. 다시 입력해주세요.",
+            },
+            {
+              role: "assistant",
+              type: "text",
+              content: chatbotData.questions[currentQuestionIndex], // 현재 질문 다시하기
+            },
+          ]);
+        }
+        setIsInputEnabled(true);
+        return;
       }
 
-      return updatedHistory; // 업데이트된 history 반환
-    });
+      const currentQuestion = chatbotData.questions[currentQuestionIndex];
 
-    // 메시지 UI 업데이트
-    setMessages((prev) => [
-      ...prev,
-      { role: "user", type: "text", content: currentAnswer },
-    ]);
+      if (!currentQuestion) {
+        logger.error("Invalid question data.");
+        return;
+      }
 
-    setInputText("");
-    setIsInputEnabled(false);
+      // 현재 질문-답변 페어 생성
+      const questionAnswerPair = `Q: ((${currentQuestion}))\nA: ((${currentAnswer}))`;
 
-    // 마지막 질문이 아니면 다음 질문 표시
-    if (currentQuestionIndex < chatbotData.questions.length - 1) {
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            type: "text",
-            content: chatbotData.questions[currentQuestionIndex + 1],
-          },
-        ]);
-        setCurrentQuestionIndex((prev) => prev + 1);
-        setIsInputEnabled(true);
-      }, 1000);
+      // 메시지 UI 업데이트
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", type: "text", content: currentAnswer },
+      ]);
+
+      // chatHistory 업데이트
+      setChatHistory((prevHistory) => {
+        const updatedHistory = [...prevHistory, questionAnswerPair];
+        logger.log("Updated Chat History:", updatedHistory);
+        // 마지막 질문 처리 및 API 호출
+        if (currentQuestionIndex === chatbotData.questions.length - 1) {
+          handleLastQuestion(updatedHistory); // 마지막 질문일 경우 처리
+        }
+
+        return updatedHistory; // 업데이트된 history 반환
+      });
+
+      setInputText("");
+      setIsInputEnabled(false);
+
+      // 마지막 질문이 아니면 다음 질문 표시
+      if (currentQuestionIndex < chatbotData.questions.length - 1) {
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant",
+              type: "text",
+              content: chatbotData.questions[currentQuestionIndex + 1],
+            },
+          ]);
+          setCurrentQuestionIndex((prev) => prev + 1);
+          setIsInputEnabled(true);
+        }, 1000);
+      }
+    } catch (error) {
+      logger.error("메시지 전송 중 오류:", error);
+      alert("메시지 전송 중 오류가 발생했습니다. 다시 시도해주세요.");
+      setIsInputEnabled(true);
     }
   };
-
   // 마지막 질문 처리 함수
   const handleLastQuestion = async (updatedHistory: string[]) => {
     try {
