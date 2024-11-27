@@ -22,12 +22,12 @@ interface ChatbotPageProps {
 // 웹툰 시대별 프롬프트
 
 const WEBTOON_ERA_PROMPTS = {
-  past: "((4-panel webtoon)), Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((blackandwhite)). Focus on:",
+  past: "((4-panel webtoon)), Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((style: retro, blackandwhite)). Focus on:",
 
   present: "((4-panel webtoon)), Seoul 2000s-2025s. Focus on:",
 
   future:
-    "((4-panel webtoon)), Seoul 2050s. Include: modern buildings, vertical gardens, smart technology, futuristic fashion. Focus on:",
+    "((4-panel webtoon)), Seoul 2050s. Include: modern buildings, vertical gardens, smart technology.((style: futuristic, neon)) Focus on:",
 };
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
@@ -321,7 +321,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
         prompt =
           updatedHistory.join("\n\n") +
           // "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
-          "계절적, 환경적 또는 감정적인 요소를 이 변수 섹션에서 설명된 대로 추가. 이러한 세부 사항이 전체 레이아웃과 자연스럽게 조화를 이루고, 핵심 구조나 구성을 변경하지 않고 분위기와 설정을 향상."
+          "계절적, 환경적 또는 감정적인 요소를 이 변수 섹션에서 설명된 대로 추가. 이러한 세부 사항이 전체 레이아웃과 자연스럽게 조화를 이루고, 핵심 구조나 구성을 변경하지 않고 분위기와 설정을 향상.";
       }
 
       // API 호출
@@ -390,10 +390,13 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const handleRestart = async () => {
     logger.log("처음부터 다시 시작");
     try {
-      const response = await resultPageApi.isUpdateComplete({
-        idx: String(generatedContent?.idx || "1"),
-        complete_yn: "N",
-      }, type ? type : "walking");
+      const response = await resultPageApi.isUpdateComplete(
+        {
+          idx: String(generatedContent?.idx || "1"),
+          complete_yn: "N",
+        },
+        type ? type : "walking"
+      );
 
       logger.log("TEST response", response);
       // 선택했던 type으로 select 페이지로 이동
