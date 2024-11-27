@@ -106,8 +106,9 @@ export const resultPageApi = {
   // 완료 상태 업데이트
   isUpdateComplete: async (data: CompleteRequest, type: string) => {
     try {
+      console.log("type" , type)
       const response = await axios.get<ResultPageResponse>(
-        `${BASE_URL} ${type==="walking" ? "/api/api_sp_complete.php" : "/api/api_wm_complete.php"}`,
+        `${BASE_URL}${type ==="walking" ? "/api/api_sp_complete.php" : "/api/api_wm_complete.php"}`,
         {params: data}
       );
       if (response.data.resultCode === "Y") {
