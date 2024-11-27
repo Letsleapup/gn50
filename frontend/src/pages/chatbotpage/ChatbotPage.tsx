@@ -257,7 +257,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       }
 
       // 현재 질문-답변 페어 생성
-      const questionAnswerPair = `Q: ((${currentQuestion}))\nA: ((${currentAnswer}))`;
+      const questionAnswerPair = `Q: ((${currentQuestion}))\nA: (((${currentAnswer})))`;
 
       // 메시지 UI 업데이트
       setMessages((prev) => [
