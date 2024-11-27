@@ -69,3 +69,12 @@ export const ICON_URLS = {
   MENU: "/asset/ic_menu.svg",
   EDIT: "/asset/ic_edit.svg",
 };
+// 웹툰 시대별 프롬프트
+export const WEBTOON_ERA_PROMPTS = {
+  past: "((4-panel webtoon)), Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((style: retro, blackandwhite)). Focus on:",
+
+  present: "((4-panel webtoon)), Seoul 2000s-2025s. Focus on:",
+
+  future:
+    "((4-panel webtoon)), Seoul 2050s. Include: modern buildings, vertical gardens, smart technology.((style: futuristic, neon color)) Focus on:",
+};

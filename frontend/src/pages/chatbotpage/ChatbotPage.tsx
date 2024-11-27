@@ -14,21 +14,11 @@ import {
   resultPageApi,
 } from "../../api/resultPage_api";
 import { profanityApi } from "../../api/profanity_api";
+import { WEBTOON_ERA_PROMPTS } from "../../const/const";
 
 interface ChatbotPageProps {
   onShowResult: (showing: boolean) => void;
 }
-
-// 웹툰 시대별 프롬프트
-
-const WEBTOON_ERA_PROMPTS = {
-  past: "((4-panel webtoon)), Seoul 1970s-1990s. Include: low-rise buildings, old shops, vintage Korean fashion, ((style: retro, blackandwhite)). Focus on:",
-
-  present: "((4-panel webtoon)), Seoul 2000s-2025s. Focus on:",
-
-  future:
-    "((4-panel webtoon)), Seoul 2050s. Include: modern buildings, vertical gardens, smart technology.((style: futuristic, neon)) Focus on:",
-};
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
   const { type } = useParams<{ type: "walking" | "webtoon" }>();
