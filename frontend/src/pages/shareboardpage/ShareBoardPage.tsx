@@ -105,7 +105,7 @@ const ShareBoardPage: React.FC = () => {
         {/* 콘텐츠 그리드 */}
         <div className="cr_content-grid">
           {isLoading ? (
-            <div className="cr_loading">Loading...</div>
+            <div className="cr_loading"></div>
           ) : contents.length > 0 ? (
             contents.map((content) => (
               <div
