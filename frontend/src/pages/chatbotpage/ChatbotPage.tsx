@@ -320,7 +320,8 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       } else {
         prompt =
           updatedHistory.join("\n\n") +
-          "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
+          // "\n\nAdd seasonal, environmental, or emotional elements as described in this variable section. Ensure the additional details blend seamlessly with the overall layout Use these details to enhance the mood and setting without altering the core structure or composition.";
+          "계절적, 환경적 또는 감정적인 요소를 이 변수 섹션에서 설명된 대로 추가. 이러한 세부 사항이 전체 레이아웃과 자연스럽게 조화를 이루고, 핵심 구조나 구성을 변경하지 않고 분위기와 설정을 향상."
       }
 
       // API 호출
