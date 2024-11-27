@@ -392,7 +392,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ onShowResult }) => {
       const response = await resultPageApi.isUpdateComplete({
         idx: String(generatedContent?.idx || "1"),
         complete_yn: "N",
-      });
+      }, type ? type : "walking");
 
       logger.log("TEST response", response);
       // 선택했던 type으로 select 페이지로 이동
