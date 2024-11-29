@@ -81,7 +81,7 @@ const MainPage: React.FC = () => {
       <div>
         {/* 배너 섹션 -롤링 스와이프 */}
         <Banner
-          mainbannerUrl={bannerUrl ? bannerUrl : MainBannerUrl}
+          mainbannerUrl={bannerUrl ? MainBannerUrl : bannerUrl}
           robotUrl={MainBannerRobotUrl}
         />
 

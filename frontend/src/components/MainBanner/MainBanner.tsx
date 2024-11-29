@@ -2,7 +2,7 @@ import { useState, useEffect, FunctionComponent } from "react";
 import "./MainBanner.css";
 
 interface Props {
-  mainbannerUrl: string;
+  mainbannerUrl: string | undefined;
   robotUrl: string;
 }
 
@@ -29,17 +29,17 @@ const MainBanner: FunctionComponent<Props> = ({ mainbannerUrl, robotUrl }) => {
     <div className="banner-wrap relative flex items-center justify-center">
       {isShown && (
         <div className="banner-text absolute text-center">
-          <p className="sm:text-[48px] md:text-[32px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[48px] lg:leading-[96px] text-center tracking-tight">
+          <p className="sm:text-[46px] md:text-[32px] lg:text-[72px] font-bold leading-tight sm:leading-[50px] md:leading-[48px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
-              50주년
+              AI 로
             </span>
-            을 맞이한
+            &nbsp;만나는
           </p>
           <p className="sm:text-[48px] md:text-[32px] lg:text-[72px] font-bold leading-tight sm:leading-[56px] md:leading-[48px] lg:leading-[96px] text-center tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2666FB] to-[#00C8AD]">
-              강남
+              강남&nbsp;
             </span>
-            을 직접 체험해 보세요
+            지금 직접 체험해 보세요
           </p>
         </div>
       )}
